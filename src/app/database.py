@@ -2,23 +2,44 @@ from pathlib import Path, PurePath
 import os
 import sqlite3
 from sqlite3 import Error
+from PySide6.QtCore import QObject, Slot, Signal, QUrl
 
-class Database:
+class Database(QObject):
     """
     Handles the database operations like the in-memory db, or loading and saving to external files.
     """
+    
+    # Signals
+    databaseLoaded = Signal(str)  # signals the new database name when a new database was loaded
+    
     
     def __init__(self):
         """
         Initialises the in-memory database with the values from the template db.
         """
         
+        super().__init__()
+        
         self.con = sqlite3.connect(":memory:")
         self.path_template_db = Path(__file__).parent / "res" / "template.db"
-        print("template path:", self.path_template_db)
         
         self.readTemplateDB()
     
+    
+    @Slot(result=str)
+    def slot_readTemplateDB(self) -> str:
+        """
+        Wrapper slot for readTemplateDB.
+        All exeptions will be returned as a string.
+        If string is empty, no exeption happened.
+        """
+        
+        try:
+            self.readTemplateDB()
+        except Exception as e:
+            return str(e)
+        
+        return ""
     
     def readTemplateDB(self) -> None:
         """
@@ -32,6 +53,21 @@ class Database:
         except RuntimeError as e:
             raise e
 
+
+    @Slot(QUrl, result=str)
+    def slot_readDB(self, db_path: QUrl) -> str:
+        """
+        Wrapper slot for readDB.
+        All exeptions will be returned as a string.
+        If string is empty, no exeption happened.
+        """
+        
+        try:
+            self.readDB(db_path.toLocalFile())
+        except Exception as e:
+            return str(e)
+        
+        return ""
     
     def readDB(self, db_path: str) -> None:
         """
@@ -58,7 +94,27 @@ class Database:
             con_external.close()
         except Error as e:
             raise e
+        
+        emitted_db_path = db_path if db_path != str(self.path_template_db) else ""
+        self.databaseLoaded.emit(emitted_db_path)
     
+    
+    @Slot(QUrl, result=str)
+    @Slot(str, result=str)
+    def slot_saveDB(self, db_path: QUrl | str) -> str:
+        """
+        Wrapper slot for saveDB.
+        All exeptions will be returned as a string.
+        If string is empty, no exeption happened.
+        """
+        
+        try:
+            db_path_tmp = db_path.toLocalFile() if type(db_path) == QUrl else db_path
+            self.saveDB(db_path_tmp)
+        except Exception as e:
+            return str(e)
+        
+        return ""
     
     def saveDB(self, db_path: str) -> None:
         """
@@ -85,3 +141,5 @@ class Database:
             con_external.close()
         except Error as e:
             raise e
+    
+        self.databaseLoaded.emit(db_path)

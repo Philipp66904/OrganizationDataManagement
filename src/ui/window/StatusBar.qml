@@ -42,6 +42,36 @@ Rectangle  // statusbar in the window's footer
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
                     ) / statusbar_row.row_items_count
             color: "transparent"
+
+            Text
+            {
+                id: db_path_text
+                anchors.fill: parent
+                anchors.margins: 4
+                text: new_db_text
+                font.pointSize: textSizeSmall
+                color: textColor
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideLeft
+
+                property var new_db_text: qsTr("New Database")
+
+                Connections {
+                    target: database
+                    function onDatabaseLoaded(db_path) { 
+                        if(db_path === "")
+                        {
+                            db_path_text.text = db_path_text.new_db_text;
+                            loaded_db_path = db_path;
+                        }
+                        else {
+                            db_path_text.text = db_path;
+                            loaded_db_path = db_path;
+                        }
+                    }
+                }
+            }
         }
 
         Loader { sourceComponent: spacing_component }

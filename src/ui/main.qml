@@ -6,6 +6,7 @@ import QtPositioning
 
 import "window"
 import "tabs"
+import "dialogs"
 
 ApplicationWindow
 {
@@ -27,6 +28,11 @@ ApplicationWindow
     property real textSize: 12.0
     property real textSizeSmall: 10.0
 
+    // Global variables
+    property var loaded_db_path: ""
+    property var error_message: ""
+    onError_messageChanged: console.log("error msg:", error_message)
+
     // Menu Bar
     menuBar: MenuBar { id: menu_bar }
 
@@ -34,17 +40,10 @@ ApplicationWindow
     footer: StatusBar
     {
         width: parent.width
-        height: menu_bar.height
+        height: menu_bar.height * 0.7
     }
 
     // Contents
-    Rectangle
-    {
-        anchors.fill: parent
-        color: "blue"
-        visible: false
-    }
-
     TabBarMain
     {
         anchors.fill: parent
