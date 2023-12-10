@@ -1,10 +1,13 @@
-import QtQuick 2.15
-import QtQuick.Window 2.15
-import QtQuick.Layouts 1.11
-import QtQuick.Controls 2.15
-import QtPositioning 5.8
+import QtQuick
+import QtQuick.Window
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtPositioning
 
-Window
+import "window"
+import "tabs"
+
+ApplicationWindow
 {
     id: rootWindow
     width: 400
@@ -19,4 +22,31 @@ Window
     property color backgroundColor3: "#9f9f9f"
     property color highlightColor: "#00EF00"
     property color textColor: "#ffffff"
+
+    // Text size
+    property real textSize: 12.0
+    property real textSizeSmall: 10.0
+
+    // Menu Bar
+    menuBar: MenuBar { id: menu_bar }
+
+    // Status Bar
+    footer: StatusBar
+    {
+        width: parent.width
+        height: menu_bar.height
+    }
+
+    // Contents
+    Rectangle
+    {
+        anchors.fill: parent
+        color: "blue"
+        visible: false
+    }
+
+    TabBarMain
+    {
+        anchors.fill: parent
+    }
 }
