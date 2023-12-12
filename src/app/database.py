@@ -4,6 +4,8 @@ import sqlite3
 from sqlite3 import Error
 from PySide6.QtCore import QObject, Slot, Signal, QUrl
 
+from app.settings import Settings
+
 class Database(QObject):
     """
     Handles the database operations like the in-memory db, or loading and saving to external files.
@@ -13,7 +15,7 @@ class Database(QObject):
     databaseLoaded = Signal(str)  # signals the new database name when a new database was loaded
     
     
-    def __init__(self):
+    def __init__(self, settings: Settings):
         """
         Initialises the in-memory database with the values from the template db.
         """
@@ -22,6 +24,7 @@ class Database(QObject):
         
         self.con = sqlite3.connect(":memory:")
         self.path_template_db = Path(__file__).parent / "res" / "template.db"
+        self.settings = settings
         
         self.readTemplateDB()
     
@@ -54,8 +57,9 @@ class Database(QObject):
             raise e
 
 
+    @Slot(str, result=str)
     @Slot(QUrl, result=str)
-    def slot_readDB(self, db_path: QUrl) -> str:
+    def slot_readDB(self, db_path: str | QUrl) -> str:
         """
         Wrapper slot for readDB.
         All exeptions will be returned as a string.
@@ -63,7 +67,9 @@ class Database(QObject):
         """
         
         try:
-            self.readDB(db_path.toLocalFile())
+            path_str = db_path.toLocalFile() if type(db_path) == QUrl else db_path
+            self.settings.addRecentFile(path_str)
+            self.readDB(path_str)
         except Exception as e:
             return str(e)
         
@@ -80,6 +86,10 @@ class Database(QObject):
         # Catch empty db_path or wrong type
         if type(db_path) not in {str} or len(db_path.strip()) <= 0:
             raise RuntimeError("Database::readDB: invalid path provided")
+        
+        # Check if path exists
+        if not os.path.isfile(db_path):
+            raise RuntimeError("Database::readDB: file doesn't exist")
         
         try:
             # Open source database path
@@ -110,6 +120,7 @@ class Database(QObject):
         
         try:
             db_path_tmp = db_path.toLocalFile() if type(db_path) == QUrl else db_path
+            self.settings.addRecentFile(db_path_tmp)
             self.saveDB(db_path_tmp)
         except Exception as e:
             return str(e)

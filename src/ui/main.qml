@@ -11,6 +11,7 @@ import "dialogs"
 ApplicationWindow
 {
     id: rootWindow
+    title: "Organization Data Management" + " - " + db_path_text
     width: 400
     height: 600
     visible: true
@@ -29,9 +30,28 @@ ApplicationWindow
     property real textSizeSmall: 10.0
 
     // Global variables
-    property var loaded_db_path: ""
-    property var error_message: ""
+    property string loaded_db_path: ""  // alway showing the real database path
+    property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path tp template)
+    property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved
+    property string error_message: ""
+
     onError_messageChanged: console.log("error msg:", error_message)
+
+    // Connections
+    Connections {
+        target: database
+        function onDatabaseLoaded(db_path) { 
+            if(db_path === "")
+            {
+                db_path_text = new_db_text;
+                loaded_db_path = db_path;
+            }
+            else {
+                db_path_text = db_path;
+                loaded_db_path = db_path;
+            }
+        }
+    }
 
     // Menu Bar
     menuBar: MenuBar { id: menu_bar }

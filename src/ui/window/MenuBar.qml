@@ -117,7 +117,81 @@ MenuBar  // MenuBar shown in the window's header
             }
         }
         Action { text: qsTr("Open"); onTriggered: open_file_dialog_1.show() }
-        Action { text: qsTr("Open Recent") }  // TODO implement
+        Menu
+        {
+            id: open_recent_menu
+            title: qsTr("Open Recent...")
+            background: Loader { sourceComponent: menu_background_component }
+            delegate: MenuItem {
+                id: menuItem
+                implicitWidth: 200
+                implicitHeight: 40
+
+                contentItem: Text {
+                    leftPadding: menuItem.indicator.width
+                    rightPadding: menuItem.arrow.width
+                    text: menuItem.text
+                    font.pointSize: textSizeSmall
+                    color: menuItem.highlighted ? highlightColor : textColor
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideLeft
+                }
+
+                background: Rectangle {
+                    implicitWidth: 200
+                    implicitHeight: 40
+                    color: menuItem.highlighted ? backgroundColor1 : "transparent"
+                    radius: menu_bar.radius
+                    border.color: backgroundColor
+                    border.width: 2
+                }
+            }
+
+            FileCloseDialog
+            {
+                id: open_recent_file_dialog
+                property string db_path: ""
+                function callback_function() { error_message = database.slot_readDB(db_path) }
+            }
+
+            Component 
+            {
+                id: actionComponent
+
+                Action
+                {
+                    id: recent_file_action
+                    property string db_path: ""
+                    text: db_path
+                    onTriggered: {
+                        if(db_path === "") return;
+
+                        open_recent_file_dialog.db_path = db_path;
+                        open_recent_file_dialog.show();
+                    }
+                }
+            }
+
+            onAboutToShow: {
+                // Delete all old paths
+                while(open_recent_menu.actionAt(0) !== null) {
+                    open_recent_menu.removeAction(open_recent_menu.actionAt(0));
+                }
+
+                // Add new paths
+                for(let path of settings.getRecentFiles()) {
+                    let action = actionComponent.createObject(open_recent_menu.contentItem, { db_path: path });
+                    open_recent_menu.addAction(action);
+                }
+
+                // Add default action in case no recent files exist
+                if(settings.getRecentFiles().length === 0) {
+                    let action = actionComponent.createObject(null, { text: "[No Recent Files]" });
+                    open_recent_menu.addAction(action);
+                }
+            }
+        }
 
         MenuSeparator 
         {

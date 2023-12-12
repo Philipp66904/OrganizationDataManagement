@@ -7,6 +7,7 @@ from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuickControls2 import QQuickStyle
 
 from app.database import Database
+from app.settings import Settings
 
 
 if __name__ == '__main__':
@@ -14,7 +15,9 @@ if __name__ == '__main__':
     engine = QQmlApplicationEngine()
     
     # Make classes available for use in QML
-    db = Database()
+    settings = Settings(Path(__file__).parent / "settings.json")
+    db = Database(settings)
+    engine.rootContext().setContextProperty("settings", settings)
     engine.rootContext().setContextProperty("database", db)
 
     # Start QML
