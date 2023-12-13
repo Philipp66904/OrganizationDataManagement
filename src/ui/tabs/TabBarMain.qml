@@ -78,7 +78,7 @@ Rectangle
             }
 
             Loader { sourceComponent: bar_component; onLoaded: { item.identifier = 0; item.bar_text = "Search" } }
-            Loader { sourceComponent: bar_component; onLoaded: { item.identifier = 1; item.bar_text = "Companys" } }
+            Loader { sourceComponent: bar_component; onLoaded: { item.identifier = 1; item.bar_text = "Organizations" } }
             Loader { sourceComponent: bar_component; onLoaded: { item.identifier = 2; item.bar_text = "Addresses" } }
             Loader { sourceComponent: bar_component; onLoaded: { item.identifier = 3; item.bar_text = "Persons" } }
         }
@@ -89,7 +89,7 @@ Rectangle
             width: parent.width
             currentIndex: 0
             SearchTab {}
-            TemplateTab {}
+            OrganizationsTab {}
             Item {
                 id: activityTab
 

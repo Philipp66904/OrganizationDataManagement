@@ -1,8 +1,9 @@
-from pathlib import Path, PurePath
+from pathlib import Path
 import os
 import sqlite3
 from sqlite3 import Error
 from PySide6.QtCore import QObject, Slot, Signal, QUrl
+import datetime
 
 from app.settings import Settings
 
@@ -13,6 +14,7 @@ class Database(QObject):
     
     # Signals
     databaseLoaded = Signal(str)  # signals the new database name when a new database was loaded
+    dataChanged = Signal()  # signals any database change
     
     
     def __init__(self, settings: Settings):
@@ -107,6 +109,7 @@ class Database(QObject):
         
         emitted_db_path = db_path if db_path != str(self.path_template_db) else ""
         self.databaseLoaded.emit(emitted_db_path)
+        self.dataChanged.emit()
     
     
     @Slot(QUrl, result=str)
@@ -143,6 +146,26 @@ class Database(QObject):
             # Open target database path
             con_external = sqlite3.connect(db_path)
             
+            # Update modified and created dates
+            with self.con:
+                res = self.con.execute("SELECT content FROM __meta__ WHERE name = 'date_created';")
+                date_created = res.fetchone()[0]
+                
+                try:
+                    if type(date_created) != str:
+                        raise ValueError("date_created is not a string")
+                    
+                    date_created = datetime.datetime.strptime(date_created, "%Y-%m-%d %H:%M:%S.%f")
+                except ValueError as e:
+                    date_created = None
+                
+                if date_created == None:
+                    date_created = datetime.datetime.now()
+                
+                date_saved = datetime.datetime.now()
+                self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_created'", (date_created.strftime("%Y-%m-%d %H:%M:%S.%f"),))
+                self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_saved'", (date_saved.strftime("%Y-%m-%d %H:%M:%S.%f"),))
+            
             # Copy data over
             with con_external:
                 with self.con:
@@ -154,3 +177,25 @@ class Database(QObject):
             raise e
     
         self.databaseLoaded.emit(db_path)
+        self.dataChanged.emit()
+
+
+    @Slot(result=list)
+    def getDataOrganization(self) -> list:
+        with self.con:
+            res = self.con.execute("""SELECT t.id, d.name, d.note, t.website, m.date_modified, m.date_created
+                             FROM organization t, description d, metadata m
+                             WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
+                             ORDER BY d.name ASC;""")
+            
+            organization_data = res.fetchall()
+        
+        res = [["id", "name", "note", "website", "modified", "created"]]
+        for data in organization_data:
+            row = []
+            for row_data in data:
+                row.append(row_data)
+            
+            res.append(row)
+        
+        return res

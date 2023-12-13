@@ -4,7 +4,14 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
 
-TemplateTab
+Rectangle
 {
+    id: template_root
+
     color: "green"
+
+    Text{
+        id: template_text
+        text: qsTr("Search Tab")
+    }
 }
