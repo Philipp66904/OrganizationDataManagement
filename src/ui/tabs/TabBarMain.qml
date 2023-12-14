@@ -90,28 +90,8 @@ Rectangle
             currentIndex: 0
             SearchTab {}
             OrganizationsTab {}
-            Item {
-                id: activityTab
-
-                Rectangle{
-                    anchors.fill: parent
-                    color: "blue"
-                }
-
-                Text{
-                    text: qsTr("3")
-                }
-            }
-            Item {
-                Rectangle{
-                    anchors.fill: parent
-                    color: "blue"
-                }
-
-                Text{
-                    text: qsTr("4")
-                }
-            }
+            AddressesTab {}
+            PersonsTab {}
         }
     }
 }

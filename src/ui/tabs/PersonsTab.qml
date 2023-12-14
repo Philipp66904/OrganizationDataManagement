@@ -16,8 +16,8 @@ TemplateTab
     }
 
     function load_data() {
-        const table_name = "organization";
-        const res = database.getDataOrganization();
+        const table_name = "person";
+        const res = database.getDataPerson();
         const column_names = res.shift();
 
         table_model.loadData(table_name, column_names, res);

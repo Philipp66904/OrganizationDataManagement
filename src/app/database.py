@@ -29,7 +29,27 @@ class Database(QObject):
         self.settings = settings
         
         self.readTemplateDB()
+        
     
+    @Slot(str, result=list)
+    def getPrimaryKeyColumnNames(self, table_name: str) -> list:
+        """
+        Returns a list of column names for a specific table name that are part of the primary key.
+        table_name: Table name where the caller wants the primary key column names from
+        returns: List of strings
+        """
+        
+        with self.con:
+            res = self.con.execute(f"PRAGMA table_info({table_name});")
+            column_names = res.fetchall()
+        
+        primary_key_column_names = []
+        for column in column_names:
+            if column[5] >= 1:
+                primary_key_column_names.append(column[1])
+        
+        return primary_key_column_names
+            
     
     @Slot(result=str)
     def slot_readTemplateDB(self) -> str:
@@ -182,6 +202,11 @@ class Database(QObject):
 
     @Slot(result=list)
     def getDataOrganization(self) -> list:
+        """
+        Returns all values that should be shown in the organization view.
+        returns: List of lists with all the rows. The first list is always reserved for the column names.
+        """
+        
         with self.con:
             res = self.con.execute("""SELECT t.id, d.name, d.note, t.website, m.date_modified, m.date_created
                              FROM organization t, description d, metadata m
@@ -192,6 +217,58 @@ class Database(QObject):
         
         res = [["id", "name", "note", "website", "modified", "created"]]
         for data in organization_data:
+            row = []
+            for row_data in data:
+                row.append(row_data)
+            
+            res.append(row)
+        
+        return res
+    
+    
+    @Slot(result=list)
+    def getDataAddress(self) -> list:
+        """
+        Returns all values that should be shown in the address view.
+        returns: List of lists with all the rows. The first list is always reserved for the column names.
+        """
+        
+        with self.con:
+            res = self.con.execute("""SELECT t.id, d.name, d.note, t.street, t.number, t.postalcode, t.city, t.country, m.date_modified, m.date_created
+                             FROM address t, description d, metadata m
+                             WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
+                             ORDER BY d.name ASC;""")
+            
+            address_data = res.fetchall()
+        
+        res = [["id", "name", "note", "street", "number", "postalcode", "city", "country", "modified", "created"]]
+        for data in address_data:
+            row = []
+            for row_data in data:
+                row.append(row_data)
+            
+            res.append(row)
+        
+        return res
+    
+    
+    @Slot(result=list)
+    def getDataPerson(self) -> list:
+        """
+        Returns all values that should be shown in the person view.
+        returns: List of lists with all the rows. The first list is always reserved for the column names.
+        """
+        
+        with self.con:
+            res = self.con.execute("""SELECT t.id, d.name, d.note, t.title, t.gender, t.firstname, t.middlename, t.surname, m.date_modified, m.date_created
+                             FROM person t, description d, metadata m
+                             WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
+                             ORDER BY d.name ASC;""")
+            
+            person_data = res.fetchall()
+        
+        res = [["id", "name", "note", "title", "gender", "firstname", "middlename", "surname", "modified", "created"]]
+        for data in person_data:
             row = []
             for row_data in data:
                 row.append(row_data)

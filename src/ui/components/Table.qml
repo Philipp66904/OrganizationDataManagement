@@ -115,6 +115,12 @@ Rectangle
                     }
 
                     function get_column_width(column) {
+                        // Check if column is used as a primary key in the database -> these columns are hidden
+                        const column_name = table_model.headerData(column, undefined, undefined);
+                        if (database.getPrimaryKeyColumnNames(table_model.getTableName()).includes(column_name)) {
+                            return 0;
+                        }
+
                         dummy_txt.text = table_model.getLongestText(column) + "    ";
                         return dummy_txt.contentWidth;
                     }
@@ -132,14 +138,15 @@ Rectangle
                         Text
                         {
                             id: cell_text
-                            text: display
+                            text: (display !== undefined) ? display : qsTr("null")
                             anchors.fill: parent
                             anchors.margins: 4
                             font.pointSize: textSize
-                            color: textColor
+                            color: (display !== undefined) ? textColor : backgroundColor3
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
                             elide: Text.ElideRight
+                            font.italic: (display === undefined) ? true : false
                         }
                     }
                 }
@@ -160,7 +167,59 @@ Rectangle
             width: table_view_main.width
             height: parent.height - table_view_main.height - separator.height - (main_column.spacing * 2)
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "red"
+            color: "transparent"
+
+            Row
+            {
+                id: table_button_row
+                anchors.fill: parent
+                spacing: 8
+                property int button_count: 4
+
+                BasicButton
+                {
+                    id: add_button
+                    width: (parent.width - ((table_button_row.button_count - 1) * parent.spacing)) / table_button_row.button_count
+                    height: parent.height
+                    hover_color: highlight_color
+                    text: qsTr("Add")
+
+                    onClicked: console.log("add")
+                }
+
+                BasicButton
+                {
+                    id: edit_button
+                    width: add_button.width
+                    height: add_button.height
+                    hover_color: textColor
+                    text: qsTr("Edit")
+
+                    onClicked: console.log("edit")
+                }
+
+                BasicButton
+                {
+                    id: duplicate_button
+                    width: add_button.width
+                    height: add_button.height
+                    hover_color: textColor
+                    text: qsTr("Duplicate")
+
+                    onClicked: console.log("duplicate")
+                }
+
+                BasicButton
+                {
+                    id: delete_button
+                    width: add_button.width
+                    height: add_button.height
+                    highlight_color: "#ff0000"
+                    text: qsTr("Delete")
+
+                    onClicked: console.log("delete")
+                }
+            }
         }
     }
 }

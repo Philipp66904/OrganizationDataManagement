@@ -7,9 +7,10 @@ import QtPositioning
 Rectangle
 {
     id: button_root_rect
-    property var text: ""
+    property string text: ""
     property var text_point_size: textSizeSmall
     property var highlight_color: highlightColor
+    property var hover_color: highlight_color
     property bool containsMouse: button_mouse_area.containsMouse
     signal clicked()
     signal pressed()
@@ -18,7 +19,7 @@ Rectangle
     border.color:
     {
         if(button_mouse_area.pressed) return highlight_color;
-        else if(containsMouse) return highlight_color;
+        else if(containsMouse) return hover_color;
         else backgroundColor2;
     }
     border.width: 1
@@ -34,7 +35,7 @@ Rectangle
         color:
         {
             if(button_mouse_area.pressed) return highlight_color;
-            else if(containsMouse) return highlight_color;
+            else if(containsMouse) return hover_color;
             else backgroundColor3;
         }
         horizontalAlignment: Text.AlignHCenter

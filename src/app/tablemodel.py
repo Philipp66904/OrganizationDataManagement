@@ -5,12 +5,14 @@ class TableModel(QAbstractTableModel):
     
     def __init__(self, parent: QObject | None = None) -> None:
         super().__init__(parent)
+        self.table_name = ""
         self.column_names = []
         self.row_data = []
        
      
-    @Slot(list, list)
-    def loadData(self, column_names: list, row_data: list) -> None:
+    @Slot(str, list, list)
+    def loadData(self, table_name: str, column_names: list, row_data: list) -> None:
+        self.table_name = table_name
         self.column_names = column_names
         self.row_data = row_data
         
@@ -42,4 +44,8 @@ class TableModel(QAbstractTableModel):
                 res = str(row[column_index])
                 
         return res
+    
+    @Slot(result=str)
+    def getTableName(self) -> str:
+        return self.table_name
     
