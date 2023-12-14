@@ -59,6 +59,7 @@ Rectangle
                     anchors.left: parent.left
                     syncView: table_view
                     clip: true
+                    resizableColumns: false
 
                     delegate: Rectangle {
                         implicitWidth: table_view_main.width * 0.22
@@ -97,19 +98,20 @@ Rectangle
                     rowSpacing: 4
                     clip: true
                     anchors.left: parent.left
-                    resizableColumns: true
+                    resizableColumns: false
                     columnWidthProvider: get_column_width
 
                     Text
                     {
                         id: dummy_txt
                         visible: false
-                        width: table_view_main.width * 0.22 - 8
+                        width: table_view_main.width * 0.50 - 8
                         height: table_view_main.height * 0.07 - 8
                         font.pointSize: textSize
                         font.bold: true
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
                     }
 
                     function get_column_width(column) {
