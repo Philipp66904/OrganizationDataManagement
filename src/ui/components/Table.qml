@@ -42,7 +42,7 @@ Rectangle
         {
             id: table_view_main
             width: parent.width - (main_column.margins * 2)
-            height: (parent.height * 0.8) - main_column.spacing
+            height: (parent.height * 0.94) - main_column.spacing
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
@@ -84,7 +84,7 @@ Rectangle
                 Rectangle
                 {
                     id: table_view_separator
-                    width: table_view_header.contentWidth
+                    width: Math.min(table_view_header.contentWidth, parent.width)
                     height: 1
                     anchors.left: table_view_header.left
                     color: backgroundColor1
