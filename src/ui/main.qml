@@ -36,6 +36,7 @@ ApplicationWindow
     property string error_message: ""
 
     onError_messageChanged: console.log("error msg:", error_message)
+    // TODO implement auto deletion of messages after x seconds
 
     // Connections
     Connections {

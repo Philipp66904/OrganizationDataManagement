@@ -45,7 +45,71 @@ class TableModel(QAbstractTableModel):
                 
         return res
     
+    
     @Slot(result=str)
     def getTableName(self) -> str:
         return self.table_name
+    
+    
+    @Slot(str, result=int)
+    def getColumnIndex(self, column_name: str) -> int:
+        """
+        Returns the column index for a specific column name:
+        returns: Index of the column name
+        raises ValueError: If column_name doesn't exist
+        """
+        
+        if column_name not in self.column_names:
+            raise ValueError("TableModel::getColumnIndex: column_name doesn't exist")
+        
+        for i, name in enumerate(self.column_names):
+            if name == column_name:
+                return i
+    
+    
+    @Slot(int, int, result=str)
+    def getValueType(self, column_index: int, row_index: int) -> str:
+        """
+        Return the value type at the specified location.
+        Only String, int and float are supported.
+        returns: String defining the value type: "str", "int", and "float"
+        """
+        
+        val_type = (type(self.row_data[row_index][column_index]))
+        
+        if val_type == str:
+            return "str"
+        elif val_type == int:
+            return "int"
+        elif val_type == float:
+            return "float"
+        else:
+            raise ValueError("TableModel::getValueType: Value is not a standard type")
+    
+    
+    @Slot(int, int, result=int)
+    def getValueInt(self, column_index: int, row_index: int) -> int:
+        val = self.row_data[row_index][column_index]
+        if type(val) != int:
+            raise ValueError("TableModel::getValueInt: The requested value is not of type 'int'")
+        
+        return self.row_data[row_index][column_index]
+    
+    
+    @Slot(int, int, result=str)
+    def getValueStr(self, column_index: int, row_index: int) -> str:
+        val = self.row_data[row_index][column_index]
+        if type(val) != str:
+            raise ValueError("TableModel::getValueStr: The requested value is not of type 'String'")
+        
+        return self.row_data[row_index][column_index]
+    
+    
+    @Slot(int, int, result=float)
+    def getValueFloat(self, column_index: int, row_index: int) -> str:
+        val = self.row_data[row_index][column_index]
+        if type(val) != str:
+            raise ValueError("TableModel::getValueFloat: The requested value is not of type 'float'")
+        
+        return self.row_data[row_index][column_index]
     

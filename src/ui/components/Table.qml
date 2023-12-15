@@ -14,11 +14,14 @@ Rectangle
     border.width: 1
     radius: 8
 
+    property var selected_pk: undefined
+
     // Connections
     Connections {
         target: database
         function onDataChanged() {
             load_data();  // implement function with specific implementation per tab
+            table_root.selected_pk = undefined;
         }
     }
 
@@ -26,6 +29,7 @@ Rectangle
         target: table_model
         function onUpdateView() {
             table_view.forceLayout()
+            table_root.selected_pk = undefined;
         }
     }
 
@@ -100,7 +104,12 @@ Rectangle
                     anchors.left: parent.left
                     resizableColumns: false
                     columnWidthProvider: get_column_width
-                    selectionMode: SelectionMode.SingleSelection
+                    selectionMode: TableView.SingleSelection
+
+                    onLayoutChanged: {
+                        table_root.selected_pk = undefined;
+                        table_view_selection_model.clear();
+                    }
 
                     Text
                     {
@@ -129,7 +138,25 @@ Rectangle
                     model: table_model
                     selectionModel: ItemSelectionModel
                     {
+                        id: table_view_selection_model
                         model: table_view.model
+                        onSelectionChanged: function (selected, deselected) {
+                            if(selected.length === 0) {
+                                table_root.selected_pk = undefined;
+                                return;
+                            }
+
+                            const row = table_view_selection_model.selectedIndexes[0].row;
+                            const column_index = table_model.getColumnIndex("id");
+                            const pk_type = table_model.getValueType(column_index, row);
+
+                            let pk = undefined;
+                            if(pk_type === "str") pk = table_model.getValueStr(column_index, row);
+                            else if(pk_type === "int") pk = table_model.getValueInt(column_index, row);
+                            else if(pk_type === "float") pk = table_model.getValueFloat(column_index, row);
+
+                            table_root.selected_pk = pk;
+                        }
                     }
 
                     delegate: Rectangle {
@@ -137,8 +164,8 @@ Rectangle
                         implicitWidth: table_view_main.width * 0.22
                         implicitHeight: table_view_main.height * 0.07
                         color: (selected) ? backgroundColor1 : backgroundColor
-                        border.color: (selected) ? backgroundColor2 : backgroundColor1
-                        border.width: (current) ? 2 : 1
+                        border.color: (selected) ? backgroundColor : backgroundColor1
+                        border.width: 1
                         required property bool selected
                         required property bool current
 
@@ -154,6 +181,19 @@ Rectangle
                             verticalAlignment: Text.AlignVCenter
                             elide: Text.ElideRight
                             font.italic: (display === undefined) ? true : false
+                            font.bold: (selected) ? true : false
+                        }
+
+                         MouseArea
+                         {
+                            id: delegate_mouse_area
+                            anchors.fill: parent
+                            onClicked: function (mouse)  {
+                                var mp = table_view.mapFromItem(delegate_mouse_area, mouse.x, mouse.y)
+                                var cell = table_view.cellAtPos(mp.x, mp.y, false)
+                                var min_idx = table_view.model.index(cell.y, 0)
+                                table_view.selectionModel.select(min_idx, ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect)
+                            }
                         }
                     }
                 }
@@ -207,7 +247,15 @@ Rectangle
                     hover_color: textColor
                     text: qsTr("Edit")
 
-                    onClicked: console.log("edit")
+                    onClicked: {
+                        const pk = table_root.selected_pk;
+                        if (pk === undefined) {
+                            error_message = qsTr("Select a row to edit");
+                            return;
+                        }
+
+                        console.log("edit:", table_root.selected_pk)
+                    }
                 }
 
                 BasicButton
@@ -218,7 +266,15 @@ Rectangle
                     hover_color: textColor
                     text: qsTr("Duplicate")
 
-                    onClicked: console.log("duplicate")
+                    onClicked: {
+                        const pk = table_root.selected_pk;
+                        if (pk === undefined) {
+                            error_message = qsTr("Select a row to duplicate");
+                            return;
+                        }
+
+                        console.log("duplicate:", table_root.selected_pk)
+                    }
                 }
 
                 BasicButton
@@ -229,7 +285,15 @@ Rectangle
                     highlight_color: "#ff0000"
                     text: qsTr("Delete")
 
-                    onClicked: console.log("delete")
+                    onClicked: {
+                        const pk = table_root.selected_pk;
+                        if (pk === undefined) {
+                            error_message = qsTr("Select a row to delete");
+                            return;
+                        }
+
+                        console.log("delete:", table_root.selected_pk)
+                    }
                 }
             }
         }
