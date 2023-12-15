@@ -100,6 +100,7 @@ Rectangle
                     anchors.left: parent.left
                     resizableColumns: false
                     columnWidthProvider: get_column_width
+                    selectionMode: SelectionMode.SingleSelection
 
                     Text
                     {
@@ -126,14 +127,20 @@ Rectangle
                     }
 
                     model: table_model
+                    selectionModel: ItemSelectionModel
+                    {
+                        model: table_view.model
+                    }
 
                     delegate: Rectangle {
                         id: cell_rect
                         implicitWidth: table_view_main.width * 0.22
                         implicitHeight: table_view_main.height * 0.07
-                        color: backgroundColor
-                        border.color: backgroundColor1
-                        border.width: 1
+                        color: (selected) ? backgroundColor1 : backgroundColor
+                        border.color: (selected) ? backgroundColor2 : backgroundColor1
+                        border.width: (current) ? 2 : 1
+                        required property bool selected
+                        required property bool current
 
                         Text
                         {
@@ -150,6 +157,11 @@ Rectangle
                         }
                     }
                 }
+            }
+            SelectionRectangle
+            {
+                id: table_view_selection_rect
+                target: table_view
             }
         }
 
