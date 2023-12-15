@@ -111,5 +111,5 @@ class TableModel(QAbstractTableModel):
         if type(val) != str:
             raise ValueError("TableModel::getValueFloat: The requested value is not of type 'float'")
         
-        return self.row_data[row_index][column_index]
+        return self.row_data[row_index][column_index]  
     

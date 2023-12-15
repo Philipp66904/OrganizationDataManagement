@@ -66,6 +66,7 @@ class Database(QObject):
         
         return ""
     
+    
     def readTemplateDB(self) -> None:
         """
         Read the template database from disk and stores it in the in-memory db.
@@ -96,6 +97,7 @@ class Database(QObject):
             return str(e)
         
         return ""
+    
     
     def readDB(self, db_path: str) -> None:
         """
@@ -150,6 +152,7 @@ class Database(QObject):
         
         return ""
     
+    
     def saveDB(self, db_path: str) -> None:
         """
         Saves the in-memory db to a .db file.
@@ -173,7 +176,7 @@ class Database(QObject):
                 
                 try:
                     if type(date_created) != str:
-                        raise ValueError("date_created is not a string")
+                        raise ValueError("Database::saveDB: date_created is not a string")
                     
                     date_created = datetime.datetime.strptime(date_created, "%Y-%m-%d %H:%M:%S.%f")
                 except ValueError as e:
@@ -219,6 +222,35 @@ class Database(QObject):
         for data in organization_data:
             row = []
             for row_data in data:
+                row.append(row_data)
+            
+            res.append(row)
+        
+        return res
+    
+    
+    @Slot(int, str, str, result=list)
+    def getDataDerivates(self, parent_id: int, parent_column_name: str, table_name: str) -> list:
+        """
+        Returns all derivates for a given primary key.
+        parent_id: Id of the parent whose derivates shall be returned
+        parent_column_name: Name of the column where the parent_ids are defined
+        table_name: Name of the table whose derivates shall be returned
+        returns: List of lists with all the rows. The first list is always reserved for the column names.
+        """
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, m.date_modified, m.date_created
+                             FROM {table_name} t, description d, metadata m
+                             WHERE t.{parent_column_name} = {parent_id} AND t.description_id = d.id AND t.metadata_id = m.id
+                             ORDER BY d.name ASC;""")
+            
+            data = res.fetchall()
+        
+        res = [["id", "name", "note", "modified", "created"]]
+        for data_tmp in data:
+            row = []
+            for row_data in data_tmp:
                 row.append(row_data)
             
             res.append(row)
@@ -276,3 +308,68 @@ class Database(QObject):
             res.append(row)
         
         return res
+
+    
+    @Slot(int, str, str, str, result=int)
+    def getValueInt_byPk(self, pk: int, pk_column_name: str, column_name: str, table_name: str) -> int:
+        """
+        Get a specific column's integer value from a specified primary key.
+        pk: Primary key of the row to be selected
+        pk_column_name: Primary key's column name
+        column_name: Column which value shall be returned
+        table_name: The table name where the values are located
+        returns: Value as integer
+        raises ValueError: In case the returned value has an incorrect type
+        """
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT {column_name} FROM {table_name} WHERE {pk_column_name} = ? LIMIT 1;""",
+                                   (pk,))
+            
+            val = res.fetchone()[0]
+        
+        if val is None:
+            val = -1
+        if type(val) != int:
+            raise ValueError("Database::getValueInt_byPk: Returned value is not of type 'int'")
+        
+        return val
+    
+    
+    @Slot(int, str, str, str, result=str)
+    def getValueStr_byPk(self, pk: int, pk_column_name: str, column_name: str, table_name: str) -> str:
+        """
+        Get a specific column's String value from a specified primary key.
+        pk: Primary key of the row to be selected
+        pk_column_name: Primary key's column name
+        column_name: Column which value shall be returned
+        table_name: The table name where the values are located
+        returns: Value as String
+        raises ValueError: In case the returned value has an incorrect type
+        """
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT {column_name} FROM {table_name} WHERE {pk_column_name} = ? LIMIT 1;""",
+                                   (pk,))
+            
+            val = res.fetchone()[0]
+        
+        if type(val) != str:
+            raise ValueError("Database::getValueStr_byPk: Returned value is not of type 'str'")
+        
+        return val
+    
+    
+    @Slot(int, str, str, result=str)
+    def getName_byPk(self, pk: int, pk_column_name: str, table_name: str) -> str:
+        with self.con:
+            res = self.con.execute(f"""SELECT d.name FROM {table_name} t, description d WHERE t.{pk_column_name} = ? AND t.description_id = d.id LIMIT 1;""",
+                                   (pk,))
+            
+            val = res.fetchone()[0]
+            
+        if val == None:
+            raise ValueError("Database::getValueStr_byPk: Primary key not found")
+        
+        return val
+        

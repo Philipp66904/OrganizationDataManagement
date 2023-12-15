@@ -10,6 +10,26 @@ TemplateTab
 {
     id: tab_main
     
+    onAdd_button_clicked: function add_button_clicked() {
+        organization_edit_dialog.pk_id = -1;
+        organization_edit_dialog.show();
+        organization_edit_dialog.init_dialog();
+    }
+
+    onEdit_button_clicked: function edit_button_clicked(pk) {
+        organization_edit_dialog.pk_id = pk;
+        organization_edit_dialog.show();
+        organization_edit_dialog.init_dialog();
+    }
+
+    onDuplicate_button_clicked: function duplicate_button_clicked(pk) {
+        console.log("duplicate:", pk)
+    }
+
+    onDelete_button_clicked: function delete_button_clicked(pk) {
+        console.log("delete:", pk)
+    }
+
     TableModel
     {
         id: table_model

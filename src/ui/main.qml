@@ -27,6 +27,7 @@ ApplicationWindow
 
     // Text size
     property real textSize: 12.0
+    property real textSizeBig: 15.0
     property real textSizeSmall: 10.0
 
     // Global variables
@@ -68,5 +69,12 @@ ApplicationWindow
     TabBarMain
     {
         anchors.fill: parent
+    }
+
+    // Dialog Windows
+    OrganizationEditDialog
+    {
+        id: organization_edit_dialog
+        pk_id: -1
     }
 }

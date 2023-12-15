@@ -15,6 +15,10 @@ Rectangle
     radius: 8
 
     property var selected_pk: undefined
+    signal add_button_clicked()
+    signal edit_button_clicked(selected_primary_key: int)
+    signal duplicate_button_clicked(selected_primary_key: int)
+    signal delete_button_clicked(selected_primary_key: int)
 
     // Connections
     Connections {
@@ -221,6 +225,13 @@ Rectangle
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
+            function getPrimaryKey() {
+                let pk = table_root.selected_pk;
+                if(pk === undefined) pk = -1;
+
+                return pk;
+            }
+
             Row
             {
                 id: table_button_row
@@ -236,7 +247,10 @@ Rectangle
                     hover_color: highlight_color
                     text: qsTr("Add")
 
-                    onClicked: console.log("add")
+                    onClicked:
+                    {
+                        table_root.add_button_clicked()
+                    }
                 }
 
                 BasicButton
@@ -248,13 +262,13 @@ Rectangle
                     text: qsTr("Edit")
 
                     onClicked: {
-                        const pk = table_root.selected_pk;
-                        if (pk === undefined) {
+                        const pk = table_buttons_main.getPrimaryKey();
+                        if (pk < 0) {
                             error_message = qsTr("Select a row to edit");
                             return;
                         }
 
-                        console.log("edit:", table_root.selected_pk)
+                        table_root.edit_button_clicked(pk);
                     }
                 }
 
@@ -267,13 +281,13 @@ Rectangle
                     text: qsTr("Duplicate")
 
                     onClicked: {
-                        const pk = table_root.selected_pk;
-                        if (pk === undefined) {
+                        const pk = table_buttons_main.getPrimaryKey();
+                        if (pk < 0) {
                             error_message = qsTr("Select a row to duplicate");
                             return;
                         }
 
-                        console.log("duplicate:", table_root.selected_pk)
+                        table_root.duplicate_button_clicked(pk);
                     }
                 }
 
@@ -286,13 +300,13 @@ Rectangle
                     text: qsTr("Delete")
 
                     onClicked: {
-                        const pk = table_root.selected_pk;
-                        if (pk === undefined) {
+                        const pk = table_buttons_main.getPrimaryKey();
+                        if (pk < 0) {
                             error_message = qsTr("Select a row to delete");
                             return;
                         }
 
-                        console.log("delete:", table_root.selected_pk)
+                        table_root.delete_button_clicked(pk);
                     }
                 }
             }
