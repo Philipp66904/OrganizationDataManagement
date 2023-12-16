@@ -20,8 +20,8 @@ ApplicationWindow
     height: rootWindow.height * 0.8
 
     required property string window_title
-    required property int identifier
-    required property int parent_identifier
+    required property var identifier
+    required property var parent_identifier
     required property string title_name
     required property string entry_name
     required property string table_name
@@ -110,6 +110,8 @@ ApplicationWindow
             anchors.horizontalCenter: parent.horizontalCenter
             table_view_main_height_factor: 0.8
             table_cell_rect_height_factor: 0.25
+            pk_id: identifier
+            parent_id: parent_identifier
 
             TableModel
             {

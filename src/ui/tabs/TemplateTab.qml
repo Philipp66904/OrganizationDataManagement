@@ -26,6 +26,8 @@ Rectangle
     Table
     {
         anchors.fill: parent
+        pk_id: undefined
+        parent_id: undefined
         table_view_main_height_factor: 0.94
         table_cell_rect_height_factor: 0.07
 

@@ -15,6 +15,8 @@ Rectangle
     radius: 8
 
     property var selected_pk: undefined
+    required property var pk_id  // set to -1 if new entry  // set to undefined if root table
+    required property var parent_id  // set to undefined if it has no parent
     required property double table_view_main_height_factor
     required property double table_cell_rect_height_factor
 
@@ -249,10 +251,15 @@ Rectangle
                     height: parent.height
                     hover_color: highlight_color
                     text: qsTr("Add")
-                    button_enabled: true
+                    button_enabled: (table_root.pk_id !== undefined && table_root.pk_id < 0) ? false : true
 
                     onClicked:
                     {
+                        if(table_root.pk_id !== undefined && table_root.pk_id < 0) {
+                            error_message = qsTr("Save Entry before creating a new derivate");
+                            return;
+                        }
+
                         table_root.add_button_clicked()
                     }
                 }
