@@ -35,6 +35,7 @@ ApplicationWindow
     property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path tp template)
     property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved
     property string error_message: ""
+    property int max_derivate_windows: 5
 
     onError_messageChanged: console.log("error msg:", error_message)
     // TODO implement auto deletion of messages after x seconds

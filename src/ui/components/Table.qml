@@ -15,6 +15,9 @@ Rectangle
     radius: 8
 
     property var selected_pk: undefined
+    required property double table_view_main_height_factor
+    required property double table_cell_rect_height_factor
+
     signal add_button_clicked()
     signal edit_button_clicked(selected_primary_key: int)
     signal duplicate_button_clicked(selected_primary_key: int)
@@ -50,7 +53,7 @@ Rectangle
         {
             id: table_view_main
             width: parent.width - (main_column.margins * 2)
-            height: (parent.height * 0.94) - main_column.spacing
+            height: (parent.height * table_view_main_height_factor) - main_column.spacing
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
 
@@ -63,7 +66,7 @@ Rectangle
                 {
                     id: table_view_header
                     width: table_view.width
-                    height: table_view_main.height * 0.07
+                    height: table_view_main.height * table_cell_rect_height_factor
                     anchors.left: parent.left
                     syncView: table_view
                     clip: true
@@ -71,7 +74,7 @@ Rectangle
 
                     delegate: Rectangle {
                         implicitWidth: table_view_main.width * 0.22
-                        implicitHeight: table_view_main.height * 0.07
+                        implicitHeight: table_view_main.height * table_cell_rect_height_factor
                         color: backgroundColor2
                         border.color: backgroundColor1
                         border.width: 1
@@ -120,7 +123,7 @@ Rectangle
                         id: dummy_txt
                         visible: false
                         width: table_view_main.width * 0.50 - 8
-                        height: table_view_main.height * 0.07 - 8
+                        height: table_view_main.height * table_cell_rect_height_factor - 8
                         font.pointSize: textSize
                         font.bold: true
                         horizontalAlignment: Text.AlignLeft
@@ -166,7 +169,7 @@ Rectangle
                     delegate: Rectangle {
                         id: cell_rect
                         implicitWidth: table_view_main.width * 0.22
-                        implicitHeight: table_view_main.height * 0.07
+                        implicitHeight: table_view_main.height * table_cell_rect_height_factor
                         color: (selected) ? backgroundColor1 : backgroundColor
                         border.color: (selected) ? backgroundColor : backgroundColor1
                         border.width: 1
@@ -246,6 +249,7 @@ Rectangle
                     height: parent.height
                     hover_color: highlight_color
                     text: qsTr("Add")
+                    button_enabled: true
 
                     onClicked:
                     {
@@ -260,6 +264,7 @@ Rectangle
                     height: add_button.height
                     hover_color: textColor
                     text: qsTr("Edit")
+                    button_enabled: (table_root.selected_pk !== undefined) ? true : false
 
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();
@@ -279,6 +284,7 @@ Rectangle
                     height: add_button.height
                     hover_color: textColor
                     text: qsTr("Duplicate")
+                    button_enabled: (table_root.selected_pk !== undefined) ? true : false
 
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();
@@ -298,6 +304,7 @@ Rectangle
                     height: add_button.height
                     highlight_color: "#ff0000"
                     text: qsTr("Delete")
+                    button_enabled: (table_root.selected_pk !== undefined) ? true : false
 
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();

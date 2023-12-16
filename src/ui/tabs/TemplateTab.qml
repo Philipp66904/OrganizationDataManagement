@@ -26,6 +26,8 @@ Rectangle
     Table
     {
         anchors.fill: parent
+        table_view_main_height_factor: 0.94
+        table_cell_rect_height_factor: 0.07
 
         onAdd_button_clicked: function add_button_handler() {
             template_root.add_button_clicked()

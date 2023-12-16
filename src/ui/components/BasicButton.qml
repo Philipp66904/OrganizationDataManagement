@@ -11,6 +11,7 @@ Rectangle
     property var text_point_size: textSizeSmall
     property var highlight_color: highlightColor
     property var hover_color: highlight_color
+    property bool button_enabled: true
     property bool containsMouse: button_mouse_area.containsMouse
     signal clicked()
     signal pressed()
@@ -18,7 +19,8 @@ Rectangle
     color: backgroundColor
     border.color:
     {
-        if(button_mouse_area.pressed) return highlight_color;
+        if(button_enabled === false) return backgroundColor2;
+        else if(button_mouse_area.pressed) return highlight_color;
         else if(containsMouse) return hover_color;
         else backgroundColor2;
     }
@@ -34,9 +36,10 @@ Rectangle
         font.pointSize: (button_mouse_area.pressed) ? textSizeSmall : textSize
         color:
         {
-            if(button_mouse_area.pressed) return highlight_color;
+            if(button_enabled === false) return backgroundColor3;
+            else if(button_mouse_area.pressed) return highlight_color;
             else if(containsMouse) return hover_color;
-            else backgroundColor3;
+            else textColor; //backgroundColor3;
         }
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -48,6 +51,7 @@ Rectangle
         id: button_mouse_area
         anchors.fill: parent
         hoverEnabled: true
+        enabled: button_enabled
 
         onClicked:
         {

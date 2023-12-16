@@ -33,6 +33,11 @@ ApplicationWindow
         derivate_table.load_data();
     }
 
+    signal add_button_clicked()
+    signal edit_button_clicked(selected_primary_key: int)
+    signal duplicate_button_clicked(selected_primary_key: int)
+    signal delete_button_clicked(selected_primary_key: int)
+
     Column
     {
         id: main_column
@@ -103,6 +108,8 @@ ApplicationWindow
             height: main_column.table_height
             width: parent.width - 8
             anchors.horizontalCenter: parent.horizontalCenter
+            table_view_main_height_factor: 0.8
+            table_cell_rect_height_factor: 0.25
 
             TableModel
             {
@@ -116,12 +123,23 @@ ApplicationWindow
                 table_model.loadData(edit_dialog_window.table_name, column_names, res);
             }
 
-            onAdd_button_clicked: console.log("add")
-            onEdit_button_clicked: console.log("edit")
-            onDuplicate_button_clicked: console.log("duplicate")
-            onDelete_button_clicked: console.log("delete")
+            onAdd_button_clicked: function add_button_clicked() {
+                edit_dialog_window.add_button_clicked();
+            }
+
+            onEdit_button_clicked: function edit_button_clicked(pk) {
+                edit_dialog_window.edit_button_clicked(pk);
+            }
+
+            onDuplicate_button_clicked: function duplicate_button_clicked(pk) {
+                edit_dialog_window.duplicate_button_clicked(pk);
+            }
+
+            onDelete_button_clicked: function delete_button_clicked(pk) {
+                edit_dialog_window.delete_button_clicked(pk);
+            }
         }
 
-        //Loader { sourceComponent: separator_component; }
+        Loader { sourceComponent: separator_component; }
     }
 }
