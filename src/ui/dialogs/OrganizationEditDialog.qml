@@ -15,6 +15,7 @@ TemplateEditDialog
     title_name: "Organization"
     table_name: "organization"
     property var parent_id: undefined
+    property string qml_file_name: "OrganizationEditDialog.qml"
 
     onClosing: max_derivate_windows++;
 
@@ -29,30 +30,12 @@ TemplateEditDialog
         init();
     }
 
-    function create_derivate_window(pk) {
-        if(max_derivate_windows <= 0) {
-            error_message = qsTr("Max amount of derivate windows reached");
-            return;
-        }
-
-        var component = Qt.createComponent("OrganizationEditDialog.qml");
-        var new_dialog_window = component.createObject(organization_dialog, { pk_id: pk, parent_id: pk_id });
-
-        if (new_dialog_window == null) {
-            error_message = qsTr("Error in creating a new window");
-        }
-        else {
-            new_dialog_window.show();
-            new_dialog_window.init_dialog();
-        }
-    }
-
     onAdd_button_clicked: function add_button_clicked() {
-        create_derivate_window(-1);
+        create_derivate_window(-1, qml_file_name);
     }
 
     onEdit_button_clicked: function edit_button_clicked(pk) {
-        create_derivate_window(pk);
+        create_derivate_window(pk, qml_file_name);
     }
 
     onDuplicate_button_clicked: function duplicate_button_clicked(pk) {

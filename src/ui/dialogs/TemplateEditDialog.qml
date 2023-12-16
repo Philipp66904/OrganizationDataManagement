@@ -26,6 +26,11 @@ ApplicationWindow
     required property string entry_name
     required property string table_name
 
+    signal add_button_clicked()
+    signal edit_button_clicked(selected_primary_key: int)
+    signal duplicate_button_clicked(selected_primary_key: int)
+    signal delete_button_clicked(selected_primary_key: int)
+
     function init_dialog() {}  // implement this function
 
     function init() {  // call this function in your init_dialog override
@@ -33,10 +38,23 @@ ApplicationWindow
         derivate_table.load_data();
     }
 
-    signal add_button_clicked()
-    signal edit_button_clicked(selected_primary_key: int)
-    signal duplicate_button_clicked(selected_primary_key: int)
-    signal delete_button_clicked(selected_primary_key: int)
+    function create_derivate_window(pk, qml_file_name) {
+        if(max_derivate_windows <= 0) {
+            error_message = qsTr("Max amount of derivate windows reached");
+            return;
+        }
+
+        var component = Qt.createComponent(qml_file_name);
+        var new_dialog_window = component.createObject(organization_dialog, { pk_id: pk, parent_id: identifier });
+
+        if (new_dialog_window == null) {
+            error_message = qsTr("Error in creating a new window");
+        }
+        else {
+            new_dialog_window.show();
+            new_dialog_window.init_dialog();
+        }
+    }
 
     Column
     {
