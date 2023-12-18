@@ -6,6 +6,8 @@ import QtPositioning
 
 import tablemodule 1.0
 
+import "../dialogs"
+
 Rectangle
 {
     id: table_root
@@ -108,7 +110,7 @@ Rectangle
                     id: table_view
                     width: parent.width
                     height: parent.height - table_view_header.height - separator.height - (parent.spacing * 2)
-                    rowSpacing: 4
+                    rowSpacing: 2
                     clip: true
                     anchors.left: parent.left
                     resizableColumns: false
@@ -193,8 +195,8 @@ Rectangle
                             font.bold: (selected) ? true : false
                         }
 
-                         MouseArea
-                         {
+                        MouseArea
+                        {
                             id: delegate_mouse_area
                             anchors.fill: parent
                             onClicked: function (mouse)  {
@@ -313,6 +315,20 @@ Rectangle
                     text: qsTr("Delete")
                     button_enabled: (table_root.selected_pk !== undefined) ? true : false
 
+                    DeleteDialog
+                    {
+                        id: delete_dialog
+                        function callback_function() {
+                            const pk = table_buttons_main.getPrimaryKey();
+                            if (pk < 0) {
+                                error_message = qsTr("Select a row to delete");
+                                return;
+                            }
+
+                            table_root.delete_button_clicked(pk);
+                        }
+                    }
+
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();
                         if (pk < 0) {
@@ -320,7 +336,7 @@ Rectangle
                             return;
                         }
 
-                        table_root.delete_button_clicked(pk);
+                        delete_dialog.show();
                     }
                 }
             }

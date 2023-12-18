@@ -31,6 +31,10 @@ Rectangle
         table_view_main_height_factor: 0.94
         table_cell_rect_height_factor: 0.07
 
+        function load_data() {
+            load_data_wrapper();  // implement function with specific implementation per tab
+        }
+
         onAdd_button_clicked: function add_button_handler() {
             template_root.add_button_clicked()
         }

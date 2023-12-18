@@ -322,6 +322,9 @@ class Database(QObject):
         raises ValueError: In case the returned value has an incorrect type
         """
         
+        if pk < 0:
+            return 0
+        
         with self.con:
             res = self.con.execute(f"""SELECT {column_name} FROM {table_name} WHERE {pk_column_name} = ? LIMIT 1;""",
                                    (pk,))
@@ -348,6 +351,9 @@ class Database(QObject):
         raises ValueError: In case the returned value has an incorrect type
         """
         
+        if pk < 0:
+            return ""
+        
         with self.con:
             res = self.con.execute(f"""SELECT {column_name} FROM {table_name} WHERE {pk_column_name} = ? LIMIT 1;""",
                                    (pk,))
@@ -362,6 +368,17 @@ class Database(QObject):
     
     @Slot(int, str, str, result=str)
     def getName_byPk(self, pk: int, pk_column_name: str, table_name: str) -> str:
+        """
+        Returns the name of an entry specified by the primary key.
+        pk: Primary key
+        pk_column_name: Name of the primary key column
+        table_name: Name of the table, where the row is located
+        returns: The name of the entry
+        """
+        
+        if pk < 0:
+            return ""
+        
         with self.con:
             res = self.con.execute(f"""SELECT d.name FROM {table_name} t, description d WHERE t.{pk_column_name} = ? AND t.description_id = d.id LIMIT 1;""",
                                    (pk,))
@@ -369,7 +386,28 @@ class Database(QObject):
             val = res.fetchone()[0]
             
         if val == None:
-            raise ValueError("Database::getValueStr_byPk: Primary key not found")
+            raise ValueError("Database::getName_byPk: Primary key not found")
         
         return val
         
+    
+    @Slot(str, int, str, str, result=str)
+    def setName_byPk(self, name: str, pk: int, pk_column_name: str, table_name: str) -> str:        
+        try:
+            if pk < 0:
+                raise ValueError("Database::setName_byPk: Primary key is <0")
+            
+            with self.con:
+                # Get description_id
+                res = self.con.execute(f"""SELECT d.id FROM {table_name} t, description d WHERE t.{pk_column_name} = {pk} AND t.description_id = d.id;""")
+                description_id = res.fetchone()[0]
+                
+                self.con.execute(f"""UPDATE description
+                                 SET name = ?
+                                 WHERE id = {description_id};""",
+                                 (name,))
+        except Exception as e:
+            return str(e)
+        
+        self.dataChanged.emit()
+        return ""

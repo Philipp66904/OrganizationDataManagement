@@ -35,7 +35,7 @@ TemplateTab
         id: table_model
     }
 
-    function load_data() {
+    function load_data_wrapper() {
         const table_name = "organization";
         const res = database.getDataOrganization();
         const column_names = res.shift();
