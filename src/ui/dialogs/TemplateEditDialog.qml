@@ -37,10 +37,13 @@ ApplicationWindow
     signal save_button_clicked()
     signal delete_button_clicked()
 
+    signal initProperties()
+
     function init_dialog() {}  // implement this function
 
     function init() {  // call this function in your init_dialog override
         derivate_table.load_data();
+        edit_dialog_window.initProperties();
     }
 
     function create_derivate_window(pk, qml_file_name) {

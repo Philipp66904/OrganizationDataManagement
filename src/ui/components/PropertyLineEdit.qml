@@ -16,6 +16,7 @@ Rectangle
     property bool derivate_mode: true
     required property string description
     required property string value
+    required property string original_value
     property bool derivate_flag: false
 
     signal new_value(val: string, derivate_flag: bool)
@@ -34,7 +35,8 @@ Rectangle
 
         function send_new_value() {
             if(derivate_flag) {
-                property_line_edit_root.new_value(value, derivate_flag);
+                value_text.text = original_value;
+                property_line_edit_root.new_value(original_value, derivate_flag);
             }
             else {
                 property_line_edit_root.new_value(value_text.text, derivate_flag);
@@ -57,7 +59,7 @@ Rectangle
         TextInput
         {
             id: value_text
-            text: value
+            text: (derivate_flag) ? original_value : value
             width: property_row_main.value_text_width
             height: parent.height
             font.pointSize: textSize
@@ -70,6 +72,16 @@ Rectangle
 
             onTextEdited: {
                 property_row_main.send_new_value();
+            }
+
+            Rectangle
+            {
+                id: value_text_underline
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: (editing) ? highlightColor : backgroundColor1
+                height: 1
+                width: parent.width
             }
         }
 

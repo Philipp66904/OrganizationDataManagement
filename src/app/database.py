@@ -389,13 +389,38 @@ class Database(QObject):
             raise ValueError("Database::getName_byPk: Primary key not found")
         
         return val
-        
     
-    @Slot(str, int, str, str, result=str)
-    def setName_byPk(self, name: str, pk: int, pk_column_name: str, table_name: str) -> str:        
+    
+    @Slot(int, str, str, result=str)
+    def getNote_byPk(self, pk: int, pk_column_name: str, table_name: str) -> str:
+        """
+        Returns the note of an entry specified by the primary key.
+        pk: Primary key
+        pk_column_name: Name of the primary key column
+        table_name: Name of the table, where the row is located
+        returns: The note of the entry
+        """
+        
+        if pk < 0:
+            return ""
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT d.note FROM {table_name} t, description d WHERE t.{pk_column_name} = ? AND t.description_id = d.id LIMIT 1;""",
+                                   (pk,))
+            
+            val = res.fetchone()[0]
+            
+        if val == None:
+            raise ValueError("Database::getNote_byPk: Primary key not found")
+        
+        return val
+    
+    
+    @Slot(str, str, int, str, str, result=str)
+    def setName_Note_byPk(self, name: str, note: str, pk: int, pk_column_name: str, table_name: str) -> str:        
         try:
             if pk < 0:
-                raise ValueError("Database::setName_byPk: Primary key is <0")
+                raise ValueError("Database::setNote_byPk: Primary key is <0")
             
             with self.con:
                 # Get description_id
@@ -403,9 +428,9 @@ class Database(QObject):
                 description_id = res.fetchone()[0]
                 
                 self.con.execute(f"""UPDATE description
-                                 SET name = ?
+                                 SET name = ?, note = ?
                                  WHERE id = {description_id};""",
-                                 (name,))
+                                 (name, note))
         except Exception as e:
             return str(e)
         

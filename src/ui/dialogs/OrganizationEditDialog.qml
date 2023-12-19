@@ -22,8 +22,9 @@ TemplateEditDialog
 
     onClosing: max_derivate_windows++;
 
-    // new property values
-    property var property_name: (identifier >= 0) ? database.getName_byPk(identifier, "id", organization_dialog.table_name) : ""
+    // current property values
+    property string property_name: ""
+    property string property_note: ""
 
     function init_dialog() {
         // call this function after .show() called on the ApplicationWindow
@@ -33,6 +34,10 @@ TemplateEditDialog
         if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", organization_dialog.table_name)
         organization_dialog.entry_name = entry_name_tmp;
 
+        // init properties
+        organization_dialog.property_name = (identifier >= 0) ? database.getName_byPk(identifier, "id", organization_dialog.table_name) : ""
+        organization_dialog.property_note = (identifier >= 0) ? database.getNote_byPk(identifier, "id", organization_dialog.table_name) : ""
+
         init();
     }
 
@@ -41,7 +46,8 @@ TemplateEditDialog
 
         if(identifier >= 0) {
             // Update existing entry
-            error_message = database.setName_byPk(property_name, identifier, "id", organization_dialog.table_name);
+            error_message = database.setName_Note_byPk(property_name.trim(), property_note, identifier, "id", organization_dialog.table_name);
+            if(error_message !== "") return;
         }
         else {
             // TODO create new entry
@@ -81,17 +87,48 @@ TemplateEditDialog
 
             PropertyLineEdit
             {
+                id: property_line_edit_name
                 width: parent.width
                 height: (parent.height - (row_count * spacing)) / row_count
                 description: "Name"
-                value: database.getName_byPk(pk_id, "id", organization_dialog.table_name)
+                value: property_name
+                original_value: ""
                 derivate_mode: false
 
+                Connections {
+                    target: organization_dialog
+                    function onInitProperties() {
+                        property_line_edit_name.original_value = property_name;
+                    }
+                }
+
                 onNew_value: function new_value(value, derivate_flag) {
-                    property_name = value.trim();
+                    property_name = value;
 
                     if(identifier < 0 && value.trim() === "") organization_dialog.entry_name = "New Entry";
                     else organization_dialog.entry_name = value.trim();
+                }
+            }
+
+            PropertyParagraphEdit
+            {
+                id: property_paragraph_edit_note
+                width: parent.width
+                height: ((parent.height - (row_count * spacing)) / row_count) * 3
+                description: "Note"
+                value: property_note
+                original_value: ""
+                derivate_mode: false
+
+                Connections {
+                    target: organization_dialog
+                    function onInitProperties() {
+                        property_paragraph_edit_note.original_value = property_note;
+                    }
+                }
+
+                onNew_value: function new_value(value, derivate_flag) {
+                    property_note = value;
                 }
             }
         }
