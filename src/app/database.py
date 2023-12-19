@@ -178,7 +178,7 @@ class Database(QObject):
                     if type(date_created) != str:
                         raise ValueError("Database::saveDB: date_created is not a string")
                     
-                    date_created = datetime.datetime.strptime(date_created, "%Y-%m-%d %H:%M:%S.%f")
+                    date_created = datetime.datetime.strptime(date_created, "%Y-%m-%d %H:%M:%S")
                 except ValueError as e:
                     date_created = None
                 
@@ -186,8 +186,8 @@ class Database(QObject):
                     date_created = datetime.datetime.now()
                 
                 date_saved = datetime.datetime.now()
-                self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_created'", (date_created.strftime("%Y-%m-%d %H:%M:%S.%f"),))
-                self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_saved'", (date_saved.strftime("%Y-%m-%d %H:%M:%S.%f"),))
+                self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_created'", (date_created.strftime("%Y-%m-%d %H:%M:%S"),))
+                self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_saved'", (date_saved.strftime("%Y-%m-%d %H:%M:%S"),))
             
             # Copy data over
             with con_external:
@@ -416,8 +416,46 @@ class Database(QObject):
         return val
     
     
+    def setModified_CreatedTimestamps(self, metadata_id: int):
+        """
+        Reads the saved created_time for a specific metadata entry.
+        If a valid timestamp is found, only the modified_time will be updated,
+        otherwise created_time and modified_time will be set to the current time.
+        metadata_id: Metadata id
+        raises ValueError: In case the metadata_id is not an integer or <0 
+        """
+        
+        if type(metadata_id) != int or metadata_id < 0:
+            raise ValueError("Database::setModified_CreatedTimestamps: metadata_id is not an int or <0")
+        
+        with self.con:
+            # Get created time
+            res = self.con.execute(f"""SELECT date_created FROM metadata WHERE id = ?;""", (metadata_id,))
+            date_created = res.fetchone()[0]
+                
+            try:
+                if type(date_created) != str:
+                    raise ValueError("Database::setModified_CreatedTimestamps: date_created is not a string")
+                
+                date_created = datetime.datetime.strptime(date_created, "%Y-%m-%d %H:%M:%S")
+            except ValueError as e:
+                date_created = None
+            
+            if date_created == None:
+                date_created = datetime.datetime.now()
+            
+            date_modified = datetime.datetime.now()
+            
+            self.con.execute("UPDATE metadata SET date_created = ?, date_modified = ? WHERE id = ?;",
+                             (date_created.strftime("%Y-%m-%d %H:%M:%S"),
+                              date_modified.strftime("%Y-%m-%d %H:%M:%S"),
+                              metadata_id))
+    
+    
     @Slot(str, str, int, str, str, result=str)
     def setName_Note_byPk(self, name: str, note: str, pk: int, pk_column_name: str, table_name: str) -> str:        
+        metadata_id = None
+        
         try:
             if pk < 0:
                 raise ValueError("Database::setNote_byPk: Primary key is <0")
@@ -427,6 +465,10 @@ class Database(QObject):
                 res = self.con.execute(f"""SELECT d.id FROM {table_name} t, description d WHERE t.{pk_column_name} = {pk} AND t.description_id = d.id;""")
                 description_id = res.fetchone()[0]
                 
+                # Get metadata_id
+                res = self.con.execute(f"""SELECT metadata_id FROM {table_name} WHERE {pk_column_name} = {pk};""")
+                metadata_id = res.fetchone()[0]
+                
                 self.con.execute(f"""UPDATE description
                                  SET name = ?, note = ?
                                  WHERE id = {description_id};""",
@@ -434,5 +476,6 @@ class Database(QObject):
         except Exception as e:
             return str(e)
         
+        self.setModified_CreatedTimestamps(metadata_id)
         self.dataChanged.emit()
         return ""

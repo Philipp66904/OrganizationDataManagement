@@ -39,7 +39,7 @@ Rectangle
     Connections {
         target: table_model
         function onUpdateView() {
-            table_view.forceLayout()
+            table_view.forceLayout();
             table_root.selected_pk = undefined;
         }
     }
