@@ -308,6 +308,51 @@ class Database(QObject):
             res.append(row)
         
         return res
+    
+    
+    @Slot(int, result=list)
+    def getRelations(self, organization_id: int) -> list:
+        """
+        Returns all relations for a specific organization.
+        organization_id: Organization id which relations shall be returned
+        returns: List of lists with all the rows. The first list is always reserved for the column names.
+        """
+        
+        res_list = [["id", "person_name", "person_note", "address_name", "address_note"]]
+        
+        with self.con:
+            res = self.con.execute("""SELECT t.id, d.name, d.note
+                                   FROM description d,
+                                   (
+                                       SELECT c.id, p.description_id
+                                       FROM connection c, person p, address a
+                                       WHERE c.id = ? AND c.person_id = p.id AND c.address_id  = a.id
+                                   ) t
+                                   WHERE t.description_id = d.id;""",
+                                   (organization_id,))
+            
+            person_data = res.fetchone()
+            
+            res = self.con.execute("""SELECT t.id, d.name, d.note
+                                   FROM description d,
+                                   (
+                                       SELECT c.id, a.description_id
+                                       FROM connection c, person p, address a
+                                       WHERE c.id = ? AND c.person_id = p.id AND c.address_id  = a.id
+                                   ) t
+                                   WHERE t.description_id = d.id;""",
+                                   (organization_id,))
+            
+            address_data = res.fetchone()
+            
+            if person_data == None or len(person_data) != 3 or address_data == None or len(address_data) != 3:
+                return res_list
+            
+            if person_data[0] != address_data[0]:
+                raise ValueError("Database::getRelations: Organization ids don't match")
+        
+        res_list.append([person_data[0], person_data[1], person_data[2], address_data[1], address_data[2]])
+        return res_list
 
     
     @Slot(int, str, str, str, result=int)

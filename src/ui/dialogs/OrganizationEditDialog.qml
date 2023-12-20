@@ -6,6 +6,8 @@ import QtPositioning
 
 import "../components"
 
+import tablemodule 1.0
+
 TemplateEditDialog
 {
     id: organization_dialog
@@ -18,7 +20,7 @@ TemplateEditDialog
     table_name: "organization"
     property var parent_id: undefined
     property string qml_file_name: "OrganizationEditDialog.qml"
-    property_height: height * 0.4
+    property_height: height * 0.7
 
     onClosing: max_derivate_windows++;
 
@@ -83,7 +85,7 @@ TemplateEditDialog
         Column
         {
             spacing: 8
-            property int row_count: 5
+            property int row_count: 8
 
             PropertyLineEdit
             {
@@ -107,6 +109,66 @@ TemplateEditDialog
 
                     if(identifier < 0 && value.trim() === "") organization_dialog.entry_name = "New Entry";
                     else organization_dialog.entry_name = value.trim();
+                }
+            }
+
+            Text
+            {
+                id: derivate_description_text
+                width: parent.width
+                height: ((parent.height - (row_count * spacing)) / row_count) * 0.5
+                text: qsTr("Relations:")
+                font.pointSize: textSize
+                color: backgroundColor3
+                anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+            }
+
+            RelationsTable
+            {
+                id: relations_table
+                height: ((parent.height - (row_count * spacing)) / row_count) * 4
+                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
+                table_view_main_height_factor: 0.8
+                table_cell_rect_height_factor: 0.25
+                pk_id: organization_dialog.identifier
+
+                TableModel
+                {
+                    id: table_model
+                }
+
+                function load_data() {
+                    const res = database.getRelations(organization_dialog.identifier);
+                    const column_names = res.shift();
+                    console.log("load data");
+
+                    table_model.loadData(organization_dialog.table_name, column_names, res);
+                }
+
+                Connections {
+                    target: organization_dialog
+                    function onInitProperties() {
+                        relations_table.load_data();
+                    }
+                }
+
+                onAdd_button_clicked: function add_button_clicked() {
+                    console.log("add");
+                    // TODO implement
+                }
+
+                onEdit_button_clicked: function edit_button_clicked(pk) {
+                    console.log("edit");
+                    // TODO implement
+                }
+
+                onDelete_button_clicked: function delete_button_clicked(pk) {
+                    console.log("delete");
+                    // TODO implement
                 }
             }
 
