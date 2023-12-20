@@ -183,9 +183,9 @@ class Database(QObject):
                     date_created = None
                 
                 if date_created == None:
-                    date_created = datetime.datetime.now()
+                    date_created = datetime.datetime.utcnow()
                 
-                date_saved = datetime.datetime.now()
+                date_saved = datetime.datetime.utcnow()
                 self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_created'", (date_created.strftime("%Y-%m-%d %H:%M:%S"),))
                 self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_saved'", (date_saved.strftime("%Y-%m-%d %H:%M:%S"),))
             
@@ -211,7 +211,7 @@ class Database(QObject):
         """
         
         with self.con:
-            res = self.con.execute("""SELECT t.id, d.name, d.note, t.website, m.date_modified, m.date_created
+            res = self.con.execute("""SELECT t.id, d.name, d.note, t.website, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM organization t, description d, metadata m
                              WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC;""")
@@ -240,7 +240,7 @@ class Database(QObject):
         """
         
         with self.con:
-            res = self.con.execute(f"""SELECT t.id, d.name, d.note, m.date_modified, m.date_created
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM {table_name} t, description d, metadata m
                              WHERE t.{parent_column_name} = {parent_id} AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC;""")
@@ -266,7 +266,7 @@ class Database(QObject):
         """
         
         with self.con:
-            res = self.con.execute("""SELECT t.id, d.name, d.note, t.street, t.number, t.postalcode, t.city, t.country, m.date_modified, m.date_created
+            res = self.con.execute("""SELECT t.id, d.name, d.note, t.street, t.number, t.postalcode, t.city, t.country, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM address t, description d, metadata m
                              WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC;""")
@@ -292,7 +292,7 @@ class Database(QObject):
         """
         
         with self.con:
-            res = self.con.execute("""SELECT t.id, d.name, d.note, t.title, t.gender, t.firstname, t.middlename, t.surname, m.date_modified, m.date_created
+            res = self.con.execute("""SELECT t.id, d.name, d.note, t.title, t.gender, t.firstname, t.middlename, t.surname, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM person t, description d, metadata m
                              WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC;""")
@@ -432,7 +432,7 @@ class Database(QObject):
             # Get created time
             res = self.con.execute(f"""SELECT date_created FROM metadata WHERE id = ?;""", (metadata_id,))
             date_created = res.fetchone()[0]
-                
+            
             try:
                 if type(date_created) != str:
                     raise ValueError("Database::setModified_CreatedTimestamps: date_created is not a string")
@@ -442,9 +442,9 @@ class Database(QObject):
                 date_created = None
             
             if date_created == None:
-                date_created = datetime.datetime.now()
+                date_created = datetime.datetime.utcnow()
             
-            date_modified = datetime.datetime.now()
+            date_modified = datetime.datetime.utcnow()
             
             self.con.execute("UPDATE metadata SET date_created = ?, date_modified = ? WHERE id = ?;",
                              (date_created.strftime("%Y-%m-%d %H:%M:%S"),
