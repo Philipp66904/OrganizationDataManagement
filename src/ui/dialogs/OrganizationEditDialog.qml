@@ -126,15 +126,17 @@ TemplateEditDialog
                 elide: Text.ElideRight
             }
 
-            RelationsTable
+            Table
             {
                 id: relations_table
                 height: ((parent.height - (row_count * spacing)) / row_count) * 4
                 width: parent.width
+                parent_id: undefined
                 anchors.horizontalCenter: parent.horizontalCenter
                 table_view_main_height_factor: 0.8
                 table_cell_rect_height_factor: 0.25
                 pk_id: organization_dialog.identifier
+                show_duplicate_button: false
 
                 TableModel
                 {

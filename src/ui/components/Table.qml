@@ -17,6 +17,7 @@ Rectangle
     radius: 8
 
     property var selected_pk: undefined
+    property bool show_duplicate_button: true
     required property var pk_id  // set to -1 if new entry  // set to undefined if root table
     required property var parent_id  // set to undefined if it has no parent
     required property double table_view_main_height_factor
@@ -244,7 +245,7 @@ Rectangle
                 id: table_button_row
                 anchors.fill: parent
                 spacing: 8
-                property int button_count: 4
+                property int button_count: (show_duplicate_button) ? 4 : 3
 
                 BasicButton
                 {
@@ -289,6 +290,7 @@ Rectangle
                 BasicButton
                 {
                     id: duplicate_button
+                    visible: show_duplicate_button
                     width: add_button.width
                     height: add_button.height
                     hover_color: textColor
