@@ -12,10 +12,12 @@ class TableModel(QAbstractTableModel):
      
     @Slot(str, list, list)
     def loadData(self, table_name: str, column_names: list, row_data: list) -> None:
+        self.layoutAboutToBeChanged.emit()
         self.table_name = table_name
         self.column_names = column_names
         self.row_data = row_data
         
+        self.layoutChanged.emit()
         self.updateView.emit()
 
 
