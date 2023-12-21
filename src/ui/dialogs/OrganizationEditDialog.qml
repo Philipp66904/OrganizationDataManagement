@@ -14,10 +14,10 @@ TemplateEditDialog
     required property int pk_id
     identifier: pk_id
     parent_identifier: parent_id
-    entry_name: "New Entry"
-    window_title: "Add / Edit Organization"
-    title_name: "Organization"
-    table_name: "organization"
+    entry_name: qsTr("New Entry")
+    window_title: qsTr("Add / Edit Organization")
+    title_name: qsTr("Organization")
+    table_name: qsTr("organization")
     property var parent_id: undefined
     property string qml_file_name: "OrganizationEditDialog.qml"
     property_height: height * 0.7
@@ -117,7 +117,7 @@ TemplateEditDialog
                 id: derivate_description_text
                 width: parent.width
                 height: ((parent.height - (row_count * spacing)) / row_count) * 0.5
-                text: qsTr("Relations:")
+                text: qsTr("Connections:")
                 font.pointSize: textSize
                 color: backgroundColor3
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -128,7 +128,7 @@ TemplateEditDialog
 
             Table
             {
-                id: relations_table
+                id: connections_table
                 height: ((parent.height - (row_count * spacing)) / row_count) * 4
                 width: parent.width
                 parent_id: undefined
@@ -144,7 +144,7 @@ TemplateEditDialog
                 }
 
                 function load_data() {
-                    const res = database.getRelations(organization_dialog.identifier);
+                    const res = database.getConnections(organization_dialog.identifier);
                     const column_names = res.shift();
                     console.log("load data");
 
@@ -154,17 +154,26 @@ TemplateEditDialog
                 Connections {
                     target: organization_dialog
                     function onInitProperties() {
-                        relations_table.load_data();
+                        connections_table.load_data();
                     }
                 }
 
+                OrganizationConnectionDialog
+                {
+                    id: organization_connection_dialog
+                    window_title: qsTr("Add / Edit Connection")
+                    identifier: -1
+                    title_name: qsTr("Connection")
+                }
+
                 onAdd_button_clicked: function add_button_clicked() {
-                    console.log("add");
-                    // TODO implement
+                    organization_connection_dialog.show();
+                    organization_connection_dialog.init(-1);
                 }
 
                 onEdit_button_clicked: function edit_button_clicked(pk) {
-                    console.log("edit");
+                    organization_connection_dialog.show();
+                    organization_connection_dialog.init(pk);
                     // TODO implement
                 }
 

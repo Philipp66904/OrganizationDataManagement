@@ -12,7 +12,7 @@ import tablemodule 1.0
 ApplicationWindow
 {
     id: edit_dialog_window
-    title: window_title + ": " + entry_name
+    title: window_title + " - " + entry_name
     color: backgroundColor
     modality: Qt.ApplicationModal
     minimumWidth: 300

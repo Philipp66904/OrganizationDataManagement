@@ -311,7 +311,7 @@ class Database(QObject):
     
     
     @Slot(int, result=list)
-    def getRelations(self, organization_id: int) -> list:
+    def getConnections(self, organization_id: int) -> list:
         """
         Returns all relations for a specific organization.
         organization_id: Organization id which relations shall be returned
@@ -353,6 +353,113 @@ class Database(QObject):
         
         res_list.append([person_data[0], person_data[1], person_data[2], address_data[1], address_data[2]])
         return res_list
+    
+    
+    @Slot(int, result=list)
+    def getConnection(self, connection_id: int) -> list:
+        """
+        Returns the name and note for the associated person_id and address_id of the connection.
+        connection_id: Connection primary key
+        returns: List with 2 string entries for person and address. The name and note get combined into one string.
+        """
+        
+        if connection_id < 0:
+            return ["", ""]
+        
+        with self.con:
+            res = self.con.execute("""SELECT c.person_id, d.name, d.note
+                                      FROM connection c, person p, description d
+                                      WHERE c.id = ? AND c.person_id = p.id AND p.description_id = d.id;""",
+                                      (connection_id,))
+            
+            person_res = res.fetchone()
+            
+            res = self.con.execute("""SELECT c.address_id, d.name, d.note
+                                      FROM connection c, address a, description d
+                                      WHERE c.id = ? AND c.address_id = a.id AND a.description_id = d.id;""",
+                                      (connection_id,))
+            
+            address_res = res.fetchone()
+        
+        person_combination = str(person_res[0]) + " ・ " + person_res[1]
+        if len(person_res[2].strip()) > 0:
+            person_combination += " ・ " + person_res[2]
+        
+        address_combination = str(address_res[0]) + " ・ " + address_res[1]
+        if len(address_res[2].strip()) > 0:
+            address_combination +=  " ・ " + address_res[2]
+        
+        return [person_combination, address_combination]
+    
+    
+    @Slot(int, result=list)
+    def getAvailPersonConnection(self, connection_id: int) -> list:
+        """
+        Returns a list with all persons available for a connection for the specified organization_id
+        connection_id: Connection identifier. Set to < 0 if a new connection is created.
+        returns: A list containing a list with the following specification: list[[person_id, name, note], ...]
+        """
+        
+        with self.con:
+            res = self.con.execute("""SELECT p.id, d.name, d.note FROM person p, description d WHERE p.description_id = d.id;""")
+            all_persons = res.fetchall()
+            
+            if connection_id >= 0:
+                res = self.con.execute("""SELECT person_id FROM connection WHERE id = ?;""",
+                                    (connection_id,))
+                selected_person_id = res.fetchone()[0]
+            
+                res = self.con.execute("""SELECT person_id FROM connection WHERE organization_id = ? AND NOT person_id = ?;""",
+                                    (connection_id, selected_person_id))
+                unavail_persons = res.fetchall()
+            else:
+                res = self.con.execute("""SELECT person_id FROM connection WHERE organization_id = ?;""",
+                                    (connection_id,))
+                unavail_persons = res.fetchall()
+            
+        avail_persons = []
+        for person in all_persons:
+            if (person[0],) in unavail_persons:
+                continue
+            
+            avail_persons.append([person[0], person[1], person[2]])
+            
+        return avail_persons
+    
+    
+    @Slot(int, result=list)
+    def getAvailAddressConnection(self, connection_id: int) -> list:
+        """
+        Returns a list with all addresses available for a connection for the specified organization_id
+        connection_id: Connection identifier. Set to < 0 if a new connection is created.
+        returns: A list containing a list with the following specification: list[[address_id, name, note], ...]
+        """
+        
+        with self.con:
+            res = self.con.execute("""SELECT a.id, d.name, d.note FROM address a, description d WHERE a.description_id = d.id;""")
+            all_addresses = res.fetchall()
+            
+            if connection_id >= 0:
+                res = self.con.execute("""SELECT address_id FROM connection WHERE id = ?;""",
+                                    (connection_id,))
+                selected_address_id = res.fetchone()[0]
+                
+                res = self.con.execute("""SELECT address_id FROM connection WHERE organization_id = ? AND NOT address_id = ?;""",
+                                    (connection_id, selected_address_id))
+                unavail_addresses = res.fetchall()
+            else:
+                res = self.con.execute("""SELECT address_id FROM connection WHERE organization_id = ?;""",
+                                    (connection_id,))
+                unavail_addresses = res.fetchall()
+        
+        avail_addresses = []
+        for address in all_addresses:
+            if (address[0],) in unavail_addresses:
+                continue
+            
+            avail_addresses.append([address[0], address[1], address[2]])
+            
+        return avail_addresses
 
     
     @Slot(int, str, str, str, result=int)
