@@ -168,12 +168,12 @@ TemplateEditDialog
 
                 onAdd_button_clicked: function add_button_clicked() {
                     organization_connection_dialog.show();
-                    organization_connection_dialog.init(-1);
+                    organization_connection_dialog.init(-1, identifier);
                 }
 
                 onEdit_button_clicked: function edit_button_clicked(pk) {
                     organization_connection_dialog.show();
-                    organization_connection_dialog.init(pk);
+                    organization_connection_dialog.init(pk, identifier);
                     // TODO implement
                 }
 

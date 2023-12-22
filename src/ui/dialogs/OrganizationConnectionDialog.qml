@@ -21,27 +21,35 @@ ApplicationWindow
     required property string window_title
     required property var identifier  // -1 if new entry, otherwise connection.id
     required property string title_name
-    property string entry_name: qsTr("New Connection")
+    property string entry_name: ""
     
     property string current_person
     property string current_address
+    property int current_person_id: -1
+    property int current_address_id: -1
+
+    onCurrent_person_idChanged: console.log("current person id", current_person_id)
+    onCurrent_address_idChanged: console.log("current address id", current_address_id)
 
     signal save_button_clicked()
     signal delete_button_clicked()
+    signal initProperties(connection_id: int, organization_id: int)
 
-    function init(connection_id) {
+    function init(connection_id, organization_id) {
         edit_dialog_window.identifier = connection_id;
         const current_person_address_description = database.getConnection(connection_id);
-        edit_dialog_window.current_person = current_person_address_description[0];
-        edit_dialog_window.current_address = current_person_address_description[1];
+        if(current_person_address_description[0] !== "") {
+            edit_dialog_window.entry_name = current_person_address_description[0];
+        }
+        else {
+            edit_dialog_window.entry_name = qsTr("New Connection");
+        }
+        edit_dialog_window.current_person = current_person_address_description[1];
+        edit_dialog_window.current_address = current_person_address_description[2];
 
-        const res = database.getAvailPersonConnection(connection_id);
-        console.log("res:", res);
-        const res2 = database.getAvailAddressConnection(connection_id);
-        console.log("res2:", res2)
-        // TODO implement ComboBoxes with data
-        // TODO Save identifier for currently selected person and address
         // TODO Make sure to only allow complete connections
+
+        edit_dialog_window.initProperties(connection_id, organization_id);
     }
 
     Column
@@ -54,6 +62,10 @@ ApplicationWindow
         property int title_rect_height: (height - (row_count * spacing)) * 0.07
         property int selection_column_height: (height - (row_count * spacing)) * 0.87
         property int button_row_height: (height - (row_count * spacing)) * 0.06
+
+        // Column heights
+        property int combo_selection_person_height: (height - (row_count * spacing)) * 0.07
+        property int combo_selection_address_height: (height - (row_count * spacing)) * 0.07
 
         Component
         {
@@ -115,6 +127,51 @@ ApplicationWindow
             height: main_column.selection_column_height
             width: parent.width
             anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 8
+
+            ComboSelection
+            {
+                id: combo_selection_person
+                width: parent.width - 8
+                height: main_column.combo_selection_person_height
+                anchors.horizontalCenter: parent.horizontalCenter
+                description_text: qsTr("Person")
+
+                onSelected_indexChanged: {
+                    edit_dialog_window.current_person_id = combo_selection_person.selected_index;
+                }
+
+                Connections {
+                    target: edit_dialog_window
+                    function onInitProperties(connection_id, organization_id) {
+                        const person_data = database.getPersonConnection(connection_id);
+                        combo_selection_person.load_data(person_data);
+                        edit_dialog_window.current_person_id = combo_selection_person.selected_index;
+                    }
+                }
+            }
+
+            ComboSelection
+            {
+                id: combo_selection_address
+                width: parent.width - 8
+                height: main_column.combo_selection_address_height
+                anchors.horizontalCenter: parent.horizontalCenter
+                description_text: qsTr("Address")
+
+                onSelected_indexChanged: {
+                    edit_dialog_window.current_address_id = combo_selection_address.selected_index;
+                }
+
+                Connections {
+                    target: edit_dialog_window
+                    function onInitProperties(connection_id, organization_id) {
+                        const address_data = database.getAddressConnection(connection_id);
+                        combo_selection_address.load_data(address_data);
+                        edit_dialog_window.current_address_id = combo_selection_address.selected_index;
+                    }
+                }
+            }
         }
 
         Loader { sourceComponent: separator_component; }

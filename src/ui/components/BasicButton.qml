@@ -39,7 +39,7 @@ Rectangle
             if(button_enabled === false) return backgroundColor3;
             else if(button_mouse_area.pressed) return highlight_color;
             else if(containsMouse) return hover_color;
-            else textColor; //backgroundColor3;
+            else textColor;
         }
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
