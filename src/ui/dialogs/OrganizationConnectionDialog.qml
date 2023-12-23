@@ -53,7 +53,7 @@ ApplicationWindow
             return "";
         }
         else {
-            return qsTr("This combination already exists.");
+            return qsTr("Combination already exists.");
         }
     }
 

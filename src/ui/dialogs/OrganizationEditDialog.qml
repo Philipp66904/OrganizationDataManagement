@@ -20,25 +20,33 @@ TemplateEditDialog
     table_name: qsTr("organization")
     property var parent_id: undefined
     property string qml_file_name: "OrganizationEditDialog.qml"
-    property_height: height * 0.7
+    property_height: height * 0.8
 
     onClosing: max_derivate_windows++;
 
     // current property values
     property string property_name: ""
     property string property_note: ""
+    property var property_website: ""
+    property bool property_website_derivate_flag: false
+    property var property_website_derivate: undefined
 
     function init_dialog() {
         // call this function after .show() called on the ApplicationWindow
         max_derivate_windows--;
 
         let entry_name_tmp = "New Entry";
-        if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", organization_dialog.table_name)
+        if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", organization_dialog.table_name);
         organization_dialog.entry_name = entry_name_tmp;
 
         // init properties
-        organization_dialog.property_name = (identifier >= 0) ? database.getName_byPk(identifier, "id", organization_dialog.table_name) : ""
-        organization_dialog.property_note = (identifier >= 0) ? database.getNote_byPk(identifier, "id", organization_dialog.table_name) : ""
+        organization_dialog.property_name = (identifier >= 0) ? database.getName_byPk(identifier, "id", organization_dialog.table_name) : "";
+        organization_dialog.property_note = (identifier >= 0) ? database.getNote_byPk(identifier, "id", organization_dialog.table_name) : "";
+        
+        const property_website_tmp = (identifier >= 0) ? database.getOrganizationWebsite(identifier) : [undefined, false];
+        organization_dialog.property_website = property_website_tmp[0];
+        organization_dialog.property_website_derivate_flag = property_website_tmp[1];
+        organization_dialog.property_website_derivate = (identifier >= 0) ? database.getOrganizationWebsiteDerivate(identifier)[0] : undefined;
 
         init();
     }
@@ -50,9 +58,22 @@ TemplateEditDialog
             // Update existing entry
             error_message = database.setName_Note_byPk(property_name.trim(), property_note, identifier, "id", organization_dialog.table_name);
             if(error_message !== "") return;
+
+            let new_website = undefined;
+            if(!property_website_derivate_flag) new_website = property_website;
+            error_message = database.saveOrganizationWebsite(identifier, new_website);
+            if(error_message !== "") return;
         }
         else {
             // TODO create new entry
+            let new_website = undefined;
+            if(!property_website_derivate_flag) new_website = property_website;
+
+            let new_parent_id = -1;
+            if(parent_identifier !== undefined) new_parent_id = parent_identifier;
+            
+            error_message = database.saveOrganization(property_name.trim(), property_note, new_parent_id, new_website);
+            if(error_message !== "") return;
         }
     }
 
@@ -85,22 +106,22 @@ TemplateEditDialog
         Column
         {
             spacing: 8
-            property int row_count: 8
+            property var row_count: 8.5
 
             PropertyLineEdit
             {
                 id: property_line_edit_name
                 width: parent.width
                 height: (parent.height - (row_count * spacing)) / row_count
-                description: "Name"
+                description: qsTr("Name")
                 value: property_name
-                original_value: ""
+                derivate_value: ""
                 derivate_mode: false
 
                 Connections {
                     target: organization_dialog
                     function onInitProperties() {
-                        property_line_edit_name.original_value = property_name;
+                        property_line_edit_name.derivate_value = property_name;
                     }
                 }
 
@@ -146,7 +167,6 @@ TemplateEditDialog
                 function load_data() {
                     const res = database.getConnections(organization_dialog.identifier);
                     const column_names = res.shift();
-                    console.log("load data");
 
                     table_model.loadData(organization_dialog.table_name, column_names, res);
                 }
@@ -183,12 +203,41 @@ TemplateEditDialog
                 }
             }
 
+            PropertyLineEdit
+            {
+                id: property_line_edit_website
+                width: parent.width
+                height: (parent.height - (row_count * spacing)) / row_count
+                description: qsTr("Website")
+                value: property_website
+                derivate_value: undefined
+                derivate_mode: true
+                derivate_flag: (value === undefined) ? true : organization_dialog.property_website_derivate_flag
+
+                Connections {
+                    target: organization_dialog
+                    function onInitProperties() {
+                        property_line_edit_website.derivate_flag = Qt.binding(function() { return (property_line_edit_website.value === undefined) ? true : organization_dialog.property_website_derivate_flag; })
+                        
+                        property_line_edit_website.value = property_website;
+                        property_line_edit_website.derivate_value = property_website_derivate;
+                    }
+                }
+
+                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    if (!undefined_flag) property_website = value;
+                    else property_website = undefined;
+
+                    organization_dialog.property_website_derivate_flag = derivate_flag;
+                }
+            }
+
             PropertyParagraphEdit
             {
                 id: property_paragraph_edit_note
                 width: parent.width
                 height: ((parent.height - (row_count * spacing)) / row_count) * 3
-                description: "Note"
+                description: qsTr("Note")
                 value: property_note
                 original_value: ""
                 derivate_mode: false

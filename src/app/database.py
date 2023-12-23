@@ -646,7 +646,7 @@ class Database(QObject):
         
         try:
             if pk < 0:
-                raise ValueError("Database::setNote_byPk: Primary key is <0")
+                raise ValueError("Primary key is <0")
             
             with self.con:
                 # Get description_id
@@ -662,9 +662,76 @@ class Database(QObject):
                                  WHERE id = {description_id};""",
                                  (name, note))
         except Exception as e:
-            return str(e)
+            return "Database::setName_Note_byPk: " + str(e)
         
         self.setModified_CreatedTimestamps(metadata_id)
+        self.dataChanged.emit()
+        return ""
+    
+    
+    @Slot(int, None, result=str)
+    @Slot(int, str, result=str)
+    def saveOrganizationWebsite(self, organization_id: int, website: str | None = None) -> str:
+        """
+        Update the organization website of an existing organization.
+        organization_id: Organization id of the website that should be updated.
+        website: New website name or None if no website name is set (=Null).
+        returns: String with error message. Empty string if no error message.
+        """
+        
+        if organization_id < 0:
+            return "Database::saveOrganizationWebsite: Couldn't save organization website"
+        
+        try:
+            with self.con:
+                self.con.execute("""UPDATE organization
+                                    SET website = ?
+                                    WHERE id = ?""",
+                                    (website, organization_id))
+        except Error as e:
+            return "Database::saveOrganizationWebsite: " + str(e)
+        
+        self.dataChanged.emit()
+        return ""
+    
+    
+    @Slot(str, str, int, None, result=str)
+    @Slot(str, str, int, str, result=str)
+    def saveOrganization(self, name: str, note: str, parent_id: int, website: str | None = None) -> str:
+        """
+        Creates a new organization in the db.
+        name: Name of the new organization
+        note: Note of the new organization
+        parent_id: Parent id of the new organization; set to <0 if no parent exists
+        website: Website of the new organization; set to None if no website is set
+        returns: Error message as string; Empty string if no error message
+        """
+        
+        metadata_id = None
+        description_id = None
+        
+        if parent_id < 0:
+            parent_id = None
+        
+        try:
+            with self.con:
+                res = self.con.execute("""INSERT INTO metadata (date_created, date_modified)
+                                        VALUES ('', '') RETURNING id;""")
+                metadata_id = res.fetchone()[0]
+                
+                res = self.con.execute("""INSERT INTO description (name, note)
+                                        VALUES (?, ?) RETURNING id;""",
+                                    (name, note))
+                description_id = res.fetchone()[0]
+                
+                self.con.execute("""INSERT INTO organization (parent_id, description_id, metadata_id, website)
+                                    VALUES (?, ?, ?, ?);""",
+                                (parent_id, description_id, metadata_id, website))
+        
+            self.setModified_CreatedTimestamps(metadata_id)
+        except Error as e:
+            return "Database::saveOrganization: " + str(e)
+        
         self.dataChanged.emit()
         return ""
     
@@ -681,10 +748,10 @@ class Database(QObject):
         """
         
         if organization_id < 0 or person_id < 0 or address_id < 0:
-            return "Not all ids for a connection defined."
+            return "Database::saveConnection: " + "Not all ids for a connection defined."
         
         if not self.checkConnection(connection_id, person_id, address_id):
-            return "Connection is not unique."
+            return "Database::saveConnection: " + "Connection is not unique."
         
         try:
             with self.con:
@@ -700,7 +767,7 @@ class Database(QObject):
                                         VALUES (?, ?, ?);""",
                                      (organization_id, person_id, address_id))
         except Error as e:
-            return str(e)
+            return "Database::saveConnection: " + str(e)
         
         self.dataChanged.emit()
         return ""
@@ -710,7 +777,7 @@ class Database(QObject):
     def deleteConnection(self, connection_id: int) -> bool:
         """
         Deletes a defined connection.
-        connectio_id: Connection id that shall be deleted
+        connection_id: Connection id that shall be deleted
         returns: True if successfull, else False
         """
         
@@ -723,3 +790,98 @@ class Database(QObject):
         
         self.dataChanged.emit()
         return True
+
+
+    @Slot(int, result=list)
+    def getOrganizationWebsite(self, organization_id: int) -> list:
+        """
+        Returns the website for a specific organization.
+        If the organization's website is Null and it has a parent, the parent's website is returned (and so on).
+        organization_id: Organization id whose website shall be returned
+        returns: list[website_name: str | None, derivate_flag: bool].
+                 The derivate_flag is True if the website from one of the parents is returned, otherwise False.
+        """
+        
+        if organization_id < 0:
+            return ["", False]
+        
+        website = None
+        parent_id = organization_id
+        derivate = False
+        
+        with self.con:
+            while parent_id is not None and website is None:
+                res = self.con.execute("""SELECT website, parent_id FROM organization WHERE id = ?""",
+                                       (parent_id,))
+                
+                website_res = res.fetchone()
+                website = website_res[0]
+                
+                if website == None and parent_id == organization_id and website_res[1] is not None:
+                    derivate = True
+                
+                parent_id = website_res[1]
+                
+        return [website, derivate]
+    
+    
+    @Slot(int, result=list)
+    def getOrganizationWebsiteDerivate(self, organization_id: int) -> list:
+        """
+        Returns the parent's website. If the organization has no parent, [None] is returned.
+        If the parent's website is Null, searching for the website at parent's parent and so on.
+        organization_id: Organization id whose derivate website shall be returned
+        returns: list[website: str] if one exists, otherwise list[None]
+        """
+        
+        if organization_id < 0:
+            return [None]
+        
+        website = None
+        parent_id = organization_id
+        
+        with self.con:
+            res = self.con.execute("""SELECT parent_id FROM organization WHERE id = ?""",
+                                   (parent_id,))
+            
+            res_first = res.fetchone()
+            parent_id = res_first[0]
+            if parent_id is None:
+                # Organization is already root
+                return [None]
+            
+            while parent_id is not None and website is None:
+                res = self.con.execute("""SELECT website, parent_id FROM organization WHERE id = ?""",
+                                       (parent_id,))
+                
+                website_res = res.fetchone()
+                website = website_res[0]
+                parent_id = website_res[1]
+        
+        return [website]
+    
+    
+    @Slot(int, str, str, result=list)
+    def getMetadata(self, pk: int, pk_column_name: str, table_name: str) -> list:
+        """
+        Returns the metadata for a given primary key, primary key column name and table name.
+        pk: Primary key of the entry
+        pk_column_name: Primary key's column name
+        table_name: Name of the table, where the primary key and pk_column are located
+        returns: list[date_modified: str, date_created: str]
+        """
+        
+        if pk < 0:
+            return ["", ""]
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+                                FROM {table_name} t, metadata m
+                                WHERE t.{pk_column_name} = ? AND t.metadata_id = m.id;""",
+                                (pk,))
+            
+            dates = res.fetchone()
+        
+        return [dates[0], dates[1]]
+        
+        

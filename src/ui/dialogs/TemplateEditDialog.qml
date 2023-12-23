@@ -303,13 +303,79 @@ ApplicationWindow
 
         Loader { sourceComponent: separator_component; }
 
-        Rectangle
+        Row
         {
             id: date_row
             width: parent.width - 8
             height: main_column.date_row_height
-            color: "green"
             anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 4
+            property int column_count: 3
+            property string modified_date: ""
+            property string created_date: ""
+
+            function load_dates() {
+                const dates = database.getMetadata(identifier, "id", table_name);
+                date_row.modified_date = dates[0];
+                date_row.created_date = dates[1];
+            }
+
+            Connections {
+                target: edit_dialog_window
+                function onInitProperties() {
+                    date_row.load_dates();
+                }
+            }
+
+            Rectangle
+            {
+                id: date_modified_rect
+                height: parent.height
+                width: ((parent.width - ((parent.column_count - 1) * parent.spacing)) / 2) - separator_rect.width
+                color: "transparent"
+
+                Text
+                {
+                    id: date_modified_text
+                    text: qsTr("Modified: ") + date_row.modified_date
+                    anchors.fill: parent
+                    anchors.margins: 4
+                    font.pointSize: textSizeSmall
+                    color: backgroundColor3
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+            }
+
+            Rectangle
+            {
+                id: separator_rect
+                height: parent.height
+                width: 1
+                color: backgroundColor1
+            }
+
+            Rectangle
+            {
+                id: date_created_rect
+                height: parent.height
+                width: (parent.width - ((parent.column_count - 1) * parent.spacing)) / 2
+                color: "transparent"
+
+                Text
+                {
+                    id: date_created_text
+                    text: qsTr("Created: ") + date_row.created_date
+                    anchors.fill: parent
+                    anchors.margins: 4
+                    font.pointSize: textSizeSmall
+                    color: backgroundColor3
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+            }
         }
     }
 }

@@ -15,11 +15,26 @@ Rectangle
     property bool editing: value_text.focus
     property bool derivate_mode: true
     required property string description
-    required property string value
-    required property string original_value
+    required property var value
+    required property var derivate_value
     property bool derivate_flag: false
 
-    signal new_value(val: string, derivate_flag: bool)
+    onDerivate_flagChanged: value_text.text = getValueText()
+    onDerivate_valueChanged: value_text.text = getValueText()
+    onValueChanged: value_text.text = getValueText()
+
+    signal new_value(val: string, derivate_flag: bool, undefined_flag: bool)
+
+    function getValueText() {
+        if(derivate_flag) {
+            if(derivate_value !== undefined) return derivate_value
+            else return "";
+        }
+        else {
+            if(value === undefined) return "";
+            else return value;
+        }
+    }
 
     Row
     {
@@ -35,11 +50,17 @@ Rectangle
 
         function send_new_value() {
             if(derivate_flag) {
-                value_text.text = original_value;
-                property_line_edit_root.new_value(original_value, derivate_flag);
+                value_text.text = (derivate_value !== undefined) ? derivate_value : "";
+
+                if(derivate_value === undefined) {
+                    property_line_edit_root.new_value("", derivate_flag, true);
+                }
+                else {
+                    property_line_edit_root.new_value(derivate_value, derivate_flag, false);
+                }
             }
             else {
-                property_line_edit_root.new_value(value_text.text, derivate_flag);
+                property_line_edit_root.new_value(value_text.text, derivate_flag, false);
             }
         }
 
@@ -59,7 +80,7 @@ Rectangle
         TextInput
         {
             id: value_text
-            text: (derivate_flag) ? original_value : value
+            text: getValueText()
             width: property_row_main.value_text_width
             height: parent.height
             font.pointSize: textSize
@@ -95,10 +116,11 @@ Rectangle
             visible: derivate_mode
 
             onToggled: {
-                derivate_flag = checked
+                derivate_flag = checked;
 
                 if(checked) {
-                    value_text.text = value;
+                    if(value === undefined) value_text.text = "";
+                    else value_text.text = value;
                 }
 
                 property_row_main.send_new_value();
