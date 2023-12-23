@@ -212,6 +212,9 @@ ApplicationWindow
                     }
 
                     onDelete_button_clicked: function delete_button_clicked(pk) {
+                        error_message = database.deleteEntry(pk, "id", edit_dialog_window.table_name);
+                        if(error_message !== "") return;
+
                         edit_dialog_window.derivate_delete_button_clicked(pk);
                     }
                 }
@@ -265,12 +268,15 @@ ApplicationWindow
                 height: parent.height
                 highlight_color: "#ff0000"
                 text: qsTr("Delete")
-                button_enabled: (edit_dialog_window.identifier !== -1) ? true : false //true
+                button_enabled: (edit_dialog_window.identifier !== -1) ? true : false
 
                 DeleteDialog
                 {
                     id: delete_dialog
                     function callback_function() {
+                        error_message = database.deleteEntry(edit_dialog_window.identifier, "id", edit_dialog_window.table_name);
+                        if(error_message !== "") return;
+
                         edit_dialog_window.delete_button_clicked();
                         edit_dialog_window.close();
                     }

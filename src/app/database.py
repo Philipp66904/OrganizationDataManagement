@@ -30,6 +30,16 @@ class Database(QObject):
         
         self.readTemplateDB()
         
+        
+    def init_db(self):
+        """
+        Call this function whenever loading a new database.
+        It sets the foreign key support to ON.
+        """
+        
+        with self.con:
+            self.con.execute("""PRAGMA foreign_keys = ON;""")
+        
     
     @Slot(str, result=list)
     def getPrimaryKeyColumnNames(self, table_name: str) -> list:
@@ -98,6 +108,8 @@ class Database(QObject):
             self.readDB(str(self.path_template_db))
         except RuntimeError as e:
             raise e
+        
+        self.init_db()
 
 
     @Slot(str, result=str)
@@ -114,7 +126,7 @@ class Database(QObject):
             self.settings.addRecentFile(path_str)
             self.readDB(path_str)
         except Exception as e:
-            return str(e)
+            return "Database::slot_readDB: " + str(e)
         
         return ""
     
@@ -133,6 +145,8 @@ class Database(QObject):
         
         # Check if path exists
         if not os.path.isfile(db_path):
+            # TODO remove file from recent files list
+            self.settings.removeRecentFile(db_path)
             raise RuntimeError("Database::readDB: file doesn't exist")
         
         try:
@@ -149,6 +163,7 @@ class Database(QObject):
         except Error as e:
             raise e
         
+        self.init_db()
         emitted_db_path = db_path if db_path != str(self.path_template_db) else ""
         self.databaseLoaded.emit(emitted_db_path)
         self.dataChanged.emit()
@@ -168,7 +183,7 @@ class Database(QObject):
             self.settings.addRecentFile(db_path_tmp)
             self.saveDB(db_path_tmp)
         except Exception as e:
-            return str(e)
+            return "Database::slot_saveDB: " + str(e)
         
         return ""
     
@@ -742,7 +757,7 @@ class Database(QObject):
                                      WHERE id = ?;""",
                                  (new_description_id, new_metadata_id, new_pk))
         except Error as e:
-            return str(e)
+            return "Database::duplicateEntry: " + str(e)
         
         self.setModified_CreatedTimestamps(new_metadata_id)
         self.dataChanged.emit()
@@ -870,6 +885,44 @@ class Database(QObject):
         
         self.dataChanged.emit()
         return True
+    
+    
+    @Slot(int, str, str, result=str)
+    def deleteEntry(self, pk: int, pk_column_name: str, table_name: str) -> str:
+        """
+        Deletes a specified entry and all non referenced descriptions and metadata.
+        pk: Primary key of the entry that shall be deleted
+        pk_column_name: Primary key's column name
+        table_name: Table name, where the pk_column is located
+        returns: Error message as string; Empty string if no error
+        """
+        
+        try:
+            if pk < 0:
+                raise ValueError("Primary key < 0")
+            
+            with self.con:
+                # Delete entry                
+                self.con.execute(f"""DELETE FROM {table_name} WHERE {pk_column_name} = ?;""",
+                                 (pk,))
+                
+            with self.con:
+                # Delete all descriptions that are no longer referenced
+                self.con.execute("""DELETE FROM description
+                                    WHERE id NOT IN (SELECT DISTINCT description_id FROM organization)
+                                          AND id NOT IN (SELECT DISTINCT description_id FROM person)
+                                          AND id NOT IN (SELECT DISTINCT description_id FROM address);""")
+                
+                # Delete all metadata that are no longer referenced
+                self.con.execute("""DELETE FROM metadata
+                                    WHERE id NOT IN (SELECT DISTINCT metadata_id FROM organization)
+                                          AND id NOT IN (SELECT DISTINCT metadata_id FROM person)
+                                          AND id NOT IN (SELECT DISTINCT metadata_id FROM address);""")
+        except Error as e:
+            return "Database::deleteEntry: " + str(e)
+        
+        self.dataChanged.emit()
+        return ""
 
 
     @Slot(int, result=list)

@@ -23,10 +23,6 @@ TemplateTab
         organization_edit_dialog.init_dialog();
     }
 
-    onDelete_button_clicked: function delete_button_clicked(pk) {
-        console.log("delete:", pk)
-    }
-
     TableModel
     {
         id: table_model

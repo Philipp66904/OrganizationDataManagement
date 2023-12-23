@@ -114,6 +114,18 @@ class Settings(QObject):
         
         while len(self.settings["recent_files"]) > 10:
             self.settings["recent_files"].pop()
+            
+    
+    @settings_autosave
+    def removeRecentFile(self, file_path: str) -> None:
+        """
+        Remove a file path from the recent file list.
+        If the file path doesn't exist in the recent files list, nothing changes.
+        """
+        
+        if file_path in self.settings["recent_files"]:
+            self.settings["recent_files"].remove(file_path)
+    
     
     @Slot(result=list)
     def getRecentFiles(self) -> list[str]:

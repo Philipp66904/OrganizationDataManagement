@@ -91,21 +91,12 @@ TemplateEditDialog
         }
     }
 
-    onDelete_button_clicked: {
-        console.log("delete");
-    }
-
     onDerivate_add_button_clicked: function derivate_add_button_clicked() {
         create_derivate_window(-1, qml_file_name);
     }
 
     onDerivate_edit_button_clicked: function derivate_edit_button_clicked(pk) {
         create_derivate_window(pk, qml_file_name);
-    }
-
-    onDerivate_delete_button_clicked: function derivate_delete_button_clicked(pk) {
-        console.log("delete derivate:", pk)
-        // TODO implement
     }
 
     Component
