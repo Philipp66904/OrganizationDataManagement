@@ -12,9 +12,9 @@ Rectangle
 {
     id: table_root
     color: "transparent"
-    border.color: backgroundColor1
+    border.color: backgroundColor3
     border.width: 1
-    radius: 8
+    radius: 4
 
     property var selected_pk: undefined
     property bool show_duplicate_button: true
@@ -220,8 +220,9 @@ Rectangle
         Rectangle
         {
             id: separator
-            width: parent.width
+            width: parent.width - (table_root.border.width * 2)
             height: 1
+            anchors.horizontalCenter: parent.horizontalCenter
             color: backgroundColor1
         }
 

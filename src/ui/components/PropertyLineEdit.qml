@@ -8,7 +8,7 @@ Rectangle
 {
     id: property_line_edit_root
     color: (editing) ? backgroundColor1 : backgroundColor
-    border.color: (editing) ? highlightColor : backgroundColor1
+    border.color: (editing) ? highlightColor : backgroundColor3
     border.width: 1
     radius: 4
 
