@@ -20,6 +20,7 @@ ApplicationWindow
 
     required property string window_title
     required property var identifier  // -1 if new entry, otherwise connection.id
+    property int organization_id: -1
     required property string title_name
     property string entry_name: ""
     
@@ -27,13 +28,52 @@ ApplicationWindow
     property string current_address
     property int current_person_id: -1
     property int current_address_id: -1
+    property string error_text: ""
 
-    onCurrent_person_idChanged: console.log("current person id", current_person_id)
-    onCurrent_address_idChanged: console.log("current address id", current_address_id)
+    onCurrent_person_idChanged: {
+        error_text = check_connection();
+    }
+    onCurrent_address_idChanged: {
+        error_text = check_connection();
+    }
 
     signal save_button_clicked()
     signal delete_button_clicked()
     signal initProperties(connection_id: int, organization_id: int)
+
+    function check_connection() {
+        // returns "" if check successfull, error message as string if not
+        if (current_person_id < 0 || current_address_id < 0) {
+            return qsTr("Specify person and address.");
+        }
+
+        const res = database.checkConnection(identifier, current_person_id, current_address_id);
+
+        if(res) {
+            return "";
+        }
+        else {
+            return qsTr("This combination already exists.");
+        }
+    }
+
+    onSave_button_clicked: {
+        error_text = database.saveConnection(identifier, organization_id, current_person_id, current_address_id);
+        
+        if (error_text === "") {
+            edit_dialog_window.close();
+        }
+    }
+
+    onDelete_button_clicked: {
+        if(database.deleteConnection(identifier)) {
+            edit_dialog_window.close();
+        }
+        else
+        {
+            error_text = qsTr("Couldn't delete connection.");
+        }
+    }
 
     function init(connection_id, organization_id) {
         edit_dialog_window.identifier = connection_id;
@@ -46,8 +86,7 @@ ApplicationWindow
         }
         edit_dialog_window.current_person = current_person_address_description[1];
         edit_dialog_window.current_address = current_person_address_description[2];
-
-        // TODO Make sure to only allow complete connections
+        edit_dialog_window.organization_id = organization_id;
 
         edit_dialog_window.initProperties(connection_id, organization_id);
     }
@@ -66,6 +105,7 @@ ApplicationWindow
         // Column heights
         property int combo_selection_person_height: (height - (row_count * spacing)) * 0.07
         property int combo_selection_address_height: (height - (row_count * spacing)) * 0.07
+        property int err_text_rect_height: (height - (row_count * spacing)) * 0.07
 
         Component
         {
@@ -172,6 +212,16 @@ ApplicationWindow
                     }
                 }
             }
+
+            ErrorRect
+            {
+                id: err_text_rect
+                width: parent.width - 8
+                height: main_column.err_text_rect_height
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: (error_text !== "") ? true : false
+                error_text: edit_dialog_window.error_text
+            }
         }
 
         Loader { sourceComponent: separator_component; }
@@ -192,12 +242,11 @@ ApplicationWindow
                 height: parent.height
                 hover_color: highlight_color
                 text: qsTr("Save")
-                button_enabled: true
+                button_enabled: (edit_dialog_window.error_text === "") ? true : false
 
                 onClicked:
                 {
                     edit_dialog_window.save_button_clicked();
-                    edit_dialog_window.close();
                 }
             }
 

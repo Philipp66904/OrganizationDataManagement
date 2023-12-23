@@ -174,12 +174,10 @@ TemplateEditDialog
                 onEdit_button_clicked: function edit_button_clicked(pk) {
                     organization_connection_dialog.show();
                     organization_connection_dialog.init(pk, identifier);
-                    // TODO implement
                 }
 
                 onDelete_button_clicked: function delete_button_clicked(pk) {
-                    console.log("delete");
-                    // TODO implement
+                    error_message = database.deleteConnection(pk);
                 }
             }
 

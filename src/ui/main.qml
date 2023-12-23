@@ -22,6 +22,7 @@ ApplicationWindow
     property color backgroundColor1: "#303030"
     property color backgroundColor2: "#535353"
     property color backgroundColor3: "#9f9f9f"
+    property color backgroundColorError: "#B35150"
     property color highlightColor: "#00EF00"
     property color textColor: "#ffffff"
 

@@ -569,6 +569,41 @@ class Database(QObject):
         return val
     
     
+    @Slot(int, int, int, result=bool)
+    def checkConnection(self, connection_id: int, person_id: int, address_id: int) -> bool:
+        """
+        Checks if a connection based on the person_id and address_id already exist.
+        The own connection_id is ignored in this search.
+        connection_id: Connection id if editing an existing connection, otherwise -1
+        person_id: Person id that should be checked
+        address_id: Address id that should be checked
+        returns: True if the connection doesn't exist yet (ignoring the own connection), otherwise False
+        """
+        
+        found_connection = None
+        
+        with self.con:    
+            if connection_id >= 0:
+                res = self.con.execute("""SELECT id
+                                          FROM connection
+                                          WHERE (NOT id = ?) AND person_id = ? AND address_id = ? LIMIT 1;""",
+                                       (connection_id, person_id, address_id))
+                
+                found_connection = res.fetchone()
+            else:
+                res = self.con.execute("""SELECT id
+                                          FROM connection
+                                          WHERE person_id = ? AND address_id = ? LIMIT 1;""",
+                                       (person_id, address_id))
+                
+                found_connection = res.fetchone()
+        
+        if found_connection is None:
+            return True
+        else:
+            return False
+    
+    
     def setModified_CreatedTimestamps(self, metadata_id: int):
         """
         Reads the saved created_time for a specific metadata entry.
@@ -632,3 +667,60 @@ class Database(QObject):
         self.setModified_CreatedTimestamps(metadata_id)
         self.dataChanged.emit()
         return ""
+    
+    
+    @Slot(int, int, int, int, result=str)
+    def saveConnection(self, connection_id: int, organization_id: int, person_id: int, address_id: int) -> str:
+        """
+        Edits an existing connection or creates a new one after checking if new connection already exists.
+        connection_id: Connection id that should be edited; -1 if a new connection shall be created
+        organization_id: Organization id in the new connection
+        person_id: Person id in the new connection
+        address_id: Address id in the new connection
+        returns: Empty string if no error, otherwise error message as string
+        """
+        
+        if organization_id < 0 or person_id < 0 or address_id < 0:
+            return "Not all ids for a connection defined."
+        
+        if not self.checkConnection(connection_id, person_id, address_id):
+            return "Connection is not unique."
+        
+        try:
+            with self.con:
+                if connection_id >= 0:
+                    # Edit existing connection
+                    self.con.execute("""UPDATE connection
+                                        SET person_id = ?, address_id = ?
+                                        WHERE id = ?;""",
+                                     (person_id, address_id, connection_id))
+                else:
+                    # Create new entry
+                    self.con.execute("""INSERT INTO connection (organization_id, person_id, address_id)
+                                        VALUES (?, ?, ?);""",
+                                     (organization_id, person_id, address_id))
+        except Error as e:
+            return str(e)
+        
+        self.dataChanged.emit()
+        return ""
+    
+    
+    @Slot(int, result=bool)
+    def deleteConnection(self, connection_id: int) -> bool:
+        """
+        Deletes a defined connection.
+        connectio_id: Connection id that shall be deleted
+        returns: True if successfull, else False
+        """
+        
+        if connection_id < 0:
+            return False
+        
+        with self.con:
+            self.con.execute("""DELETE FROM connection WHERE id = ?;""",
+                             (connection_id,))
+        
+        self.dataChanged.emit()
+        return True
+                
