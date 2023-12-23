@@ -49,7 +49,27 @@ class Database(QObject):
                 primary_key_column_names.append(column[1])
         
         return primary_key_column_names
-            
+    
+    
+    @Slot(str, result=list)
+    def getNonPrimaryKeyColumnNames(self, table_name: str) -> list:
+        """
+        Returns a list of column names for a specific table name that are not part of the primary key.
+        table_name: Table name where the caller wants the non primary key column names from
+        returns: List of strings
+        """
+        
+        with self.con:
+            res = self.con.execute(f"PRAGMA table_info({table_name});")
+            column_names = res.fetchall()
+        
+        non_primary_key_column_names = []
+        for column in column_names:
+            if column[5] == 0:
+                non_primary_key_column_names.append(column[1])
+        
+        return non_primary_key_column_names
+    
     
     @Slot(result=str)
     def slot_readTemplateDB(self) -> str:
@@ -665,6 +685,58 @@ class Database(QObject):
             return "Database::setName_Note_byPk: " + str(e)
         
         self.setModified_CreatedTimestamps(metadata_id)
+        self.dataChanged.emit()
+        return ""
+    
+    
+    @Slot(int, str, str, result=str)
+    def duplicateDerivate(self, pk: int, pk_column_name: str, table_name: str) -> str:
+        new_metadata_id = None
+        
+        try:
+            if pk < 0:
+                raise ValueError("Primary key < 0")
+            
+            column_names_non_pk = ", ".join(self.getNonPrimaryKeyColumnNames(table_name))
+            description_column_names_non_pk = ", ".join(self.getNonPrimaryKeyColumnNames("description"))
+            metadata_column_names_non_pk = ", ".join(self.getNonPrimaryKeyColumnNames("metadata"))
+            
+            with self.con:
+                # Duplicate description & metadata
+                res = self.con.execute(f"""SELECT description_id, metadata_id FROM {table_name} WHERE {pk_column_name} = ?""",
+                                       (pk,))
+                description_id, metadata_id = res.fetchone()
+                
+                self.con.execute(f"""INSERT INTO description ({description_column_names_non_pk})
+                                     SELECT {description_column_names_non_pk} FROM description WHERE id = ? LIMIT 1;""",
+                                 (description_id,))
+                res = self.con.execute("""SELECT last_insert_rowid() AS id;""")
+                new_description_id = res.fetchone()[0]
+                
+                self.con.execute(f"""INSERT INTO metadata ({metadata_column_names_non_pk})
+                                     SELECT {metadata_column_names_non_pk} FROM metadata WHERE id = ? LIMIT 1;""",
+                                 (metadata_id,))
+                res = self.con.execute("""SELECT last_insert_rowid() AS id;""")
+                new_metadata_id = res.fetchone()[0]
+                self.con.execute("""UPDATE metadata SET date_created = '' WHERE id = ?""",
+                                 (new_metadata_id,))
+                
+                # Duplicate entry
+                self.con.execute(f"""INSERT INTO organization ({column_names_non_pk})
+                                     SELECT {column_names_non_pk} FROM organization WHERE id = ? LIMIT 1;""",
+                                 (pk,))
+                res = self.con.execute("""SELECT last_insert_rowid() AS id;""")
+                new_pk = res.fetchone()[0]
+                
+                # Insert new description id and metadata id
+                self.con.execute(f"""UPDATE {table_name}
+                                     SET description_id = ?, metadata_id = ?
+                                     WHERE id = ?;""",
+                                 (new_description_id, new_metadata_id, new_pk))
+        except Error as e:
+            return str(e)
+        
+        self.setModified_CreatedTimestamps(new_metadata_id)
         self.dataChanged.emit()
         return ""
     

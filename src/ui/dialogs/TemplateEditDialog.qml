@@ -205,6 +205,9 @@ ApplicationWindow
                     }
 
                     onDuplicate_button_clicked: function duplicate_button_clicked(pk) {
+                        error_message = database.duplicateDerivate(pk, "id", edit_dialog_window.table_name);
+                        if(error_message !== "") return;
+
                         edit_dialog_window.derivate_duplicate_button_clicked(pk);
                     }
 

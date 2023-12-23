@@ -9,8 +9,9 @@ import "../components"
 Rectangle
 {
     id: template_root
-
     color: "transparent"
+
+    required property string table_name
 
     signal add_button_clicked()
     signal edit_button_clicked(selected_primary_key: int)
@@ -42,6 +43,9 @@ Rectangle
             template_root.edit_button_clicked(selected_primary_key)
         }
         onDuplicate_button_clicked: function duplicate_button_handler(selected_primary_key) {
+            error_message = database.duplicateDerivate(selected_primary_key, "id", table_name);
+            if(error_message !== "") return;
+
             template_root.duplicate_button_clicked(selected_primary_key)
         }
         onDelete_button_clicked: function delete_button_handler(selected_primary_key) {

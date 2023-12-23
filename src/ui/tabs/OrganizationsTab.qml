@@ -9,6 +9,7 @@ import tablemodule 1.0
 TemplateTab
 {
     id: tab_main
+    table_name: "organization"
     
     onAdd_button_clicked: function add_button_clicked() {
         organization_edit_dialog.pk_id = -1;

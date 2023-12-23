@@ -65,7 +65,7 @@ TemplateEditDialog
             if(error_message !== "") return;
         }
         else {
-            // TODO create new entry
+            // Create new entry
             let new_website = undefined;
             if(!property_website_derivate_flag) new_website = property_website;
 

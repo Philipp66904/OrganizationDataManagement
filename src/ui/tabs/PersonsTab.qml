@@ -9,6 +9,7 @@ import tablemodule 1.0
 TemplateTab
 {
     id: tab_main
+    table_name: "person"
     
     TableModel
     {
