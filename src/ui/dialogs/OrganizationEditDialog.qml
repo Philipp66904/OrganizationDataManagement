@@ -177,7 +177,9 @@ TemplateEditDialog
                 }
 
                 onDelete_button_clicked: function delete_button_clicked(pk) {
-                    error_message = database.deleteConnection(pk);
+                    if(!database.deleteConnection(pk)) {
+                        error_message = qsTr("Couldn't delete connection.");
+                    }
                 }
             }
 

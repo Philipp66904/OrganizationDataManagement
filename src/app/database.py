@@ -723,4 +723,3 @@ class Database(QObject):
         
         self.dataChanged.emit()
         return True
-                
