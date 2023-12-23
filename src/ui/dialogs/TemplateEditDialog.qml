@@ -27,7 +27,7 @@ ApplicationWindow
     required property string entry_name
     required property string table_name
 
-    required property int property_height
+    required property var property_height
 
     signal derivate_add_button_clicked()
     signal derivate_edit_button_clicked(selected_primary_key: int)
@@ -225,7 +225,7 @@ ApplicationWindow
                 {
                     id: property_settings
                     width: parent.width - 8
-                    height: edit_dialog_window.property_height
+                    height: edit_dialog_window.property_height * main_column.height
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     // implement the Component with the id property_component

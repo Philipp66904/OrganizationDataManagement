@@ -20,7 +20,7 @@ TemplateEditDialog
     table_name: qsTr("organization")
     property var parent_id: undefined
     property string qml_file_name: "OrganizationEditDialog.qml"
-    property_height: height * 0.8
+    property_height: 0.8
 
     onClosing: max_derivate_windows++;
 
@@ -106,13 +106,14 @@ TemplateEditDialog
         Column
         {
             spacing: 8
-            property var row_count: 8.5
+            property var row_count: 5
+            property var row_height_count: 9.5
 
             PropertyLineEdit
             {
                 id: property_line_edit_name
                 width: parent.width
-                height: (parent.height - (row_count * spacing)) / row_count
+                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Name")
                 value: property_name
                 derivate_value: ""
@@ -137,7 +138,7 @@ TemplateEditDialog
             {
                 id: derivate_description_text
                 width: parent.width
-                height: ((parent.height - (row_count * spacing)) / row_count) * 0.5
+                height: ((parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count) * 0.5
                 text: qsTr("Connections:")
                 font.pointSize: textSize
                 color: backgroundColor3
@@ -150,7 +151,7 @@ TemplateEditDialog
             Table
             {
                 id: connections_table
-                height: ((parent.height - (row_count * spacing)) / row_count) * 4
+                height: ((parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count) * 4
                 width: parent.width
                 parent_id: undefined
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -207,7 +208,7 @@ TemplateEditDialog
             {
                 id: property_line_edit_website
                 width: parent.width
-                height: (parent.height - (row_count * spacing)) / row_count
+                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Website")
                 value: property_website
                 derivate_value: undefined
@@ -236,7 +237,7 @@ TemplateEditDialog
             {
                 id: property_paragraph_edit_note
                 width: parent.width
-                height: ((parent.height - (row_count * spacing)) / row_count) * 3
+                height: ((parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count) * 3
                 description: qsTr("Note")
                 value: property_note
                 original_value: ""
