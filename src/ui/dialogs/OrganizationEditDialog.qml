@@ -43,17 +43,31 @@ TemplateEditDialog
         organization_dialog.property_name = (identifier >= 0) ? database.getName_byPk(identifier, "id", organization_dialog.table_name) : "";
         organization_dialog.property_note = (identifier >= 0) ? database.getNote_byPk(identifier, "id", organization_dialog.table_name) : "";
         
-        const property_website_tmp = (identifier >= 0) ? database.getOrganizationWebsite(identifier) : [undefined, false];
-        organization_dialog.property_website = property_website_tmp[0];
-        organization_dialog.property_website_derivate_flag = property_website_tmp[1];
-        organization_dialog.property_website_derivate = (identifier >= 0) ? database.getOrganizationWebsiteDerivate(identifier)[0] : undefined;
+        if(identifier >= 0) {
+            const property_website_tmp = database.getOrganizationWebsite(identifier);
+            organization_dialog.property_website = property_website_tmp[0];
+            organization_dialog.property_website_derivate_flag = property_website_tmp[1];
+
+            organization_dialog.property_website_derivate = database.getOrganizationWebsiteDerivate(identifier)[0];
+        }
+        else if(parent_identifier !== undefined && parent_identifier >= 0) {
+            const property_website_tmp = database.getOrganizationWebsite(parent_identifier);
+            organization_dialog.property_website = property_website_tmp[0];
+            organization_dialog.property_website_derivate_flag = true;
+
+            organization_dialog.property_website_derivate = database.getOrganizationWebsite(parent_identifier)[0];
+        }
+        else {
+            organization_dialog.property_website = undefined;
+            organization_dialog.property_website_derivate_flag = false;
+
+            organization_dialog.property_website_derivate = undefined;
+        }
 
         init();
     }
 
     onSave_button_clicked: {
-        console.log("save");
-
         if(identifier >= 0) {
             // Update existing entry
             error_message = database.setName_Note_byPk(property_name.trim(), property_note, identifier, "id", organization_dialog.table_name);
