@@ -1,2 +1,2 @@
-# Companydatamanagement
- Handling of personal data at various companys
+# Organizationdatamanagement
+ Handling of personal data at various organizations
