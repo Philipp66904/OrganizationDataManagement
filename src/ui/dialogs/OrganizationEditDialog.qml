@@ -89,11 +89,6 @@ TemplateEditDialog
         create_derivate_window(pk, qml_file_name);
     }
 
-    onDerivate_duplicate_button_clicked: function derivate_duplicate_button_clicked(pk) {
-        console.log("duplicate derivate:", pk)
-        // TODO implement
-    }
-
     onDerivate_delete_button_clicked: function derivate_delete_button_clicked(pk) {
         console.log("delete derivate:", pk)
         // TODO implement

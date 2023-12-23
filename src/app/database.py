@@ -690,7 +690,15 @@ class Database(QObject):
     
     
     @Slot(int, str, str, result=str)
-    def duplicateDerivate(self, pk: int, pk_column_name: str, table_name: str) -> str:
+    def duplicateEntry(self, pk: int, pk_column_name: str, table_name: str) -> str:
+        """
+        Shallow duplicate a specific entry with metadata and description.
+        pk: Primary key of the entry that shall be duplicated
+        pk_column_name: Column name of the primary key
+        table_name: Name of the table where the primary key column is located
+        returns: Error message as string; Empty string if no error
+        """
+        
         new_metadata_id = None
         
         try:

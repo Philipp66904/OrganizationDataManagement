@@ -43,7 +43,7 @@ Rectangle
             template_root.edit_button_clicked(selected_primary_key)
         }
         onDuplicate_button_clicked: function duplicate_button_handler(selected_primary_key) {
-            error_message = database.duplicateDerivate(selected_primary_key, "id", table_name);
+            error_message = database.duplicateEntry(selected_primary_key, "id", table_name);
             if(error_message !== "") return;
 
             template_root.duplicate_button_clicked(selected_primary_key)

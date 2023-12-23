@@ -23,10 +23,6 @@ TemplateTab
         organization_edit_dialog.init_dialog();
     }
 
-    onDuplicate_button_clicked: function duplicate_button_clicked(pk) {
-        console.log("duplicate:", pk)
-    }
-
     onDelete_button_clicked: function delete_button_clicked(pk) {
         console.log("delete:", pk)
     }
