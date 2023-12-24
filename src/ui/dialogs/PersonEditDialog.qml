@@ -204,8 +204,8 @@ TemplateEditDialog
         Column
         {
             spacing: 8
-            property var row_count: 5
-            property var row_height_count: 9.5
+            property var row_count: 7
+            property var row_height_count: 9
 
             PropertyLineEdit
             {
