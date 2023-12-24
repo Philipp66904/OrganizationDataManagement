@@ -639,7 +639,7 @@ class Database(QObject):
             return False
     
     
-    def setModified_CreatedTimestamps(self, metadata_id: int):
+    def setModified_CreatedTimestamps(self, metadata_id: int) -> None:
         """
         Reads the saved created_time for a specific metadata entry.
         If a valid timestamp is found, only the modified_time will be updated,
@@ -677,6 +677,17 @@ class Database(QObject):
     
     @Slot(str, str, int, str, str, result=str)
     def setName_Note_byPk(self, name: str, note: str, pk: int, pk_column_name: str, table_name: str) -> str:        
+        """
+        Sets the name and note for a specific table to the given values.
+        Additionaly, it also updates the modified and created timestamps in the metadata table.
+        name: New name that shall be set
+        note: New note that shall be set
+        pk: Primary key
+        pk_column_name: Name of the column where the primary key is located
+        table_name: Name of the table where the pk_column_name is located
+        returns: Error message as string; empty string if no error
+        """
+        
         metadata_id = None
         
         try:
@@ -702,6 +713,36 @@ class Database(QObject):
         self.setModified_CreatedTimestamps(metadata_id)
         self.dataChanged.emit()
         return ""
+    
+    
+    @Slot(str, int, str, str, None, result=str)
+    @Slot(str, int, str, str, str, result=str)
+    def setValue_Str(self, column_name: str, pk_id: int, pk_column_name: str, table_name: str, value: str | None = None) -> str:
+        """
+        Set a value in a column to a specific value.
+        column_name: Column name where the value should be set
+        pk_id: Primary key which specifies the row's value which shall be changed
+        pk_column_name: Column name of the primary key
+        table_name: Name of the table, where column_name and pk_column_name are located
+        value: New value that should be set
+        returns: Error message as string; empty string if no error
+        """
+        
+        try:
+            if pk_id < 0:
+                raise ValueError("Primary key < 0")
+            
+            with self.con:
+                self.con.execute(f"""UPDATE {table_name}
+                                    SET {column_name} = ?
+                                    WHERE {pk_column_name} = ?;""",
+                                    (value, pk_id))
+        except Error as e:
+            return "Database::setValue_Str: " + str(e)
+        
+        self.dataChanged.emit()
+        return ""
+            
     
     
     @Slot(int, str, str, result=str)
@@ -764,35 +805,9 @@ class Database(QObject):
         return ""
     
     
-    @Slot(int, None, result=str)
-    @Slot(int, str, result=str)
-    def saveOrganizationWebsite(self, organization_id: int, website: str | None = None) -> str:
-        """
-        Update the organization website of an existing organization.
-        organization_id: Organization id of the website that should be updated.
-        website: New website name or None if no website name is set (=Null).
-        returns: String with error message. Empty string if no error message.
-        """
-        
-        if organization_id < 0:
-            return "Database::saveOrganizationWebsite: Couldn't save organization website"
-        
-        try:
-            with self.con:
-                self.con.execute("""UPDATE organization
-                                    SET website = ?
-                                    WHERE id = ?""",
-                                    (website, organization_id))
-        except Error as e:
-            return "Database::saveOrganizationWebsite: " + str(e)
-        
-        self.dataChanged.emit()
-        return ""
-    
-    
     @Slot(str, str, int, None, result=str)
     @Slot(str, str, int, str, result=str)
-    def saveOrganization(self, name: str, note: str, parent_id: int, website: str | None = None) -> str:
+    def createOrganization(self, name: str, note: str, parent_id: int, website: str | None = None) -> str:
         """
         Creates a new organization in the db.
         name: Name of the new organization
@@ -825,7 +840,48 @@ class Database(QObject):
         
             self.setModified_CreatedTimestamps(metadata_id)
         except Error as e:
-            return "Database::saveOrganization: " + str(e)
+            return "Database::createOrganization: " + str(e)
+        
+        self.dataChanged.emit()
+        return ""
+    
+    
+    @Slot(str, str, int, list, result=str)
+    def createPerson(self, name: str, note: str, parent_id: int, values: list) -> str:
+        """
+        Creates a new person in the db.
+        name: Description name of the new person
+        note: Note of the new person
+        parent_id: Parent id of the new person; set to <0 if no parent exists
+        values: List of values for the new person:
+                list[title: str | None, gender: str | None, firstname: str | None, middlename: str | None, surname: str | None]
+        returns: Error message as string; Empty string if no error message
+        """
+        
+        metadata_id = None
+        description_id = None
+        
+        if parent_id < 0:
+            parent_id = None
+        
+        try:
+            with self.con:
+                res = self.con.execute("""INSERT INTO metadata (date_created, date_modified)
+                                        VALUES ('', '') RETURNING id;""")
+                metadata_id = res.fetchone()[0]
+                
+                res = self.con.execute("""INSERT INTO description (name, note)
+                                        VALUES (?, ?) RETURNING id;""",
+                                    (name, note))
+                description_id = res.fetchone()[0]
+                
+                self.con.execute("""INSERT INTO person (parent_id, description_id, metadata_id, title, gender, firstname, middlename, surname)
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?);""",
+                                (parent_id, description_id, metadata_id, values[0], values[1], values[2], values[3], values[4]))
+        
+            self.setModified_CreatedTimestamps(metadata_id)
+        except Error as e:
+            return "Database::createOrganization: " + str(e)
         
         self.dataChanged.emit()
         return ""
@@ -925,73 +981,81 @@ class Database(QObject):
         return ""
 
 
-    @Slot(int, result=list)
-    def getOrganizationWebsite(self, organization_id: int) -> list:
+    @Slot(int, str, str, str, result=list)
+    def getData(self, pk_id: int, pk_column_name: str, column_name: str, table_name: str) -> list:
         """
-        Returns the website for a specific organization.
-        If the organization's website is Null and it has a parent, the parent's website is returned (and so on).
-        organization_id: Organization id whose website shall be returned
-        returns: list[website_name: str | None, derivate_flag: bool].
-                 The derivate_flag is True if the website from one of the parents is returned, otherwise False.
+        Returns the column value for a specific table.
+        If the tables's column value is Null and it has a parent, the parent's column value is returned (and so on).
+        pk_id: Primary key id whose website shall be returned
+        pk_column_name: Column name of the primary key's column
+        column_name: Column name whose value shall be returned
+        table_name: Name of the table where the column_name and pk_column_name are located
+        returns: list[column_value: str | None, derivate_flag: bool].
+                 The derivate_flag is True if the column value from one of the parents is returned, otherwise False.
         """
         
-        if organization_id < 0:
+        if pk_id < 0:
             return ["", False]
         
-        website = None
-        parent_id = organization_id
+        result = None
+        parent_id = pk_id
         derivate = False
         
         with self.con:
-            while parent_id is not None and website is None:
-                res = self.con.execute("""SELECT website, parent_id FROM organization WHERE id = ?""",
+            while parent_id is not None and result is None:
+                res = self.con.execute(f"""SELECT {column_name}, parent_id
+                                           FROM {table_name}
+                                           WHERE {pk_column_name} = ?""",
                                        (parent_id,))
                 
-                website_res = res.fetchone()
-                website = website_res[0]
+                tmp_res = res.fetchone()
+                result = tmp_res[0]
                 
-                if website == None and parent_id == organization_id and website_res[1] is not None:
+                if result == None and parent_id == pk_id and tmp_res[1] is not None:
                     derivate = True
                 
-                parent_id = website_res[1]
-                
-        return [website, derivate]
+                parent_id = tmp_res[1]
+        
+        return [result, derivate]
     
     
-    @Slot(int, result=list)
-    def getOrganizationWebsiteDerivate(self, organization_id: int) -> list:
+    @Slot(int, str, str, str, result=list)
+    def getDataDerivate(self, pk_id: int, pk_column_name: str, column_name: str, table_name: str) -> list:
         """
-        Returns the parent's website. If the organization has no parent, [None] is returned.
-        If the parent's website is Null, searching for the website at parent's parent and so on.
-        organization_id: Organization id whose derivate website shall be returned
-        returns: list[website: str] if one exists, otherwise list[None]
+        Returns the parent's column value. If the row has no parent, [None] is returned.
+        If the parent's column valule is Null, searching for the column value at parent's parent and so on.
+        pk_id: Primary key id whose derivate column value shall be returned
+        pk_column_name: Column name of the primary key's column
+        column_name: Column name whose value shall be returned
+        table_name: Name of the table where the column_name and pk_column_name are located
+        returns: list[column_value: str] if one exists, otherwise list[None]
         """
         
-        if organization_id < 0:
+        if pk_id < 0:
             return [None]
         
-        website = None
-        parent_id = organization_id
+        result = None
+        parent_id = pk_id
         
         with self.con:
-            res = self.con.execute("""SELECT parent_id FROM organization WHERE id = ?""",
+            res = self.con.execute(f"""SELECT parent_id FROM {table_name} WHERE {pk_column_name} = ?""",
                                    (parent_id,))
             
             res_first = res.fetchone()
             parent_id = res_first[0]
             if parent_id is None:
-                # Organization is already root
+                # Row is already root
                 return [None]
             
-            while parent_id is not None and website is None:
-                res = self.con.execute("""SELECT website, parent_id FROM organization WHERE id = ?""",
+            while parent_id is not None and result is None:
+                res = self.con.execute(f"""SELECT {column_name}, parent_id FROM {table_name} WHERE {pk_column_name} = ?""",
                                        (parent_id,))
                 
-                website_res = res.fetchone()
-                website = website_res[0]
-                parent_id = website_res[1]
+                result_res = res.fetchone()
+                result = result_res[0]
+                parent_id = result_res[1]
         
-        return [website]
+        return [result]
     
     
     @Slot(int, str, str, result=list)

@@ -23,6 +23,7 @@ ApplicationWindow
     property color backgroundColor2: "#535353"
     property color backgroundColor3: "#9f9f9f"
     property color backgroundColorError: "#B35150"
+    property color backgroundColorNotification: "#51b350"
     property color highlightColor: "#00EF00"
     property color textColor: "#ffffff"
 
@@ -77,6 +78,12 @@ ApplicationWindow
     OrganizationEditDialog
     {
         id: organization_edit_dialog
+        pk_id: -1
+    }
+
+    PersonEditDialog
+    {
+        id: person_edit_dialog
         pk_id: -1
     }
 }

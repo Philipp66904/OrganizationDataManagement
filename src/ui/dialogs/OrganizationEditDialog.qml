@@ -17,7 +17,7 @@ TemplateEditDialog
     entry_name: qsTr("New Entry")
     window_title: qsTr("Add / Edit Organization")
     title_name: qsTr("Organization")
-    table_name: qsTr("organization")
+    table_name: "organization"
     property var parent_id: undefined
     property string qml_file_name: "OrganizationEditDialog.qml"
     property_height: 0.8
@@ -44,23 +44,20 @@ TemplateEditDialog
         organization_dialog.property_note = (identifier >= 0) ? database.getNote_byPk(identifier, "id", organization_dialog.table_name) : "";
         
         if(identifier >= 0) {
-            const property_website_tmp = database.getOrganizationWebsite(identifier);
+            const property_website_tmp = database.getData(identifier, "id", "website", organization_dialog.table_name);
             organization_dialog.property_website = property_website_tmp[0];
             organization_dialog.property_website_derivate_flag = property_website_tmp[1];
-
-            organization_dialog.property_website_derivate = database.getOrganizationWebsiteDerivate(identifier)[0];
+            organization_dialog.property_website_derivate = database.getDataDerivate(identifier, "id", "website", organization_dialog.table_name)[0];
         }
         else if(parent_identifier !== undefined && parent_identifier >= 0) {
-            const property_website_tmp = database.getOrganizationWebsite(parent_identifier);
+            const property_website_tmp = database.getData(parent_identifier, "id", "website", organization_dialog.table_name);
             organization_dialog.property_website = property_website_tmp[0];
             organization_dialog.property_website_derivate_flag = true;
-
-            organization_dialog.property_website_derivate = database.getOrganizationWebsite(parent_identifier)[0];
+            organization_dialog.property_website_derivate = database.getDataDerivate(parent_identifier, "id", "website", organization_dialog.table_name)[0];
         }
         else {
             organization_dialog.property_website = undefined;
             organization_dialog.property_website_derivate_flag = false;
-
             organization_dialog.property_website_derivate = undefined;
         }
 
@@ -75,7 +72,7 @@ TemplateEditDialog
 
             let new_website = undefined;
             if(!property_website_derivate_flag) new_website = property_website;
-            error_message = database.saveOrganizationWebsite(identifier, new_website);
+            error_message = database.setValue_Str("website", identifier, "id", organization_dialog.table_name, new_website);
             if(error_message !== "") return;
         }
         else {
@@ -86,7 +83,7 @@ TemplateEditDialog
             let new_parent_id = -1;
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
             
-            error_message = database.saveOrganization(property_name.trim(), property_note, new_parent_id, new_website);
+            error_message = database.createOrganization(property_name.trim(), property_note, new_parent_id, new_website);
             if(error_message !== "") return;
         }
     }

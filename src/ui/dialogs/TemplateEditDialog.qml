@@ -53,7 +53,7 @@ ApplicationWindow
         }
 
         var component = Qt.createComponent(qml_file_name);
-        var new_dialog_window = component.createObject(organization_dialog, { pk_id: pk, parent_id: identifier });
+        var new_dialog_window = component.createObject(edit_dialog_window, { pk_id: pk, parent_id: identifier });
 
         if (new_dialog_window == null) {
             error_message = qsTr("Error in creating a new window");
@@ -159,6 +159,19 @@ ApplicationWindow
                 spacing: main_column.spacing
                 property int row_count: 4
 
+                Item
+                {
+                    id: property_settings
+                    width: parent.width - 8
+                    height: edit_dialog_window.property_height * main_column.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    // implement the Component with the id property_component
+                    Loader { sourceComponent: property_component; anchors.fill: parent }
+                }
+
+                Loader { sourceComponent: separator_component; }
+
                 Text
                 {
                     id: derivate_description_text
@@ -217,19 +230,6 @@ ApplicationWindow
 
                         edit_dialog_window.derivate_delete_button_clicked(pk);
                     }
-                }
-
-                Loader { sourceComponent: separator_component; }
-
-                Item
-                {
-                    id: property_settings
-                    width: parent.width - 8
-                    height: edit_dialog_window.property_height * main_column.height
-                    anchors.horizontalCenter: parent.horizontalCenter
-
-                    // implement the Component with the id property_component
-                    Loader { sourceComponent: property_component; anchors.fill: parent }
                 }
             }
         }

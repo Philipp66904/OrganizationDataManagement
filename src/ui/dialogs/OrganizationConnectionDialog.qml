@@ -14,9 +14,9 @@ ApplicationWindow
     color: backgroundColor
     modality: Qt.ApplicationModal
     minimumWidth: 300
-    minimumHeight: 90
+    minimumHeight: 150
     width: rootWindow.width * 0.8
-    height: rootWindow.height * 0.8
+    height: rootWindow.height * 0.3
 
     required property string window_title
     required property var identifier  // -1 if new entry, otherwise connection.id
@@ -98,14 +98,14 @@ ApplicationWindow
         spacing: 4
         property int row_count: 4
 
-        property int title_rect_height: (height - (row_count * spacing)) * 0.07
-        property int selection_column_height: (height - (row_count * spacing)) * 0.87
-        property int button_row_height: (height - (row_count * spacing)) * 0.06
+        property int title_rect_height: (height - (row_count * spacing)) * 0.20
+        property int selection_column_height: (height - (row_count * spacing)) * 0.65
+        property int button_row_height: (height - (row_count * spacing)) * 0.15
 
         // Column heights
-        property int combo_selection_person_height: (height - (row_count * spacing)) * 0.07
-        property int combo_selection_address_height: (height - (row_count * spacing)) * 0.07
-        property int err_text_rect_height: (height - (row_count * spacing)) * 0.07
+        property int combo_selection_person_height: (main_column.selection_column_height - (row_count * spacing)) * 0.33
+        property int combo_selection_address_height: (main_column.selection_column_height - (row_count * spacing)) * 0.33
+        property int err_text_rect_height: (main_column.selection_column_height - (row_count * spacing)) * 0.33
 
         Component
         {
@@ -221,6 +221,16 @@ ApplicationWindow
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: (error_text !== "") ? true : false
                 error_text: edit_dialog_window.error_text
+            }
+
+            NotificationRect
+            {
+                id: notification_text_rect
+                width: err_text_rect.width
+                height: err_text_rect.height
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: !err_text_rect.visible
+                notification_text: qsTr("Combination available.")
             }
         }
 
