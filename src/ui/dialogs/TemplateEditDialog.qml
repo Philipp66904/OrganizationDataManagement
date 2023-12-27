@@ -72,7 +72,7 @@ ApplicationWindow
         property int row_count: 6
 
         property int title_rect_height: (height - (row_count * spacing)) * 0.07
-        property int scrollview_height: (height - (row_count * spacing)) * 0.82
+        property int scrollview_height: (height - (row_count * spacing)) * 0.84
         property int button_row_height: (height - (row_count * spacing)) * 0.06
         property int date_row_height: (height - (row_count * spacing)) - title_rect_height - scrollview_height - button_row_height - 2
 
