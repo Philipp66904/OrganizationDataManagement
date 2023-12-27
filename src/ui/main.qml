@@ -81,6 +81,12 @@ ApplicationWindow
         pk_id: -1
     }
 
+    AddressEditDialog
+    {
+        id: address_edit_dialog
+        pk_id: -1
+    }
+
     PersonEditDialog
     {
         id: person_edit_dialog

@@ -345,6 +345,79 @@ class Database(QObject):
         return res
     
     
+    @Slot(int, str, str, str, str, result=list)
+    def getDataOther(self, pk_id: int, pk_column_name: str, table_name: str, fk_column_name: str, other_table_name: str) -> list:
+        """
+        Returns the 'other' data for a specific table sorted by 'other_index'.
+        pk_id: Address id which entries should be filtered for
+        pk_column_name: Name of the primary key column name in the base table
+        table_name: Base table name
+        fk_column_name: Name of the foreign key column in the 'other' table
+        other_table_name: Other table name
+        returns: list[list[other_id: int, other_index: int, content: str, derivate_flag: bool]]
+        """
+        
+        if pk_id < 0:
+            return []
+        
+        res = {}
+        
+        def getOther(primary_key: int) -> list:
+            """Returns a list with tuples with the following format for a specific address_id:
+               list[other_id: int, other_index: int, content: str]"""
+            
+            res = self.con.execute(f"""SELECT o.id, o.other_index, o.content
+                                       FROM {table_name} t, {other_table_name} o
+                                       WHERE o.{fk_column_name} = ? AND o.{fk_column_name} = t.{pk_column_name}
+                                       ORDER BY o.other_index ASC;""",
+                                   (primary_key,))
+            
+            result = res.fetchall()
+            if result is None:
+                result = []
+            
+            return result
+        
+        def getParentId(primary_key: int) -> int | None:
+            """Returns the parent id for a specific address_id"""
+            
+            res = self.con.execute(f"""SELECT parent_id FROM {table_name} WHERE {pk_column_name} = ? LIMIT 1;""",
+                                   (primary_key,))
+            
+            parent_id_res = res.fetchone()
+            
+            if parent_id_res is None:
+                return None
+            else:
+                return parent_id_res[0]
+        
+        with self.con:
+            original_other_data = getOther(pk_id)
+            
+            for other_data_row in original_other_data:
+                res[other_data_row[1]] = [other_data_row[0], other_data_row[1], other_data_row[2], False]
+            
+            parent_id = getParentId(pk_id)
+            
+            while parent_id is not None:                
+                other_data = getOther(parent_id)
+                
+                for other_data_row in other_data:
+                    if other_data_row[1] not in res:
+                        res[other_data_row[1]] = [other_data_row[0], other_data_row[1], other_data_row[2], True]
+                
+                parent_id = getParentId(parent_id)
+        
+        if len(res) <= 0:
+            return []
+        
+        # Sort res dict and convert into list
+        sorted_keys = sorted(res.keys())
+        sorted_values = [res[key] for key in sorted_keys]
+        
+        return sorted_values
+    
+    
     @Slot(int, result=list)
     def getConnections(self, organization_id: int) -> list:
         """

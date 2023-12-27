@@ -10,6 +10,18 @@ TemplateTab
 {
     id: tab_main
     table_name: "address"
+
+    onAdd_button_clicked: function add_button_clicked() {
+        address_edit_dialog.pk_id = -1;
+        address_edit_dialog.show();
+        address_edit_dialog.init_dialog();
+    }
+
+    onEdit_button_clicked: function edit_button_clicked(pk) {
+        address_edit_dialog.pk_id = pk;
+        address_edit_dialog.show();
+        address_edit_dialog.init_dialog();
+    }
     
     TableModel
     {
