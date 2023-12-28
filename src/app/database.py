@@ -27,6 +27,7 @@ class Database(QObject):
         self.con = sqlite3.connect(":memory:")
         self.path_template_db = Path(__file__).parent / "res" / "template.db"
         self.settings = settings
+        self.supported_db_version = "1.0"
         
         self.readTemplateDB()
         
@@ -145,13 +146,24 @@ class Database(QObject):
         
         # Check if path exists
         if not os.path.isfile(db_path):
-            # TODO remove file from recent files list
             self.settings.removeRecentFile(db_path)
             raise RuntimeError("Database::readDB: file doesn't exist")
         
         try:
             # Open source database path
             con_external = sqlite3.connect(db_path)
+            
+            # Check db version
+            with con_external:
+                res = con_external.execute("""SELECT content FROM __meta__ WHERE name = 'db_version';""")
+                res_tmp = res.fetchone()
+                if res_tmp is None:
+                    raise RuntimeError("Database::readDB: No db_version was found")
+                
+                db_version = res_tmp[0]
+            
+            if not (db_version == self.supported_db_version):
+                raise RuntimeError(f"Database::readDB: Incorrect db_version: {db_version} (supported: {self.supported_db_version})")
             
             # Copy data over
             with con_external:
