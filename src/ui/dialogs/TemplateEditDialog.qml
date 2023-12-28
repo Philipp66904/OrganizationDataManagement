@@ -327,6 +327,12 @@ ApplicationWindow
                 const dates = database.getMetadata(identifier, "id", table_name);
                 date_row.modified_date = dates[0];
                 date_row.created_date = dates[1];
+
+                if(dates[0] === "" && dates[1] === "") {
+                    const new_entry_description_text = qsTr("New Entry");
+                    date_row.modified_date = new_entry_description_text;
+                    date_row.created_date = new_entry_description_text;
+                }
             }
 
             Connections {
