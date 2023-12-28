@@ -197,6 +197,11 @@ TemplateEditDialog
         create_derivate_window(pk, qml_file_name);
     }
 
+    onDerivate_duplicate_button_clicked: function derivate_duplicate_button_clicked(pk) {
+        error_message = database.duplicateEntry(pk, "id", person_dialog.table_name);
+        if(error_message !== "") return;
+    }
+
     Component
     {
         id: property_component

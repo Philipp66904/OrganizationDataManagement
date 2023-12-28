@@ -21,16 +21,28 @@ TemplateEditDialog
     property string table_name_other: "address_other"
     property var parent_id: undefined
     property string qml_file_name: "AddressEditDialog.qml"
-    property_height: 0.8
+    property_height: 1.2
 
     onClosing: max_derivate_windows++;
 
     // current property values
     property string property_name: ""
     property string property_note: ""
-    property var property_title: ""
-    property bool property_title_derivate_flag: false
-    property var property_title_derivate: undefined
+    property var property_street: ""
+    property bool property_street_derivate_flag: false
+    property var property_street_derivate: undefined
+    property var property_number: ""
+    property bool property_number_derivate_flag: false
+    property var property_number_derivate: undefined
+    property var property_postalcode: ""
+    property bool property_postalcode_derivate_flag: false
+    property var property_postalcode_derivate: undefined
+    property var property_city: ""
+    property bool property_city_derivate_flag: false
+    property var property_city_derivate: undefined
+    property var property_country: ""
+    property bool property_country_derivate_flag: false
+    property var property_country_derivate: undefined
 
     ListModel
     {
@@ -50,21 +62,77 @@ TemplateEditDialog
         address_dialog.property_note = (identifier >= 0) ? database.getNote_byPk(identifier, "id", address_dialog.table_name) : "";
         
         if(identifier >= 0) {
-            // const property_title_tmp = database.getData(identifier, "id", "title", address_dialog.table_name);
-            // address_dialog.property_title = property_title_tmp[0];
-            // address_dialog.property_title_derivate_flag = property_title_tmp[1];
-            // address_dialog.property_title_derivate = database.getDataDerivate(identifier, "id", "title", address_dialog.table_name)[0];
+            const property_street_tmp = database.getData(identifier, "id", "street", address_dialog.table_name);
+            address_dialog.property_street = property_street_tmp[0];
+            address_dialog.property_street_derivate_flag = property_street_tmp[1];
+            address_dialog.property_street_derivate = database.getDataDerivate(identifier, "id", "street", address_dialog.table_name)[0];
+
+            const property_number_tmp = database.getData(identifier, "id", "number", address_dialog.table_name);
+            address_dialog.property_number = property_number_tmp[0];
+            address_dialog.property_number_derivate_flag = property_number_tmp[1];
+            address_dialog.property_number_derivate = database.getDataDerivate(identifier, "id", "number", address_dialog.table_name)[0];
+
+            const property_postalcode_tmp = database.getData(identifier, "id", "postalcode", address_dialog.table_name);
+            address_dialog.property_postalcode = property_postalcode_tmp[0];
+            address_dialog.property_postalcode_derivate_flag = property_postalcode_tmp[1];
+            address_dialog.property_postalcode_derivate = database.getDataDerivate(identifier, "id", "postalcode", address_dialog.table_name)[0];
+
+            const property_city_tmp = database.getData(identifier, "id", "city", address_dialog.table_name);
+            address_dialog.property_city = property_city_tmp[0];
+            address_dialog.property_city_derivate_flag = property_city_tmp[1];
+            address_dialog.property_city_derivate = database.getDataDerivate(identifier, "id", "city", address_dialog.table_name)[0];
+
+            const property_country_tmp = database.getData(identifier, "id", "country", address_dialog.table_name);
+            address_dialog.property_country = property_country_tmp[0];
+            address_dialog.property_country_derivate_flag = property_country_tmp[1];
+            address_dialog.property_country_derivate = database.getDataDerivate(identifier, "id", "country", address_dialog.table_name)[0];
         }
         else if(parent_identifier !== undefined && parent_identifier >= 0) {
-            // const property_title_tmp = database.getData(parent_identifier, "id", "title", address_dialog.table_name);
-            // address_dialog.property_title = property_title_tmp[0];
-            // address_dialog.property_title_derivate_flag = true;
-            // address_dialog.property_title_derivate = database.getDataDerivate(parent_identifier, "id", "title", address_dialog.table_name)[0];
+            const property_street_tmp = database.getData(parent_identifier, "id", "street", address_dialog.table_name);
+            address_dialog.property_street = property_street_tmp[0];
+            address_dialog.property_street_derivate_flag = true;
+            address_dialog.property_street_derivate = database.getDataDerivate(parent_identifier, "id", "street", address_dialog.table_name)[0];
+
+            const property_number_tmp = database.getData(parent_identifier, "id", "number", address_dialog.table_name);
+            address_dialog.property_number = property_number_tmp[0];
+            address_dialog.property_number_derivate_flag = true;
+            address_dialog.property_number_derivate = database.getDataDerivate(parent_identifier, "id", "number", address_dialog.table_name)[0];
+
+            const property_postalcode_tmp = database.getData(parent_identifier, "id", "postalcode", address_dialog.table_name);
+            address_dialog.property_postalcode = property_postalcode_tmp[0];
+            address_dialog.property_postalcode_derivate_flag = true;
+            address_dialog.property_postalcode_derivate = database.getDataDerivate(parent_identifier, "id", "postalcode", address_dialog.table_name)[0];
+
+            const property_city_tmp = database.getData(parent_identifier, "id", "city", address_dialog.table_name);
+            address_dialog.property_city = property_city_tmp[0];
+            address_dialog.property_city_derivate_flag = true;
+            address_dialog.property_city_derivate = database.getDataDerivate(parent_identifier, "id", "city", address_dialog.table_name)[0];
+
+            const property_country_tmp = database.getData(parent_identifier, "id", "country", address_dialog.table_name);
+            address_dialog.property_country = property_country_tmp[0];
+            address_dialog.property_country_derivate_flag = true;
+            address_dialog.property_country_derivate = database.getDataDerivate(parent_identifier, "id", "country", address_dialog.table_name)[0];
         }
         else {
-            // address_dialog.property_title = undefined;
-            // address_dialog.property_title_derivate_flag = false;
-            // address_dialog.property_title_derivate = undefined;
+            address_dialog.property_street = undefined;
+            address_dialog.property_street_derivate_flag = false;
+            address_dialog.property_street_derivate = undefined;
+
+            address_dialog.property_number = undefined;
+            address_dialog.property_number_derivate_flag = false;
+            address_dialog.property_number_derivate = undefined;
+
+            address_dialog.property_postalcode = undefined;
+            address_dialog.property_postalcode_derivate_flag = false;
+            address_dialog.property_postalcode_derivate = undefined;
+
+            address_dialog.property_city = undefined;
+            address_dialog.property_city_derivate_flag = false;
+            address_dialog.property_city_derivate = undefined;
+
+            address_dialog.property_country = undefined;
+            address_dialog.property_country_derivate_flag = false;
+            address_dialog.property_country_derivate = undefined;
         }
 
         // init address_other properties
@@ -104,44 +172,80 @@ TemplateEditDialog
     }
 
     onSave_button_clicked: {
-        // TODO save address_other_list_model to db:
-        //      Check if any changes were made to the others, if yes delete all others and create new
+        // Get all 'other' address contents in specific format
+        const address_other_array = []
+        for(let i = 0; i < address_other_list_model.count; i++) {
+            let address_other = address_other_list_model.get(i);
 
+            const changes_obj = {}
+            for (var attribute in address_other) {
+                changes_obj[attribute] = address_other[attribute];
+            }
+            changes_obj["other_index"] = i;
+
+            if(changes_obj["property_derivate_flag"] === false) {
+                address_other_array.push(changes_obj);
+            }
+        }
+
+        // Save address
         if(identifier >= 0) {
             // Update existing entry
             error_message = database.setName_Note_byPk(property_name.trim(), property_note, identifier, "id", address_dialog.table_name);
             if(error_message !== "") return;
 
-            const address_array = []
-            for(let i = 0; i < address_other_list_model.count; i++) {
-                let address_other = address_other_list_model.get(i);
-
-                const changes_obj = {}
-                for (var attribute in address_other) {
-                    changes_obj[attribute] = address_other[attribute];
-                }
-                changes_obj["other_index"] = i;
-
-                if(changes_obj["property_derivate_flag"] === false) {
-                    address_array.push(changes_obj);
-                }
-            }
-            error_message = database.setOther(identifier, "address_id", "address_other", address_array);
+            error_message = database.setOther(identifier, "address_id", "address_other", address_other_array);
             if(error_message !== "") return;
 
-            // let new_title = undefined;
-            // if(!property_title_derivate_flag) new_title = property_title;
-            // error_message = database.setValue_Str("title", identifier, "id", address_dialog.table_name, new_title);
-            // if(error_message !== "") return;
+            let new_street = undefined;
+            if(!property_street_derivate_flag) new_street = property_street;
+            error_message = database.setValue_Str("street", identifier, "id", address_dialog.table_name, new_street);
+            if(error_message !== "") return;
+
+            let new_number = undefined;
+            if(!property_number_derivate_flag) new_number = property_number;
+            error_message = database.setValue_Str("number", identifier, "id", address_dialog.table_name, new_number);
+            if(error_message !== "") return;
+
+            let new_postalcode = undefined;
+            if(!property_postalcode_derivate_flag) new_postalcode = property_postalcode;
+            error_message = database.setValue_Str("postalcode", identifier, "id", address_dialog.table_name, new_postalcode);
+            if(error_message !== "") return;
+
+            let new_city = undefined;
+            if(!property_city_derivate_flag) new_city = property_city;
+            error_message = database.setValue_Str("city", identifier, "id", address_dialog.table_name, new_city);
+            if(error_message !== "") return;
+
+            let new_country = undefined;
+            if(!property_country_derivate_flag) new_country = property_country;
+            error_message = database.setValue_Str("country", identifier, "id", address_dialog.table_name, new_country);
+            if(error_message !== "") return;
         }
         else {
             // Create new entry
-            // let new_title = undefined;
-            // if(!property_title_derivate_flag) new_title = property_title;
+            let new_street = undefined;
+            if(!property_street_derivate_flag) new_street = property_street;
+
+            let new_number = undefined;
+            if(!property_number_derivate_flag) new_number = property_number;
+
+            let new_postalcode = undefined;
+            if(!property_postalcode_derivate_flag) new_postalcode = property_postalcode;
+
+            let new_city = undefined;
+            if(!property_city_derivate_flag) new_city = property_city;
+
+            let new_country = undefined;
+            if(!property_country_derivate_flag) new_country = property_country;
             
-            // error_message = database.createPerson(property_name.trim(), property_note, new_parent_id,
-            //                                       [new_title, new_gender, new_firstname, new_middlename, new_surname]);
-            // if(error_message !== "") return;
+            let new_parent_id = -1;
+            if(parent_identifier !== undefined) new_parent_id = parent_identifier;
+
+            error_message = database.createAddress(property_name.trim(), property_note, new_parent_id,
+                                                   [new_street, new_number, new_postalcode, new_city, new_country],
+                                                   address_other_array);
+            if(error_message !== "") return;
         }
     }
 
@@ -153,6 +257,11 @@ TemplateEditDialog
         create_derivate_window(pk, qml_file_name);
     }
 
+    onDerivate_duplicate_button_clicked: function derivate_duplicate_button_clicked(pk) {
+        error_message = database.duplicateEntry(pk, "id", address_dialog.table_name, "address_id", "address_other");
+        if(error_message !== "") return;
+    }
+
     Component
     {
         id: property_component
@@ -161,8 +270,8 @@ TemplateEditDialog
         {
             id: property_column
             spacing: 8
-            property var row_count: 3
-            property var row_height_count: 7
+            property var row_count: 8
+            property var row_height_count: 12
 
             PropertyLineEdit
             {
@@ -186,6 +295,151 @@ TemplateEditDialog
 
                     if(identifier < 0 && value.trim() === "") address_dialog.entry_name = "New Entry";
                     else address_dialog.entry_name = value.trim();
+                }
+            }
+
+            PropertyLineEdit
+            {
+                id: property_line_edit_street
+                width: parent.width
+                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
+                description: qsTr("Street")
+                value: property_street
+                derivate_value: undefined
+                derivate_mode: true
+                derivate_flag: (value === undefined) ? true : address_dialog.property_street_derivate_flag
+
+                Connections {
+                    target: address_dialog
+                    function onInitProperties() {
+                        property_line_edit_street.derivate_flag = Qt.binding(function() { return (property_line_edit_street.value === undefined) ? true : address_dialog.property_street_derivate_flag; })
+                        
+                        property_line_edit_street.value = property_street;
+                        property_line_edit_street.derivate_value = property_street_derivate;
+                    }
+                }
+
+                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    if (!undefined_flag) property_street = value;
+                    else property_street = undefined;
+
+                    address_dialog.property_street_derivate_flag = derivate_flag;
+                }
+            }
+
+            PropertyLineEdit
+            {
+                id: property_line_edit_number
+                width: parent.width
+                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
+                description: qsTr("Number")
+                value: property_number
+                derivate_value: undefined
+                derivate_mode: true
+                derivate_flag: (value === undefined) ? true : address_dialog.property_number_derivate_flag
+
+                Connections {
+                    target: address_dialog
+                    function onInitProperties() {
+                        property_line_edit_number.derivate_flag = Qt.binding(function() { return (property_line_edit_number.value === undefined) ? true : address_dialog.property_number_derivate_flag; })
+                        
+                        property_line_edit_number.value = property_number;
+                        property_line_edit_number.derivate_value = property_number_derivate;
+                    }
+                }
+
+                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    if (!undefined_flag) property_number = value;
+                    else property_number = undefined;
+
+                    address_dialog.property_number_derivate_flag = derivate_flag;
+                }
+            }
+
+            PropertyLineEdit
+            {
+                id: property_line_edit_postalcode
+                width: parent.width
+                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
+                description: qsTr("Postalcode")
+                value: property_postalcode
+                derivate_value: undefined
+                derivate_mode: true
+                derivate_flag: (value === undefined) ? true : address_dialog.property_postalcode_derivate_flag
+
+                Connections {
+                    target: address_dialog
+                    function onInitProperties() {
+                        property_line_edit_postalcode.derivate_flag = Qt.binding(function() { return (property_line_edit_postalcode.value === undefined) ? true : address_dialog.property_postalcode_derivate_flag; })
+                        
+                        property_line_edit_postalcode.value = property_postalcode;
+                        property_line_edit_postalcode.derivate_value = property_postalcode_derivate;
+                    }
+                }
+
+                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    if (!undefined_flag) property_postalcode = value;
+                    else property_postalcode = undefined;
+
+                    address_dialog.property_postalcode_derivate_flag = derivate_flag;
+                }
+            }
+
+            PropertyLineEdit
+            {
+                id: property_line_edit_city
+                width: parent.width
+                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
+                description: qsTr("City")
+                value: property_city
+                derivate_value: undefined
+                derivate_mode: true
+                derivate_flag: (value === undefined) ? true : address_dialog.property_city_derivate_flag
+
+                Connections {
+                    target: address_dialog
+                    function onInitProperties() {
+                        property_line_edit_city.derivate_flag = Qt.binding(function() { return (property_line_edit_city.value === undefined) ? true : address_dialog.property_city_derivate_flag; })
+                        
+                        property_line_edit_city.value = property_city;
+                        property_line_edit_city.derivate_value = property_city_derivate;
+                    }
+                }
+
+                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    if (!undefined_flag) property_city = value;
+                    else property_city = undefined;
+
+                    address_dialog.property_city_derivate_flag = derivate_flag;
+                }
+            }
+
+            PropertyLineEdit
+            {
+                id: property_line_edit_country
+                width: parent.width
+                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
+                description: qsTr("Country")
+                value: property_country
+                derivate_value: undefined
+                derivate_mode: true
+                derivate_flag: (value === undefined) ? true : address_dialog.property_country_derivate_flag
+
+                Connections {
+                    target: address_dialog
+                    function onInitProperties() {
+                        property_line_edit_country.derivate_flag = Qt.binding(function() { return (property_line_edit_country.value === undefined) ? true : address_dialog.property_country_derivate_flag; })
+                        
+                        property_line_edit_country.value = property_country;
+                        property_line_edit_country.derivate_value = property_country_derivate;
+                    }
+                }
+
+                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    if (!undefined_flag) property_country = value;
+                    else property_country = undefined;
+
+                    address_dialog.property_country_derivate_flag = derivate_flag;
                 }
             }
 
@@ -335,35 +589,6 @@ TemplateEditDialog
                     }
                 }
             }
-
-            // PropertyLineEdit
-            // {
-            //     id: property_line_edit_title
-            //     width: parent.width
-            //     height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
-            //     description: qsTr("Title")
-            //     value: property_title
-            //     derivate_value: undefined
-            //     derivate_mode: true
-            //     derivate_flag: (value === undefined) ? true : address_dialog.property_title_derivate_flag
-
-            //     Connections {
-            //         target: address_dialog
-            //         function onInitProperties() {
-            //             property_line_edit_title.derivate_flag = Qt.binding(function() { return (property_line_edit_title.value === undefined) ? true : address_dialog.property_title_derivate_flag; })
-                        
-            //             property_line_edit_title.value = property_title;
-            //             property_line_edit_title.derivate_value = property_title_derivate;
-            //         }
-            //     }
-
-            //     onNew_value: function new_value(value, derivate_flag, undefined_flag) {
-            //         if (!undefined_flag) property_title = value;
-            //         else property_title = undefined;
-
-            //         address_dialog.property_title_derivate_flag = derivate_flag;
-            //     }
-            // }
 
             PropertyParagraphEdit
             {

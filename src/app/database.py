@@ -866,7 +866,8 @@ class Database(QObject):
     
     
     @Slot(int, str, str, result=str)
-    def duplicateEntry(self, pk: int, pk_column_name: str, table_name: str) -> str:
+    @Slot(int, str, str, str, str, result=str)
+    def duplicateEntry(self, pk: int, pk_column_name: str, table_name: str, other_fk_column_name: str | None = None, other_table_name: str | None = None) -> str:
         """
         Shallow duplicate a specific entry with metadata and description.
         pk: Primary key of the entry that shall be duplicated
@@ -884,6 +885,11 @@ class Database(QObject):
             column_names_non_pk = ", ".join(self.getNonPrimaryKeyColumnNames(table_name))
             description_column_names_non_pk = ", ".join(self.getNonPrimaryKeyColumnNames("description"))
             metadata_column_names_non_pk = ", ".join(self.getNonPrimaryKeyColumnNames("metadata"))
+            other_column_names_non_pk = None
+            if other_fk_column_name is not None and other_table_name is not None:
+                res_list = self.getNonPrimaryKeyColumnNames(other_table_name)
+                res_list.remove(other_fk_column_name)
+                other_column_names_non_pk = ", ".join(res_list)
             
             with self.con:
                 # Duplicate description & metadata
@@ -906,8 +912,8 @@ class Database(QObject):
                                  (new_metadata_id,))
                 
                 # Duplicate entry
-                self.con.execute(f"""INSERT INTO organization ({column_names_non_pk})
-                                     SELECT {column_names_non_pk} FROM organization WHERE id = ? LIMIT 1;""",
+                self.con.execute(f"""INSERT INTO {table_name} ({column_names_non_pk})
+                                     SELECT {column_names_non_pk} FROM {table_name} WHERE id = ? LIMIT 1;""",
                                  (pk,))
                 res = self.con.execute("""SELECT last_insert_rowid() AS id;""")
                 new_pk = res.fetchone()[0]
@@ -917,6 +923,14 @@ class Database(QObject):
                                      SET description_id = ?, metadata_id = ?
                                      WHERE id = ?;""",
                                  (new_description_id, new_metadata_id, new_pk))
+                
+                # Duplicate other table
+                if other_fk_column_name is not None and other_table_name is not None and other_column_names_non_pk is not None:
+                    self.con.execute(f"""INSERT INTO {other_table_name} ({other_fk_column_name}, {other_column_names_non_pk})
+                                         SELECT {new_pk} AS {other_fk_column_name}, {other_column_names_non_pk}
+                                             FROM {other_table_name}
+                                             WHERE {other_fk_column_name} = ?;""",
+                                     (pk,))
         except Error as e:
             return "Database::duplicateEntry: " + str(e)
         
@@ -1001,7 +1015,53 @@ class Database(QObject):
         
             self.setModified_CreatedTimestamps(metadata_id)
         except Error as e:
-            return "Database::createOrganization: " + str(e)
+            return "Database::createPerson: " + str(e)
+        
+        self.dataChanged.emit()
+        return ""
+    
+    
+    @Slot(str, str, int, list, list, result=str)
+    def createAddress(self, name: str, note: str, parent_id: int, values: list, other: list) -> str:
+        """
+        Creates a new address in the db.
+        name: Description name of the new address
+        note: Note of the new address
+        parent_id: Parent id of the new address; set to <0 if no parent exists
+        values: List of values for the new address:
+                list[street: str | None, number: str | None, postalcode: str | None, city: str | None, country: str | None]
+        other: List of 'other' values to be set:
+               list[dict['other_index': int, 'property_derivate_flag': bool, 'property_value': str]]
+        returns: Error message as string; Empty string if no error message
+        """
+        
+        metadata_id = None
+        description_id = None
+        
+        if parent_id < 0:
+            parent_id = None
+        
+        try:
+            with self.con:
+                res = self.con.execute("""INSERT INTO metadata (date_created, date_modified)
+                                        VALUES ('', '') RETURNING id;""")
+                metadata_id = res.fetchone()[0]
+                
+                res = self.con.execute("""INSERT INTO description (name, note)
+                                        VALUES (?, ?) RETURNING id;""",
+                                    (name, note))
+                description_id = res.fetchone()[0]
+                
+                res = self.con.execute("""INSERT INTO address (parent_id, description_id, metadata_id, street, number, postalcode, city, country)
+                                          VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;""",
+                                       (parent_id, description_id, metadata_id, values[0], values[1], values[2], values[3], values[4]))
+        
+                pk_id = res.fetchone()[0]
+            
+            self.setOther(pk_id, "address_id", "address_other", other)
+            self.setModified_CreatedTimestamps(metadata_id)
+        except Error as e:
+            return "Database::createAddress: " + str(e)
         
         self.dataChanged.emit()
         return ""
@@ -1081,7 +1141,7 @@ class Database(QObject):
                 # Delete entry                
                 self.con.execute(f"""DELETE FROM {table_name} WHERE {pk_column_name} = ?;""",
                                  (pk,))
-                
+            
             with self.con:
                 # Delete all descriptions that are no longer referenced
                 self.con.execute("""DELETE FROM description
