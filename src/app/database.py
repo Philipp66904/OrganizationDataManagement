@@ -827,7 +827,42 @@ class Database(QObject):
         
         self.dataChanged.emit()
         return ""
+    
+    
+    @Slot(int, str, str, list, result=str)
+    def setOther(self, fk_id: int, fk_column_name: str, table_name: str, new_other: list) -> str:
+        """
+        Saves the 'other' entries for a specific entry.
+        fk_id: Identifier of the base entry
+        fk_column_name: Name of the foreign key column in the 'other' table
+        table_name: 'other' table name
+        new_other: List of new values to be set:
+                   list[dict['other_index': int, 'property_derivate_flag': bool, 'property_value': str]]
+        """
+        
+        try:
+            if fk_id < 0:
+                raise ValueError("Primary key is not set")
             
+            with self.con:
+                self.con.execute(f"""DELETE FROM {table_name} WHERE {fk_column_name} = ?;""",
+                                (fk_id,))
+                
+                for other in new_other:
+                    other_index = other["other_index"]
+                    value = other["property_value"]
+                    
+                    if other["property_derivate_flag"] == True or value is None:
+                        continue
+                    
+                    self.con.execute(f"""INSERT INTO {table_name} ({fk_column_name}, other_index, content)
+                                         VALUES (?, ?, ?);""",
+                                    (fk_id, other_index, value))
+        except Error as e:
+            return "Database::setOther: " + str(e)
+        
+        self.dataChanged.emit()
+        return ""
     
     
     @Slot(int, str, str, result=str)

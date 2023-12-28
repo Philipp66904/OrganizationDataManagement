@@ -112,6 +112,23 @@ TemplateEditDialog
             error_message = database.setName_Note_byPk(property_name.trim(), property_note, identifier, "id", address_dialog.table_name);
             if(error_message !== "") return;
 
+            const address_array = []
+            for(let i = 0; i < address_other_list_model.count; i++) {
+                let address_other = address_other_list_model.get(i);
+
+                const changes_obj = {}
+                for (var attribute in address_other) {
+                    changes_obj[attribute] = address_other[attribute];
+                }
+                changes_obj["other_index"] = i;
+
+                if(changes_obj["property_derivate_flag"] === false) {
+                    address_array.push(changes_obj);
+                }
+            }
+            error_message = database.setOther(identifier, "address_id", "address_other", address_array);
+            if(error_message !== "") return;
+
             // let new_title = undefined;
             // if(!property_title_derivate_flag) new_title = property_title;
             // error_message = database.setValue_Str("title", identifier, "id", address_dialog.table_name, new_title);
