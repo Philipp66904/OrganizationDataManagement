@@ -770,7 +770,7 @@ class Database(QObject):
         pk: Primary key
         pk_column_name: Name of the column where the primary key is located
         table_name: Name of the table where the pk_column_name is located
-        returns: Error message as string; empty string if no error
+        returns: Error message as string; Empty string if no error
         """
         
         metadata_id = None
@@ -810,7 +810,7 @@ class Database(QObject):
         pk_column_name: Column name of the primary key
         table_name: Name of the table, where column_name and pk_column_name are located
         value: New value that should be set
-        returns: Error message as string; empty string if no error
+        returns: Error message as string; Empty string if no error
         """
         
         try:
@@ -838,6 +838,7 @@ class Database(QObject):
         table_name: 'other' table name
         new_other: List of new values to be set:
                    list[dict['other_index': int, 'property_derivate_flag': bool, 'property_value': str]]
+        returns: Error message as string; Empty string if no error
         """
         
         try:
@@ -869,10 +870,12 @@ class Database(QObject):
     @Slot(int, str, str, str, str, result=str)
     def duplicateEntry(self, pk: int, pk_column_name: str, table_name: str, other_fk_column_name: str | None = None, other_table_name: str | None = None) -> str:
         """
-        Shallow duplicate a specific entry with metadata and description.
+        Shallow duplicate a specific entry with metadata and description (and optional 'other' table).
         pk: Primary key of the entry that shall be duplicated
         pk_column_name: Column name of the primary key
         table_name: Name of the table where the primary key column is located
+        other_fk_column_name [optional]: Foreign key column name for a 'other' table. Must be specified if other_table_name is set.
+        other_table_name [optional]: Table name of the 'other' table. Must be specified if other_fk_column_name is set.
         returns: Error message as string; Empty string if no error
         """
         
