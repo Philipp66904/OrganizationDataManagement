@@ -28,6 +28,16 @@ Rectangle
     signal duplicate_button_clicked(selected_primary_key: int)
     signal delete_button_clicked(selected_primary_key: int)
 
+    function editEntry()
+    {
+        const pk = table_buttons_main.getPrimaryKey();
+        if (pk < 0) {
+            return;
+        }
+
+        table_root.edit_button_clicked(pk);
+    }
+
     // Connections
     Connections {
         target: database
@@ -201,10 +211,15 @@ Rectangle
                             id: delegate_mouse_area
                             anchors.fill: parent
                             onClicked: function (mouse)  {
-                                var mp = table_view.mapFromItem(delegate_mouse_area, mouse.x, mouse.y)
-                                var cell = table_view.cellAtPos(mp.x, mp.y, false)
-                                var min_idx = table_view.model.index(cell.y, 0)
-                                table_view.selectionModel.select(min_idx, ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect)
+                                var mp = table_view.mapFromItem(delegate_mouse_area, mouse.x, mouse.y);
+                                var cell = table_view.cellAtPos(mp.x, mp.y, false);
+                                var min_idx = table_view.model.index(cell.y, 0);
+                                table_view.selectionModel.select(min_idx, ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
+                            }
+
+                            onDoubleClicked:
+                            {
+                                table_root.editEntry();
                             }
                         }
                     }
@@ -278,13 +293,7 @@ Rectangle
                     button_enabled: (table_root.selected_pk !== undefined) ? true : false
 
                     onClicked: {
-                        const pk = table_buttons_main.getPrimaryKey();
-                        if (pk < 0) {
-                            error_message = qsTr("Select a row to edit");
-                            return;
-                        }
-
-                        table_root.edit_button_clicked(pk);
+                        table_root.editEntry();
                     }
                 }
 
