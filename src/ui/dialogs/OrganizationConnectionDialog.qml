@@ -263,7 +263,11 @@ ApplicationWindow
             property int button_count: 3
 
             focus: true
-            Keys.onReturnPressed: save_button.clicked()
+            Keys.onReturnPressed: {
+                if(save_button.button_enabled) {
+                    save_button.clicked();
+                }
+            }
             Keys.onEscapePressed: abort_button.clicked()
 
             BasicButton

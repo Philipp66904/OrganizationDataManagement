@@ -21,13 +21,13 @@ Rectangle
     Gradient {
         id: selected_gradient
         GradientStop { position: 0.0; color: selected_color }
-        GradientStop { position: 0.15; color: "#000000" }
-        GradientStop { position: 0.85; color: "#000000" }
+        GradientStop { position: 0.15; color: backgroundColor }
+        GradientStop { position: 0.85; color: backgroundColor }
         GradientStop { position: 1.0; color: selected_color }
     }
 
     color: backgroundColor
-    gradient: (selected && button_enabled) ? selected_gradient : null
+    gradient: (selected && button_enabled && !containsMouse) ? selected_gradient : null
     border.color:
     {
         if(button_enabled === false) return backgroundColor2;

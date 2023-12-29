@@ -218,8 +218,9 @@ Rectangle
                                 table_view.selectionModel.select(min_idx, ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
                             }
 
-                            onDoubleClicked:
+                            onDoubleClicked: function double_clicked(mouse)
                             {
+                                delegate_mouse_area.clicked(mouse);
                                 table_root.editEntry();
                             }
                         }

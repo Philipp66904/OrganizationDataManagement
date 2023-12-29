@@ -50,7 +50,7 @@ ApplicationWindow
     footer:
         Row
         {
-            height: 20
+            height: 25
             width: parent.width
             spacing: 8
             focus: true

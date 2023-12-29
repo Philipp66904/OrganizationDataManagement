@@ -6,12 +6,16 @@ import QtPositioning
 
 Rectangle
 {
-    id: template_root
+    id: tab_main
+    color: "transparent"
+    border.color: backgroundColor3
+    border.width: 1
+    radius: 4
 
-    color: "green"
-
-    Text{
+    Text
+    {
         id: template_text
         text: qsTr("Search Tab")
+        color: textColor
     }
 }
