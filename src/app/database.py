@@ -688,12 +688,13 @@ class Database(QObject):
         return val
     
     
-    @Slot(int, int, int, result=bool)
-    def checkConnection(self, connection_id: int, person_id: int, address_id: int) -> bool:
+    @Slot(int, int, int, int, result=bool)
+    def checkConnection(self, connection_id: int, organization_id: int, person_id: int, address_id: int) -> bool:
         """
         Checks if a connection based on the person_id and address_id already exist.
         The own connection_id is ignored in this search.
         connection_id: Connection id if editing an existing connection, otherwise -1
+        organization_id: Organization id that should be checked
         person_id: Person id that should be checked
         address_id: Address id that should be checked
         returns: True if the connection doesn't exist yet (ignoring the own connection), otherwise False
@@ -705,15 +706,16 @@ class Database(QObject):
             if connection_id >= 0:
                 res = self.con.execute("""SELECT id
                                           FROM connection
-                                          WHERE (NOT id = ?) AND person_id = ? AND address_id = ? LIMIT 1;""",
-                                       (connection_id, person_id, address_id))
+                                          WHERE (NOT id = ?) AND organization_id = ? AND person_id = ? AND address_id = ?
+                                          LIMIT 1;""",
+                                       (connection_id, organization_id, person_id, address_id))
                 
                 found_connection = res.fetchone()
             else:
                 res = self.con.execute("""SELECT id
                                           FROM connection
-                                          WHERE person_id = ? AND address_id = ? LIMIT 1;""",
-                                       (person_id, address_id))
+                                          WHERE organization_id = ? AND person_id = ? AND address_id = ? LIMIT 1;""",
+                                       (organization_id, person_id, address_id))
                 
                 found_connection = res.fetchone()
         
@@ -1095,7 +1097,7 @@ class Database(QObject):
         if organization_id < 0 or person_id < 0 or address_id < 0:
             return "Database::saveConnection: " + "Not all ids for a connection defined."
         
-        if not self.checkConnection(connection_id, person_id, address_id):
+        if not self.checkConnection(connection_id, organization_id, person_id, address_id):
             return "Database::saveConnection: " + "Connection is not unique."
         
         try:

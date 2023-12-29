@@ -49,7 +49,7 @@ ApplicationWindow
             return qsTr("Specify person and address.");
         }
 
-        const res = database.checkConnection(identifier, current_person_id, current_address_id);
+        const res = database.checkConnection(identifier, organization_id, current_person_id, current_address_id);
 
         if(res) {
             return "";
