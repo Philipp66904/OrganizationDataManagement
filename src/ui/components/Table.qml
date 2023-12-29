@@ -210,6 +210,7 @@ Rectangle
                         {
                             id: delegate_mouse_area
                             anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
                             onClicked: function (mouse)  {
                                 var mp = table_view.mapFromItem(delegate_mouse_area, mouse.x, mouse.y);
                                 var cell = table_view.cellAtPos(mp.x, mp.y, false);

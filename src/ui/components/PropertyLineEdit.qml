@@ -148,6 +148,14 @@ Rectangle
                 height: 1
                 width: parent.width
             }
+
+            MouseArea
+            {
+                anchors.fill: parent
+                enabled: false
+                cursorShape: Qt.IBeamCursor
+                acceptedButtons: Qt.NoButton
+            }
         }
 
         CustomSlider

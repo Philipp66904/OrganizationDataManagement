@@ -9,19 +9,31 @@ Rectangle
     id: button_root_rect
     property string text: ""
     property var text_point_size: textSizeSmall
-    property var highlight_color: highlightColor
-    property var hover_color: highlight_color
+    property color highlight_color: highlightColor
+    property color hover_color: highlight_color
+    property color selected_color: selectedColor
+    property bool selected: false
     property bool button_enabled: true
     property bool containsMouse: button_mouse_area.containsMouse
     signal clicked()
     signal pressed()
 
+    Gradient {
+        id: selected_gradient
+        GradientStop { position: 0.0; color: selected_color }
+        GradientStop { position: 0.15; color: "#000000" }
+        GradientStop { position: 0.85; color: "#000000" }
+        GradientStop { position: 1.0; color: selected_color }
+    }
+
     color: backgroundColor
+    gradient: (selected && button_enabled) ? selected_gradient : null
     border.color:
     {
         if(button_enabled === false) return backgroundColor2;
         else if(button_mouse_area.pressed) return highlight_color;
         else if(containsMouse) return hover_color;
+        else if(selected) return selected_color;
         else backgroundColor2;
     }
     border.width: 1
@@ -52,6 +64,7 @@ Rectangle
         anchors.fill: parent
         hoverEnabled: true
         enabled: button_enabled
+        cursorShape: (enabled) ? Qt.PointingHandCursor : Qt.ArrowCursor
 
         onClicked:
         {

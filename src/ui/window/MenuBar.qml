@@ -329,6 +329,14 @@ MenuBar  // MenuBar shown in the window's header
             border.color: backgroundColor
             border.width: menuBarItem.highlighted ? 2 : 0
             radius: menu_bar.radius
+
+            MouseArea
+            {
+                anchors.fill: parent
+                enabled: false
+                cursorShape: Qt.PointingHandCursor
+                acceptedButtons: Qt.NoButton
+            }
         }
     }
 

@@ -53,6 +53,9 @@ ApplicationWindow
             height: 20
             width: parent.width
             spacing: 8
+            focus: true
+            Keys.onReturnPressed: ok_button.clicked()
+            Keys.onEscapePressed: abort_button.clicked()
 
             BasicButton
             {
@@ -61,6 +64,7 @@ ApplicationWindow
                 height: parent.height
                 width: (parent.width - parent.spacing) / 2
                 highlight_color: highlightColor
+                selected: parent.focus
 
                 onClicked:
                 {

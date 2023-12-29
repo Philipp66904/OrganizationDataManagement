@@ -9,7 +9,7 @@ import "../components"
 
 ApplicationWindow
 {
-    id: edit_dialog_window
+    id: organization_connection_dialog_window
     title: window_title + " - " + entry_name
     color: backgroundColor
     modality: Qt.ApplicationModal
@@ -30,6 +30,8 @@ ApplicationWindow
     property int current_address_id: -1
     property string error_text: ""
 
+    property bool close_okay: false
+
     onCurrent_person_idChanged: {
         error_text = check_connection();
     }
@@ -42,7 +44,7 @@ ApplicationWindow
     signal initProperties(connection_id: int, organization_id: int)
 
     function check_connection() {
-        // returns "" if check successfull, error message as string if not
+        // returns "" if check successfull; error message as string if not
         if (current_person_id < 0 || current_address_id < 0) {
             return qsTr("Specify person and address.");
         }
@@ -61,34 +63,49 @@ ApplicationWindow
         error_text = database.saveConnection(identifier, organization_id, current_person_id, current_address_id);
         
         if (error_text === "") {
-            edit_dialog_window.close();
+            organization_connection_dialog_window.close();
         }
     }
 
     onDelete_button_clicked: {
-        if(database.deleteConnection(identifier)) {
-            edit_dialog_window.close();
-        }
-        else
-        {
+        if(!database.deleteConnection(identifier)) {
             error_text = qsTr("Couldn't delete connection.");
         }
     }
 
     function init(connection_id, organization_id) {
-        edit_dialog_window.identifier = connection_id;
+        button_row.focus = true;
+        button_row.forceActiveFocus();
+        organization_connection_dialog_window.close_okay = false;
+        organization_connection_dialog_window.identifier = connection_id;
         const current_person_address_description = database.getConnection(connection_id);
         if(current_person_address_description[0] !== "") {
-            edit_dialog_window.entry_name = current_person_address_description[0];
+            organization_connection_dialog_window.entry_name = current_person_address_description[0];
         }
         else {
-            edit_dialog_window.entry_name = qsTr("New Connection");
+            organization_connection_dialog_window.entry_name = qsTr("New Connection");
         }
-        edit_dialog_window.current_person = current_person_address_description[1];
-        edit_dialog_window.current_address = current_person_address_description[2];
-        edit_dialog_window.organization_id = organization_id;
+        organization_connection_dialog_window.current_person = current_person_address_description[1];
+        organization_connection_dialog_window.current_address = current_person_address_description[2];
+        organization_connection_dialog_window.organization_id = organization_id;
 
-        edit_dialog_window.initProperties(connection_id, organization_id);
+        organization_connection_dialog_window.initProperties(connection_id, organization_id);
+    }
+
+    // Closing handler
+    FileCloseDialog 
+    {
+        id: close_dialog
+        function callback_function() { organization_connection_dialog_window.close_okay = true; organization_connection_dialog_window.close(); }
+    }
+    onClosing: (close) => {
+        close.accepted = false;
+
+        if(!organization_connection_dialog_window.close_okay) {
+            close_dialog.show();
+        }
+
+        if(organization_connection_dialog_window.close_okay) close.accepted = true;
     }
 
     Column
@@ -137,7 +154,7 @@ ApplicationWindow
                     id: title_text
                     width: (parent.width - parent.spacing) / 2
                     height: parent.height
-                    text: edit_dialog_window.title_name
+                    text: organization_connection_dialog_window.title_name
                     font.pointSize: textSizeBig
                     color: textColor
                     horizontalAlignment: Text.AlignRight
@@ -151,7 +168,7 @@ ApplicationWindow
                     id: entry_name_text
                     width: (parent.width - parent.spacing) / 2
                     height: parent.height
-                    text: edit_dialog_window.entry_name
+                    text: organization_connection_dialog_window.entry_name
                     font.pointSize: textSizeBig
                     color: backgroundColor3
                     horizontalAlignment: Text.AlignLeft
@@ -178,15 +195,15 @@ ApplicationWindow
                 description_text: qsTr("Person")
 
                 onSelected_indexChanged: {
-                    edit_dialog_window.current_person_id = combo_selection_person.selected_index;
+                    organization_connection_dialog_window.current_person_id = combo_selection_person.selected_index;
                 }
 
                 Connections {
-                    target: edit_dialog_window
+                    target: organization_connection_dialog_window
                     function onInitProperties(connection_id, organization_id) {
                         const person_data = database.getPersonConnection(connection_id);
                         combo_selection_person.load_data(person_data);
-                        edit_dialog_window.current_person_id = combo_selection_person.selected_index;
+                        organization_connection_dialog_window.current_person_id = combo_selection_person.selected_index;
                     }
                 }
             }
@@ -200,15 +217,15 @@ ApplicationWindow
                 description_text: qsTr("Address")
 
                 onSelected_indexChanged: {
-                    edit_dialog_window.current_address_id = combo_selection_address.selected_index;
+                    organization_connection_dialog_window.current_address_id = combo_selection_address.selected_index;
                 }
 
                 Connections {
-                    target: edit_dialog_window
+                    target: organization_connection_dialog_window
                     function onInitProperties(connection_id, organization_id) {
                         const address_data = database.getAddressConnection(connection_id);
                         combo_selection_address.load_data(address_data);
-                        edit_dialog_window.current_address_id = combo_selection_address.selected_index;
+                        organization_connection_dialog_window.current_address_id = combo_selection_address.selected_index;
                     }
                 }
             }
@@ -220,7 +237,7 @@ ApplicationWindow
                 height: main_column.err_text_rect_height
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: (error_text !== "") ? true : false
-                error_text: edit_dialog_window.error_text
+                error_text: organization_connection_dialog_window.error_text
             }
 
             NotificationRect
@@ -245,6 +262,10 @@ ApplicationWindow
             spacing: 8
             property int button_count: 3
 
+            focus: true
+            Keys.onReturnPressed: save_button.clicked()
+            Keys.onEscapePressed: abort_button.clicked()
+
             BasicButton
             {
                 id: save_button
@@ -252,11 +273,13 @@ ApplicationWindow
                 height: parent.height
                 hover_color: highlight_color
                 text: qsTr("Save")
-                button_enabled: (edit_dialog_window.error_text === "") ? true : false
+                button_enabled: (organization_connection_dialog_window.error_text === "") ? true : false
+                selected: parent.focus
 
                 onClicked:
                 {
-                    edit_dialog_window.save_button_clicked();
+                    organization_connection_dialog_window.close_okay = true;
+                    organization_connection_dialog_window.save_button_clicked();
                 }
             }
 
@@ -267,14 +290,15 @@ ApplicationWindow
                 height: parent.height
                 highlight_color: "#ff0000"
                 text: qsTr("Delete")
-                button_enabled: (edit_dialog_window.identifier !== -1) ? true : false //true
+                button_enabled: (organization_connection_dialog_window.identifier !== -1) ? true : false
 
                 DeleteDialog
                 {
                     id: delete_dialog
                     function callback_function() {
-                        edit_dialog_window.delete_button_clicked();
-                        edit_dialog_window.close();
+                        organization_connection_dialog_window.delete_button_clicked();
+                        organization_connection_dialog_window.close_okay = true;
+                        organization_connection_dialog_window.close();
                     }
                 }
 
@@ -293,15 +317,9 @@ ApplicationWindow
                 text: qsTr("Abort")
                 button_enabled: true
 
-                FileCloseDialog 
-                {
-                    id: abort_dialog
-                    function callback_function() { edit_dialog_window.close(); }
-                }
-
                 onClicked:
                 {
-                    abort_dialog.show();
+                    organization_connection_dialog_window.close();
                 }
             }
         }

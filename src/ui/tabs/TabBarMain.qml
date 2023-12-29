@@ -68,6 +68,7 @@ Rectangle
                         id: bar_mouse_area
                         anchors.fill: parent
                         hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
 
                         onClicked:
                         {
