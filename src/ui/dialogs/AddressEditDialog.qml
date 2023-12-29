@@ -55,7 +55,7 @@ TemplateEditDialog
 
         let entry_name_tmp = "New Entry";
         if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", address_dialog.table_name);
-        address_dialog.entry_name = entry_name_tmp;
+        address_dialog.entry_name = entry_name_tmp.trim();
 
         // init properties
         address_dialog.property_name = (identifier >= 0) ? database.getName_byPk(identifier, "id", address_dialog.table_name) : "";
@@ -206,7 +206,7 @@ TemplateEditDialog
         // Save address
         if(identifier >= 0) {
             // Update existing entry
-            error_message = database.setName_Note_byPk(property_name.trim(), property_note, identifier, "id", address_dialog.table_name);
+            error_message = database.setName_Note_byPk(property_name, property_note, identifier, "id", address_dialog.table_name);
             if(error_message !== "") return;
 
             error_message = database.setOther(identifier, "address_id", "address_other", address_other_array);
@@ -257,7 +257,7 @@ TemplateEditDialog
             let new_parent_id = -1;
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
 
-            error_message = database.createAddress(property_name.trim(), property_note, new_parent_id,
+            error_message = database.createAddress(property_name, property_note, new_parent_id,
                                                    [new_street, new_number, new_postalcode, new_city, new_country],
                                                    address_other_array);
             if(error_message !== "") return;
@@ -297,11 +297,13 @@ TemplateEditDialog
                 value: property_name
                 derivate_value: ""
                 derivate_mode: false
+                required: true
 
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
                         property_line_edit_name.derivate_value = property_name;
+                        address_dialog.save_button_enabled = (property_name.trim().length > 0);
                     }
                 }
 
@@ -310,6 +312,8 @@ TemplateEditDialog
 
                     if(identifier < 0 && value.trim() === "") address_dialog.entry_name = "New Entry";
                     else address_dialog.entry_name = value.trim();
+
+                    address_dialog.save_button_enabled = (property_name.trim().length > 0);
                 }
             }
 

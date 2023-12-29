@@ -8,11 +8,23 @@ Rectangle
 {
     id: property_line_edit_root
     color: (editing) ? backgroundColor1 : backgroundColor
-    border.color: (editing) ? highlightColor : backgroundColor3
+    border.color:
+    {
+        if(!required) {
+            if(editing) return highlightColor;
+            else return backgroundColor3;
+        }
+        else {
+            if(value_text.text.trim().length <= 0) return backgroundColorError;
+            else if(editing) return highlightColor;
+            else return backgroundColor3;
+        }
+    }
     border.width: 1
     radius: 4
 
     property var null_switch_height_percentage: 0.7
+    property bool required: false
 
     property bool editing: value_text.focus
     property bool derivate_mode: true
@@ -96,7 +108,7 @@ Rectangle
             width: property_row_main.description_text_width
             height: parent.height
             font.pointSize: textSize
-            color: backgroundColor3
+            color: (required && value_text.text.trim().length <= 0) ? backgroundColorError : backgroundColor3
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight

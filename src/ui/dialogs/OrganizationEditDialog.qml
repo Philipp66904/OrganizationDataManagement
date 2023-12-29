@@ -37,7 +37,7 @@ TemplateEditDialog
 
         let entry_name_tmp = "New Entry";
         if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", organization_dialog.table_name);
-        organization_dialog.entry_name = entry_name_tmp;
+        organization_dialog.entry_name = entry_name_tmp.trim();
 
         // init properties
         organization_dialog.property_name = (identifier >= 0) ? database.getName_byPk(identifier, "id", organization_dialog.table_name) : "";
@@ -67,7 +67,7 @@ TemplateEditDialog
     onSave_button_clicked: {
         if(identifier >= 0) {
             // Update existing entry
-            error_message = database.setName_Note_byPk(property_name.trim(), property_note, identifier, "id", organization_dialog.table_name);
+            error_message = database.setName_Note_byPk(property_name, property_note, identifier, "id", organization_dialog.table_name);
             if(error_message !== "") return;
 
             let new_website = undefined;
@@ -83,7 +83,7 @@ TemplateEditDialog
             let new_parent_id = -1;
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
             
-            error_message = database.createOrganization(property_name.trim(), property_note, new_parent_id, new_website);
+            error_message = database.createOrganization(property_name, property_note, new_parent_id, new_website);
             if(error_message !== "") return;
         }
     }
@@ -120,11 +120,13 @@ TemplateEditDialog
                 value: property_name
                 derivate_value: ""
                 derivate_mode: false
+                required: true
 
                 Connections {
                     target: organization_dialog
                     function onInitProperties() {
                         property_line_edit_name.derivate_value = property_name;
+                        organization_dialog.save_button_enabled = (property_name.trim().length > 0);
                     }
                 }
 
@@ -133,6 +135,8 @@ TemplateEditDialog
 
                     if(identifier < 0 && value.trim() === "") organization_dialog.entry_name = "New Entry";
                     else organization_dialog.entry_name = value.trim();
+
+                    organization_dialog.save_button_enabled = (value.trim().length > 0);
                 }
             }
 

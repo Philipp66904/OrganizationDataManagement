@@ -1,7 +1,6 @@
 from pathlib import Path
 import os
 import sqlite3
-from sqlite3 import Error
 from PySide6.QtCore import QObject, Slot, Signal, QUrl
 import datetime
 
@@ -172,7 +171,7 @@ class Database(QObject):
             
             # Close source db
             con_external.close()
-        except Error as e:
+        except Exception as e:
             raise e
         
         self.init_db()
@@ -243,7 +242,7 @@ class Database(QObject):
             
             # Close source db
             con_external.close()
-        except Error as e:
+        except Exception as e:
             raise e
     
         self.databaseLoaded.emit(db_path)
@@ -765,7 +764,7 @@ class Database(QObject):
         """
         Sets the name and note for a specific table to the given values.
         Additionaly, it also updates the modified and created timestamps in the metadata table.
-        name: New name that shall be set
+        name: New name that shall be set; len(name.strip()) must be > 0
         note: New note that shall be set
         pk: Primary key
         pk_column_name: Name of the column where the primary key is located
@@ -778,6 +777,9 @@ class Database(QObject):
         try:
             if pk < 0:
                 raise ValueError("Primary key is <0")
+            
+            if len(name.strip()) <= 0:
+                raise ValueError("Name must be set")
             
             with self.con:
                 # Get description_id
@@ -822,7 +824,7 @@ class Database(QObject):
                                     SET {column_name} = ?
                                     WHERE {pk_column_name} = ?;""",
                                     (value, pk_id))
-        except Error as e:
+        except Exception as e:
             return "Database::setValue_Str: " + str(e)
         
         self.dataChanged.emit()
@@ -859,7 +861,7 @@ class Database(QObject):
                     self.con.execute(f"""INSERT INTO {table_name} ({fk_column_name}, other_index, content)
                                          VALUES (?, ?, ?);""",
                                     (fk_id, other_index, value))
-        except Error as e:
+        except Exception as e:
             return "Database::setOther: " + str(e)
         
         self.dataChanged.emit()
@@ -934,7 +936,7 @@ class Database(QObject):
                                              FROM {other_table_name}
                                              WHERE {other_fk_column_name} = ?;""",
                                      (pk,))
-        except Error as e:
+        except Exception as e:
             return "Database::duplicateEntry: " + str(e)
         
         self.setModified_CreatedTimestamps(new_metadata_id)
@@ -947,7 +949,7 @@ class Database(QObject):
     def createOrganization(self, name: str, note: str, parent_id: int, website: str | None = None) -> str:
         """
         Creates a new organization in the db.
-        name: Name of the new organization
+        name: Name of the new organization; len(name.strip()) must be > 0
         note: Note of the new organization
         parent_id: Parent id of the new organization; set to <0 if no parent exists
         website: Website of the new organization; set to None if no website is set
@@ -961,22 +963,25 @@ class Database(QObject):
             parent_id = None
         
         try:
+            if len(name.strip()) <= 0:
+                raise ValueError("Name must be set")
+            
             with self.con:
                 res = self.con.execute("""INSERT INTO metadata (date_created, date_modified)
-                                        VALUES ('', '') RETURNING id;""")
+                                          VALUES ('', '') RETURNING id;""")
                 metadata_id = res.fetchone()[0]
                 
                 res = self.con.execute("""INSERT INTO description (name, note)
-                                        VALUES (?, ?) RETURNING id;""",
+                                          VALUES (?, ?) RETURNING id;""",
                                     (name, note))
                 description_id = res.fetchone()[0]
                 
                 self.con.execute("""INSERT INTO organization (parent_id, description_id, metadata_id, website)
                                     VALUES (?, ?, ?, ?);""",
-                                (parent_id, description_id, metadata_id, website))
+                                 (parent_id, description_id, metadata_id, website))
         
             self.setModified_CreatedTimestamps(metadata_id)
-        except Error as e:
+        except Exception as e:
             return "Database::createOrganization: " + str(e)
         
         self.dataChanged.emit()
@@ -987,7 +992,7 @@ class Database(QObject):
     def createPerson(self, name: str, note: str, parent_id: int, values: list) -> str:
         """
         Creates a new person in the db.
-        name: Description name of the new person
+        name: Description name of the new person; len(name.strip()) must be > 0
         note: Note of the new person
         parent_id: Parent id of the new person; set to <0 if no parent exists
         values: List of values for the new person:
@@ -1002,22 +1007,25 @@ class Database(QObject):
             parent_id = None
         
         try:
+            if len(name.strip()) <= 0:
+                raise ValueError("Name must be set")
+            
             with self.con:
                 res = self.con.execute("""INSERT INTO metadata (date_created, date_modified)
-                                        VALUES ('', '') RETURNING id;""")
+                                          VALUES ('', '') RETURNING id;""")
                 metadata_id = res.fetchone()[0]
                 
                 res = self.con.execute("""INSERT INTO description (name, note)
-                                        VALUES (?, ?) RETURNING id;""",
-                                    (name, note))
+                                          VALUES (?, ?) RETURNING id;""",
+                                       (name, note))
                 description_id = res.fetchone()[0]
                 
                 self.con.execute("""INSERT INTO person (parent_id, description_id, metadata_id, title, gender, firstname, middlename, surname)
                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?);""",
-                                (parent_id, description_id, metadata_id, values[0], values[1], values[2], values[3], values[4]))
+                                 (parent_id, description_id, metadata_id, values[0], values[1], values[2], values[3], values[4]))
         
             self.setModified_CreatedTimestamps(metadata_id)
-        except Error as e:
+        except Exception as e:
             return "Database::createPerson: " + str(e)
         
         self.dataChanged.emit()
@@ -1028,7 +1036,7 @@ class Database(QObject):
     def createAddress(self, name: str, note: str, parent_id: int, values: list, other: list) -> str:
         """
         Creates a new address in the db.
-        name: Description name of the new address
+        name: Description name of the new address; len(name.strip()) must be > 0
         note: Note of the new address
         parent_id: Parent id of the new address; set to <0 if no parent exists
         values: List of values for the new address:
@@ -1045,14 +1053,17 @@ class Database(QObject):
             parent_id = None
         
         try:
+            if len(name.strip()) <= 0:
+                raise ValueError("Name must be set")
+            
             with self.con:
                 res = self.con.execute("""INSERT INTO metadata (date_created, date_modified)
-                                        VALUES ('', '') RETURNING id;""")
+                                          VALUES ('', '') RETURNING id;""")
                 metadata_id = res.fetchone()[0]
                 
                 res = self.con.execute("""INSERT INTO description (name, note)
-                                        VALUES (?, ?) RETURNING id;""",
-                                    (name, note))
+                                          VALUES (?, ?) RETURNING id;""",
+                                       (name, note))
                 description_id = res.fetchone()[0]
                 
                 res = self.con.execute("""INSERT INTO address (parent_id, description_id, metadata_id, street, number, postalcode, city, country)
@@ -1063,7 +1074,7 @@ class Database(QObject):
             
             self.setOther(pk_id, "address_id", "address_other", other)
             self.setModified_CreatedTimestamps(metadata_id)
-        except Error as e:
+        except Exception as e:
             return "Database::createAddress: " + str(e)
         
         self.dataChanged.emit()
@@ -1100,7 +1111,7 @@ class Database(QObject):
                     self.con.execute("""INSERT INTO connection (organization_id, person_id, address_id)
                                         VALUES (?, ?, ?);""",
                                      (organization_id, person_id, address_id))
-        except Error as e:
+        except Exception as e:
             return "Database::saveConnection: " + str(e)
         
         self.dataChanged.emit()
@@ -1157,7 +1168,7 @@ class Database(QObject):
                                     WHERE id NOT IN (SELECT DISTINCT metadata_id FROM organization)
                                           AND id NOT IN (SELECT DISTINCT metadata_id FROM person)
                                           AND id NOT IN (SELECT DISTINCT metadata_id FROM address);""")
-        except Error as e:
+        except Exception as e:
             return "Database::deleteEntry: " + str(e)
         
         self.dataChanged.emit()

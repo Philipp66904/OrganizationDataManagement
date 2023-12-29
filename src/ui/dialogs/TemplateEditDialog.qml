@@ -20,6 +20,8 @@ ApplicationWindow
     width: rootWindow.width * 0.8
     height: rootWindow.height * 0.8
 
+    property bool save_button_enabled: true
+
     required property string window_title
     required property var identifier
     required property var parent_identifier
@@ -249,12 +251,15 @@ ApplicationWindow
                 height: parent.height
                 hover_color: highlight_color
                 text: qsTr("Save")
-                button_enabled: true
+                button_enabled: save_button_enabled
 
                 onClicked:
                 {
                     edit_dialog_window.save_button_clicked();
-                    edit_dialog_window.close();
+
+                    if(error_message === "") {
+                        edit_dialog_window.close();
+                    }
                 }
             }
 
