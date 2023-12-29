@@ -60,7 +60,7 @@ TemplateEditDialog
         // init properties
         address_dialog.property_name = (identifier >= 0) ? database.getName_byPk(identifier, "id", address_dialog.table_name) : "";
         address_dialog.property_note = (identifier >= 0) ? database.getNote_byPk(identifier, "id", address_dialog.table_name) : "";
-        
+
         if(identifier >= 0) {
             const property_street_tmp = database.getData(identifier, "id", "street", address_dialog.table_name);
             address_dialog.property_street = property_street_tmp[0];
@@ -91,27 +91,27 @@ TemplateEditDialog
             const property_street_tmp = database.getData(parent_identifier, "id", "street", address_dialog.table_name);
             address_dialog.property_street = property_street_tmp[0];
             address_dialog.property_street_derivate_flag = true;
-            address_dialog.property_street_derivate = database.getDataDerivate(parent_identifier, "id", "street", address_dialog.table_name)[0];
+            address_dialog.property_street_derivate = property_street_tmp[0]
 
             const property_number_tmp = database.getData(parent_identifier, "id", "number", address_dialog.table_name);
             address_dialog.property_number = property_number_tmp[0];
             address_dialog.property_number_derivate_flag = true;
-            address_dialog.property_number_derivate = database.getDataDerivate(parent_identifier, "id", "number", address_dialog.table_name)[0];
+            address_dialog.property_number_derivate = property_number_tmp[0];
 
             const property_postalcode_tmp = database.getData(parent_identifier, "id", "postalcode", address_dialog.table_name);
             address_dialog.property_postalcode = property_postalcode_tmp[0];
             address_dialog.property_postalcode_derivate_flag = true;
-            address_dialog.property_postalcode_derivate = database.getDataDerivate(parent_identifier, "id", "postalcode", address_dialog.table_name)[0];
+            address_dialog.property_postalcode_derivate = property_postalcode_tmp[0];
 
             const property_city_tmp = database.getData(parent_identifier, "id", "city", address_dialog.table_name);
             address_dialog.property_city = property_city_tmp[0];
             address_dialog.property_city_derivate_flag = true;
-            address_dialog.property_city_derivate = database.getDataDerivate(parent_identifier, "id", "city", address_dialog.table_name)[0];
+            address_dialog.property_city_derivate = property_city_tmp[0];
 
             const property_country_tmp = database.getData(parent_identifier, "id", "country", address_dialog.table_name);
             address_dialog.property_country = property_country_tmp[0];
             address_dialog.property_country_derivate_flag = true;
-            address_dialog.property_country_derivate = database.getDataDerivate(parent_identifier, "id", "country", address_dialog.table_name)[0];
+            address_dialog.property_country_derivate = property_country_tmp[0];
         }
         else {
             address_dialog.property_street = undefined;
@@ -137,34 +137,49 @@ TemplateEditDialog
 
         // init address_other properties
         address_other_list_model.clear();
-        const address_other_tmp = database.getDataOther(pk_id, "id", address_dialog.table_name, "address_id", address_dialog.table_name_other);
-        const address_other_parent_tmp = database.getDataOther(parent_id, "id", address_dialog.table_name, "address_id", address_dialog.table_name_other);
 
-        for (let address_other_row of address_other_tmp) {
-            let derivate_value_tmp = undefined;
-            for (let address_other_parent_row of address_other_parent_tmp) {
-                if (address_other_row[1] === address_other_parent_row[1]) {
-                    derivate_value_tmp = address_other_parent_row[2];
-                    break;
+        if(identifier >= 0) {
+            const address_other_tmp = database.getDataOther(pk_id, "id", address_dialog.table_name, "address_id", address_dialog.table_name_other);
+            const address_other_parent_tmp = database.getDataOther(parent_id, "id", address_dialog.table_name, "address_id", address_dialog.table_name_other);
+
+            for (let address_other_row of address_other_tmp) {
+                let derivate_value_tmp = undefined;
+                for (let address_other_parent_row of address_other_parent_tmp) {
+                    if (address_other_row[1] === address_other_parent_row[1]) {
+                        derivate_value_tmp = address_other_parent_row[2];
+                        break;
+                    }
+                }
+
+                if (derivate_value_tmp !== undefined) {
+                    address_other_list_model.append({"pk": address_other_row[0],
+                                                     "other_index": address_other_row[1],
+                                                     "property_value": address_other_row[2],
+                                                     "property_derivate_flag": address_other_row[3],
+                                                     "property_derivate": derivate_value_tmp,
+                                                     "property_derivate_undefined_flag": false});
+                }
+                else
+                {
+                    address_other_list_model.append({"pk": address_other_row[0],
+                                                     "other_index": address_other_row[1],
+                                                     "property_value": address_other_row[2],
+                                                     "property_derivate_flag": address_other_row[3],
+                                                     "property_derivate": "",
+                                                     "property_derivate_undefined_flag": true});
                 }
             }
+        }
+        else if(parent_identifier !== undefined && parent_identifier >= 0) {
+            const address_other_parent_tmp = database.getDataOther(parent_identifier, "id", address_dialog.table_name, "address_id", address_dialog.table_name_other);
 
-            if (derivate_value_tmp !== undefined) {
+            for (let address_other_row of address_other_parent_tmp) {
                 address_other_list_model.append({"pk": address_other_row[0],
-                                                "other_index": address_other_row[1],
-                                                "property_value": address_other_row[2],
-                                                "property_derivate_flag": address_other_row[3],
-                                                "property_derivate": derivate_value_tmp,
-                                                "property_derivate_undefined_flag": false});
-            }
-            else
-            {
-                address_other_list_model.append({"pk": address_other_row[0],
-                                                "other_index": address_other_row[1],
-                                                "property_value": address_other_row[2],
-                                                "property_derivate_flag": address_other_row[3],
-                                                "property_derivate": "",
-                                                "property_derivate_undefined_flag": true});
+                                                 "other_index": address_other_row[1],
+                                                 "property_value": address_other_row[2],
+                                                 "property_derivate_flag": true,
+                                                 "property_derivate": address_other_row[2],
+                                                 "property_derivate_undefined_flag": false});
             }
         }
 
@@ -544,8 +559,6 @@ TemplateEditDialog
                                 }
 
                                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
-                                    console.log("new value");
-
                                     if (!undefined_flag) {
                                         address_other_list_model.set(index, {"property_value": value});
                                         property_line_edit_other.property_value = value;

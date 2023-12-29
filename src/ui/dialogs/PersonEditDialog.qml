@@ -85,27 +85,27 @@ TemplateEditDialog
             const property_title_tmp = database.getData(parent_identifier, "id", "title", person_dialog.table_name);
             person_dialog.property_title = property_title_tmp[0];
             person_dialog.property_title_derivate_flag = true;
-            person_dialog.property_title_derivate = database.getDataDerivate(parent_identifier, "id", "title", person_dialog.table_name)[0];
+            person_dialog.property_title_derivate = property_title_tmp[0];
 
             const property_gender_tmp = database.getData(parent_identifier, "id", "gender", person_dialog.table_name);
             person_dialog.property_gender = property_gender_tmp[0];
             person_dialog.property_gender_derivate_flag = true;
-            person_dialog.property_gender_derivate = database.getDataDerivate(parent_identifier, "id", "gender", person_dialog.table_name)[0];
+            person_dialog.property_gender_derivate = property_gender_tmp[0];
 
             const property_firstname_tmp = database.getData(parent_identifier, "id", "firstname", person_dialog.table_name);
             person_dialog.property_firstname = property_firstname_tmp[0];
             person_dialog.property_firstname_derivate_flag = true;
-            person_dialog.property_firstname_derivate = database.getDataDerivate(parent_identifier, "id", "firstname", person_dialog.table_name)[0];
+            person_dialog.property_firstname_derivate = property_firstname_tmp[0];
 
             const property_middlename_tmp = database.getData(parent_identifier, "id", "middlename", person_dialog.table_name);
             person_dialog.property_middlename = property_middlename_tmp[0];
             person_dialog.property_middlename_derivate_flag = true;
-            person_dialog.property_middlename_derivate = database.getDataDerivate(parent_identifier, "id", "middlename", person_dialog.table_name)[0];
+            person_dialog.property_middlename_derivate = property_middlename_tmp[0];
 
             const property_surname_tmp = database.getData(parent_identifier, "id", "surname", person_dialog.table_name);
             person_dialog.property_surname = property_surname_tmp[0];
             person_dialog.property_surname_derivate_flag = true;
-            person_dialog.property_surname_derivate = database.getDataDerivate(parent_identifier, "id", "surname", person_dialog.table_name)[0];
+            person_dialog.property_surname_derivate = property_surname_tmp[0];
         }
         else {
             person_dialog.property_title = undefined;
@@ -217,7 +217,7 @@ TemplateEditDialog
                 id: property_line_edit_name
                 width: parent.width
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
-                description: qsTr("Description name")
+                description: qsTr("Entry Name")
                 value: property_name
                 derivate_value: ""
                 derivate_mode: false

@@ -41,7 +41,7 @@ Rectangle
 
     function getValueText() {
         if(derivate_flag) {
-            if(derivate_value !== undefined) return derivate_value
+            if(derivate_value !== undefined) return derivate_value;
             else return "";
         }
         else {

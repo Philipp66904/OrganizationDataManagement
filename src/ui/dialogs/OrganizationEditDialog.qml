@@ -53,7 +53,7 @@ TemplateEditDialog
             const property_website_tmp = database.getData(parent_identifier, "id", "website", organization_dialog.table_name);
             organization_dialog.property_website = property_website_tmp[0];
             organization_dialog.property_website_derivate_flag = true;
-            organization_dialog.property_website_derivate = database.getDataDerivate(parent_identifier, "id", "website", organization_dialog.table_name)[0];
+            organization_dialog.property_website_derivate = property_website_tmp[0];
         }
         else {
             organization_dialog.property_website = undefined;
