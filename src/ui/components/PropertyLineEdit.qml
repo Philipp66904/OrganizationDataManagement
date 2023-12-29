@@ -12,6 +12,8 @@ Rectangle
     border.width: 1
     radius: 4
 
+    property var null_switch_height_percentage: 0.7
+
     property bool editing: value_text.focus
     property bool derivate_mode: true
     required property string description
@@ -22,6 +24,18 @@ Rectangle
     onDerivate_flagChanged: value_text.text = getValueText()
     onDerivate_valueChanged: value_text.text = getValueText()
     onValueChanged: value_text.text = getValueText()
+
+    function init(derivate_flag_arg) {
+        // Call this function whenever new properties are loaded
+        if(derivate_flag_arg !== undefined) {
+            null_switch.start_value = derivate_flag_arg;
+            null_switch.setState(derivate_flag_arg);
+        }
+        else {
+            null_switch.start_value = derivate_flag;
+            null_switch.setState(derivate_flag);
+        }
+    }
 
     signal new_value(val: string, derivate_flag: bool, undefined_flag: bool)
 
@@ -45,8 +59,8 @@ Rectangle
         property int column_count: (derivate_mode) ? 3 : 2
 
         property int description_text_width: (width - (column_count * spacing)) * 0.3
-        property int value_text_width: (derivate_mode) ? (width - (column_count * spacing)) * 0.6 : (width - (column_count * spacing)) * 0.7
-        property int null_switch_width: (width - (column_count * spacing)) * 0.1
+        property int value_text_width: (derivate_mode) ? (width - (column_count * spacing)) * 0.5 : (width - (column_count * spacing)) * 0.7
+        property int null_switch_width: (width - (column_count * spacing)) * 0.2
 
         function send_new_value() {
             if(derivate_flag) {
@@ -62,6 +76,17 @@ Rectangle
             else {
                 property_line_edit_root.new_value(value_text.text, derivate_flag, false);
             }
+        }
+
+        function toggleDerivate(new_derivate_flag) {
+            derivate_flag = new_derivate_flag;
+
+            if(new_derivate_flag) {
+                if(value === undefined) value_text.text = "";
+                else value_text.text = value;
+            }
+
+            property_row_main.send_new_value();
         }
 
         Text
@@ -91,6 +116,13 @@ Rectangle
             font.italic: (derivate_flag) ? true : false
             readOnly: derivate_flag
 
+            onActiveFocusChanged: {
+                if(activeFocus && derivate_flag) {
+                    null_switch.setState(false);
+                    property_row_main.toggleDerivate(false);
+                }
+            }
+
             onTextEdited: {
                 property_row_main.send_new_value();
             }
@@ -106,24 +138,25 @@ Rectangle
             }
         }
 
-        Switch
+        CustomSlider
         {
             id: null_switch
             width: property_row_main.null_switch_width
-            height: parent.height
+            height: parent.height * null_switch_height_percentage
             anchors.verticalCenter: parent.verticalCenter
-            checked: derivate_flag
+            start_value: false
             visible: derivate_mode
 
-            onToggled: {
-                derivate_flag = checked;
+            onToggled: function toggle_handler(checked) {
+                property_row_main.toggleDerivate(checked);
+                // derivate_flag = checked;
 
-                if(checked) {
-                    if(value === undefined) value_text.text = "";
-                    else value_text.text = value;
-                }
+                // if(checked) {
+                //     if(value === undefined) value_text.text = "";
+                //     else value_text.text = value;
+                // }
 
-                property_row_main.send_new_value();
+                // property_row_main.send_new_value();
             }
         }
     }

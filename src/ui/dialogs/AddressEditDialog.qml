@@ -316,6 +316,8 @@ TemplateEditDialog
                         
                         property_line_edit_street.value = property_street;
                         property_line_edit_street.derivate_value = property_street_derivate;
+
+                        property_line_edit_street.init();
                     }
                 }
 
@@ -345,6 +347,8 @@ TemplateEditDialog
                         
                         property_line_edit_number.value = property_number;
                         property_line_edit_number.derivate_value = property_number_derivate;
+
+                        property_line_edit_number.init();
                     }
                 }
 
@@ -374,6 +378,8 @@ TemplateEditDialog
                         
                         property_line_edit_postalcode.value = property_postalcode;
                         property_line_edit_postalcode.derivate_value = property_postalcode_derivate;
+
+                        property_line_edit_postalcode.init();
                     }
                 }
 
@@ -403,6 +409,8 @@ TemplateEditDialog
                         
                         property_line_edit_city.value = property_city;
                         property_line_edit_city.derivate_value = property_city_derivate;
+
+                        property_line_edit_city.init();
                     }
                 }
 
@@ -432,6 +440,8 @@ TemplateEditDialog
                         
                         property_line_edit_country.value = property_country;
                         property_line_edit_country.derivate_value = property_country_derivate;
+
+                        property_line_edit_country.init();
                     }
                 }
 
@@ -491,6 +501,7 @@ TemplateEditDialog
                         clip: true
                         delegate: property_other_component
                         spacing: 4
+                        reuseItems: false
 
                         Component
                         {
@@ -500,13 +511,14 @@ TemplateEditDialog
                             {
                                 id: property_line_edit_other
                                 width: property_column.width
-                                height: address_other_list_view.height * 0.35
+                                height: address_other_list_view.height * 0.4
                                 description: qsTr("Other ") + (index + 1)
                                 value: property_value
                                 derivate_value: undefined
                                 derivate_mode: true
                                 derivate_flag: (value === undefined) ? true : property_derivate_flag
                                 border.color: (editing) ? highlightColor : backgroundColor1
+                                null_switch_height_percentage: 1.0
 
                                 required property int index
                                 required property int pk
@@ -527,9 +539,13 @@ TemplateEditDialog
                                     else {
                                         property_line_edit_other.derivate_value = undefined;
                                     }
+
+                                    property_line_edit_other.init(derivate_flag);
                                 }
 
                                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                                    console.log("new value");
+
                                     if (!undefined_flag) {
                                         address_other_list_model.set(index, {"property_value": value});
                                         property_line_edit_other.property_value = value;

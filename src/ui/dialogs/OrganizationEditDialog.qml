@@ -224,6 +224,8 @@ TemplateEditDialog
                         
                         property_line_edit_website.value = property_website;
                         property_line_edit_website.derivate_value = property_website_derivate;
+
+                        property_line_edit_website.init();
                     }
                 }
 

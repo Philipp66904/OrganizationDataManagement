@@ -255,6 +255,8 @@ TemplateEditDialog
                         
                         property_line_edit_title.value = property_title;
                         property_line_edit_title.derivate_value = property_title_derivate;
+
+                        property_line_edit_title.init();
                     }
                 }
 
@@ -284,6 +286,8 @@ TemplateEditDialog
                         
                         property_line_edit_gender.value = property_gender;
                         property_line_edit_gender.derivate_value = property_gender_derivate;
+
+                        property_line_edit_gender.init();
                     }
                 }
 
@@ -313,6 +317,8 @@ TemplateEditDialog
                         
                         property_line_edit_firstname.value = property_firstname;
                         property_line_edit_firstname.derivate_value = property_firstname_derivate;
+
+                        property_line_edit_firstname.init();
                     }
                 }
 
@@ -342,6 +348,8 @@ TemplateEditDialog
                         
                         property_line_edit_middlename.value = property_middlename;
                         property_line_edit_middlename.derivate_value = property_middlename_derivate;
+
+                        property_line_edit_middlename.init();
                     }
                 }
 
@@ -371,6 +379,8 @@ TemplateEditDialog
                         
                         property_line_edit_surname.value = property_surname;
                         property_line_edit_surname.derivate_value = property_surname_derivate;
+
+                        property_line_edit_surname.init();
                     }
                 }
 
