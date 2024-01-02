@@ -30,15 +30,18 @@ class Database(QObject):
         
         self.readTemplateDB()
         
-        
-    def init_db(self):
+    
+    @Slot()
+    def init_db(self) -> None:
         """
-        Call this function whenever loading a new database.
-        It sets the foreign key support to ON.
+        Call this function whenever loading a new database including the template db.
+        It sets the foreign key support to ON and emits the dataChanged signal.
         """
         
         with self.con:
             self.con.execute("""PRAGMA foreign_keys = ON;""")
+        
+        self.dataChanged.emit()
         
     
     @Slot(str, result=list)

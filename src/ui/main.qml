@@ -62,6 +62,11 @@ ApplicationWindow
         }
     }
 
+    // Startup procedure
+    Component.onCompleted: {
+        database.init_db();
+    }
+
     // Menu Bar
     menuBar: MenuBar { id: menu_bar }
 
