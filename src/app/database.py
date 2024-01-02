@@ -24,7 +24,7 @@ class Database(QObject):
         super().__init__()
         
         self.con = sqlite3.connect(":memory:")
-        self.path_template_db = Path(__file__).parent / "res" / "template.db"
+        self.path_template_db = Path(__file__).parent / "res" / "template.odmdb"
         self.settings = settings
         self.supported_db_version = "1.0"
         

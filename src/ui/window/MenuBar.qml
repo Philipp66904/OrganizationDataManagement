@@ -12,6 +12,9 @@ MenuBar  // MenuBar shown in the window's header
     id: menu_bar
     property int radius: 8
 
+    property var name_filters: ["Organization Data Management Database file (*.odmdb)", "SQLite Database file (*.db)"]
+    property var default_suffix: ".odmdb"
+
     Component
     {
         // component used for customizing the menu separator
@@ -109,7 +112,7 @@ MenuBar  // MenuBar shown in the window's header
         {
             id: open_file_dialog_2
             fileMode: FileDialog.OpenFile
-            nameFilters: ["SQLite Database file (*.db)"]
+            nameFilters: name_filters
 
             onAccepted: 
             {
@@ -202,8 +205,8 @@ MenuBar  // MenuBar shown in the window's header
         {
             id: save_as_file_dialog
             fileMode: FileDialog.SaveFile
-            nameFilters: ["SQLite Database file (*.db)"]
-            defaultSuffix: ".db"
+            nameFilters: name_filters
+            defaultSuffix: default_suffix
 
             onAccepted: 
             {
