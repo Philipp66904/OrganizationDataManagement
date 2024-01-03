@@ -528,6 +528,36 @@ class Database(QObject):
     
     
     @Slot(int, result=list)
+    def getOrganizationConnection(self, connection_id: int) -> list:
+        """
+        Returns a list with all organizations that exist.
+        connection_id: Currently edited connection_id. Set to < 0 if a connection is added.
+        returns: A list containing a list with the following specification: list[[organization_id, name, note], ...].
+                 If the connection_id is >= 0, the currently selected organization will be at the top of the list.
+        """
+        
+        
+        selected_organization_id = None
+        
+        with self.con:
+            if connection_id >= 0:
+                res = self.con.execute("""SELECT organization_id FROM connection WHERE id = ?;""", (connection_id,))
+                selected_organization_id = res.fetchone()[0]
+            
+            res = self.con.execute("""SELECT p.id, d.name, d.note FROM organization p, description d WHERE p.description_id = d.id;""")
+            all_organizations = res.fetchall()
+        
+        avail_organizations = []
+        for organization in all_organizations:
+            if selected_organization_id is not None and organization[0] == selected_organization_id:
+                avail_organizations.insert(0, [organization[0], organization[1], organization[2]])
+            else:
+                avail_organizations.append([organization[0], organization[1], organization[2]])
+        
+        return avail_organizations
+    
+    
+    @Slot(int, result=list)
     def getPersonConnection(self, connection_id: int) -> list:
         """
         Returns a list with all persons that exist.
