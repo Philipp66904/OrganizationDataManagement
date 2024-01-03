@@ -14,6 +14,8 @@ ApplicationWindow
     title: "Organization Data Management" + " - " + db_path_text
     width: 400
     height: 600
+    minimumWidth: 300
+    minimumHeight: 500
     visible: true
     color: backgroundColor
 

@@ -109,7 +109,7 @@ Rectangle
                 id: value_text_underline
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: (editing) ? highlightColor : backgroundColor1
+                color: (editing) ? highlightColor : backgroundColor2
                 height: 1
                 width: parent.width
             }
