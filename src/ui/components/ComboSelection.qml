@@ -7,13 +7,17 @@ import QtPositioning
 Rectangle
 {
     id: combo_selection_root
-    color: "transparent"
-    border.color: backgroundColor1
+    color: (popup_opened) ? backgroundColor1 : backgroundColor
+    border.color: (popup_opened) ? highlight_color : backgroundColor3
     border.width: 1
-    radius: 8
+    radius: 4
 
     required property string description_text
     property int selected_index: -1  // currently selected database index; -1 if no option is chosen
+    property bool not_null: true
+    property color highlight_color: highlightColor
+
+    property bool popup_opened: combo_selection.popup.opened
 
     ListModel
     {
@@ -32,6 +36,11 @@ Rectangle
         }
 
         if (input_list.length > 0) {
+            if(!not_null) {
+                combo_selection_list_model.insert(0, {"id": -1, "name": "", "note": "",
+                                                "name_note": ""});
+            }
+
             combo_selection.currentIndex = 0;
             selected_index = combo_selection_list_model.get(combo_selection.currentIndex).id;
         }
