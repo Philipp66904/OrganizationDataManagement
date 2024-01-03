@@ -529,7 +529,7 @@ TemplateEditDialog
                             PropertyLineEdit
                             {
                                 id: property_line_edit_other
-                                width: property_column.width
+                                width: address_other_column.width
                                 height: address_other_list_view.height * 0.4
                                 description: qsTr("Other ") + (index + 1)
                                 value: property_value
