@@ -174,6 +174,87 @@ Rectangle
                         }
                     }
                 }
+
+                Rectangle
+                {
+                    id: button_selection
+                    width: parent.width
+                    height: search_parameter_column.module_height * 3
+                    color: (button_selection_focus_scope.focus) ? backgroundColor2 : backgroundColor
+                    border.color: (button_selection_focus_scope.focus) ? highlightColor : backgroundColor3
+                    border.width: 1
+                    radius: 4
+
+                    FocusScope
+                    {
+                        id: button_selection_focus_scope
+                        anchors.fill: parent
+
+                        Column
+                        {
+                            id: button_selection_column
+                            anchors.fill: parent
+                            anchors.margins: 4
+                            spacing: 8
+                            property int row_count: 2
+
+                            Text
+                            {
+                                id: button_organization_selection_description
+                                text: qsTr("Organization:")
+                                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_count
+                                width: parent.width
+                                font.pointSize: textSize
+                                color: backgroundColor3
+                                horizontalAlignment: Text.AlignLeft
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
+                            }
+
+                            Row
+                            {
+                                id: button_organization_selection_row
+                                spacing: 8
+                                property int button_count: 3
+                                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_count
+                                width: parent.width
+
+                                // TODO create checkboxes dynamically based on the database
+                                // TODO store states in global variables
+
+                                BasicCheckbox
+                                {
+                                    id: checkbox_1
+                                    text: qsTr("name")
+                                    height: parent.height
+                                    width: (parent.width - ((parent.button_count - 1) * parent.spacing)) / parent.button_count
+
+                                    Connections {
+                                        target: tab_main
+                                        function onResetSearch() {
+                                            checkbox_1.checked = true;
+                                        }
+                                    }
+                                }
+
+                                BasicCheckbox
+                                {
+                                    id: checkbox_2
+                                    text: qsTr("note")
+                                    height: parent.height
+                                    width: (parent.width - ((parent.button_count - 1) * parent.spacing)) / parent.button_count
+
+                                    Connections {
+                                        target: tab_main
+                                        function onResetSearch() {
+                                            checkbox_2.checked = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
