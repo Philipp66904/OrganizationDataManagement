@@ -84,6 +84,30 @@ class Database(QObject):
         return non_primary_key_column_names
     
     
+    @Slot(str, result=list)
+    def getNonPrimaryKeyNonForeignKeyColumnNames(self, table_name: str) -> list:
+        """
+        Returns a list of column names for a specific table name that are not part of the primary key and not a foreign key.
+        table_name: Table name where the caller wants the non primary key and non foreign key column names from
+        returns: List of strings
+        """
+        
+        with self.con:
+            res = self.con.execute(f"PRAGMA table_info({table_name});")
+            column_names = res.fetchall()
+            
+            res = self.con.execute(f"PRAGMA foreign_key_list({table_name});")
+            foreign_key_column_names_tmp = res.fetchall()
+            foreign_key_column_names = [f[3] for f in foreign_key_column_names_tmp]
+        
+        non_primary_key_column_names = []
+        for column in column_names:
+            if column[5] == 0 and column[1] not in foreign_key_column_names:
+                non_primary_key_column_names.append(column[1])
+        
+        return non_primary_key_column_names
+    
+    
     @Slot(result=str)
     def slot_readTemplateDB(self) -> str:
         """

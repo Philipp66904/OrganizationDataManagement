@@ -29,6 +29,13 @@ Rectangle
     signal resetSearch()
     signal updateSearch()
 
+    // Signal handler
+    onResetSearch: updateSearch()
+
+    onUpdateSearch: {
+        console.log("update search");
+    }
+
     // Connection
     Connections {
         target: database
@@ -71,13 +78,13 @@ Rectangle
                 id: search_parameter_column
                 width: parent.width
                 height: {
-                    let h = property_line_edit_search.height * 8;
-                    h += spacing * row_count;  // spacing
+                    let h = module_height * 15;
+                    h += spacing * (row_count - 1);  // spacing
                     return h;
                 }
                 spacing: 8
 
-                property var row_count: 8
+                property var row_count: 7
                 property var row_height_count: 8.5
                 property var module_height: (search_parameter_scroll_view.height - ((search_parameter_column.row_count - 1) * search_parameter_column.spacing)) / search_parameter_column.row_height_count
 
@@ -175,84 +182,63 @@ Rectangle
                     }
                 }
 
-                Rectangle
+                ButtonSelection
                 {
-                    id: button_selection
+                    id: organization_button_selection
                     width: parent.width
                     height: search_parameter_column.module_height * 3
-                    color: (button_selection_focus_scope.focus) ? backgroundColor2 : backgroundColor
-                    border.color: (button_selection_focus_scope.focus) ? highlightColor : backgroundColor3
-                    border.width: 1
-                    radius: 4
+                    table_name: "organization"
+                    description_text: qsTr("Search in Organization properties:")
 
-                    FocusScope
-                    {
-                        id: button_selection_focus_scope
-                        anchors.fill: parent
-
-                        Column
-                        {
-                            id: button_selection_column
-                            anchors.fill: parent
-                            anchors.margins: 4
-                            spacing: 8
-                            property int row_count: 2
-
-                            Text
-                            {
-                                id: button_organization_selection_description
-                                text: qsTr("Organization:")
-                                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_count
-                                width: parent.width
-                                font.pointSize: textSize
-                                color: backgroundColor3
-                                horizontalAlignment: Text.AlignLeft
-                                verticalAlignment: Text.AlignVCenter
-                                elide: Text.ElideRight
-                            }
-
-                            Row
-                            {
-                                id: button_organization_selection_row
-                                spacing: 8
-                                property int button_count: 3
-                                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_count
-                                width: parent.width
-
-                                // TODO create checkboxes dynamically based on the database
-                                // TODO store states in global variables
-
-                                BasicCheckbox
-                                {
-                                    id: checkbox_1
-                                    text: qsTr("name")
-                                    height: parent.height
-                                    width: (parent.width - ((parent.button_count - 1) * parent.spacing)) / parent.button_count
-
-                                    Connections {
-                                        target: tab_main
-                                        function onResetSearch() {
-                                            checkbox_1.checked = true;
-                                        }
-                                    }
-                                }
-
-                                BasicCheckbox
-                                {
-                                    id: checkbox_2
-                                    text: qsTr("note")
-                                    height: parent.height
-                                    width: (parent.width - ((parent.button_count - 1) * parent.spacing)) / parent.button_count
-
-                                    Connections {
-                                        target: tab_main
-                                        function onResetSearch() {
-                                            checkbox_2.checked = true;
-                                        }
-                                    }
-                                }
-                            }
+                    Connections {
+                        target: tab_main
+                        function onResetSearch() {
+                            organization_button_selection.init();
                         }
+                    }
+
+                    onUpdateListModel: {
+                        updateSearch();
+                    }
+                }
+
+                ButtonSelection
+                {
+                    id: person_button_selection
+                    width: parent.width
+                    height: search_parameter_column.module_height * 3
+                    table_name: "person"
+                    description_text: qsTr("Search in Person properties:")
+
+                    Connections {
+                        target: tab_main
+                        function onResetSearch() {
+                            person_button_selection.init();
+                        }
+                    }
+
+                    onUpdateListModel: {
+                        updateSearch();
+                    }
+                }
+
+                ButtonSelection
+                {
+                    id: address_button_selection
+                    width: parent.width
+                    height: search_parameter_column.module_height * 3
+                    table_name: "address"
+                    description_text: qsTr("Search in Address properties:")
+
+                    Connections {
+                        target: tab_main
+                        function onResetSearch() {
+                            address_button_selection.init();
+                        }
+                    }
+
+                    onUpdateListModel: {
+                        updateSearch();
                     }
                 }
             }
