@@ -97,8 +97,11 @@ Rectangle
         anchors.bottomMargin: 4
         spacing: 4
         property int column_count: 2
-        property var search_parameter_scroll_view_height: (height - separator.height - (spacing * (column_count - 1))) * 0.5
-        property var table_column_height: (height - separator.height - (spacing * (column_count - 1))) * 0.5 - 4
+        property var max_distribution: 0.7
+        property var min_distribution: 0.25
+        property var distribution: 0.5
+        property var search_parameter_scroll_view_height: (height - separator.height - (spacing * (column_count - 1))) * distribution
+        property var table_column_height: (height - separator.height - (spacing * (column_count - 1))) * (1 - distribution) - 4
 
         ScrollView
         {
@@ -123,7 +126,7 @@ Rectangle
                 spacing: 8
 
                 property var row_count: 7
-                property var row_height_count: 8.5
+                property var row_height_count: 8.5 * Math.pow(main_column.distribution + 0.5, 2)
                 property var module_height: (search_parameter_scroll_view.height - ((search_parameter_column.row_count - 1) * search_parameter_column.spacing)) / search_parameter_column.row_height_count
 
                 PropertyLineEdit
@@ -311,8 +314,47 @@ Rectangle
             id: separator
             height: 1
             width: parent.width - (tab_main.border.width * 2)
-            color: backgroundColor1
+            color: {
+                if(separator_mouse_area.drag.active) return highlightColor;
+                else if(separator_mouse_area.containsMouse) return backgroundColor3;
+                else return backgroundColor1;
+            }
             anchors.horizontalCenter: parent.horizontalCenter
+
+            MouseArea
+            {
+                id: separator_mouse_area
+                visible: true
+                enabled: true
+                anchors.fill: parent
+                anchors.margins: -2
+                drag.target: separator
+                drag.axis: Drag.YAxis
+                hoverEnabled: true
+                drag.minimumY: relative_to_absolute_y(main_column.min_distribution)
+                drag.maximumY: relative_to_absolute_y(main_column.max_distribution)
+                cursorShape: Qt.SplitVCursor
+
+                function relative_to_absolute_y(y_val) {
+                    const height = main_column.height;
+                    return height * y_val;
+                }
+
+                function absolute_to_relative_y(y_val) {
+                    const height = main_column.height;
+                    return y_val / height;
+                }
+
+                onDoubleClicked: {
+                    main_column.distribution = 0.5;
+                }
+
+                onPositionChanged: {
+                    if(drag.active) {
+                        main_column.distribution = absolute_to_relative_y(separator.y);
+                    }
+                }
+            }
         }
 
         Column
@@ -323,8 +365,9 @@ Rectangle
             spacing: 4
 
             property int row_count: 2
-            property var tab_row_height: (height - ((row_count - 1) * spacing)) * 0.1
-            property var table_height: (height - ((row_count - 1) * spacing)) * 0.9
+            property var distribution: 0.9
+            property var tab_row_height: (height - ((row_count - 1) * spacing)) * (1 - distribution)
+            property var table_height: (height - ((row_count - 1) * spacing)) * distribution
 
             Row
             {
@@ -409,6 +452,7 @@ Rectangle
 
                     table_name: "organization"
                     search_res: organization_search_res
+                    table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
 
                     Connections {
                         target: tab_main
@@ -423,7 +467,7 @@ Rectangle
                         let parent_id_tmp = database.getParentId(table_name, pk, "id");
                         if (parent_id_tmp < 0) parent_id_tmp = undefined;
                         organization_edit_dialog.parent_id = parent_id_tmp;
-                        
+
                         organization_edit_dialog.show();
                         organization_edit_dialog.init_dialog();
                     }
@@ -435,6 +479,7 @@ Rectangle
 
                     table_name: "person"
                     search_res: person_search_res
+                    table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
 
                     Connections {
                         target: tab_main
@@ -456,6 +501,7 @@ Rectangle
 
                     table_name: "address"
                     search_res: address_search_res
+                    table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
 
                     Connections {
                         target: tab_main
