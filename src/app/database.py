@@ -3,6 +3,8 @@ import os
 import sqlite3
 from PySide6.QtCore import QObject, Slot, Signal, QUrl
 import datetime
+from copy import deepcopy
+import re
 
 from app.settings import Settings
 
@@ -28,6 +30,8 @@ class Database(QObject):
         self.settings = settings
         self.supported_db_version = "1.0"
         
+        self._search_data_cache = {}  # Caching last search results from database per table
+        
         self.readTemplateDB()
         
     
@@ -43,6 +47,15 @@ class Database(QObject):
         
         self.dataChanged.emit()
         
+    
+    def clear_cache(self) -> None:
+        """
+        Deletes all data from the search case.
+        Call this function whenever the database data was changed.
+        """
+        
+        self._search_data_cache = {}
+    
     
     @Slot(str, result=list)
     def getPrimaryKeyColumnNames(self, table_name: str) -> list:
@@ -203,6 +216,7 @@ class Database(QObject):
         
         self.init_db()
         emitted_db_path = db_path if db_path != str(self.path_template_db) else ""
+        self.clear_cache()
         self.databaseLoaded.emit(emitted_db_path)
         self.dataChanged.emit()
     
@@ -272,6 +286,7 @@ class Database(QObject):
         except Exception as e:
             raise e
     
+        self.clear_cache()
         self.databaseLoaded.emit(db_path)
         self.dataChanged.emit()
 
@@ -472,7 +487,7 @@ class Database(QObject):
                                    (
                                        SELECT c.id, p.description_id
                                        FROM connection c, person p, address a
-                                       WHERE c.organization_id = ? AND c.person_id = p.id AND c.address_id  = a.id
+                                       WHERE c.organization_id = ? AND c.person_id = p.id AND c.address_id = a.id
                                    ) t
                                    WHERE t.description_id = d.id;""",
                                    (organization_id,))
@@ -484,7 +499,7 @@ class Database(QObject):
                                    (
                                        SELECT c.id, a.description_id
                                        FROM connection c, person p, address a
-                                       WHERE c.organization_id = ? AND c.person_id = p.id AND c.address_id  = a.id
+                                       WHERE c.organization_id = ? AND c.person_id = p.id AND c.address_id = a.id
                                    ) t
                                    WHERE t.description_id = d.id;""",
                                    (organization_id,))
@@ -856,6 +871,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::setName_Note_byPk: " + str(e)
         
+        self.clear_cache()
         self.setModified_CreatedTimestamps(metadata_id)
         self.dataChanged.emit()
         return ""
@@ -886,6 +902,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::setValue_Str: " + str(e)
         
+        self.clear_cache()
         self.dataChanged.emit()
         return ""
     
@@ -923,6 +940,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::setOther: " + str(e)
         
+        self.clear_cache()
         self.dataChanged.emit()
         return ""
     
@@ -998,6 +1016,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::duplicateEntry: " + str(e)
         
+        self.clear_cache()
         self.setModified_CreatedTimestamps(new_metadata_id)
         self.dataChanged.emit()
         return ""
@@ -1043,6 +1062,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::createOrganization: " + str(e)
         
+        self.clear_cache()
         self.dataChanged.emit()
         return ""
     
@@ -1087,6 +1107,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::createPerson: " + str(e)
         
+        self.clear_cache()
         self.dataChanged.emit()
         return ""
     
@@ -1136,6 +1157,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::createAddress: " + str(e)
         
+        self.clear_cache()
         self.dataChanged.emit()
         return ""
     
@@ -1173,6 +1195,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::saveConnection: " + str(e)
         
+        self.clear_cache()
         self.dataChanged.emit()
         return ""
     
@@ -1192,6 +1215,7 @@ class Database(QObject):
             self.con.execute("""DELETE FROM connection WHERE id = ?;""",
                              (connection_id,))
         
+        self.clear_cache()
         self.dataChanged.emit()
         return True
     
@@ -1211,7 +1235,7 @@ class Database(QObject):
                 raise ValueError("Primary key < 0")
             
             with self.con:
-                # Delete entry                
+                # Delete entry
                 self.con.execute(f"""DELETE FROM {table_name} WHERE {pk_column_name} = ?;""",
                                  (pk,))
             
@@ -1230,6 +1254,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::deleteEntry: " + str(e)
         
+        self.clear_cache()
         self.dataChanged.emit()
         return ""
 
@@ -1333,5 +1358,150 @@ class Database(QObject):
             dates = res.fetchone()
         
         return [dates[0], dates[1]]
+    
+    
+    def updateSearchCache(self, table_name) -> None:
+        """
+        Checks if the data for a specific table name is already cached or adds it for faster search responses.
+        If yes, the function simply returns.
+        If no, the function adds the data to the self._search_data_cache dictionary.
+        table_name: Table name that should be cached
+        """
         
+        if table_name in self._search_data_cache.keys():
+            # Data already cached -> nothing to do
+            return
         
+        # Data is not cached: Read newest data and store in dict
+        with self.con:
+            column_names = self.getNonPrimaryKeyNonForeignKeyColumnNames(table_name)
+            column_names_str = ""
+            for column_name in column_names:
+                column_names_str += f", t.{column_name}"
+            
+            res = self.con.execute(f"""SELECT c.organization_id, c.person_id, c.address_id, t.id, d.name, d.note {column_names_str}, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+                                       FROM {table_name} t
+                                       LEFT JOIN connection c
+                                       ON t.id = c.{table_name}_id
+                                       LEFT JOIN description d
+                                       ON t.description_id = d.id
+                                       LEFT JOIN metadata m
+                                       ON t.metadata_id = m.id
+                                       ORDER BY d.name ASC;""")
+            
+            data_list = res.fetchall()
+        
+        # Convert list[tupel] to list[dict]
+        complete_column_names = ["organization_id", "person_id", "address_id", "id", "name", "note"]
+        complete_column_names.extend(column_names)
+        complete_column_names.extend(["date_modified", "date_created"])
+        
+        data = []
+        for row in data_list:
+            row_dict = {}
+            for i, column_name in enumerate(complete_column_names):
+                row_dict[column_name] = row[i]
+            data.append(row_dict)
+        
+        self._search_data_cache[table_name] = data
+    
+    
+    @Slot(str, str, int, int, int, list, result=list)
+    def search(self, table_name: str, search_term: str, organization_id: int, person_id: int, address_id: int,
+               search_properties: list) -> list:
+        """
+        Performs a search for the given parameters on a specific table.
+        First, it looks for the search_term (if not empty string) in all specified search_properties.
+            It must be present in at least one specified column.
+            If all search_properties are deactivated, all values will be returned.
+        Next, it will filter for the organization_id, person_id and address_id.
+            Only entries that have a connection with all the specified ids will be returned.
+            Furthermore, the selected organization_id, person_id and address_id itself will always be returned.
+        table_name: Table name who's values shall be returned
+        search_term: Search string that it should filter for in the specified search_properties
+                     (pass empty string if no search_term shall be used)
+        organization_id: An organization_id who's connections (and itself) will be returned
+        person_id: An person_id who's connections (and itself) will be returned
+        address_id: An address_id who's connections (and itself) will be returned
+        search_properties: List defining which columns should be used for the search_term
+                           Format: list[{"column_name": str, "button_checked": true}]
+                           button_checked is True if the column is part of the search, otherwise False
+        returns: List of lists with all the rows. The first list is always reserved for the column names.
+        """
+        
+        # Update cache
+        self.updateSearchCache(table_name)
+
+        # Get current data from cache
+        row_data = self._search_data_cache[table_name]
+        
+        def filter_function(var) -> bool:
+            """
+            Function used for filtering the data.
+            returns: True if value shall remain in result, False if value shall be removed from the result list
+            """
+            
+            if search_term != "":
+                found_cnt = 0
+                search_cnt = 0
+                for search_property in search_properties:
+                    if search_property["button_checked"] == True:
+                        search_cnt += 1
+                        
+                        if var[search_property["column_name"]] is None:
+                            continue
+                        
+                        search_res = re.search(search_term, var[search_property["column_name"]])
+                        
+                        if search_res is not None:
+                            found_cnt += 1
+                            break
+                
+                if found_cnt == 0 and search_cnt > 0:
+                    return False
+            
+            if organization_id >= 0:
+                if var["organization_id"] != organization_id and not (table_name == "organization" and var["id"] == organization_id):
+                    return False
+            
+            if person_id >= 0:
+                if var["person_id"] != person_id and not (table_name == "person" and var["id"] == person_id):
+                    return False
+            
+            if address_id >= 0:
+                if var["address_id"] != address_id and not (table_name == "address" and var["id"] == address_id):
+                    return False
+            
+            return True
+        
+        # Filter rows
+        filtered_row_data = list(filter(filter_function, row_data))
+        
+        # Convert data to list format
+        res = []
+        res_ids = []  # list of all ids already added to avoid duplicate ids
+        for i, row in enumerate(filtered_row_data):
+            if i == 0:  # At first and only at first, the header names shall be added to the list
+                header_list = []
+                
+                for column_name in row.keys():
+                    if column_name not in ["organization_id", "person_id", "address_id"]:
+                        header_list.append(column_name)
+                        
+                res.append(header_list)
+            
+            row_list = []
+            for column_name, cell in row.items():
+                if column_name in ["organization_id", "person_id", "address_id"]:
+                    continue
+                
+                row_list.append(cell)
+            
+            if row["id"] in res_ids:
+                continue
+            
+            res_ids.append(row["id"])
+            res.append(row_list)
+
+        return res
+    

@@ -5,6 +5,8 @@ import QtQuick.Controls
 import QtPositioning
 import QtQuick.Controls.Basic
 
+import tablemodule 1.0
+
 import "../components"
 
 Rectangle
@@ -21,32 +23,57 @@ Rectangle
     property int selected_person_id: -1
     property int selected_address_id: -1
 
-    onSelected_organization_idChanged: console.log("selected_organization_id:", selected_organization_id)
-    onSelected_person_idChanged: console.log("selected_person_id:", selected_person_id)
-    onSelected_address_idChanged: console.log("selected_address_id:", selected_address_id)
+    property var organization_search_res: []
 
     // Signals
     signal resetSearch()
+    signal softResetSearch()
     signal updateSearch()
 
     // Signal handler
-    onResetSearch: updateSearch()
+    onResetSearch: {
+        load_data();
+        updateSearch();
+        softResetSearch();
+    }
+
+    onSoftResetSearch: {
+        load_data_soft();
+    }
 
     onUpdateSearch: {
-        console.log("update search");
+        const organization_search_selection = organization_button_selection.getListModel();
+        const person_search_selection = person_button_selection.getListModel();
+        const address_search_selection = address_button_selection.getListModel();
+
+        organization_search_res = database.search("organization", search_term,
+            selected_organization_id, selected_person_id, selected_address_id,
+            organization_search_selection);
     }
+
+    Component.onCompleted: resetSearch()
 
     // Connection
     Connections {
         target: database
         function onDataChanged() {
-            load_data();
+            //load_data();
+            updateSearch();
+            softResetSearch();
+            //resetSearch();
+        }
+
+        function onDatabaseLoaded(db_path) {
             resetSearch();
         }
     }
 
     function load_data() {
         search_term = "";
+        organization_search_res = [];
+    }
+
+    function load_data_soft() {
         selected_organization_id = -1;
         selected_person_id = -1;
         selected_address_id = -1;
@@ -61,6 +88,7 @@ Rectangle
         spacing: 4
         property int column_count: 2
         property var search_parameter_scroll_view_height: (height - separator.height - (spacing * (column_count - 1))) * 0.5
+        property var table_column_height: (height - separator.height - (spacing * (column_count - 1))) * 0.5 - 4
 
         ScrollView
         {
@@ -126,12 +154,20 @@ Rectangle
                         updateSearch();
                     }
 
+                    function init() {
+                        const organization_data = database.getOrganizationConnection(-1);
+                        combo_selection_organization.load_data(organization_data);
+                        selected_organization_id = combo_selection_organization.selected_index;
+                    }
+
                     Connections {
                         target: tab_main
                         function onResetSearch() {
-                            const organization_data = database.getOrganizationConnection(-1);
-                            combo_selection_organization.load_data(organization_data);
-                            selected_organization_id = combo_selection_organization.selected_index;
+                            combo_selection_organization.init();
+                        }
+
+                        function onSoftResetSearch() {
+                            combo_selection_organization.init();
                         }
                     }
                 }
@@ -149,12 +185,20 @@ Rectangle
                         updateSearch();
                     }
 
+                    function init() {
+                        const person_data = database.getPersonConnection(-1);
+                        combo_selection_person.load_data(person_data);
+                        selected_person_id = combo_selection_person.selected_index;
+                    }
+
                     Connections {
                         target: tab_main
                         function onResetSearch() {
-                            const person_data = database.getPersonConnection(-1);
-                            combo_selection_person.load_data(person_data);
-                            selected_person_id = combo_selection_person.selected_index;
+                            combo_selection_person.init();
+                        }
+
+                        function onSoftResetSearch() {
+                            combo_selection_person.init();
                         }
                     }
                 }
@@ -172,12 +216,20 @@ Rectangle
                         updateSearch();
                     }
 
+                    function init() {
+                        const address_data = database.getAddressConnection(-1);
+                        combo_selection_address.load_data(address_data);
+                        selected_address_id = combo_selection_address.selected_index;
+                    }
+
                     Connections {
                         target: tab_main
                         function onResetSearch() {
-                            const address_data = database.getAddressConnection(-1);
-                            combo_selection_address.load_data(address_data);
-                            selected_address_id = combo_selection_address.selected_index;
+                            combo_selection_address.init();
+                        }
+
+                        function onSoftResetSearch() {
+                            combo_selection_address.init();
                         }
                     }
                 }
@@ -251,6 +303,65 @@ Rectangle
             width: parent.width - (tab_main.border.width * 2)
             color: backgroundColor1
             anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        Column
+        {
+            id: table_column
+            width: parent.width
+            height: main_column.table_column_height
+            spacing: 8
+
+            property int row_count: 1
+
+            property var table_height: (height - ((row_count - 1) * spacing)) / row_count
+
+            Table
+            {
+                id: organization_result_table
+                height: table_column.table_height
+                width: parent.width - 8
+                anchors.horizontalCenter: parent.horizontalCenter
+                table_view_main_height_factor: 0.87
+                table_cell_rect_height_factor: 0.16
+                pk_id: -1
+                parent_id: -1
+                show_duplicate_button: false
+                show_add_button: false
+
+                property string table_name: "organization"
+
+                TableModel
+                {
+                    id: table_model
+                }
+
+                function load_data() {
+                    const res = tab_main.organization_search_res;
+                    let column_names = res.shift();
+                    if(res.length <= 0) column_names = [];
+
+                    table_model.loadData(organization_result_table.table_name, column_names, res);
+                }
+
+                Connections {
+                    target: tab_main
+                    function onUpdateSearch() {
+                        organization_result_table.load_data();
+                    }
+                }
+
+                onEdit_button_clicked: function edit_button_clicked(pk) {
+                    organization_edit_dialog.pk_id = pk;
+                    organization_edit_dialog.show();
+                    organization_edit_dialog.init_dialog();
+                }
+
+                onDelete_button_clicked: function delete_button_clicked(pk) {
+                    error_message = database.deleteEntry(pk, "id", organization_result_table.table_name);
+                    if(error_message !== "") return;
+                }
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ Rectangle
     function getListModel() {
         const res = [];
         for(let i = 0; i < button_selection_list_model.count; i++) {
-            res.push(button_selection_list_model.get(i));
+            res.push({"column_name": button_selection_list_model.get(i).column_name, "button_checked": button_selection_list_model.get(i).button_checked});
         }
 
         return res;
@@ -82,7 +82,7 @@ Rectangle
                 spacing: 8
                 orientation: ListView.Horizontal
                 interactive: (contentWidth <= width) ? false : true
-                
+
                 property int button_count: Math.min(Math.round(width / 125), button_selection_list_model.count)
 
                 delegate: BasicCheckbox
