@@ -1382,6 +1382,41 @@ class Database(QObject):
         return [dates[0], dates[1]]
     
     
+    @Slot(result=list)
+    def getDBMetadata(self) -> list:
+        """
+        Returns the database metadata.
+        returns: list[db_version: str, date_modified: str, date_created: str]
+        """
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT content
+                                FROM __meta__
+                                WHERE name = ?
+                                LIMIT 1;""",
+                                ("db_version",))
+            
+            db_version = res.fetchone()[0]
+            
+            res = self.con.execute(f"""SELECT datetime(content, 'localtime')
+                                FROM __meta__
+                                WHERE name = ?
+                                LIMIT 1;""",
+                                ("date_saved",))
+            
+            date_saved = res.fetchone()[0]
+            
+            res = self.con.execute(f"""SELECT datetime(content, 'localtime')
+                                FROM __meta__
+                                WHERE name = ?
+                                LIMIT 1;""",
+                                ("date_created",))
+            
+            date_created = res.fetchone()[0]
+        
+        return [db_version, date_saved, date_created]
+    
+    
     def _getSearchResultCompleteColumnNames(self, table_name: str | None = None, column_names: str | None = None) -> list:
         """
         Returns a list of column names used for the search result tables.

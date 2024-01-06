@@ -41,6 +41,9 @@ ApplicationWindow
     property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved
     property string error_message: ""
     property int max_derivate_windows: 5
+    property string db_version
+    property string saved_date: new_db_text
+    property string created_date: new_db_text
 
     onError_messageChanged: console.log("error msg:", error_message)
     // TODO implement auto deletion of messages after x seconds
@@ -52,14 +55,22 @@ ApplicationWindow
     Connections {
         target: database
         function onDatabaseLoaded(db_path) { 
+            const db_metadata = database.getDBMetadata();
+            db_version = db_metadata[0];
+
             if(db_path === "")
             {
                 db_path_text = new_db_text;
                 loaded_db_path = db_path;
+                saved_date = new_db_text;
+                created_date = new_db_text;
             }
             else {
                 db_path_text = db_path;
                 loaded_db_path = db_path;
+
+                saved_date = db_metadata[1];
+                created_date = db_metadata[2];
             }
         }
     }
@@ -67,6 +78,9 @@ ApplicationWindow
     // Startup procedure
     Component.onCompleted: {
         database.init_db();
+
+        const db_metadata = database.getDBMetadata();
+        db_version = db_metadata[0];
     }
 
     // Menu Bar

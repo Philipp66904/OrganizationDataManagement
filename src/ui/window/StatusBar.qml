@@ -11,6 +11,25 @@ Rectangle  // statusbar in the window's footer
     border.color: backgroundColor1
     border.width: 1
 
+    property color text_color: (statusbar_mouse_area.containsMouse) ? textColor : backgroundColor3
+    Behavior on text_color {
+        enabled: true
+
+        ColorAnimation
+        {
+            duration: 200
+            easing.type: Easing.OutQuad
+        }
+    }
+
+    MouseArea
+    {
+        id: statusbar_mouse_area
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
+    }
+
     Row
     {
         id: statusbar_row
@@ -41,7 +60,7 @@ Rectangle  // statusbar in the window's footer
                     - (statusbar_row.spacing_width * (statusbar_row.row_items_count - 1))
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
                     ) / statusbar_row.row_items_count
-            color: "transparent"
+            color: (error_message.length > 0) ? backgroundColorError : "transparent"
 
             Text
             {
@@ -53,7 +72,7 @@ Rectangle  // statusbar in the window's footer
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
-                text: error_message
+                text: (error_message.length > 0) ? qsTr("Status: ") + error_message : ""
             }
         }
 
@@ -67,6 +86,19 @@ Rectangle  // statusbar in the window's footer
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
                     ) / statusbar_row.row_items_count
             color: "transparent"
+
+            Text
+            {
+                id: saved_date_text
+                anchors.fill: parent
+                anchors.margins: 4
+                font.pointSize: textSizeSmall
+                color: text_color
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+                text: "Saved: " + saved_date
+            }
         }
 
         Loader { sourceComponent: spacing_component }
@@ -79,6 +111,19 @@ Rectangle  // statusbar in the window's footer
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
                     ) / statusbar_row.row_items_count
             color: "transparent"
+
+            Text
+            {
+                id: created_date_text
+                anchors.fill: parent
+                anchors.margins: 4
+                font.pointSize: textSizeSmall
+                color: text_color
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+                text: "Created: " + created_date
+            }
         }
     }
 }
