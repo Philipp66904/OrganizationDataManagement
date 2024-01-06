@@ -264,7 +264,7 @@ Rectangle
                 id: table_button_row
                 anchors.fill: parent
                 spacing: 8
-                property int button_count: { //(show_duplicate_button) ? 4 : 3
+                property int button_count: {
                     let res = 2;
                     if(show_duplicate_button) res += 1;
                     if(show_add_button) res += 1;

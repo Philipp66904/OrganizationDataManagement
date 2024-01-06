@@ -652,6 +652,28 @@ class Database(QObject):
                 avail_addresses.append([address[0], address[1], address[2]])
         
         return avail_addresses
+    
+    
+    @Slot(str, int, str, result=int)
+    def getParentId(self, table_name: str, pk: int, pk_column_name: str) -> int:
+        """
+        Returns the parent id for a specific id in a specific table.
+        table_name: Name of the table where pk_column_name and the parent id are located.
+        pk: Primary key for the specific row
+        pk_column_name: Primary key column name
+        returns: Parent_id if it is defined, otherwise -1
+        """
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT parent_id FROM {table_name} WHERE {pk_column_name} = ? LIMIT 1;""",
+                                   (pk,))
+            
+            parent_id = res.fetchone()
+            
+        if parent_id is None:
+            return -1
+        
+        return parent_id
 
     
     @Slot(int, str, str, str, result=int)
@@ -1360,7 +1382,29 @@ class Database(QObject):
         return [dates[0], dates[1]]
     
     
-    def updateSearchCache(self, table_name) -> None:
+    def _getSearchResultCompleteColumnNames(self, table_name: str | None = None, column_names: str | None = None) -> list:
+        """
+        Returns a list of column names used for the search result tables.
+        Note: Either table_name or column_names (or both) must be defined!
+        table_name [optional]: Name of the table whose column names shall be returned
+        column_names [optional]: Predefined column names that will be used instead of querying the db for better performance
+        returns: List of strings with all the column names used for the search tables
+        """
+        
+        if table_name is None and column_names is None:
+            raise ValueError("Database::_getSearchResultCompleteColumnNames: Either table_name or column_names must be defined")
+        
+        if column_names is None:
+            column_names = self.getNonPrimaryKeyNonForeignKeyColumnNames(table_name)
+        
+        complete_column_names = ["id", "name", "note"]
+        complete_column_names.extend(column_names)
+        complete_column_names.extend(["date_modified", "date_created"])
+        
+        return complete_column_names
+    
+    
+    def _updateSearchCache(self, table_name) -> None:
         """
         Checks if the data for a specific table name is already cached or adds it for faster search responses.
         If yes, the function simply returns.
@@ -1392,9 +1436,8 @@ class Database(QObject):
             data_list = res.fetchall()
         
         # Convert list[tupel] to list[dict]
-        complete_column_names = ["organization_id", "person_id", "address_id", "id", "name", "note"]
-        complete_column_names.extend(column_names)
-        complete_column_names.extend(["date_modified", "date_created"])
+        complete_column_names = ["organization_id", "person_id", "address_id"]
+        complete_column_names.extend(self._getSearchResultCompleteColumnNames(table_name, column_names))
         
         data = []
         for row in data_list:
@@ -1430,7 +1473,7 @@ class Database(QObject):
         """
         
         # Update cache
-        self.updateSearchCache(table_name)
+        self._updateSearchCache(table_name)
 
         # Get current data from cache
         row_data = self._search_data_cache[table_name]
@@ -1502,6 +1545,9 @@ class Database(QObject):
             
             res_ids.append(row["id"])
             res.append(row_list)
+            
+        if len(res) == 0:
+            res.append(self._getSearchResultCompleteColumnNames(table_name))
 
         return res
     

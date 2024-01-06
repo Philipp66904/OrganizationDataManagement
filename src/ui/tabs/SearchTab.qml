@@ -24,6 +24,8 @@ Rectangle
     property int selected_address_id: -1
 
     property var organization_search_res: []
+    property var person_search_res: []
+    property var address_search_res: []
 
     // Signals
     signal resetSearch()
@@ -49,6 +51,14 @@ Rectangle
         organization_search_res = database.search("organization", search_term,
             selected_organization_id, selected_person_id, selected_address_id,
             organization_search_selection);
+
+        person_search_res = database.search("person", search_term,
+            selected_organization_id, selected_person_id, selected_address_id,
+            person_search_selection);
+        
+        address_search_res = database.search("address", search_term,
+            selected_organization_id, selected_person_id, selected_address_id,
+            address_search_selection);
     }
 
     Component.onCompleted: resetSearch()
@@ -57,10 +67,8 @@ Rectangle
     Connections {
         target: database
         function onDataChanged() {
-            //load_data();
             updateSearch();
             softResetSearch();
-            //resetSearch();
         }
 
         function onDatabaseLoaded(db_path) {
@@ -71,6 +79,8 @@ Rectangle
     function load_data() {
         search_term = "";
         organization_search_res = [];
+        person_search_res = [];
+        address_search_res = [];
     }
 
     function load_data_soft() {
@@ -310,56 +320,155 @@ Rectangle
             id: table_column
             width: parent.width
             height: main_column.table_column_height
-            spacing: 8
+            spacing: 4
 
-            property int row_count: 1
+            property int row_count: 2
+            property var tab_row_height: (height - ((row_count - 1) * spacing)) * 0.1
+            property var table_height: (height - ((row_count - 1) * spacing)) * 0.9
 
-            property var table_height: (height - ((row_count - 1) * spacing)) / row_count
-
-            Table
+            Row
             {
-                id: organization_result_table
-                height: table_column.table_height
+                id: tab_row
                 width: parent.width - 8
+                height: table_column.tab_row_height
                 anchors.horizontalCenter: parent.horizontalCenter
-                table_view_main_height_factor: 0.87
-                table_cell_rect_height_factor: 0.16
-                pk_id: -1
-                parent_id: -1
-                show_duplicate_button: false
-                show_add_button: false
+                spacing: 8
 
-                property string table_name: "organization"
+                property int column_count: 4
+                property var module_width: (width - ((column_count - 1) * spacing)) / column_count
 
-                TableModel
+                Text
                 {
-                    id: table_model
+                    text: qsTr("Search Results:")
+                    width: tab_row.module_width
+                    height: parent.height
+                    font.pointSize: textSize
+                    color: backgroundColor3
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
                 }
 
-                function load_data() {
-                    const res = tab_main.organization_search_res;
-                    let column_names = res.shift();
-                    if(res.length <= 0) column_names = [];
+                TabBarButton
+                {
+                    id: organization_table_search_results_button
+                    width: tab_row.module_width
+                    height: parent.height
+                    bar_text: qsTr("Organization")
+                    highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
+                    property int stack_layout_index: 0
 
-                    table_model.loadData(organization_result_table.table_name, column_names, res);
-                }
-
-                Connections {
-                    target: tab_main
-                    function onUpdateSearch() {
-                        organization_result_table.load_data();
+                    onClicked:
+                    {
+                        search_result_table_stack_layout.currentIndex = stack_layout_index;
                     }
                 }
 
-                onEdit_button_clicked: function edit_button_clicked(pk) {
-                    organization_edit_dialog.pk_id = pk;
-                    organization_edit_dialog.show();
-                    organization_edit_dialog.init_dialog();
+                TabBarButton
+                {
+                    id: person_table_search_results_button
+                    width: tab_row.module_width
+                    height: parent.height
+                    bar_text: qsTr("Person")
+                    highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
+                    property int stack_layout_index: 1
+
+                    onClicked:
+                    {
+                        search_result_table_stack_layout.currentIndex = stack_layout_index;
+                    }
                 }
 
-                onDelete_button_clicked: function delete_button_clicked(pk) {
-                    error_message = database.deleteEntry(pk, "id", organization_result_table.table_name);
-                    if(error_message !== "") return;
+                TabBarButton
+                {
+                    id: address_table_search_results_button
+                    width: tab_row.module_width
+                    height: parent.height
+                    bar_text: qsTr("Address")
+                    highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
+                    property int stack_layout_index: 2
+
+                    onClicked:
+                    {
+                        search_result_table_stack_layout.currentIndex = stack_layout_index;
+                    }
+                }
+            }
+
+            StackLayout
+            {
+                id: search_result_table_stack_layout
+                height: table_column.table_height
+                width: parent.width - 8
+                anchors.horizontalCenter: parent.horizontalCenter
+                currentIndex: 0
+            
+                SearchResultTable
+                {
+                    id: organization_result_table
+
+                    table_name: "organization"
+                    search_res: organization_search_res
+
+                    Connections {
+                        target: tab_main
+                        function onUpdateSearch() {
+                            organization_result_table.load_data();
+                        }
+                    }
+
+                    onEdit_button_clicked: function edit_button_clicked(pk) {
+                        organization_edit_dialog.pk_id = pk;
+
+                        let parent_id_tmp = database.getParentId(table_name, pk, "id");
+                        if (parent_id_tmp < 0) parent_id_tmp = undefined;
+                        organization_edit_dialog.parent_id = parent_id_tmp;
+                        
+                        organization_edit_dialog.show();
+                        organization_edit_dialog.init_dialog();
+                    }
+                }
+
+                SearchResultTable
+                {
+                    id: person_result_table
+
+                    table_name: "person"
+                    search_res: person_search_res
+
+                    Connections {
+                        target: tab_main
+                        function onUpdateSearch() {
+                            person_result_table.load_data();
+                        }
+                    }
+
+                    onEdit_button_clicked: function edit_button_clicked(pk) {
+                        person_edit_dialog.pk_id = pk;
+                        person_edit_dialog.show();
+                        person_edit_dialog.init_dialog();
+                    }
+                }
+
+                SearchResultTable
+                {
+                    id: address_result_table
+
+                    table_name: "address"
+                    search_res: address_search_res
+
+                    Connections {
+                        target: tab_main
+                        function onUpdateSearch() {
+                            address_result_table.load_data();
+                        }
+                    }
+
+                    onEdit_button_clicked: function edit_button_clicked(pk) {
+                        address_edit_dialog.pk_id = pk;
+                        address_edit_dialog.show();
+                        address_edit_dialog.init_dialog();
+                    }
                 }
             }
         }
