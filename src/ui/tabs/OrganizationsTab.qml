@@ -13,12 +13,14 @@ TemplateTab
     
     onAdd_button_clicked: function add_button_clicked() {
         organization_edit_dialog.pk_id = -1;
+        organization_edit_dialog.parent_id = undefined;
         organization_edit_dialog.show();
         organization_edit_dialog.init_dialog();
     }
 
     onEdit_button_clicked: function edit_button_clicked(pk) {
         organization_edit_dialog.pk_id = pk;
+        organization_edit_dialog.parent_id = undefined;
         organization_edit_dialog.show();
         organization_edit_dialog.init_dialog();
     }
