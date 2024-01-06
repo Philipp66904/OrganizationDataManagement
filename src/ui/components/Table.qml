@@ -18,6 +18,7 @@ Rectangle
 
     property var selected_pk: undefined
     property bool show_duplicate_button: true
+    property bool show_add_button: true
     required property var pk_id  // set to -1 if new entry  // set to undefined if root table
     required property var parent_id  // set to undefined if it has no parent
     required property double table_view_main_height_factor
@@ -95,7 +96,7 @@ Rectangle
                         border.width: 1
 
                         Text {
-                            text: display
+                            text: (display !== undefined) ? display : ""
                             anchors.fill: parent
                             anchors.margins: 4
                             font.pointSize: textSize
@@ -263,13 +264,19 @@ Rectangle
                 id: table_button_row
                 anchors.fill: parent
                 spacing: 8
-                property int button_count: (show_duplicate_button) ? 4 : 3
+                property int button_count: { //(show_duplicate_button) ? 4 : 3
+                    let res = 2;
+                    if(show_duplicate_button) res += 1;
+                    if(show_add_button) res += 1;
+                    return res;
+                }
 
                 BasicButton
                 {
                     id: add_button
                     width: (parent.width - ((table_button_row.button_count - 1) * parent.spacing)) / table_button_row.button_count
                     height: parent.height
+                    visible: show_add_button
                     hover_color: highlight_color
                     text: qsTr("Add")
                     button_enabled: (table_root.pk_id !== undefined && table_root.pk_id < 0) ? false : true
