@@ -340,83 +340,108 @@ ApplicationWindow
 
             Loader { sourceComponent: separator_component; }
 
-            Row
+            Rectangle
             {
-                id: date_row
+                id: date_rect
                 width: parent.width - 8
                 height: main_column.date_row_height
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 4
-                property int column_count: 3
-                property string modified_date: ""
-                property string created_date: ""
-
-                function load_dates() {
-                    const dates = database.getMetadata(identifier, "id", table_name);
-                    date_row.modified_date = dates[0];
-                    date_row.created_date = dates[1];
-
-                    if(dates[0] === "" && dates[1] === "") {
-                        const new_entry_description_text = qsTr("New Entry");
-                        date_row.modified_date = new_entry_description_text;
-                        date_row.created_date = new_entry_description_text;
-                    }
-                }
-
-                Connections {
-                    target: edit_dialog_window
-                    function onInitProperties() {
-                        date_row.load_dates();
-                    }
-                }
-
-                Rectangle
+                color: "transparent"
+                
+                MouseArea
                 {
-                    id: date_modified_rect
-                    height: parent.height
-                    width: ((parent.width - ((parent.column_count - 1) * parent.spacing)) / 2) - separator_rect.width
-                    color: "transparent"
+                    id: date_rect_mouse_area
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    acceptedButtons: Qt.NoButton
+                }
 
-                    Text
+                Row
+                {
+                    id: date_row
+                    anchors.fill: parent
+                    spacing: 4
+                    property int column_count: 3
+                    property string modified_date: ""
+                    property string created_date: ""
+                    property color text_color: (date_rect_mouse_area.containsMouse) ? textColor : backgroundColor3
+                    Behavior on text_color {
+                        enabled: true
+
+                        ColorAnimation
+                        {
+                            duration: 200
+                            easing.type: Easing.OutQuad
+                        }
+                    }
+
+                    function load_dates() {
+                        const dates = database.getMetadata(identifier, "id", table_name);
+                        date_row.modified_date = dates[0];
+                        date_row.created_date = dates[1];
+
+                        if(dates[0] === "" && dates[1] === "") {
+                            const new_entry_description_text = qsTr("New Entry");
+                            date_row.modified_date = new_entry_description_text;
+                            date_row.created_date = new_entry_description_text;
+                        }
+                    }
+
+                    Connections {
+                        target: edit_dialog_window
+                        function onInitProperties() {
+                            date_row.load_dates();
+                        }
+                    }
+
+                    Rectangle
                     {
-                        id: date_modified_text
-                        text: qsTr("Modified: ") + date_row.modified_date
-                        anchors.fill: parent
-                        anchors.margins: 4
-                        font.pointSize: textSizeSmall
-                        color: backgroundColor3
-                        horizontalAlignment: Text.AlignLeft
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
+                        id: date_modified_rect
+                        height: parent.height
+                        width: ((parent.width - ((parent.column_count - 1) * parent.spacing)) / 2) - separator_rect.width
+                        color: "transparent"
+
+                        Text
+                        {
+                            id: date_modified_text
+                            text: qsTr("Modified: ") + date_row.modified_date
+                            anchors.fill: parent
+                            anchors.margins: 4
+                            font.pointSize: textSizeSmall
+                            color: date_row.text_color
+                            horizontalAlignment: Text.AlignLeft
+                            verticalAlignment: Text.AlignVCenter
+                            elide: Text.ElideRight
+                        }
                     }
-                }
 
-                Rectangle
-                {
-                    id: separator_rect
-                    height: parent.height
-                    width: 1
-                    color: backgroundColor1
-                }
-
-                Rectangle
-                {
-                    id: date_created_rect
-                    height: parent.height
-                    width: (parent.width - ((parent.column_count - 1) * parent.spacing)) / 2
-                    color: "transparent"
-
-                    Text
+                    Rectangle
                     {
-                        id: date_created_text
-                        text: qsTr("Created: ") + date_row.created_date
-                        anchors.fill: parent
-                        anchors.margins: 4
-                        font.pointSize: textSizeSmall
-                        color: backgroundColor3
-                        horizontalAlignment: Text.AlignLeft
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
+                        id: separator_rect
+                        height: parent.height
+                        width: 1
+                        color: backgroundColor1
+                    }
+
+                    Rectangle
+                    {
+                        id: date_created_rect
+                        height: parent.height
+                        width: (parent.width - ((parent.column_count - 1) * parent.spacing)) / 2
+                        color: "transparent"
+
+                        Text
+                        {
+                            id: date_created_text
+                            text: qsTr("Created: ") + date_row.created_date
+                            anchors.fill: parent
+                            anchors.margins: 4
+                            font.pointSize: textSizeSmall
+                            color: date_row.text_color
+                            horizontalAlignment: Text.AlignLeft
+                            verticalAlignment: Text.AlignVCenter
+                            elide: Text.ElideRight
+                        }
                     }
                 }
             }

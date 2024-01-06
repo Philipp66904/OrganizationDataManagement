@@ -319,6 +319,15 @@ Rectangle
                 else if(separator_mouse_area.containsMouse) return backgroundColor3;
                 else return backgroundColor1;
             }
+            Behavior on color {
+                enabled: !separator_mouse_area.drag.active
+
+                ColorAnimation
+                {
+                    duration: 200
+                    easing.type: Easing.OutQuad
+                }
+            }
             anchors.horizontalCenter: parent.horizontalCenter
 
             MouseArea
