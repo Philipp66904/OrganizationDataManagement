@@ -569,7 +569,7 @@ class Database(QObject):
     @Slot(int, result=list)
     def getOrganizationConnection(self, connection_id: int) -> list:
         """
-        Returns a list with all organizations that exist.
+        Returns a list with all organizations that exist ordered by name, note and id.
         connection_id: Currently edited connection_id. Set to < 0 if a connection is added.
         returns: A list containing a list with the following specification: list[[organization_id, name, note], ...].
                  If the connection_id is >= 0, the currently selected organization will be at the top of the list.
@@ -583,7 +583,10 @@ class Database(QObject):
                 res = self.con.execute("""SELECT organization_id FROM connection WHERE id = ?;""", (connection_id,))
                 selected_organization_id = res.fetchone()[0]
             
-            res = self.con.execute("""SELECT p.id, d.name, d.note FROM organization p, description d WHERE p.description_id = d.id;""")
+            res = self.con.execute("""SELECT o.id, d.name, d.note
+                                      FROM organization o, description d
+                                      WHERE o.description_id = d.id
+                                      ORDER BY d.name ASC, d.note ASC, o.id ASC;""")
             all_organizations = res.fetchall()
         
         avail_organizations = []
@@ -599,7 +602,7 @@ class Database(QObject):
     @Slot(int, result=list)
     def getPersonConnection(self, connection_id: int) -> list:
         """
-        Returns a list with all persons that exist.
+        Returns a list with all persons that exist ordered by name, note and id.
         connection_id: Currently edited connection_id. Set to < 0 if a connection is added.
         returns: A list containing a list with the following specification: list[[person_id, name, note], ...].
                  If the connection_id is >= 0, the currently selected person will be at the top of the list.
@@ -612,7 +615,10 @@ class Database(QObject):
                 res = self.con.execute("""SELECT person_id FROM connection WHERE id = ?;""", (connection_id,))
                 selected_person_id = res.fetchone()[0]
             
-            res = self.con.execute("""SELECT p.id, d.name, d.note FROM person p, description d WHERE p.description_id = d.id;""")
+            res = self.con.execute("""SELECT p.id, d.name, d.note
+                                      FROM person p, description d
+                                      WHERE p.description_id = d.id
+                                      ORDER BY d.name ASC, d.note ASC, p.id ASC;""")
             all_persons = res.fetchall()
         
         avail_persons = []
@@ -628,7 +634,7 @@ class Database(QObject):
     @Slot(int, result=list)
     def getAddressConnection(self, connection_id: int) -> list:
         """
-        Returns a list with all addresses that exist.
+        Returns a list with all addresses that exist ordered by name, note and id.
         connection_id: Currently edited connection_id. Set to < 0 if a connection is added.
         returns: A list containing a list with the following specification: list[[address_id, name, note], ...].
                  If the connection_id is >= 0, the currently selected person will be at the top of the list.
@@ -641,7 +647,10 @@ class Database(QObject):
                 res = self.con.execute("""SELECT address_id FROM connection WHERE id = ?;""", (connection_id,))
                 selected_address_id = res.fetchone()[0]
             
-            res = self.con.execute("""SELECT a.id, d.name, d.note FROM address a, description d WHERE a.description_id = d.id;""")
+            res = self.con.execute("""SELECT a.id, d.name, d.note
+                                      FROM address a, description d
+                                      WHERE a.description_id = d.id
+                                      ORDER BY d.name ASC, d.note ASC, a.id ASC;""")
             all_addresses = res.fetchall()
         
         avail_addresses = []
