@@ -24,10 +24,11 @@ ApplicationWindow
     property color backgroundColor1: "#303030"
     property color backgroundColor2: "#535353"
     property color backgroundColor3: "#9f9f9f"
-    property color backgroundColorError: "#B35150"
+    property color backgroundColorError: "#fc5d5b"
     property color backgroundColorNotification: "#51b350"
     property color highlightColor: "#00EF00"
     property color textColor: "#ffffff"
+    property color textColor1: "#cfcfcf"
     property color selectedColor: "#4098DB"
 
     // Text size
@@ -97,6 +98,8 @@ ApplicationWindow
     TabBarMain
     {
         anchors.fill: parent
+        anchors.topMargin: 2
+        anchors.bottomMargin: 1
     }
 
     // Closing handler

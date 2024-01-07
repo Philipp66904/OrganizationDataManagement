@@ -9,7 +9,7 @@ import "../components"
 Rectangle
 {
     id: tab_bar_main
-    color: "transparent"
+    color: backgroundColor1
 
     Column
     {
@@ -17,60 +17,70 @@ Rectangle
         anchors.margins: 4
         spacing: 4
 
-        Row
+        Rectangle
         {
-            id: tab_bar_row
+            id: tab_bar_rect
             width: parent.width
             height: 30
-            spacing: 8
-            property int item_count: 4
+            color: backgroundColor2
+            radius: 8
+            border.color: backgroundColor3
+            border.width: 1
 
-            TabBarButton
+            Row
             {
-                id: search_tab_button
-                height: tab_bar_row.height
-                width: (tab_bar_row.width - (tab_bar_row.spacing * (tab_bar_row.item_count - 1))) / tab_bar_row.item_count
-                bar_text: qsTr("Search")
-                highlighted: (stack_layout.currentIndex === identifier) ? true : false
-                property int identifier: 0
+                id: tab_bar_row
+                anchors.fill: parent
+                spacing: 8
+                property int item_count: 4
 
-                onClicked: stack_layout.currentIndex = identifier
-            }
+                TabBarButton
+                {
+                    id: search_tab_button
+                    height: tab_bar_row.height
+                    width: (tab_bar_row.width - (tab_bar_row.spacing * (tab_bar_row.item_count - 1))) / tab_bar_row.item_count
+                    bar_text: qsTr("Search")
+                    highlighted: (stack_layout.currentIndex === identifier) ? true : false
+                    property int identifier: 0
 
-            TabBarButton
-            {
-                id: organization_tab_button
-                height: tab_bar_row.height
-                width: (tab_bar_row.width - (tab_bar_row.spacing * (tab_bar_row.item_count - 1))) / tab_bar_row.item_count
-                bar_text: qsTr("Organization")
-                highlighted: (stack_layout.currentIndex === identifier) ? true : false
-                property int identifier: 1
+                    onClicked: stack_layout.currentIndex = identifier
+                }
 
-                onClicked: stack_layout.currentIndex = identifier
-            }
+                TabBarButton
+                {
+                    id: organization_tab_button
+                    height: tab_bar_row.height
+                    width: (tab_bar_row.width - (tab_bar_row.spacing * (tab_bar_row.item_count - 1))) / tab_bar_row.item_count
+                    bar_text: qsTr("Organization")
+                    highlighted: (stack_layout.currentIndex === identifier) ? true : false
+                    property int identifier: 1
 
-            TabBarButton
-            {
-                id: person_tab_button
-                height: tab_bar_row.height
-                width: (tab_bar_row.width - (tab_bar_row.spacing * (tab_bar_row.item_count - 1))) / tab_bar_row.item_count
-                bar_text: qsTr("Person")
-                highlighted: (stack_layout.currentIndex === identifier) ? true : false
-                property int identifier: 2
+                    onClicked: stack_layout.currentIndex = identifier
+                }
 
-                onClicked: stack_layout.currentIndex = identifier
-            }
+                TabBarButton
+                {
+                    id: person_tab_button
+                    height: tab_bar_row.height
+                    width: (tab_bar_row.width - (tab_bar_row.spacing * (tab_bar_row.item_count - 1))) / tab_bar_row.item_count
+                    bar_text: qsTr("Person")
+                    highlighted: (stack_layout.currentIndex === identifier) ? true : false
+                    property int identifier: 2
 
-            TabBarButton
-            {
-                id: address_tab_button
-                height: tab_bar_row.height
-                width: (tab_bar_row.width - (tab_bar_row.spacing * (tab_bar_row.item_count - 1))) / tab_bar_row.item_count
-                bar_text: qsTr("Address")
-                highlighted: (stack_layout.currentIndex === identifier) ? true : false
-                property int identifier: 3
+                    onClicked: stack_layout.currentIndex = identifier
+                }
 
-                onClicked: stack_layout.currentIndex = identifier
+                TabBarButton
+                {
+                    id: address_tab_button
+                    height: tab_bar_row.height
+                    width: (tab_bar_row.width - (tab_bar_row.spacing * (tab_bar_row.item_count - 1))) / tab_bar_row.item_count
+                    bar_text: qsTr("Address")
+                    highlighted: (stack_layout.currentIndex === identifier) ? true : false
+                    property int identifier: 3
+
+                    onClicked: stack_layout.currentIndex = identifier
+                }
             }
         }
 

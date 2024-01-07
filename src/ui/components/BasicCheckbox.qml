@@ -18,8 +18,8 @@ CheckBox
         x: parent.leftPadding
         y: parent.height / 2 - height / 2
         radius: 4
-        color: backgroundColor
-        border.color: (parent.checked || checkbox_mouse_area.containsMouse) ? highlight_color : backgroundColor2
+        color: backgroundColor3
+        border.color: (checkbox_mouse_area.containsMouse) ? highlight_color : color
         property bool checked: parent.checked
 
         Rectangle

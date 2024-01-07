@@ -13,7 +13,7 @@ ApplicationWindow
 {
     id: edit_dialog_window
     title: window_title + " - " + entry_name
-    color: backgroundColor
+    color: backgroundColor1
     modality: Qt.ApplicationModal
     minimumWidth: 300
     minimumHeight: 90
@@ -113,7 +113,7 @@ ApplicationWindow
                 {
                     width: main_column.width
                     height: 1
-                    color: backgroundColor1
+                    color: backgroundColor2
                 }
             }
 
@@ -122,7 +122,7 @@ ApplicationWindow
                 id: title_rect
                 height: main_column.title_rect_height
                 width: parent.width
-                color: backgroundColor1
+                color: backgroundColor2
 
                 Row
                 {
@@ -151,7 +151,7 @@ ApplicationWindow
                         height: parent.height
                         text: edit_dialog_window.entry_name
                         font.pointSize: textSizeBig
-                        color: backgroundColor3
+                        color: textColor1
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
@@ -204,7 +204,7 @@ ApplicationWindow
                         height: main_column.derivate_description_text_height
                         text: qsTr("Derivates:")
                         font.pointSize: textSize
-                        color: backgroundColor3
+                        color: textColor1
                         anchors.horizontalCenter: parent.horizontalCenter
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -258,82 +258,91 @@ ApplicationWindow
 
             Loader { sourceComponent: separator_component; }
 
-            Row
+            Rectangle
             {
-                id: button_row
+                id: button_row_rect
                 width: parent.width - 8
                 height: main_column.button_row_height
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 8
-                property int button_count: 3
+                color: "transparent"
+                radius: 8
 
-                focus: true
-                Keys.onReturnPressed: {
-                    if(save_button_enabled) save_button.clicked();
-                }
-                Keys.onEscapePressed: abort_button.clicked()
-
-                BasicButton
+                Row
                 {
-                    id: save_button
-                    width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
-                    height: parent.height
-                    hover_color: highlight_color
-                    text: qsTr("Save")
-                    button_enabled: save_button_enabled
-                    selected: parent.focus
+                    id: button_row
+                    anchors.fill: parent
+                    
+                    spacing: 8
+                    property int button_count: 3
 
-                    onClicked:
-                    {
-                        edit_dialog_window.save_button_clicked();
-
-                        if(error_message === "") {
-                            close_okay = true;
-                            edit_dialog_window.close();
-                        }
+                    focus: true
+                    Keys.onReturnPressed: {
+                        if(save_button_enabled) save_button.clicked();
                     }
-                }
+                    Keys.onEscapePressed: abort_button.clicked()
 
-                BasicButton
-                {
-                    id: delete_button
-                    width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
-                    height: parent.height
-                    highlight_color: "#ff0000"
-                    text: qsTr("Delete")
-                    button_enabled: (edit_dialog_window.identifier !== -1) ? true : false
-
-                    DeleteDialog
+                    BasicButton
                     {
-                        id: delete_dialog
-                        function callback_function() {
-                            error_message = database.deleteEntry(edit_dialog_window.identifier, "id", edit_dialog_window.table_name);
-                            if(error_message !== "") return;
+                        id: save_button
+                        width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
+                        height: parent.height
+                        hover_color: highlight_color
+                        text: qsTr("Save")
+                        button_enabled: save_button_enabled
+                        selected: parent.focus
 
-                            edit_dialog_window.delete_button_clicked();
-                            close_okay = true;
-                            edit_dialog_window.close();
+                        onClicked:
+                        {
+                            edit_dialog_window.save_button_clicked();
+
+                            if(error_message === "") {
+                                close_okay = true;
+                                edit_dialog_window.close();
+                            }
                         }
                     }
 
-                    onClicked:
+                    BasicButton
                     {
-                        delete_dialog.show();
+                        id: delete_button
+                        width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
+                        height: parent.height
+                        highlight_color: backgroundColorError
+                        text: qsTr("Delete")
+                        button_enabled: (edit_dialog_window.identifier !== -1) ? true : false
+
+                        DeleteDialog
+                        {
+                            id: delete_dialog
+                            function callback_function() {
+                                error_message = database.deleteEntry(edit_dialog_window.identifier, "id", edit_dialog_window.table_name);
+                                if(error_message !== "") return;
+
+                                edit_dialog_window.delete_button_clicked();
+                                close_okay = true;
+                                edit_dialog_window.close();
+                            }
+                        }
+
+                        onClicked:
+                        {
+                            delete_dialog.show();
+                        }
                     }
-                }
 
-                BasicButton
-                {
-                    id: abort_button
-                    width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
-                    height: parent.height
-                    hover_color: textColor
-                    text: qsTr("Abort")
-                    button_enabled: true
-
-                    onClicked:
+                    BasicButton
                     {
-                        edit_dialog_window.close();
+                        id: abort_button
+                        width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
+                        height: parent.height
+                        hover_color: textColor
+                        text: qsTr("Abort")
+                        button_enabled: true
+
+                        onClicked:
+                        {
+                            edit_dialog_window.close();
+                        }
                     }
                 }
             }
@@ -364,7 +373,7 @@ ApplicationWindow
                     property int column_count: 3
                     property string modified_date: ""
                     property string created_date: ""
-                    property color text_color: (date_rect_mouse_area.containsMouse) ? textColor : backgroundColor3
+                    property color text_color: (date_rect_mouse_area.containsMouse) ? textColor : textColor1
                     Behavior on text_color {
                         enabled: true
 
@@ -420,7 +429,7 @@ ApplicationWindow
                         id: separator_rect
                         height: parent.height
                         width: 1
-                        color: backgroundColor1
+                        color: backgroundColor2
                     }
 
                     Rectangle

@@ -404,7 +404,6 @@ TemplateEditDialog
                 description: qsTr("Note")
                 value: property_note
                 original_value: ""
-                derivate_mode: false
 
                 Connections {
                     target: person_dialog

@@ -13,16 +13,12 @@ Rectangle
 
     signal clicked()
 
-    color:
-    {
-        if(highlighted) return backgroundColor1;
-        else return backgroundColor;
-    }
+    color: "transparent"
     border.color:
     {
         if(highlighted) return highlightColor;
         else if(hover) return textColor;
-        else return backgroundColor1;
+        else return "transparent";
     }
     border.width: 1
     radius: 8

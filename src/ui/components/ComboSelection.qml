@@ -7,8 +7,8 @@ import QtPositioning
 Rectangle
 {
     id: combo_selection_root
-    color: (popup_opened) ? backgroundColor1 : backgroundColor
-    border.color: (popup_opened) ? highlight_color : backgroundColor3
+    color: backgroundColor2 //(popup_opened) ? backgroundColor1 : backgroundColor
+    border.color: (popup_opened) ? highlight_color : color
     border.width: 1
     radius: 4
 
@@ -65,7 +65,7 @@ Rectangle
             height: parent.height
             width: (parent.width - (parent.spacing * (combo_selection_row.column_count - 1))) / combo_selection_row.column_count
             font.pointSize: textSize
-            color: backgroundColor3
+            color: textColor1
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight

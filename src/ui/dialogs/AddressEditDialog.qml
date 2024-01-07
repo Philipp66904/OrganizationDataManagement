@@ -475,8 +475,8 @@ TemplateEditDialog
             Rectangle
             {
                 id: address_other_root
-                color: "transparent"
-                border.color: backgroundColor3
+                color: backgroundColor1 //backgroundColor2
+                border.color: backgroundColor2
                 border.width: 1
                 width: parent.width
                 height: ((parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count) * 3
@@ -504,7 +504,7 @@ TemplateEditDialog
                         height: parent.address_other_description_text_height
                         text: qsTr("Other:")
                         font.pointSize: textSize
-                        color: backgroundColor3
+                        color: textColor1
                         anchors.horizontalCenter: parent.horizontalCenter
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -536,7 +536,7 @@ TemplateEditDialog
                                 derivate_value: undefined
                                 derivate_mode: true
                                 derivate_flag: (value === undefined) ? true : property_derivate_flag
-                                border.color: (editing) ? highlightColor : backgroundColor1
+                                border.color: (editing) ? highlightColor : color
                                 null_switch_height_percentage: 1.0
 
                                 required property int index
@@ -589,7 +589,7 @@ TemplateEditDialog
                         height: 1
                         width: address_other_root.width - (address_other_root.border.width * 2)
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: backgroundColor1
+                        color: backgroundColor2
                     }
 
                     Row
@@ -631,7 +631,6 @@ TemplateEditDialog
                 description: qsTr("Note")
                 value: property_note
                 original_value: ""
-                derivate_mode: false
 
                 Connections {
                     target: address_dialog

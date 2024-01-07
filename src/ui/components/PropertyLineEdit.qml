@@ -7,17 +7,17 @@ import QtPositioning
 Rectangle
 {
     id: property_line_edit_root
-    color: (editing) ? backgroundColor1 : backgroundColor
+    color: backgroundColor2
     border.color:
     {
         if(!required) {
             if(editing) return highlightColor;
-            else return backgroundColor3;
+            else return color;
         }
         else {
             if(value_text.text.trim().length <= 0) return backgroundColorError;
             else if(editing) return highlightColor;
-            else return backgroundColor3;
+            else return color;
         }
     }
     border.width: 1
@@ -108,7 +108,7 @@ Rectangle
             width: property_row_main.description_text_width
             height: parent.height
             font.pointSize: textSize
-            color: (required && value_text.text.trim().length <= 0) ? backgroundColorError : backgroundColor3
+            color: (required && value_text.text.trim().length <= 0) ? backgroundColorError : textColor1
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
@@ -144,7 +144,7 @@ Rectangle
                 id: value_text_underline
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: (editing) ? highlightColor : backgroundColor2
+                color: (editing) ? highlightColor : backgroundColor3
                 height: 1
                 width: parent.width
             }
@@ -169,14 +169,6 @@ Rectangle
 
             onToggled: function toggle_handler(checked) {
                 property_row_main.toggleDerivate(checked);
-                // derivate_flag = checked;
-
-                // if(checked) {
-                //     if(value === undefined) value_text.text = "";
-                //     else value_text.text = value;
-                // }
-
-                // property_row_main.send_new_value();
             }
         }
     }

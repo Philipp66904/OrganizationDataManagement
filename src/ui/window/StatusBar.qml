@@ -8,8 +8,15 @@ Rectangle  // statusbar in the window's footer
 {
     id: statusbar
     color: "transparent"
-    border.color: backgroundColor1
-    border.width: 1
+
+    Rectangle
+    {
+        id: separator
+        width: parent.width
+        height: 1
+        anchors.bottom: parent.top
+        color: backgroundColor3
+    }
 
     property color text_color: (statusbar_mouse_area.containsMouse) ? textColor : backgroundColor3
     Behavior on text_color {
@@ -48,7 +55,7 @@ Rectangle  // statusbar in the window's footer
             {
                 height: statusbar_row.height
                 width: statusbar_row.spacing_width
-                color: backgroundColor1
+                color: backgroundColor3
                 radius: 1
             }
         }

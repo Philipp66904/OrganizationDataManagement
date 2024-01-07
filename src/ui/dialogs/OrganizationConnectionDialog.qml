@@ -11,7 +11,7 @@ ApplicationWindow
 {
     id: organization_connection_dialog_window
     title: window_title + " - " + entry_name
-    color: backgroundColor
+    color: backgroundColor1
     modality: Qt.ApplicationModal
     minimumWidth: 300
     minimumHeight: 150
@@ -83,7 +83,13 @@ ApplicationWindow
             organization_connection_dialog_window.entry_name = current_person_address_description[0];
         }
         else {
-            organization_connection_dialog_window.entry_name = qsTr("New Connection");
+            const organization_name = database.getName_byPk(organization_id, "id", "organization");
+            if(organization_name !== "") {
+                organization_connection_dialog_window.entry_name = organization_name;
+            }
+            else {
+                organization_connection_dialog_window.entry_name = qsTr("New Connection");
+            }
         }
         organization_connection_dialog_window.current_person = current_person_address_description[1];
         organization_connection_dialog_window.current_address = current_person_address_description[2];
@@ -113,17 +119,18 @@ ApplicationWindow
     {
         id: main_column
         anchors.fill: parent
-        spacing: 4
+        anchors.bottomMargin: 4
+        spacing: 6
         property int row_count: 4
 
-        property int title_rect_height: (height - (row_count * spacing)) * 0.20
-        property int selection_column_height: (height - (row_count * spacing)) * 0.65
-        property int button_row_height: (height - (row_count * spacing)) * 0.15
+        property int title_rect_height: (height - ((row_count - 1) * spacing)) * 0.20
+        property int selection_column_height: (height - ((row_count - 1) * spacing)) * 0.65
+        property int button_row_height: (height - ((row_count - 1) * spacing)) * 0.15
 
         // Column heights
-        property int combo_selection_person_height: (main_column.selection_column_height - (row_count * spacing)) * 0.33
-        property int combo_selection_address_height: (main_column.selection_column_height - (row_count * spacing)) * 0.33
-        property int err_text_rect_height: (main_column.selection_column_height - (row_count * spacing)) * 0.33
+        property int combo_selection_person_height: (main_column.selection_column_height - ((selection_column.row_count - 1) * selection_column.spacing)) * 0.33
+        property int combo_selection_address_height: (main_column.selection_column_height - ((selection_column.row_count - 1) * selection_column.spacing)) * 0.33
+        property int err_text_rect_height: (main_column.selection_column_height - ((selection_column.row_count - 1) * selection_column.spacing)) * 0.33
 
         Component
         {
@@ -133,7 +140,7 @@ ApplicationWindow
             {
                 width: main_column.width
                 height: 1
-                color: backgroundColor1
+                color: backgroundColor3
             }
         }
 
@@ -142,7 +149,7 @@ ApplicationWindow
             id: title_rect
             height: main_column.title_rect_height
             width: parent.width
-            color: backgroundColor1
+            color: backgroundColor2
 
             Row
             {
@@ -186,6 +193,7 @@ ApplicationWindow
             width: parent.width
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 8
+            property int row_count: 3
 
             ComboSelection
             {
@@ -254,77 +262,84 @@ ApplicationWindow
 
         Loader { sourceComponent: separator_component; }
 
-        Row
+        Rectangle
         {
-            id: button_row
+            id: button_row_rect
             width: parent.width - 8
             height: main_column.button_row_height
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 8
-            property int button_count: 3
+            color: "transparent"
+            radius: 8
 
-            focus: true
-            Keys.onReturnPressed: {
-                if(save_button.button_enabled) {
-                    save_button.clicked();
-                }
-            }
-            Keys.onEscapePressed: abort_button.clicked()
-
-            BasicButton
+            Row
             {
-                id: save_button
-                width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
-                height: parent.height
-                hover_color: highlight_color
-                text: qsTr("Save")
-                button_enabled: (organization_connection_dialog_window.error_text === "") ? true : false
-                selected: parent.focus
-
-                onClicked:
-                {
-                    organization_connection_dialog_window.close_okay = true;
-                    organization_connection_dialog_window.save_button_clicked();
+                id: button_row
+                spacing: 8
+                property int button_count: 3
+                anchors.fill: parent
+                focus: true
+                Keys.onReturnPressed: {
+                    if(save_button.button_enabled) {
+                        save_button.clicked();
+                    }
                 }
-            }
+                Keys.onEscapePressed: abort_button.clicked()
 
-            BasicButton
-            {
-                id: delete_button
-                width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
-                height: parent.height
-                highlight_color: "#ff0000"
-                text: qsTr("Delete")
-                button_enabled: (organization_connection_dialog_window.identifier !== -1) ? true : false
-
-                DeleteDialog
+                BasicButton
                 {
-                    id: delete_dialog
-                    function callback_function() {
-                        organization_connection_dialog_window.delete_button_clicked();
+                    id: save_button
+                    width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
+                    height: parent.height
+                    hover_color: highlight_color
+                    text: qsTr("Save")
+                    button_enabled: (organization_connection_dialog_window.error_text === "") ? true : false
+                    selected: parent.focus
+
+                    onClicked:
+                    {
                         organization_connection_dialog_window.close_okay = true;
-                        organization_connection_dialog_window.close();
+                        organization_connection_dialog_window.save_button_clicked();
                     }
                 }
 
-                onClicked:
+                BasicButton
                 {
-                    delete_dialog.show();
+                    id: delete_button
+                    width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
+                    height: parent.height
+                    highlight_color: backgroundColorError
+                    text: qsTr("Delete")
+                    button_enabled: (organization_connection_dialog_window.identifier !== -1) ? true : false
+
+                    DeleteDialog
+                    {
+                        id: delete_dialog
+                        function callback_function() {
+                            organization_connection_dialog_window.delete_button_clicked();
+                            organization_connection_dialog_window.close_okay = true;
+                            organization_connection_dialog_window.close();
+                        }
+                    }
+
+                    onClicked:
+                    {
+                        delete_dialog.show();
+                    }
                 }
-            }
 
-            BasicButton
-            {
-                id: abort_button
-                width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
-                height: parent.height
-                hover_color: textColor
-                text: qsTr("Abort")
-                button_enabled: true
-
-                onClicked:
+                BasicButton
                 {
-                    organization_connection_dialog_window.close();
+                    id: abort_button
+                    width: (parent.width - ((button_row.button_count - 1) * parent.spacing)) / button_row.button_count
+                    height: parent.height
+                    hover_color: textColor
+                    text: qsTr("Abort")
+                    button_enabled: true
+
+                    onClicked:
+                    {
+                        organization_connection_dialog_window.close();
+                    }
                 }
             }
         }

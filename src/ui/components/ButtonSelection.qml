@@ -8,8 +8,8 @@ import QtQuick.Controls.Basic
 Rectangle
 {
     id: button_selection
-    color: (button_selection_focus_scope.focus) ? backgroundColor2 : backgroundColor
-    border.color: (button_selection_focus_scope.focus) ? highlightColor : backgroundColor3
+    color: backgroundColor2 //(button_selection_focus_scope.focus) ? backgroundColor2 : backgroundColor
+    border.color: (button_selection_focus_scope.focus) ? highlightColor : color
     border.width: 1
     radius: 4
 
@@ -89,7 +89,7 @@ Rectangle
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_count
                 width: parent.width
                 font.pointSize: textSize
-                color: backgroundColor3
+                color: textColor1
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight

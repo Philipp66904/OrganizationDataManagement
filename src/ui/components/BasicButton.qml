@@ -11,8 +11,8 @@ Rectangle
     property var text_point_size: textSizeSmall
     property color highlight_color: highlightColor
     property color hover_color: highlight_color
-    property color selected_color: selectedColor
-    property color border_default_color: backgroundColor2
+    property color selected_color: hover_color
+    property color border_default_color: backgroundColor3
     property bool selected: false
     property bool button_enabled: true
     property bool containsMouse: button_mouse_area.containsMouse
@@ -23,16 +23,16 @@ Rectangle
     Gradient {
         id: selected_gradient
         GradientStop { position: 0.0; color: selected_color }
-        GradientStop { position: 0.15; color: backgroundColor }
-        GradientStop { position: 0.85; color: backgroundColor }
+        GradientStop { position: 0.15; color: "transparent" }
+        GradientStop { position: 0.85; color: "transparent" }
         GradientStop { position: 1.0; color: selected_color }
     }
 
-    color: backgroundColor
+    color: "transparent"
     gradient: (selected && button_enabled && !containsMouse) ? selected_gradient : null
     border.color:
     {
-        if(button_enabled === false) return border_default_color;
+        if(button_enabled === false) return "transparent";
         else if(button_mouse_area.pressed) return highlight_color;
         else if(containsMouse) return hover_color;
         else if(selected) return selected_color;
@@ -50,7 +50,7 @@ Rectangle
         font.pointSize: (button_mouse_area.pressed) ? textSizeSmall : textSize
         color:
         {
-            if(button_enabled === false) return backgroundColor3;
+            if(button_enabled === false) return textColor1;
             else if(button_mouse_area.pressed) return highlight_color;
             else if(containsMouse) return hover_color;
             else textColor;

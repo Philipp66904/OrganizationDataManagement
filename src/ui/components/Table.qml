@@ -11,9 +11,7 @@ import "../dialogs"
 Rectangle
 {
     id: table_root
-    color: "transparent"
-    border.color: backgroundColor3
-    border.width: 1
+    color: backgroundColor2
     radius: 4
 
     property var selected_pk: undefined
@@ -88,14 +86,15 @@ Rectangle
                     clip: true
                     resizableColumns: false
 
-                    delegate: Rectangle {
+                    delegate: Rectangle
+                    {
                         implicitWidth: table_view_main.width * 0.22
                         implicitHeight: table_view_main.height * table_cell_rect_height_factor
-                        color: backgroundColor2
-                        border.color: backgroundColor1
-                        border.width: 1
+                        color: "transparent"
+                        radius: 4
 
-                        Text {
+                        Text
+                        {
                             text: (display !== undefined) ? display : ""
                             anchors.fill: parent
                             anchors.margins: 4
@@ -115,14 +114,16 @@ Rectangle
                     width: Math.min(table_view_header.contentWidth, parent.width)
                     height: 1
                     anchors.left: table_view_header.left
-                    color: backgroundColor1
+                    color: backgroundColor3
                 }
 
-                TableView {
+                TableView
+                {
                     id: table_view
                     width: parent.width
                     height: parent.height - table_view_header.height - separator.height - (parent.spacing * 2)
-                    rowSpacing: 2
+                    rowSpacing: 4
+                    columnSpacing: 4
                     clip: true
                     anchors.left: parent.left
                     resizableColumns: false
@@ -186,9 +187,10 @@ Rectangle
                         id: cell_rect
                         implicitWidth: table_view_main.width * 0.22
                         implicitHeight: table_view_main.height * table_cell_rect_height_factor
-                        color: (selected) ? backgroundColor1 : backgroundColor
-                        border.color: (selected) ? backgroundColor : backgroundColor1
+                        color: backgroundColor1
+                        border.color: (selected) ? backgroundColor3 : color
                         border.width: 1
+                        radius: 4
                         required property bool selected
                         required property bool current
 
@@ -199,7 +201,7 @@ Rectangle
                             anchors.fill: parent
                             anchors.margins: 4
                             font.pointSize: textSize
-                            color: (display !== undefined) ? textColor : backgroundColor3
+                            color: (display !== undefined) ? textColor : textColor1
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
                             elide: Text.ElideRight
@@ -238,10 +240,10 @@ Rectangle
         Rectangle
         {
             id: separator
-            width: parent.width - (table_root.border.width * 2)
+            width: parent.width
             height: 1
             anchors.horizontalCenter: parent.horizontalCenter
-            color: backgroundColor1
+            color: backgroundColor3
         }
 
         Rectangle
@@ -250,7 +252,8 @@ Rectangle
             width: table_view_main.width
             height: parent.height - table_view_main.height - separator.height - (main_column.spacing * 2)
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "transparent"
+            color: backgroundColor1
+            radius: 8
 
             function getPrimaryKey() {
                 let pk = table_root.selected_pk;
@@ -332,7 +335,7 @@ Rectangle
                     id: delete_button
                     width: add_button.width
                     height: add_button.height
-                    highlight_color: "#ff0000"
+                    highlight_color: backgroundColorError
                     text: qsTr("Delete")
                     button_enabled: (table_root.selected_pk !== undefined) ? true : false
 

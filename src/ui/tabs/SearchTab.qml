@@ -12,7 +12,7 @@ import "../components"
 Rectangle
 {
     id: tab_main
-    color: "transparent"
+    color: backgroundColor1 //"transparent"
     border.color: backgroundColor3
     border.width: 1
     radius: 4
@@ -247,54 +247,62 @@ Rectangle
                     }
                 }
 
-                Row
+                Rectangle
                 {
-                    id: selection_button_row
+                    id: selection_button_row_rect
                     width: parent.width
                     height: search_parameter_column.module_height * 1
-                    spacing: 8
-                    property int column_count: 3
-                    property var button_width: (width - ((column_count - 1) * spacing)) / column_count
+                    color: "transparent"
+                    radius: 8
 
-                    function setSelection(state) {
-                        organization_button_selection.setButtonState(state);
-                        person_button_selection.setButtonState(state);
-                        address_button_selection.setButtonState(state);
-                    }
-
-                    BasicButton
+                    Row
                     {
-                        id: select_all_button
-                        width: selection_button_row.button_width
-                        height: parent.height
-                        text: qsTr("Select All")
+                        id: selection_button_row
+                        anchors.fill: parent
+                        spacing: 8
+                        property int column_count: 3
+                        property var button_width: (width - ((column_count - 1) * spacing)) / column_count
 
-                        onClicked: {
-                            selection_button_row.setSelection(1);
+                        function setSelection(state) {
+                            organization_button_selection.setButtonState(state);
+                            person_button_selection.setButtonState(state);
+                            address_button_selection.setButtonState(state);
                         }
-                    }
 
-                    BasicButton
-                    {
-                        id: unselect_all_button
-                        width: selection_button_row.button_width
-                        height: parent.height
-                        text: qsTr("Unselect All")
+                        BasicButton
+                        {
+                            id: select_all_button
+                            width: selection_button_row.button_width
+                            height: parent.height
+                            text: qsTr("Select All")
 
-                        onClicked: {
-                            selection_button_row.setSelection(0);
+                            onClicked: {
+                                selection_button_row.setSelection(1);
+                            }
                         }
-                    }
 
-                    BasicButton
-                    {
-                        id: invert_selection_button
-                        width: selection_button_row.button_width
-                        height: parent.height
-                        text: qsTr("Invert Selection")
+                        BasicButton
+                        {
+                            id: unselect_all_button
+                            width: selection_button_row.button_width
+                            height: parent.height
+                            text: qsTr("Unselect All")
 
-                        onClicked: {
-                            selection_button_row.setSelection(-1);
+                            onClicked: {
+                                selection_button_row.setSelection(0);
+                            }
+                        }
+
+                        BasicButton
+                        {
+                            id: invert_selection_button
+                            width: selection_button_row.button_width
+                            height: parent.height
+                            text: qsTr("Invert Selection")
+
+                            onClicked: {
+                                selection_button_row.setSelection(-1);
+                            }
                         }
                     }
                 }
@@ -388,7 +396,7 @@ Rectangle
                         width: search_button_row.button_width
                         height: parent.height
                         text: qsTr("Reset Search")
-                        highlight_color: "#ff0000"
+                        highlight_color: backgroundColorError
 
                         onClicked: {
                             resetSearch();
@@ -405,8 +413,8 @@ Rectangle
             width: parent.width - (tab_main.border.width * 2)
             color: {
                 if(separator_mouse_area.drag.active) return highlightColor;
-                else if(separator_mouse_area.containsMouse) return backgroundColor3;
-                else return backgroundColor1;
+                else if(separator_mouse_area.containsMouse) return highlightColor;
+                else return backgroundColor3;
             }
             Behavior on color {
                 enabled: !separator_mouse_area.drag.active
@@ -467,71 +475,80 @@ Rectangle
             property var tab_row_height: (height - ((row_count - 1) * spacing)) * (1 - distribution)
             property var table_height: (height - ((row_count - 1) * spacing)) * distribution
 
-            Row
+            Rectangle
             {
-                id: tab_row
+                id: tab_row_rect
                 width: parent.width - 8
                 height: table_column.tab_row_height
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 8
+                color: backgroundColor2
+                radius: 8
+                border.color: backgroundColor3
+                border.width: 1
 
-                property int column_count: 4
-                property var module_width: (width - ((column_count - 1) * spacing)) / column_count
-
-                Text
+                Row
                 {
-                    text: qsTr("Search Results:")
-                    width: tab_row.module_width
-                    height: parent.height
-                    font.pointSize: textSize
-                    color: backgroundColor3
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideRight
-                }
+                    id: tab_row
+                    spacing: 8
+                    anchors.fill: parent
+                    property int column_count: 4
+                    property var module_width: (width - ((column_count - 1) * spacing)) / column_count
 
-                TabBarButton
-                {
-                    id: organization_table_search_results_button
-                    width: tab_row.module_width
-                    height: parent.height
-                    bar_text: qsTr("Organization")
-                    highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
-                    property int stack_layout_index: 0
-
-                    onClicked:
+                    Text
                     {
-                        search_result_table_stack_layout.currentIndex = stack_layout_index;
+                        text: qsTr("Results:")
+                        width: tab_row.module_width
+                        height: parent.height
+                        font.pointSize: textSize
+                        color: textColor1
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
                     }
-                }
 
-                TabBarButton
-                {
-                    id: person_table_search_results_button
-                    width: tab_row.module_width
-                    height: parent.height
-                    bar_text: qsTr("Person")
-                    highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
-                    property int stack_layout_index: 1
-
-                    onClicked:
+                    TabBarButton
                     {
-                        search_result_table_stack_layout.currentIndex = stack_layout_index;
+                        id: organization_table_search_results_button
+                        width: tab_row.module_width
+                        height: parent.height
+                        bar_text: qsTr("Organization")
+                        highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
+                        property int stack_layout_index: 0
+
+                        onClicked:
+                        {
+                            search_result_table_stack_layout.currentIndex = stack_layout_index;
+                        }
                     }
-                }
 
-                TabBarButton
-                {
-                    id: address_table_search_results_button
-                    width: tab_row.module_width
-                    height: parent.height
-                    bar_text: qsTr("Address")
-                    highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
-                    property int stack_layout_index: 2
-
-                    onClicked:
+                    TabBarButton
                     {
-                        search_result_table_stack_layout.currentIndex = stack_layout_index;
+                        id: person_table_search_results_button
+                        width: tab_row.module_width
+                        height: parent.height
+                        bar_text: qsTr("Person")
+                        highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
+                        property int stack_layout_index: 1
+
+                        onClicked:
+                        {
+                            search_result_table_stack_layout.currentIndex = stack_layout_index;
+                        }
+                    }
+
+                    TabBarButton
+                    {
+                        id: address_table_search_results_button
+                        width: tab_row.module_width
+                        height: parent.height
+                        bar_text: qsTr("Address")
+                        highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
+                        property int stack_layout_index: 2
+
+                        onClicked:
+                        {
+                            search_result_table_stack_layout.currentIndex = stack_layout_index;
+                        }
                     }
                 }
             }

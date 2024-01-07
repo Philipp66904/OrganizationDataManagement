@@ -147,7 +147,7 @@ TemplateEditDialog
                 height: ((parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count) * 0.5
                 text: qsTr("Connections:")
                 font.pointSize: textSize
-                color: backgroundColor3
+                color: textColor1
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -249,7 +249,6 @@ TemplateEditDialog
                 description: qsTr("Note")
                 value: property_note
                 original_value: ""
-                derivate_mode: false
 
                 Connections {
                     target: organization_dialog

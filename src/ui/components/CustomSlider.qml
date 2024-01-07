@@ -13,7 +13,7 @@ Rectangle
     property bool value_output: !start_value
 
     property color active_color: highlightColor
-    property color deactive_color: backgroundColor2
+    property color deactive_color: backgroundColor3
 
     signal toggled(state: bool)
 
@@ -44,8 +44,6 @@ Rectangle
             height: parent.height
             radius: height / 2
             color: (value_output) ? active_color : deactive_color
-            border.color: backgroundColor1
-            border.width: 1
             anchors.horizontalCenter: parent.horizontalCenter
         }
 

@@ -330,7 +330,7 @@ MenuBar  // MenuBar shown in the window's header
             implicitHeight: 30
             color: menuBarItem.highlighted ? backgroundColor1 : "transparent"
             border.color: backgroundColor
-            border.width: menuBarItem.highlighted ? 2 : 0
+            border.width: 2
             radius: menu_bar.radius
         }
     }
@@ -341,10 +341,11 @@ MenuBar  // MenuBar shown in the window's header
         color: "transparent"
 
         Rectangle {
-            color: backgroundColor1
+            color: backgroundColor3
             width: parent.width
             height: 1
-            anchors.bottom: parent.bottom
+            anchors.top: parent.bottom
+            anchors.topMargin: 1
         }
     }
 }
