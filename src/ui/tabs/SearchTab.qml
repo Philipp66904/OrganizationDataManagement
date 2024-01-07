@@ -119,14 +119,14 @@ Rectangle
                 id: search_parameter_column
                 width: parent.width
                 height: {
-                    let h = module_height * 16;
+                    let h = module_height * 17;
                     h += spacing * (row_count - 1);  // spacing
                     return h;
                 }
                 spacing: 8
 
-                property var row_count: 8
-                property var row_height_count: 8.5 * Math.pow(main_column.distribution + 0.5, 2)
+                property var row_count: 9
+                property var row_height_count: 7 * Math.pow(main_column.distribution + 0.5, 2)
                 property var module_height: (search_parameter_scroll_view.height - ((search_parameter_column.row_count - 1) * search_parameter_column.spacing)) / search_parameter_column.row_height_count
 
                 PropertyLineEdit
@@ -356,6 +356,43 @@ Rectangle
 
                     onUpdateListModel: {
                         updateSearch();
+                    }
+                }
+
+                Row
+                {
+                    id: search_button_row
+                    width: parent.width
+                    height: search_parameter_column.module_height * 1
+                    spacing: 8
+                    property int column_count: 2
+                    property var button_width: (width - ((column_count - 1) * spacing)) / column_count
+
+                    BasicButton
+                    {
+                        id: reload_search_button
+                        width: search_button_row.button_width
+                        height: parent.height
+                        text: qsTr("Reload Results")
+                        hover_color: textColor
+
+                        onClicked: {
+                            database.clear_cache();
+                            updateSearch();
+                        }
+                    }
+
+                    BasicButton
+                    {
+                        id: reset_search_button
+                        width: search_button_row.button_width
+                        height: parent.height
+                        text: qsTr("Reset Search")
+                        highlight_color: "#ff0000"
+
+                        onClicked: {
+                            resetSearch();
+                        }
                     }
                 }
             }

@@ -48,6 +48,7 @@ class Database(QObject):
         self.dataChanged.emit()
         
     
+    @Slot()
     def clear_cache(self) -> None:
         """
         Deletes all data from the search case.
