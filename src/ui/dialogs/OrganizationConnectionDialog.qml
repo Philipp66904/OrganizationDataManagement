@@ -90,6 +90,7 @@ ApplicationWindow
         organization_connection_dialog_window.organization_id = organization_id;
 
         organization_connection_dialog_window.initProperties(connection_id, organization_id);
+        error_text = check_connection();
     }
 
     // Closing handler
