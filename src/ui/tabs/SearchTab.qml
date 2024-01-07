@@ -119,13 +119,13 @@ Rectangle
                 id: search_parameter_column
                 width: parent.width
                 height: {
-                    let h = module_height * 15;
+                    let h = module_height * 16;
                     h += spacing * (row_count - 1);  // spacing
                     return h;
                 }
                 spacing: 8
 
-                property var row_count: 7
+                property var row_count: 8
                 property var row_height_count: 8.5 * Math.pow(main_column.distribution + 0.5, 2)
                 property var module_height: (search_parameter_scroll_view.height - ((search_parameter_column.row_count - 1) * search_parameter_column.spacing)) / search_parameter_column.row_height_count
 
@@ -243,6 +243,58 @@ Rectangle
 
                         function onSoftResetSearch() {
                             combo_selection_address.init();
+                        }
+                    }
+                }
+
+                Row
+                {
+                    id: selection_button_row
+                    width: parent.width
+                    height: search_parameter_column.module_height * 1
+                    spacing: 8
+                    property int column_count: 3
+                    property var button_width: (width - ((column_count - 1) * spacing)) / column_count
+
+                    function setSelection(state) {
+                        organization_button_selection.setButtonState(state);
+                        person_button_selection.setButtonState(state);
+                        address_button_selection.setButtonState(state);
+                    }
+
+                    BasicButton
+                    {
+                        id: select_all_button
+                        width: selection_button_row.button_width
+                        height: parent.height
+                        text: qsTr("Select All")
+
+                        onClicked: {
+                            selection_button_row.setSelection(1);
+                        }
+                    }
+
+                    BasicButton
+                    {
+                        id: unselect_all_button
+                        width: selection_button_row.button_width
+                        height: parent.height
+                        text: qsTr("Unselect All")
+
+                        onClicked: {
+                            selection_button_row.setSelection(0);
+                        }
+                    }
+
+                    BasicButton
+                    {
+                        id: invert_selection_button
+                        width: selection_button_row.button_width
+                        height: parent.height
+                        text: qsTr("Invert Selection")
+
+                        onClicked: {
+                            selection_button_row.setSelection(-1);
                         }
                     }
                 }

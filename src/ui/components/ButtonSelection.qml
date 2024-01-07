@@ -32,6 +32,29 @@ Rectangle
         return res;
     }
 
+    function setButtonState(state) {
+        /*
+         * Sets the button state of all buttons to a specific value.
+         * If state === 0 or anything not listed here, deselect all buttons.
+         * If state === 1, select all buttons.
+         * If state === -1, invert current selection.
+         */
+
+        for(let i = 0; i < button_selection_list_model.count; i++) {
+            let new_state = false;
+
+            if(state === 0) new_state = false;
+            else if(state === 1) new_state = true;
+            else if(state === -1) {
+                new_state = !button_selection_list_model.get(i).button_checked;
+            }
+
+            button_selection_list_model.setProperty(i, "button_checked", new_state);
+        }
+
+        updateListModel();
+    }
+
     function init() {
         button_selection_list_model.clear();
 

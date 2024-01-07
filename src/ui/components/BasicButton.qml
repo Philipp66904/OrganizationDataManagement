@@ -12,11 +12,13 @@ Rectangle
     property color highlight_color: highlightColor
     property color hover_color: highlight_color
     property color selected_color: selectedColor
+    property color border_default_color: backgroundColor2
     property bool selected: false
     property bool button_enabled: true
     property bool containsMouse: button_mouse_area.containsMouse
     signal clicked()
     signal pressed()
+    signal doubleClicked()
 
     Gradient {
         id: selected_gradient
@@ -30,11 +32,11 @@ Rectangle
     gradient: (selected && button_enabled && !containsMouse) ? selected_gradient : null
     border.color:
     {
-        if(button_enabled === false) return backgroundColor2;
+        if(button_enabled === false) return border_default_color;
         else if(button_mouse_area.pressed) return highlight_color;
         else if(containsMouse) return hover_color;
         else if(selected) return selected_color;
-        else backgroundColor2;
+        else border_default_color;
     }
     border.width: 1
     radius: 8
@@ -66,14 +68,16 @@ Rectangle
         enabled: button_enabled
         cursorShape: (enabled) ? Qt.PointingHandCursor : Qt.ArrowCursor
 
-        onClicked:
-        {
+        onClicked: {
             button_root_rect.clicked();
         }
 
-        onPressed:
-        {
+        onPressed: {
             button_root_rect.pressed()
+        }
+
+        onDoubleClicked: {
+            button_root_rect.doubleClicked();
         }
     }
 }
