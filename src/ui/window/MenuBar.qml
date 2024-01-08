@@ -263,8 +263,14 @@ MenuBar  // MenuBar shown in the window's header
             }
         }
 
-        Action { text: qsTr("Import") }
-        Action { text: qsTr("Export") }
+        ThemeEditDialog
+        {
+            id: theme_edit_dialog
+        }
+        Action { text: qsTr("Edit Color Theme"); onTriggered: {
+                theme_edit_dialog.initListModel();
+                theme_edit_dialog.show();
+        } }
     }
 
     Menu 

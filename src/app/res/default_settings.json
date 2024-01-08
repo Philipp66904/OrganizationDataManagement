@@ -1,5 +1,32 @@
 {
-    "recent_files": [
-        
-    ]
+    "colors": [
+        {
+            "backgroundColor": "#000000"
+        },
+        {
+            "backgroundColor1": "#303030"
+        },
+        {
+            "backgroundColor2": "#535353"
+        },
+        {
+            "backgroundColor3": "#9f9f9f"
+        },
+        {
+            "backgroundColorError": "#fc5d5b"
+        },
+        {
+            "backgroundColorNotification": "#51b350"
+        },
+        {
+            "highlightColor": "#00EF00"
+        },
+        {
+            "textColor": "#ffffff"
+        },
+        {
+            "textColor1": "#cfcfcf"
+        }
+    ],
+    "recent_files": []
 }

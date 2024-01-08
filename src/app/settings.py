@@ -1,6 +1,8 @@
 import json
+import re
 from pathlib import Path
 from PySide6.QtCore import QObject, Slot, Signal, QUrl
+from PySide6.QtGui import QColor
 
 
 class Settings(QObject):
@@ -36,8 +38,8 @@ class Settings(QObject):
         finally:
             if file:
                 file.close()
-            
-            
+    
+    
     def __load_default_settings__(self) -> None:
         """
         Loads the default settings file and initialzes self.settings with the contents.
@@ -56,8 +58,8 @@ class Settings(QObject):
                 default_file.close()
         
         self.__save_settings_file__()
-        
-        
+    
+    
     def __save_settings_file__(self) -> None:
         """
         Saves the contents of self.settings in a file.
@@ -69,7 +71,7 @@ class Settings(QObject):
         finally:
             if file:
                 file.close()
-                
+    
     
     def settings_autosave(func):
         """
@@ -94,7 +96,7 @@ class Settings(QObject):
             return returned_value
             
         return inner
-               
+    
     
     @Slot(str)
     @settings_autosave
@@ -134,3 +136,75 @@ class Settings(QObject):
         """
         
         return self.settings["recent_files"]
+    
+    
+    @Slot(str, QColor)
+    def slot_setThemeColor(self, color_name: str, new_color: QColor) -> None:
+        """
+        Wrapper slot for setThemeColor.
+        """
+        
+        self.setThemeColor(color_name, new_color)
+    
+    
+    @settings_autosave
+    def setThemeColor(self, color_name: str, new_color: QColor) -> None:
+        """
+        Set a theme color to a new value.
+        color_name: Name of the color that will be changed
+        new_color: New Color value
+        """
+        
+        for i, color in enumerate(self.settings["colors"]):
+            color_name_settings = list(color.keys())[0]
+            
+            if color_name_settings == color_name:
+                self.settings["colors"][i] = {color_name: new_color.name()}
+    
+    
+    @Slot()
+    def slot_resetThemeColors(self) -> None:
+        """
+        Wrapper slot for resetThemeColors.
+        """
+        
+        self.resetThemeColors()
+    
+    
+    @settings_autosave
+    def resetThemeColors(self) -> None:
+        """
+        Resets all custom set theme colors by overriding color settings with default settings.
+        """
+        
+        default_file = None
+        try:
+            default_file = open(self.default_file_path, 'r')
+            default_settings = json.loads(default_file.read())
+        except FileNotFoundError as e:
+            raise RuntimeError("Settings::resetThemeColors: Default settings file missing. Try reinstalling the program.")
+        finally:
+            if default_file:
+                default_file.close()
+        
+        self.settings["colors"] = default_settings["colors"]
+    
+    
+    @Slot(result=list)
+    def getThemeColors(self) -> list:
+        """
+        returns: A list of lists containing all the theme colors: list[[color_name: str, color: str]]
+        """
+        
+        res = []
+        for color in self.settings["colors"]:
+            color_name = list(color.keys())[0]
+            color_value = list(color.values())[0]
+            
+            if type(color_name) != str or type(color_value) != str or len(color_name) <= 0 \
+               or not re.match("^#[A-Fa-f0-9]{6}$", color_value):
+                continue
+            
+            res.append([color_name, color_value])
+        
+        return res

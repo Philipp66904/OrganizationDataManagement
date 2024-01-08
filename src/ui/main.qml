@@ -29,7 +29,6 @@ ApplicationWindow
     property color highlightColor: "#00EF00"
     property color textColor: "#ffffff"
     property color textColor1: "#cfcfcf"
-    property color selectedColor: "#4098DB"
 
     // Text size
     property real textSize: 12.0
@@ -76,12 +75,27 @@ ApplicationWindow
         }
     }
 
+    // Init color theme
+    function init_colors() {
+        const colors = settings.getThemeColors();
+
+        for(const color of colors) {
+            const color_name = color[0];
+            const color_value = color[1];
+            if(color_name === "" || color_value === "") continue;
+
+            rootWindow[color_name] = Qt.color(color_value);
+        }
+    }
+
     // Startup procedure
     Component.onCompleted: {
         database.init_db();
 
         const db_metadata = database.getDBMetadata();
         db_version = db_metadata[0];
+
+        init_colors();
     }
 
     // Menu Bar
