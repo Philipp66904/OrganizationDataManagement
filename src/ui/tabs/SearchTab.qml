@@ -485,9 +485,7 @@ Rectangle
                 height: table_column.tab_row_height
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: backgroundColor2
-                radius: 8
-                border.color: backgroundColor3
-                border.width: 1
+                radius: 4
 
                 Row
                 {

@@ -24,8 +24,6 @@ Rectangle
             height: 30
             color: backgroundColor2
             radius: 8
-            border.color: backgroundColor3
-            border.width: 1
 
             Row
             {
