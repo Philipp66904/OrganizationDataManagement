@@ -56,7 +56,7 @@ Rectangle
             radius: height / 2
             color:
             {
-                if(custom_slider.pressed) return backgroundColor3;
+                if(custom_slider.pressed) return textColor;
 
                 if(value_output) return deactive_color;
                 else return active_color;

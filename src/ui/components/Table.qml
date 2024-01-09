@@ -183,11 +183,12 @@ Rectangle
                         }
                     }
 
-                    delegate: Rectangle {
+                    delegate: Rectangle
+                    {
                         id: cell_rect
                         implicitWidth: table_view_main.width * 0.22
                         implicitHeight: table_view_main.height * table_cell_rect_height_factor
-                        color: backgroundColor1
+                        color: (delegate_mouse_area.containsMouse || selected) ? backgroundColor1 : "transparent"
                         border.color: (selected) ? backgroundColor3 : color
                         border.width: 1
                         radius: 4
@@ -213,7 +214,7 @@ Rectangle
                         {
                             id: delegate_mouse_area
                             anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
+                            hoverEnabled: true
                             onClicked: function (mouse)  {
                                 var mp = table_view.mapFromItem(delegate_mouse_area, mouse.x, mouse.y);
                                 var cell = table_view.cellAtPos(mp.x, mp.y, false);

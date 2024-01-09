@@ -19,12 +19,30 @@ ApplicationWindow
     width: 500
     height: 300
 
+    // Closing handler
+    property bool close_okay: false
+
+    FileCloseDialog 
+    {
+        id: abort_dialog
+        function callback_function() { dialog.close_okay = true; dialog.close(); }
+    }
+    onClosing: (close) => {
+        close.accepted = false;
+        if(!close_okay) {
+            abort_dialog.show();
+        }
+
+        if(close_okay) close.accepted = true;
+    }
+
     ListModel
     {
         id: color_theme_list_model
     }
 
     function initListModel() {
+        close_okay = false;
         color_theme_list_model.clear();
 
         const colors = settings.getThemeColors();
@@ -134,6 +152,7 @@ ApplicationWindow
                         settings.slot_setThemeColor(color_name, color_value);
                     }
 
+                    close_okay = true;
                     close();
                     init_colors();
                 }
@@ -151,6 +170,7 @@ ApplicationWindow
 
                 onClicked: {
                     settings.slot_resetThemeColors();
+                    close_okay = true;
                     close();
                     initListModel();
                     init_colors();

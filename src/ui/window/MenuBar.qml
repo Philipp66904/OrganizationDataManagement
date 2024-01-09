@@ -85,7 +85,7 @@ MenuBar  // MenuBar shown in the window's header
             background: Rectangle {
                 implicitWidth: 200
                 implicitHeight: 40
-                color: menuItem.highlighted ? backgroundColor1 : "transparent"
+                color: menuItem.highlighted ? backgroundColor2 : "transparent"
                 radius: menu_bar.radius
                 border.color: backgroundColor
                 border.width: 2
@@ -144,7 +144,7 @@ MenuBar  // MenuBar shown in the window's header
                 background: Rectangle {
                     implicitWidth: 200
                     implicitHeight: 40
-                    color: menuItem.highlighted ? backgroundColor1 : "transparent"
+                    color: menuItem.highlighted ? backgroundColor2 : "transparent"
                     radius: menu_bar.radius
                     border.color: backgroundColor
                     border.width: 2
@@ -256,7 +256,7 @@ MenuBar  // MenuBar shown in the window's header
             background: Rectangle {
                 implicitWidth: 200
                 implicitHeight: 40
-                color: menuItem.highlighted ? backgroundColor1 : "transparent"
+                color: menuItem.highlighted ? backgroundColor2 : "transparent"
                 radius: menu_bar.radius
                 border.color: backgroundColor
                 border.width: 2
@@ -296,7 +296,7 @@ MenuBar  // MenuBar shown in the window's header
             background: Rectangle {
                 implicitWidth: 200
                 implicitHeight: 40
-                color: menuItem.highlighted ? backgroundColor1 : "transparent"
+                color: menuItem.highlighted ? backgroundColor2 : "transparent"
                 radius: menu_bar.radius
                 border.color: backgroundColor
                 border.width: 2
@@ -334,7 +334,7 @@ MenuBar  // MenuBar shown in the window's header
         background: Rectangle {
             implicitWidth: 40
             implicitHeight: 30
-            color: menuBarItem.highlighted ? backgroundColor1 : "transparent"
+            color: menuBarItem.highlighted ? backgroundColor2 : "transparent"
             border.color: backgroundColor
             border.width: 2
             radius: menu_bar.radius

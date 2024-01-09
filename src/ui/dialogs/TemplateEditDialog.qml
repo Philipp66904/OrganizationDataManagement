@@ -71,7 +71,7 @@ ApplicationWindow
     }
 
     // Closing handler
-    FileCloseDialog 
+    FileCloseDialog
     {
         id: abort_dialog
         function callback_function() { edit_dialog_window.close_okay = true; edit_dialog_window.close(); }
