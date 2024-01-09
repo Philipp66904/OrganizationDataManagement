@@ -53,11 +53,6 @@ ApplicationWindow
     }
 
     function create_derivate_window(pk, qml_file_name) {
-        if(max_derivate_windows <= 0) {
-            error_message = qsTr("Max amount of derivate windows reached");
-            return;
-        }
-
         var component = Qt.createComponent(qml_file_name);
         var new_dialog_window = component.createObject(edit_dialog_window, { pk_id: pk, parent_id: identifier });
 

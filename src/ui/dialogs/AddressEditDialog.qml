@@ -23,8 +23,6 @@ TemplateEditDialog
     property string qml_file_name: "AddressEditDialog.qml"
     property_height: 1.2
 
-    onClosing: max_derivate_windows++;
-
     // current property values
     property string property_name: ""
     property string property_note: ""
@@ -51,8 +49,6 @@ TemplateEditDialog
 
     function init_dialog() {
         // call this function after .show() called on the ApplicationWindow
-        max_derivate_windows--;
-
         let entry_name_tmp = "New Entry";
         if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", address_dialog.table_name);
         address_dialog.entry_name = entry_name_tmp.trim();
@@ -475,7 +471,7 @@ TemplateEditDialog
             Rectangle
             {
                 id: address_other_root
-                color: backgroundColor1 //backgroundColor2
+                color: backgroundColor1
                 border.color: backgroundColor2
                 border.width: 1
                 width: parent.width
@@ -521,6 +517,7 @@ TemplateEditDialog
                         delegate: property_other_component
                         spacing: 4
                         reuseItems: false
+                        flickableDirection: Flickable.AutoFlickIfNeeded
 
                         Component
                         {

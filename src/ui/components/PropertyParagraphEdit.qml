@@ -7,8 +7,8 @@ import QtPositioning
 Rectangle
 {
     id: property_paragraph_edit_root
-    color: backgroundColor2
-    border.color: (editing) ? highlightColor : color
+    color: (root_mouse_area.containsMouse) ? backgroundColor2 : "transparent"
+    border.color: (editing) ? highlightColor : backgroundColor2
     border.width: 1
     radius: 4
 
@@ -19,6 +19,14 @@ Rectangle
     property bool derivate_flag: false
 
     signal new_value(val: string, derivate_flag: bool)
+
+    MouseArea
+    {
+        id: root_mouse_area
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
+    }
 
     Column
     {

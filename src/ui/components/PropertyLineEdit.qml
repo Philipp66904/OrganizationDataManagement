@@ -7,9 +7,11 @@ import QtPositioning
 Rectangle
 {
     id: property_line_edit_root
-    color: backgroundColor2
-    border.color:
-    {
+    color: {
+        if(root_mouse_area.containsMouse) return backgroundColor2;
+        else return "transparent";
+    }
+    border.color: {
         if(!required) {
             if(editing) return highlightColor;
             else return color;
@@ -36,6 +38,14 @@ Rectangle
     onDerivate_flagChanged: value_text.text = getValueText()
     onDerivate_valueChanged: value_text.text = getValueText()
     onValueChanged: value_text.text = getValueText()
+
+    MouseArea
+    {
+        id: root_mouse_area
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
+    }
 
     function init(derivate_flag_arg) {
         // Call this function whenever new properties are loaded

@@ -8,7 +8,7 @@ import Qt.labs.platform
 Rectangle
 {
     id: color_selection_rectangle
-    color: backgroundColor2
+    color: (root_mouse_area.containsMouse) ? backgroundColor2 : "transparent"
     radius: 4
     required property string description_text
     required property color selected_color
@@ -19,6 +19,14 @@ Rectangle
         var temp = Qt.darker(baseColor, 1);
         var a = 1 - ( 0.299 * temp.r + 0.587 * temp.g + 0.114 * temp.b);
         return !(temp.a > 0 && a >= 0.3) ? Qt.color("#000000") : Qt.color("#ffffff");
+    }
+
+    MouseArea
+    {
+        id: root_mouse_area
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
     }
 
     ColorDialog

@@ -275,6 +275,7 @@ Rectangle
                             width: selection_button_row.button_width
                             height: parent.height
                             text: qsTr("Select All")
+                            hover_color: textColor
 
                             onClicked: {
                                 selection_button_row.setSelection(1);
@@ -287,6 +288,7 @@ Rectangle
                             width: selection_button_row.button_width
                             height: parent.height
                             text: qsTr("Unselect All")
+                            hover_color: textColor
 
                             onClicked: {
                                 selection_button_row.setSelection(0);
@@ -299,6 +301,7 @@ Rectangle
                             width: selection_button_row.button_width
                             height: parent.height
                             text: qsTr("Invert Selection")
+                            hover_color: textColor
 
                             onClicked: {
                                 selection_button_row.setSelection(-1);

@@ -8,8 +8,8 @@ import QtQuick.Controls.Basic
 Rectangle
 {
     id: button_selection
-    color: backgroundColor2 //(button_selection_focus_scope.focus) ? backgroundColor2 : backgroundColor
-    border.color: (button_selection_focus_scope.focus) ? highlightColor : color
+    color: "transparent" //backgroundColor2
+    border.color: (button_selection_focus_scope.focus) ? highlightColor : backgroundColor2
     border.width: 1
     radius: 4
 

@@ -1444,7 +1444,7 @@ class Database(QObject):
         
         complete_column_names = ["id", "name", "note"]
         complete_column_names.extend(column_names)
-        complete_column_names.extend(["date_modified", "date_created"])
+        complete_column_names.extend(["modified", "created"])
         
         return complete_column_names
     

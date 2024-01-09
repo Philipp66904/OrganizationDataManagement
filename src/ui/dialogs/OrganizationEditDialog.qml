@@ -22,8 +22,6 @@ TemplateEditDialog
     property string qml_file_name: "OrganizationEditDialog.qml"
     property_height: 0.8
 
-    onClosing: max_derivate_windows++;
-
     // current property values
     property string property_name: ""
     property string property_note: ""
@@ -33,8 +31,6 @@ TemplateEditDialog
 
     function init_dialog() {
         // call this function after .show() called on the ApplicationWindow
-        max_derivate_windows--;
-
         let entry_name_tmp = "New Entry";
         if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", organization_dialog.table_name);
         organization_dialog.entry_name = entry_name_tmp.trim();

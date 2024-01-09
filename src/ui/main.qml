@@ -40,7 +40,6 @@ ApplicationWindow
     property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path tp template)
     property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved
     property string error_message: ""
-    property int max_derivate_windows: 5
     property string db_version
     property string saved_date: new_db_text
     property string created_date: new_db_text

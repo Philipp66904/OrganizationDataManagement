@@ -7,7 +7,7 @@ import QtPositioning
 Rectangle
 {
     id: combo_selection_root
-    color: backgroundColor2 //(popup_opened) ? backgroundColor1 : backgroundColor
+    color: (root_mouse_area.containsMouse) ? backgroundColor2 : "transparent"
     border.color: (popup_opened) ? highlight_color : color
     border.width: 1
     radius: 4
@@ -90,5 +90,13 @@ Rectangle
                 }
             }
         }
+    }
+
+    MouseArea
+    {
+        id: root_mouse_area
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.NoButton
     }
 }

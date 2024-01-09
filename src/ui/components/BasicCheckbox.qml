@@ -13,8 +13,8 @@ CheckBox
 
     indicator: Rectangle
     {
-        implicitWidth: parent.height
-        implicitHeight: parent.height
+        implicitWidth: parent.height - 8
+        implicitHeight: parent.height - 8
         x: parent.leftPadding
         y: parent.height / 2 - height / 2
         radius: 4
@@ -51,6 +51,13 @@ CheckBox
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
+    }
+
+    background: Rectangle
+    {
+        anchors.fill: parent
+        color: (checkbox_mouse_area.containsMouse) ? backgroundColor2 : "transparent"
+        radius: 4
     }
 
     MouseArea

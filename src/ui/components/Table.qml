@@ -85,6 +85,7 @@ Rectangle
                     syncView: table_view
                     clip: true
                     resizableColumns: false
+                    flickableDirection: Flickable.AutoFlickIfNeeded
 
                     delegate: Rectangle
                     {
@@ -111,7 +112,7 @@ Rectangle
                 Rectangle
                 {
                     id: table_view_separator
-                    width: Math.min(table_view_header.contentWidth, parent.width)
+                    width: parent.width
                     height: 1
                     anchors.left: table_view_header.left
                     color: backgroundColor3
@@ -129,6 +130,7 @@ Rectangle
                     resizableColumns: false
                     columnWidthProvider: get_column_width
                     selectionMode: TableView.SingleSelection
+                    flickableDirection: Flickable.AutoFlickIfNeeded
 
                     onLayoutChanged: {
                         table_root.selected_pk = undefined;
@@ -155,7 +157,9 @@ Rectangle
                             return 0;
                         }
 
-                        dummy_txt.text = table_model.getLongestText(column) + "    ";
+                        let longest_text = table_model.getLongestText(column);
+                        if(longest_text.length <= 0) longest_text = qsTr("null");
+                        dummy_txt.text = longest_text + "    ";
                         return dummy_txt.contentWidth;
                     }
 
