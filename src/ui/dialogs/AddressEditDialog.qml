@@ -5,6 +5,7 @@ import QtQuick.Controls
 import QtPositioning
 
 import "../components"
+import "../types"
 
 import tablemodule 1.0
 
@@ -284,6 +285,13 @@ TemplateEditDialog
             property var row_count: 8
             property var row_height_count: 12
 
+            function setFocus(dir) {
+                if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) property_line_edit_name.setFocus(dir);
+                else property_paragraph_edit_note.setFocus(dir);
+            }
+
+            signal nextFocus(dir: int)
+
             PropertyLineEdit
             {
                 id: property_line_edit_name
@@ -294,6 +302,11 @@ TemplateEditDialog
                 derivate_value: ""
                 derivate_mode: false
                 required: true
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) parent.nextFocus(dir);
+                    else property_line_edit_street.setFocus(dir);
+                }
 
                 Connections {
                     target: address_dialog
@@ -323,6 +336,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : address_dialog.property_street_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_name.setFocus(dir);
+                    else property_line_edit_number.setFocus(dir);
+                }
 
                 Connections {
                     target: address_dialog
@@ -354,6 +372,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : address_dialog.property_number_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_street.setFocus(dir);
+                    else property_line_edit_postalcode.setFocus(dir);
+                }
 
                 Connections {
                     target: address_dialog
@@ -385,6 +408,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : address_dialog.property_postalcode_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_number.setFocus(dir);
+                    else property_line_edit_city.setFocus(dir);
+                }
 
                 Connections {
                     target: address_dialog
@@ -416,6 +444,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : address_dialog.property_city_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_postalcode.setFocus(dir);
+                    else property_line_edit_country.setFocus(dir);
+                }
 
                 Connections {
                     target: address_dialog
@@ -447,6 +480,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : address_dialog.property_country_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_city.setFocus(dir);
+                    else address_other_list_view.setFocus(dir);
+                }
 
                 Connections {
                     target: address_dialog
@@ -518,6 +556,23 @@ TemplateEditDialog
                         spacing: 4
                         reuseItems: false
                         flickableDirection: Flickable.AutoFlickIfNeeded
+                        property int element_id_with_focus: 0
+                        onElement_id_with_focusChanged: {
+                            if(element_id_with_focus < 0) property_line_edit_country.setFocus(Enums.FocusDir.Left);
+                            else add_button.setFocus(Enums.FocusDir.Right);
+                        }
+
+                        function setFocus(dir) {
+                            if(address_other_list_model.count <= 0) {
+                                if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) add_button.setFocus(dir);
+                                else property_line_edit_country.setFocus(dir);
+                            }
+                            else {
+                                if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) property_column.nextFocus(dir);
+                                else if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) element_id_with_focus = 0;
+                                else element_id_with_focus = address_other_list_model.count - 1;
+                            }
+                        }
 
                         Component
                         {
@@ -535,6 +590,16 @@ TemplateEditDialog
                                 derivate_flag: (value === undefined) ? true : property_derivate_flag
                                 border.color: (editing) ? highlightColor : color
                                 null_switch_height_percentage: 1.0
+                                onNextFocus: function next_focus(dir) {
+                                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) property_column.nextFocus(dir);
+                                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) address_other_list_view.element_id_with_focus = index - 1;
+                                    else address_other_list_view.element_id_with_focus = index + 1;
+                                }
+
+                                property int element_id_with_focus_wrapper: address_other_list_view.element_id_with_focus
+                                onElement_id_with_focus_wrapperChanged: {
+                                    if(index === element_id_with_focus_wrapper) setFocus(Enums.FocusDir.Down);
+                                }
 
                                 required property int index
                                 required property int pk
@@ -605,6 +670,11 @@ TemplateEditDialog
                             hover_color: highlight_color
                             text: qsTr("Add")
                             button_enabled: true
+                            onNextFocus: function next_focus(dir) {
+                                if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) property_column.nextFocus(dir);
+                                else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) address_other_list_view.setFocus(dir);
+                                else property_paragraph_edit_note.setFocus(dir);
+                            }
 
                             onClicked:
                             {
@@ -628,6 +698,11 @@ TemplateEditDialog
                 description: qsTr("Note")
                 value: property_note
                 original_value: ""
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) add_button.setFocus(dir);
+                    else parent.nextFocus(dir);
+                }
 
                 Connections {
                     target: address_dialog

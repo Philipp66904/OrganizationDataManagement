@@ -6,6 +6,7 @@ import QtPositioning
 import QtQuick.Controls.Basic
 
 import "../components"
+import "../types"
 
 import tablemodule 1.0
 
@@ -46,10 +47,9 @@ ApplicationWindow
 
     function init() {  // call this function in your init_dialog override
         close_okay = false;
-        button_row.focus = true;
-        button_row.forceActiveFocus();
         derivate_table.load_data();
         edit_dialog_window.initProperties();
+        save_button.setFocus(Enums.FocusDir.Down);
     }
 
     function create_derivate_window(pk, qml_file_name) {
@@ -187,7 +187,23 @@ ApplicationWindow
                         anchors.horizontalCenter: parent.horizontalCenter
 
                         // implement the Component with the id property_component
-                        Loader { sourceComponent: property_component; anchors.fill: parent }
+                        Loader
+                        {
+                            id: property_component_loader
+                            sourceComponent: property_component
+                            anchors.fill: parent
+                        }
+
+                        Connections
+                        {
+                            target: property_component_loader.item
+                            function onNextFocus(dir) {
+                                if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
+                                else if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
+                                else if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) derivate_table.setFocus(dir);
+                                else abort_button.setFocus(dir);
+                            }
+                        }
                     }
 
                     Loader { sourceComponent: separator_component; }
@@ -216,6 +232,14 @@ ApplicationWindow
                         table_cell_rect_height_factor: 0.25
                         pk_id: identifier
                         parent_id: parent_identifier
+                        onNextFocus: function next_focus(dir) {
+                            if(property_component_loader.item === null) return;
+
+                            if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
+                            else if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
+                            else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_component_loader.item.setFocus(dir);
+                            else save_button.setFocus(dir);
+                        }
 
                         TableModel
                         {
@@ -270,12 +294,6 @@ ApplicationWindow
                     spacing: 8
                     property int button_count: 3
 
-                    focus: true
-                    Keys.onReturnPressed: {
-                        if(save_button_enabled) save_button.clicked();
-                    }
-                    Keys.onEscapePressed: abort_button.clicked()
-
                     BasicButton
                     {
                         id: save_button
@@ -284,7 +302,13 @@ ApplicationWindow
                         hover_color: highlight_color
                         text: qsTr("Save")
                         button_enabled: save_button_enabled
-                        selected: parent.focus
+                        focus: true
+                        onNextFocus: function next_focus(dir) {
+                            if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
+                            else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) derivate_table.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Down && property_component_loader.item !== null) property_component_loader.item.setFocus(dir);
+                            else delete_button.setFocus(dir);
+                        }
 
                         onClicked:
                         {
@@ -305,6 +329,14 @@ ApplicationWindow
                         highlight_color: backgroundColorError
                         text: qsTr("Delete")
                         button_enabled: (edit_dialog_window.identifier !== -1) ? true : false
+                        onNextFocus: function next_focus(dir) {
+                            if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
+                            else if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
+                            else if(dir === Enums.FocusDir.Up) derivate_table.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Left) save_button.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Down && property_component_loader.item !== null) property_component_loader.item.setFocus(dir);
+                            else abort_button.setFocus(dir);
+                        }
 
                         DeleteDialog
                         {
@@ -333,6 +365,13 @@ ApplicationWindow
                         hover_color: textColor
                         text: qsTr("Abort")
                         button_enabled: true
+                        onNextFocus: function next_focus(dir) {
+                            if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
+                            else if(dir === Enums.FocusDir.Close) clicked();
+                            else if(dir === Enums.FocusDir.Up) derivate_table.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Left) delete_button.setFocus(dir);
+                            else if(property_component_loader.item !== null) property_component_loader.item.setFocus(dir);
+                        }
 
                         onClicked:
                         {

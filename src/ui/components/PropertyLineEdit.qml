@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
 
+import "../types"
+
 Rectangle
 {
     id: property_line_edit_root
@@ -28,7 +30,7 @@ Rectangle
     property var null_switch_height_percentage: 0.7
     property bool required: false
 
-    property bool editing: value_text.focus
+    property bool editing: value_text.activeFocus
     property bool derivate_mode: true
     required property string description
     required property var value
@@ -71,6 +73,12 @@ Rectangle
             else return value;
         }
     }
+
+    function setFocus(dir) {
+        value_text.forceActiveFocus();
+    }
+
+    signal nextFocus(dir: int)
 
     Row
     {
@@ -137,6 +145,12 @@ Rectangle
             clip: true
             font.italic: (derivate_flag) ? true : false
             readOnly: derivate_flag
+            Keys.onTabPressed: nextFocus(Enums.FocusDir.Down);
+            Keys.onReturnPressed: nextFocus(Enums.FocusDir.Save);
+            Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
+            Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Up);
+            Keys.onUpPressed: nextFocus(Enums.FocusDir.Up);
+            Keys.onDownPressed: nextFocus(Enums.FocusDir.Down);
 
             onActiveFocusChanged: {
                 if(activeFocus && derivate_flag) {

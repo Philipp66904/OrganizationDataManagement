@@ -5,7 +5,7 @@ import QtQuick.Controls
 import QtPositioning
 
 import "../components"
-
+import "../types"
 
 ApplicationWindow
 {
@@ -59,9 +59,6 @@ ApplicationWindow
             width: parent.width - 8
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 8
-            focus: true
-            Keys.onReturnPressed: ok_button.clicked()
-            Keys.onEscapePressed: abort_button.clicked()
 
             BasicButton
             {
@@ -72,7 +69,12 @@ ApplicationWindow
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
                 highlight_color: backgroundColorError
-                selected: parent.focus
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Close) abort_button.setFocus(dir);
+                    else abort_button.setFocus(dir);
+                }
+                
+                Component.onCompleted: setFocus(Enums.FocusDir.Right)
 
                 onClicked:
                 {
@@ -91,10 +93,15 @@ ApplicationWindow
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
                 hover_color: textColor
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Close) clicked();
+                    else ok_button.setFocus(dir);
+                }
 
                 onClicked:
                 {
                     close();
+                    ok_button.setFocus(Enums.FocusDir.Right);
                 }
             }
         }

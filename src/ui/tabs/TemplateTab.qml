@@ -5,6 +5,7 @@ import QtQuick.Controls
 import QtPositioning
 
 import "../components"
+import "../types"
 
 Rectangle
 {
@@ -31,6 +32,12 @@ Rectangle
         parent_id: undefined
         table_view_main_height_factor: 0.94
         table_cell_rect_height_factor: 0.07
+        
+        Component.onCompleted: setFocus(Enums.FocusDir.Right)
+
+        onNextFocus: function next_focus(dir) {
+            if(dir === Enums.FocusDir.Close) rootWindow.close();
+        }
 
         function load_data() {
             load_data_wrapper();  // implement function with specific implementation per tab

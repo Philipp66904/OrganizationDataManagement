@@ -7,6 +7,7 @@ import QtPositioning
 import tablemodule 1.0
 
 import "../dialogs"
+import "../types"
 
 Rectangle
 {
@@ -36,6 +37,13 @@ Rectangle
 
         table_root.edit_button_clicked(pk);
     }
+
+    function setFocus(dir) {
+        if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) add_button.setFocus(Enums.FocusDir.Right);
+        else delete_button.setFocus(Enums.FocusDir.Left);
+    }
+
+    signal nextFocus(dir: int)
 
     // Connections
     Connections {
@@ -288,6 +296,15 @@ Rectangle
                     hover_color: highlight_color
                     text: qsTr("Add")
                     button_enabled: (table_root.pk_id !== undefined && table_root.pk_id < 0) ? false : true
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close) {
+                            table_root.nextFocus(dir);
+                            return;
+                        }
+
+                        if(dir === Enums.FocusDir.Right) edit_button.setFocus(dir);
+                        else table_root.nextFocus(dir);
+                    }
 
                     onClicked:
                     {
@@ -308,6 +325,16 @@ Rectangle
                     hover_color: textColor
                     text: qsTr("Edit")
                     button_enabled: (table_root.selected_pk !== undefined) ? true : false
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close) {
+                            table_root.nextFocus(dir);
+                            return;
+                        }
+
+                        if(dir === Enums.FocusDir.Right) duplicate_button.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Left) add_button.setFocus(dir);
+                        else table_root.nextFocus(dir);
+                    }
 
                     onClicked: {
                         table_root.editEntry();
@@ -323,6 +350,16 @@ Rectangle
                     hover_color: textColor
                     text: qsTr("Duplicate")
                     button_enabled: (table_root.selected_pk !== undefined) ? true : false
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close) {
+                            table_root.nextFocus(dir);
+                            return;
+                        }
+
+                        if(dir === Enums.FocusDir.Left) edit_button.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Right) delete_button.setFocus(dir);
+                        else table_root.nextFocus(dir);
+                    }
 
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();
@@ -343,6 +380,15 @@ Rectangle
                     highlight_color: backgroundColorError
                     text: qsTr("Delete")
                     button_enabled: (table_root.selected_pk !== undefined) ? true : false
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close) {
+                            table_root.nextFocus(dir);
+                            return;
+                        }
+
+                        if(dir === Enums.FocusDir.Left) duplicate_button.setFocus(dir);
+                        else table_root.nextFocus(dir);
+                    }
 
                     DeleteDialog
                     {

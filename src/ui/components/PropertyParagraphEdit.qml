@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
 
+import "../types"
+
 Rectangle
 {
     id: property_paragraph_edit_root
@@ -12,13 +14,19 @@ Rectangle
     border.width: 1
     radius: 4
 
-    property bool editing: value_text.focus
+    property bool editing: value_text.activeFocus
     required property string description
     required property string value
     required property string original_value
     property bool derivate_flag: false
 
     signal new_value(val: string, derivate_flag: bool)
+
+    function setFocus(dir) {
+        value_text.forceActiveFocus();
+    }
+
+    signal nextFocus(dir: int)
 
     MouseArea
     {
@@ -85,6 +93,12 @@ Rectangle
             font.italic: (derivate_flag) ? true : false
             readOnly: derivate_flag
             wrapMode: TextEdit.Wrap
+            Keys.onTabPressed: nextFocus(Enums.FocusDir.Down);
+            Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Up);
+            Keys.onReturnPressed: nextFocus(Enums.FocusDir.Save);
+            Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
+            Keys.onUpPressed: nextFocus(Enums.FocusDir.Up);
+            Keys.onDownPressed: nextFocus(Enums.FocusDir.Down);
 
             onTextEdited: {
                 property_row_main.send_new_value();

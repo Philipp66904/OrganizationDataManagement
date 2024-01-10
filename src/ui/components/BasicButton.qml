@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
 
+import "../types"
+
 Rectangle
 {
     id: button_root_rect
@@ -13,12 +15,22 @@ Rectangle
     property color hover_color: highlight_color
     property color selected_color: hover_color
     property color border_default_color: backgroundColor3
-    property bool selected: false
+    property bool selected: activeFocus
     property bool button_enabled: true
     property bool containsMouse: button_mouse_area.containsMouse
     signal clicked()
     signal pressed()
     signal doubleClicked()
+    signal nextFocus(dir: int)
+
+    Keys.onReturnPressed: clicked();
+    Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
+    Keys.onTabPressed: nextFocus(Enums.FocusDir.Right);
+    Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Left);
+    Keys.onUpPressed: nextFocus(Enums.FocusDir.Up);
+    Keys.onDownPressed: nextFocus(Enums.FocusDir.Down);
+    Keys.onLeftPressed: nextFocus(Enums.FocusDir.Left);
+    Keys.onRightPressed: nextFocus(Enums.FocusDir.Right);
 
     Gradient {
         id: selected_gradient
@@ -40,6 +52,15 @@ Rectangle
     }
     border.width: 1
     radius: 8
+
+    function setFocus(dir) {
+        if(visible && button_enabled) {
+            forceActiveFocus();
+        }
+        else nextFocus(dir);
+    }
+
+    onButton_enabledChanged: if(!button_enabled) nextFocus(Enums.FocusDir.Left)
 
     Text
     {

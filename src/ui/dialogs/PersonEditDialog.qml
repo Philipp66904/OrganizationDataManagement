@@ -5,6 +5,7 @@ import QtQuick.Controls
 import QtPositioning
 
 import "../components"
+import "../types"
 
 import tablemodule 1.0
 
@@ -208,6 +209,13 @@ TemplateEditDialog
             property var row_count: 7
             property var row_height_count: 9
 
+            function setFocus(dir) {
+                if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) property_line_edit_name.setFocus(dir);
+                else property_paragraph_edit_note.setFocus(dir);
+            }
+
+            signal nextFocus(dir: int)
+
             PropertyLineEdit
             {
                 id: property_line_edit_name
@@ -218,6 +226,11 @@ TemplateEditDialog
                 derivate_value: ""
                 derivate_mode: false
                 required: true
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) parent.nextFocus(dir);
+                    else property_line_edit_title.setFocus(dir);
+                }
 
                 Connections {
                     target: person_dialog
@@ -247,6 +260,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : person_dialog.property_title_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_name.setFocus(dir);
+                    else property_line_edit_gender.setFocus(dir);
+                }
 
                 Connections {
                     target: person_dialog
@@ -278,6 +296,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : person_dialog.property_gender_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_title.setFocus(dir);
+                    else property_line_edit_firstname.setFocus(dir);
+                }
 
                 Connections {
                     target: person_dialog
@@ -309,6 +332,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : person_dialog.property_firstname_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_gender.setFocus(dir);
+                    else property_line_edit_middlename.setFocus(dir);
+                }
 
                 Connections {
                     target: person_dialog
@@ -340,6 +368,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : person_dialog.property_middlename_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_firstname.setFocus(dir);
+                    else property_line_edit_surname.setFocus(dir);
+                }
 
                 Connections {
                     target: person_dialog
@@ -371,6 +404,11 @@ TemplateEditDialog
                 derivate_value: undefined
                 derivate_mode: true
                 derivate_flag: (value === undefined) ? true : person_dialog.property_surname_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_middlename.setFocus(dir);
+                    else property_paragraph_edit_note.setFocus(dir);
+                }
 
                 Connections {
                     target: person_dialog
@@ -400,6 +438,11 @@ TemplateEditDialog
                 description: qsTr("Note")
                 value: property_note
                 original_value: ""
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_surname.setFocus(dir);
+                    else parent.nextFocus(dir);
+                }
 
                 Connections {
                     target: person_dialog
