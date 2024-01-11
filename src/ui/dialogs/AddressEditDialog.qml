@@ -556,10 +556,17 @@ TemplateEditDialog
                         spacing: 4
                         reuseItems: false
                         flickableDirection: Flickable.AutoFlickIfNeeded
-                        property int element_id_with_focus: 0
+                        property int element_id_with_focus: -1
                         onElement_id_with_focusChanged: {
                             if(element_id_with_focus < 0) property_line_edit_country.setFocus(Enums.FocusDir.Left);
-                            else add_button.setFocus(Enums.FocusDir.Right);
+                            else if(element_id_with_focus >= address_other_list_model.count) add_button.setFocus(Enums.FocusDir.Right);
+                        }
+
+                        Connections {
+                            target: address_dialog
+                            function onInitProperties() {
+                                address_other_list_view.element_id_with_focus = -1;
+                            }
                         }
 
                         function setFocus(dir) {
@@ -678,6 +685,10 @@ TemplateEditDialog
 
                             onClicked:
                             {
+                                if(address_other_list_view.element_id_with_focus === address_other_list_model.count) {
+                                    address_other_list_view.element_id_with_focus++;
+                                }
+
                                 address_other_list_model.append({"pk": -1,
                                                                  "other_index": -1,
                                                                  "property_value": "",
