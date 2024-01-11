@@ -10,7 +10,6 @@ Rectangle
 {
     id: button_root_rect
     property string text: ""
-    property var text_point_size: textSizeSmall
     property color highlight_color: highlightColor
     property color hover_color: highlight_color
     property color selected_color: hover_color
@@ -23,7 +22,13 @@ Rectangle
     signal doubleClicked()
     signal nextFocus(dir: int)
 
-    Keys.onReturnPressed: clicked();
+    Keys.onReturnPressed: {
+        clicked();
+        button_text.font.pointSize = textSizeSmall;
+        button_root_rect.border.color = highlight_color;
+        button_text.color = highlight_color;
+        timer.start();
+    }
     Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
     Keys.onTabPressed: nextFocus(Enums.FocusDir.Right);
     Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Left);
@@ -31,6 +36,32 @@ Rectangle
     Keys.onDownPressed: nextFocus(Enums.FocusDir.Down);
     Keys.onLeftPressed: nextFocus(Enums.FocusDir.Left);
     Keys.onRightPressed: nextFocus(Enums.FocusDir.Right);
+
+    Timer
+    {
+        id: timer
+        interval: 200
+        onTriggered: {
+            button_text.font.pointSize = Qt.binding(function() {
+                return (button_mouse_area.pressed) ? textSizeSmall : textSize
+            });
+
+            button_root_rect.border.color = Qt.binding(function() {
+                if(button_enabled === false) return "transparent";
+                else if(button_mouse_area.pressed) return highlight_color;
+                else if(containsMouse) return hover_color;
+                else if(selected) return selected_color;
+                else return border_default_color;
+            });
+
+            button_text.color = Qt.binding(function() {
+                if(button_enabled === false) return textColor1;
+                else if(button_mouse_area.pressed) return highlight_color;
+                else if(containsMouse) return hover_color;
+                else return textColor;
+            });
+        }
+    }
 
     Gradient {
         id: selected_gradient
@@ -48,7 +79,7 @@ Rectangle
         else if(button_mouse_area.pressed) return highlight_color;
         else if(containsMouse) return hover_color;
         else if(selected) return selected_color;
-        else border_default_color;
+        else return border_default_color;
     }
     border.width: 1
     radius: 8
@@ -74,7 +105,7 @@ Rectangle
             if(button_enabled === false) return textColor1;
             else if(button_mouse_area.pressed) return highlight_color;
             else if(containsMouse) return hover_color;
-            else textColor;
+            else return textColor;
         }
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -91,14 +122,17 @@ Rectangle
 
         onClicked: {
             button_root_rect.clicked();
+            button_root_rect.setFocus(Enums.FocusDir.Right);
         }
 
         onPressed: {
             button_root_rect.pressed()
+            button_root_rect.setFocus(Enums.FocusDir.Right);
         }
 
         onDoubleClicked: {
             button_root_rect.doubleClicked();
+            button_root_rect.setFocus(Enums.FocusDir.Right);
         }
     }
 }

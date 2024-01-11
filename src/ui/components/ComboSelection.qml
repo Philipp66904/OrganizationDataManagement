@@ -4,11 +4,13 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
 
+import "../types"
+
 Rectangle
 {
     id: combo_selection_root
     color: (root_mouse_area.containsMouse) ? backgroundColor2 : "transparent"
-    border.color: (popup_opened) ? highlight_color : color
+    border.color: (popup_opened || combo_selection.activeFocus) ? highlight_color : color
     border.width: 1
     radius: 4
 
@@ -18,6 +20,12 @@ Rectangle
     property color highlight_color: highlightColor
 
     property bool popup_opened: combo_selection.popup.opened
+
+    function setFocus(dir) {
+        combo_selection.forceActiveFocus();
+    }
+
+    signal nextFocus(dir: int)
 
     ListModel
     {
@@ -80,6 +88,11 @@ Rectangle
             popup.modal: true
             textRole: "name_note"
             anchors.verticalCenter: parent.verticalCenter
+            Keys.onTabPressed: nextFocus(Enums.FocusDir.Right);
+            Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Left);
+            Keys.onLeftPressed: nextFocus(Enums.FocusDir.Left);
+            Keys.onRightPressed: nextFocus(Enums.FocusDir.Right);
+            Keys.onReturnPressed: nextFocus(Enums.FocusDir.Save);
 
             onCurrentIndexChanged: {
                 if (currentIndex >= combo_selection_list_model.length || currentIndex < 0) {

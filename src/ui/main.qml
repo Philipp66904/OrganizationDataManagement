@@ -7,6 +7,7 @@ import QtPositioning
 import "window"
 import "tabs"
 import "dialogs"
+import "types"
 
 ApplicationWindow
 {
@@ -113,6 +114,12 @@ ApplicationWindow
         anchors.fill: parent
         anchors.topMargin: 2
         anchors.bottomMargin: 1
+
+        onNextFocus: function next_focus(dir) {
+            // TODO add menubar transition
+            // TODO handle save event (transition to menubar? do nothing?)
+            if(dir === Enums.FocusDir.Close) rootWindow.close();
+        }
     }
 
     // Closing handler

@@ -6,6 +6,7 @@ import QtPositioning
 import QtQuick.Controls.Basic
 
 import "../components"
+import "../types"
 
 ApplicationWindow
 {
@@ -74,8 +75,6 @@ ApplicationWindow
     }
 
     function init(connection_id, organization_id) {
-        button_row.focus = true;
-        button_row.forceActiveFocus();
         organization_connection_dialog_window.close_okay = false;
         organization_connection_dialog_window.identifier = connection_id;
         const current_person_address_description = database.getConnection(connection_id);
@@ -97,6 +96,7 @@ ApplicationWindow
 
         organization_connection_dialog_window.initProperties(connection_id, organization_id);
         error_text = check_connection();
+        save_button.setFocus(Enums.FocusDir.Right);
     }
 
     // Closing handler
@@ -202,6 +202,12 @@ ApplicationWindow
                 height: main_column.combo_selection_person_height
                 anchors.horizontalCenter: parent.horizontalCenter
                 description_text: qsTr("Person")
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Right);
+                    else if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
+                    else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) abort_button.setFocus(dir);
+                    else combo_selection_address.setFocus(dir);
+                }
 
                 onSelected_indexChanged: {
                     organization_connection_dialog_window.current_person_id = combo_selection_person.selected_index;
@@ -224,6 +230,12 @@ ApplicationWindow
                 height: main_column.combo_selection_address_height
                 anchors.horizontalCenter: parent.horizontalCenter
                 description_text: qsTr("Address")
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Right);
+                    else if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
+                    else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) combo_selection_person.setFocus(dir);
+                    else save_button.setFocus(dir);
+                }
 
                 onSelected_indexChanged: {
                     organization_connection_dialog_window.current_address_id = combo_selection_address.selected_index;
@@ -277,13 +289,6 @@ ApplicationWindow
                 spacing: 8
                 property int button_count: 3
                 anchors.fill: parent
-                focus: true
-                Keys.onReturnPressed: {
-                    if(save_button.button_enabled) {
-                        save_button.clicked();
-                    }
-                }
-                Keys.onEscapePressed: abort_button.clicked()
 
                 BasicButton
                 {
@@ -293,7 +298,13 @@ ApplicationWindow
                     hover_color: highlight_color
                     text: qsTr("Save")
                     button_enabled: (organization_connection_dialog_window.error_text === "") ? true : false
-                    selected: parent.focus
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Right);
+                        else if(dir === Enums.FocusDir.Save) clicked();
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) combo_selection_address.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Down) combo_selection_person.setFocus(dir);
+                        else delete_button.setFocus(dir);
+                    }
 
                     onClicked:
                     {
@@ -310,6 +321,14 @@ ApplicationWindow
                     highlight_color: backgroundColorError
                     text: qsTr("Delete")
                     button_enabled: (organization_connection_dialog_window.identifier !== -1) ? true : false
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Right);
+                        else if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
+                        else if(dir === Enums.FocusDir.Up) combo_selection_address.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Down) combo_selection_person.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Left) save_button.setFocus(dir);
+                        else abort_button.setFocus(dir);
+                    }
 
                     DeleteDialog
                     {
@@ -335,6 +354,13 @@ ApplicationWindow
                     hover_color: textColor
                     text: qsTr("Abort")
                     button_enabled: true
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close) clicked();
+                        else if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
+                        else if(dir === Enums.FocusDir.Up) combo_selection_address.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) combo_selection_person.setFocus(dir);
+                        else delete_button.setFocus(dir);
+                    }
 
                     onClicked:
                     {

@@ -5,18 +5,33 @@ import QtQuick.Controls
 import QtPositioning
 import QtQuick.Controls.Basic
 
+import "../types"
+
 Rectangle
 {
     id: button_selection
-    color: "transparent" //backgroundColor2
-    border.color: (button_selection_focus_scope.focus) ? highlightColor : backgroundColor2
+    color: "transparent"
+    border.color: backgroundColor2
     border.width: 1
     radius: 4
 
     required property string table_name
     required property string description_text
+    property int element_id_with_focus: -2
+    onElement_id_with_focusChanged: {
+        if(element_id_with_focus === -1) nextFocus(Enums.FocusDir.Up);
+        else if(element_id_with_focus >= button_selection_list_model.count) nextFocus(Enums.FocusDir.Down);
+    }
 
     signal updateListModel()
+    signal nextFocus(dir: int)
+
+    function setFocus(dir) {
+        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) nextFocus(dir);
+        else if(button_selection_list_model.count <= 0) nextFocus(dir);
+        else if(dir === Enums.FocusDir.Down || Enums.FocusDir.Right) element_id_with_focus = 0;
+        else element_id_with_focus = button_selection_list_model.count - 1;
+    }
 
     ListModel
     {
@@ -67,6 +82,8 @@ Rectangle
         for(let col_name of col_names) {
             button_selection_list_model.append({"column_name": col_name, "button_checked": true});
         }
+
+        element_id_with_focus = -2;
     }
 
     FocusScope
@@ -115,6 +132,21 @@ Rectangle
                     height: button_selection_list_view.height
                     width: (button_selection_column.width - ((button_selection_list_view.button_count - 1) * button_selection_list_view.spacing)) / button_selection_list_view.button_count
                     checked: button_checked
+                    required property int index
+                    required property bool button_checked
+                    required property string column_name
+                    property int element_id_with_focus_wrapper: element_id_with_focus
+
+                    onElement_id_with_focus_wrapperChanged: {
+                        if(element_id_with_focus === index) checkbox.setFocus(Enums.FocusDir.Right);
+                    }
+
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) button_selection.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Down) button_selection.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Left) element_id_with_focus = index - 1;
+                        else element_id_with_focus = index + 1;
+                    }
 
                     onCheckedChanged: {
                         button_selection_list_model.set(index, {"button_checked": checkbox.checked});

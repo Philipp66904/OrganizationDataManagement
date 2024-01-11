@@ -8,11 +8,12 @@ import QtQuick.Controls.Basic
 import tablemodule 1.0
 
 import "../components"
+import "../types"
 
 Rectangle
 {
     id: tab_main
-    color: backgroundColor1 //"transparent"
+    color: backgroundColor1
     border.color: backgroundColor3
     border.width: 1
     radius: 4
@@ -31,6 +32,14 @@ Rectangle
     signal resetSearch()
     signal softResetSearch()
     signal updateSearch()
+
+    // Key Handling
+    function setFocus(dir) {
+        if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) property_line_edit_search.setFocus(dir);
+        else search_result_table_stack_layout.setFocus(dir);
+    }
+
+    signal nextFocus(dir: int)
 
     // Signal handler
     onResetSearch: {
@@ -139,6 +148,11 @@ Rectangle
                     derivate_value: ""
                     derivate_mode: false
                     required: false
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) tab_main.nextFocus(dir);
+                        else combo_selection_organization.setFocus(dir);
+                    }
 
                     Connections {
                         target: tab_main
@@ -161,6 +175,11 @@ Rectangle
                     height: search_parameter_column.module_height * 1.5
                     description_text: qsTr("Search in Organization")
                     not_null: false
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) property_line_edit_search.setFocus(dir);
+                        else combo_selection_person.setFocus(dir);
+                    }
 
                     onSelected_indexChanged: {
                         selected_organization_id = combo_selection_organization.selected_index;
@@ -192,6 +211,11 @@ Rectangle
                     height: search_parameter_column.module_height * 1.5
                     description_text: qsTr("Search in Person")
                     not_null: false
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) combo_selection_organization.setFocus(dir);
+                        else combo_selection_address.setFocus(dir);
+                    }
 
                     onSelected_indexChanged: {
                         selected_person_id = combo_selection_person.selected_index;
@@ -223,6 +247,11 @@ Rectangle
                     height: search_parameter_column.module_height * 1.5
                     description_text: qsTr("Search in Address")
                     not_null: false
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) combo_selection_person.setFocus(dir);
+                        else select_all_button.setFocus(dir);
+                    }
 
                     onSelected_indexChanged: {
                         selected_address_id = combo_selection_address.selected_index;
@@ -276,6 +305,12 @@ Rectangle
                             height: parent.height
                             text: qsTr("Select All")
                             hover_color: textColor
+                            onNextFocus: function next_focus(dir) {
+                                if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                                else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) combo_selection_address.setFocus(dir);
+                                else if(dir === Enums.FocusDir.Right) unselect_all_button.setFocus(dir);
+                                else organization_button_selection.setFocus(dir);
+                            }
 
                             onClicked: {
                                 selection_button_row.setSelection(1);
@@ -289,6 +324,13 @@ Rectangle
                             height: parent.height
                             text: qsTr("Unselect All")
                             hover_color: textColor
+                            onNextFocus: function next_focus(dir) {
+                                if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                                else if(dir === Enums.FocusDir.Up) combo_selection_address.setFocus(dir);
+                                else if(dir === Enums.FocusDir.Left) select_all_button.setFocus(dir);
+                                else if(dir === Enums.FocusDir.Right) invert_selection_button.setFocus(dir);
+                                else organization_button_selection.setFocus(dir);
+                            }
 
                             onClicked: {
                                 selection_button_row.setSelection(0);
@@ -302,6 +344,12 @@ Rectangle
                             height: parent.height
                             text: qsTr("Invert Selection")
                             hover_color: textColor
+                            onNextFocus: function next_focus(dir) {
+                                if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                                else if(dir === Enums.FocusDir.Up) combo_selection_address.setFocus(dir);
+                                else if(dir === Enums.FocusDir.Left) unselect_all_button.setFocus(dir);
+                                else organization_button_selection.setFocus(dir);
+                            }
 
                             onClicked: {
                                 selection_button_row.setSelection(-1);
@@ -317,6 +365,12 @@ Rectangle
                     height: search_parameter_column.module_height * 3
                     table_name: "organization"
                     description_text: qsTr("Search in Organization properties:")
+                    onNextFocus: function next_focus(dir) {
+                        organization_button_selection.element_id_with_focus = -2;
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) select_all_button.setFocus(dir);
+                        else person_button_selection.setFocus(dir);
+                    }
 
                     Connections {
                         target: tab_main
@@ -337,6 +391,12 @@ Rectangle
                     height: search_parameter_column.module_height * 3
                     table_name: "person"
                     description_text: qsTr("Search in Person properties:")
+                    onNextFocus: function next_focus(dir) {
+                        person_button_selection.element_id_with_focus = -2;
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) organization_button_selection.setFocus(dir);
+                        else address_button_selection.setFocus(dir);
+                    }
 
                     Connections {
                         target: tab_main
@@ -357,6 +417,12 @@ Rectangle
                     height: search_parameter_column.module_height * 3
                     table_name: "address"
                     description_text: qsTr("Search in Address properties:")
+                    onNextFocus: function next_focus(dir) {
+                        address_button_selection.element_id_with_focus = -2;
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) person_button_selection.setFocus(dir);
+                        else reload_search_button.setFocus(dir);
+                    }
 
                     Connections {
                         target: tab_main
@@ -386,6 +452,12 @@ Rectangle
                         height: parent.height
                         text: qsTr("Reload Results")
                         hover_color: textColor
+                        onNextFocus: function next_focus(dir) {
+                            if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                            else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) address_button_selection.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Right) reset_search_button.setFocus(dir);
+                            else tab_row.setFocus(dir);
+                        }
 
                         onClicked: {
                             database.clear_cache();
@@ -400,6 +472,12 @@ Rectangle
                         height: parent.height
                         text: qsTr("Reset Search")
                         highlight_color: backgroundColorError
+                        onNextFocus: function next_focus(dir) {
+                            if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                            else if(dir === Enums.FocusDir.Up) address_button_selection.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Left) reload_search_button.setFocus(dir);
+                            else tab_row.setFocus(dir);
+                        }
 
                         onClicked: {
                             resetSearch();
@@ -495,6 +573,12 @@ Rectangle
                     property int column_count: 4
                     property var module_width: (width - ((column_count - 1) * spacing)) / column_count
 
+                    function setFocus(dir) {
+                        if(search_result_table_stack_layout.currentIndex === 0) organization_table_search_results_button.setFocus(dir);
+                        else if(search_result_table_stack_layout.currentIndex === 1) person_table_search_results_button.setFocus(dir);
+                        else if(search_result_table_stack_layout.currentIndex === 2) address_table_search_results_button.setFocus(dir);
+                    }
+
                     Text
                     {
                         text: qsTr("Results:")
@@ -515,6 +599,13 @@ Rectangle
                         bar_text: qsTr("Organization")
                         highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
                         property int stack_layout_index: 0
+                        onNextFocus: function next_focus(dir) {
+                            if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                            else if(dir === Enums.FocusDir.Up) reload_search_button.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Left) reset_search_button.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Right) person_table_search_results_button.setFocus(dir);
+                            else search_result_table_stack_layout.setFocus(dir);
+                        }
 
                         onClicked:
                         {
@@ -530,6 +621,13 @@ Rectangle
                         bar_text: qsTr("Person")
                         highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
                         property int stack_layout_index: 1
+                        onNextFocus: function next_focus(dir) {
+                            if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                            else if(dir === Enums.FocusDir.Up) reload_search_button.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Left) organization_table_search_results_button.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Right) address_table_search_results_button.setFocus(dir);
+                            else search_result_table_stack_layout.setFocus(dir);
+                        }
 
                         onClicked:
                         {
@@ -545,6 +643,12 @@ Rectangle
                         bar_text: qsTr("Address")
                         highlighted: (search_result_table_stack_layout.currentIndex === stack_layout_index)
                         property int stack_layout_index: 2
+                        onNextFocus: function next_focus(dir) {
+                            if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                            else if(dir === Enums.FocusDir.Up) reload_search_button.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Left) person_table_search_results_button.setFocus(dir);
+                            else search_result_table_stack_layout.setFocus(dir);
+                        }
 
                         onClicked:
                         {
@@ -561,6 +665,12 @@ Rectangle
                 width: parent.width - 8
                 anchors.horizontalCenter: parent.horizontalCenter
                 currentIndex: 0
+
+                function setFocus(dir) {
+                    if(currentIndex === 0) organization_result_table.setFocus(dir);
+                    else if(currentIndex === 1) person_result_table.setFocus(dir);
+                    else if(currentIndex === 2) address_result_table.setFocus(dir);
+                }
             
                 SearchResultTable
                 {
@@ -569,6 +679,12 @@ Rectangle
                     table_name: "organization"
                     search_res: organization_search_res
                     table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
+
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) tab_row.setFocus(dir);
+                        else tab_main.nextFocus(dir);
+                    }
 
                     Connections {
                         target: tab_main
@@ -597,6 +713,12 @@ Rectangle
                     search_res: person_search_res
                     table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
 
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) tab_row.setFocus(dir);
+                        else tab_main.nextFocus(dir);
+                    }
+
                     Connections {
                         target: tab_main
                         function onUpdateSearch() {
@@ -618,6 +740,12 @@ Rectangle
                     table_name: "address"
                     search_res: address_search_res
                     table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
+
+                    onNextFocus: function next_focus(dir) {
+                        if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
+                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) tab_row.setFocus(dir);
+                        else tab_main.nextFocus(dir);
+                    }
 
                     Connections {
                         target: tab_main

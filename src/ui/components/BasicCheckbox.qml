@@ -5,11 +5,28 @@ import QtQuick.Controls
 import QtPositioning
 import QtQuick.Controls.Basic
 
+import "../types"
+
 CheckBox
 {
     id: checkbox_root
     checked: true
     property color highlight_color: highlightColor
+
+    Keys.onReturnPressed: toggle();
+    Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
+    Keys.onTabPressed: nextFocus(Enums.FocusDir.Right);
+    Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Left);
+    Keys.onUpPressed: nextFocus(Enums.FocusDir.Up);
+    Keys.onDownPressed: nextFocus(Enums.FocusDir.Down);
+    Keys.onLeftPressed: nextFocus(Enums.FocusDir.Left);
+    Keys.onRightPressed: nextFocus(Enums.FocusDir.Right);
+
+    function setFocus(dir) {
+        forceActiveFocus();
+    }
+
+    signal nextFocus(dir: int)
 
     indicator: Rectangle
     {
@@ -57,6 +74,8 @@ CheckBox
     {
         anchors.fill: parent
         color: (checkbox_mouse_area.containsMouse) ? backgroundColor2 : "transparent"
+        border.color: (checkbox_root.activeFocus) ? highlightColor : color
+        border.width: 1
         radius: 4
     }
 

@@ -19,14 +19,15 @@ Rectangle
     signal duplicate_button_clicked(selected_primary_key: int)
     signal delete_button_clicked(selected_primary_key: int)
 
-    Text
-    {
-        id: template_text
-        text: qsTr("Template")
+    function setFocus(dir) {
+        main_table.setFocus(dir);
     }
+
+    signal nextFocus(dir: int)
 
     Table
     {
+        id: main_table
         anchors.fill: parent
         pk_id: undefined
         parent_id: undefined
@@ -36,7 +37,7 @@ Rectangle
         Component.onCompleted: setFocus(Enums.FocusDir.Right)
 
         onNextFocus: function next_focus(dir) {
-            if(dir === Enums.FocusDir.Close) rootWindow.close();
+            parent.nextFocus(dir);
         }
 
         function load_data() {
