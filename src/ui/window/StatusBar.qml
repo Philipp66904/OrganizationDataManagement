@@ -142,7 +142,7 @@ Rectangle  // statusbar in the window's footer
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
-                text: "Saved: " + saved_date
+                text: qsTr("Saved: ") + saved_date
             }
         }
 
@@ -167,7 +167,7 @@ Rectangle  // statusbar in the window's footer
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
-                text: "Created: " + created_date
+                text: qsTr("Created: ") + created_date
             }
         }
     }
