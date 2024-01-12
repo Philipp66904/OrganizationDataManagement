@@ -22,12 +22,13 @@ ApplicationWindow
 
     // Colors
     property color backgroundColor: "#000000"
-    property color backgroundColor1: "#303030"
-    property color backgroundColor2: "#535353"
+    property color backgroundColor1: "#1a1a1a"
+    property color backgroundColor2: "#363636"
     property color backgroundColor3: "#9f9f9f"
     property color backgroundColorError: "#fc5d5b"
+    property color backgroundColorWarning: "#fcc947"
     property color backgroundColorNotification: "#51b350"
-    property color highlightColor: "#00EF00"
+    property color highlightColor: "#00ef00"
     property color textColor: "#ffffff"
     property color textColor1: "#cfcfcf"
 
@@ -40,16 +41,59 @@ ApplicationWindow
     property string loaded_db_path: ""  // alway showing the real database path
     property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path tp template)
     property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved
-    property string status_message: ""
+    property string status_message: default_status_message
+    property int status_message_level: default_status_message_level
     property string db_version
     property string saved_date: new_db_text
     property string created_date: new_db_text
 
-    onStatus_messageChanged: console.log("status msg:", status_message)
-    // TODO implement auto deletion of messages after x seconds
-
     // Locally used variables
     property bool close_okay: false
+    readonly property string default_status_message: qsTr("Ready")
+    readonly property int default_status_message_level: Enums.StatusMsgLvl.Default
+
+    // Status Message handling
+    function setDefaultStatusMessage() {
+        status_msg_timer.stop();
+        status_message = default_status_message;
+        status_message_level = default_status_message_level;
+    }
+
+    function setStatusMessage(msg, msg_lvl) {
+        if(msg === "") {
+            setDefaultStatusMessage();
+            return msg;
+        }
+
+        let timer_duration_s = 5;
+        switch(msg_lvl) {
+            case Enums.StatusMsgLvl.Info:
+                timer_duration_s = 10;
+                break;
+            case Enums.StatusMsgLvl.Warn:
+                timer_duration_s = 10;
+                break;
+            case Enums.StatusMsgLvl.Err:
+                timer_duration_s = 15;
+                break;
+        }
+
+        status_message = msg;
+        status_message_level = msg_lvl;
+
+        status_msg_timer.interval = timer_duration_s * 1000;
+        status_msg_timer.restart();
+
+        return msg;
+    }
+
+    Timer
+    {
+        id: status_msg_timer
+        onTriggered: {
+            setDefaultStatusMessage();
+        }
+    }
 
     // Connections
     Connections {
@@ -140,6 +184,13 @@ ApplicationWindow
         onShortcutSaveAs: menu_bar.triggerSaveAs();
         onShortcutNew: menu_bar.triggerNew();
         onShortcutOpen: menu_bar.triggerOpen();
+    }
+
+    // Global functions
+    function getContrastColor(baseColor) {
+        var temp = Qt.darker(baseColor, 1);
+        var a = 1 - ( 0.299 * temp.r + 0.587 * temp.g + 0.114 * temp.b);
+        return !(temp.a > 0 && a >= 0.3) ? Qt.color("#000000") : Qt.color("#ffffff");
     }
 
     // Dialog Windows

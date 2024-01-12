@@ -309,7 +309,7 @@ Rectangle
                     onClicked:
                     {
                         if(table_root.pk_id !== undefined && table_root.pk_id < 0) {
-                            status_message = qsTr("Save Entry before creating a new derivate");
+                            setStatusMessage(qsTr("Save Entry before creating a new derivate"), Enums.StatusMsgLvl.Warn);
                             return;
                         }
 
@@ -364,7 +364,7 @@ Rectangle
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();
                         if (pk < 0) {
-                            status_message = qsTr("Select a row to duplicate");
+                            setStatusMessage(qsTr("Select a row to duplicate"), Enums.StatusMsgLvl.Info);
                             return;
                         }
 
@@ -396,7 +396,7 @@ Rectangle
                         function callback_function() {
                             const pk = table_buttons_main.getPrimaryKey();
                             if (pk < 0) {
-                                status_message = qsTr("Select a row to delete");
+                                setStatusMessage(qsTr("Select a row to delete"), Enums.StatusMsgLvl.Warn);
                                 return;
                             }
 
@@ -407,7 +407,7 @@ Rectangle
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();
                         if (pk < 0) {
-                            status_message = qsTr("Select a row to delete");
+                            setStatusMessage(qsTr("Select a row to delete"), Enums.StatusMsgLvl.Warn);
                             return;
                         }
 

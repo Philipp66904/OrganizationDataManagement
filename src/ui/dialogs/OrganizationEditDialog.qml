@@ -64,13 +64,13 @@ TemplateEditDialog
     onSave_button_clicked: {
         if(identifier >= 0) {
             // Update existing entry
-            status_message = database.setName_Note_byPk(property_name, property_note, identifier, "id", organization_dialog.table_name);
-            if(status_message !== "") return;
+            let msg = setStatusMessage(database.setName_Note_byPk(property_name, property_note, identifier, "id", organization_dialog.table_name), Enums.StatusMsgLvl.Err);
+            if(msg !== "") return;
 
             let new_website = undefined;
             if(!property_website_derivate_flag) new_website = property_website;
-            status_message = database.setValue_Str("website", identifier, "id", organization_dialog.table_name, new_website);
-            if(status_message !== "") return;
+            msg = setStatusMessage(database.setValue_Str("website", identifier, "id", organization_dialog.table_name, new_website), Enums.StatusMsgLvl.Err);
+            if(msg !== "") return;
         }
         else {
             // Create new entry
@@ -80,8 +80,8 @@ TemplateEditDialog
             let new_parent_id = -1;
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
             
-            status_message = database.createOrganization(property_name, property_note, new_parent_id, new_website);
-            if(status_message !== "") return;
+            const msg = setStatusMessage(database.createOrganization(property_name, property_note, new_parent_id, new_website), Enums.StatusMsgLvl.Err);
+            if(msg !== "") return;
         }
     }
 
@@ -94,8 +94,8 @@ TemplateEditDialog
     }
 
     onDerivate_duplicate_button_clicked: function derivate_duplicate_button_clicked(pk) {
-        status_message = database.duplicateEntry(pk, "id", organization_dialog.table_name);
-        if(status_message !== "") return;
+        const msg = setStatusMessage(database.duplicateEntry(pk, "id", organization_dialog.table_name), Enums.StatusMsgLvl.Err);
+        if(msg !== "") return;
     }
 
     Component
@@ -219,7 +219,7 @@ TemplateEditDialog
 
                 onDelete_button_clicked: function delete_button_clicked(pk) {
                     if(!database.deleteConnection(pk)) {
-                        status_message = qsTr("Couldn't delete connection.");
+                        setStatusMessage(qsTr("Couldn't delete connection."), Enums.StatusMsgLvl.Err);
                     }
                 }
             }

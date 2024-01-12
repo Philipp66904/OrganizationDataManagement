@@ -6,7 +6,7 @@ import QtPositioning
 import QtQuick.Controls.Basic
 
 import "../components"
-
+import "../types"
 
 ApplicationWindow
 {
@@ -41,6 +41,10 @@ ApplicationWindow
         id: color_theme_list_model
     }
 
+    function init() {
+        save_button.setFocus(Enums.FocusDir.Right);
+    }
+
     function initListModel() {
         close_okay = false;
         color_theme_list_model.clear();
@@ -52,6 +56,7 @@ ApplicationWindow
             
             color_theme_list_model.append({"color_name": color_name, "color_value": color_value});
         }
+        init();
     }
 
     Column
@@ -128,10 +133,7 @@ ApplicationWindow
             width: parent.width - 8
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 8
-            focus: true
             property int column_count: 3
-            Keys.onReturnPressed: save_button.clicked()
-            Keys.onEscapePressed: abort_button.clicked()
 
             BasicButton
             {
@@ -142,7 +144,12 @@ ApplicationWindow
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
                 highlight_color: highlightColor
-                selected: parent.focus
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save) clicked();
+                    else if(dir === Enums.FocusDir.Close) abort_button.setFocus();
+                    else if(dir === Enums.FocusDir.Left) abort_button.setFocus();
+                    else if(dir === Enums.FocusDir.Right) reset_button.setFocus();
+                }
 
                 onClicked: {
                     for(let i = 0; i < color_theme_list_model.count; i++) {
@@ -155,6 +162,7 @@ ApplicationWindow
                     close_okay = true;
                     close();
                     init_colors();
+                    setStatusMessage(qsTr("Colors saved and applied"), Enums.StatusMsgLvl.Info);
                 }
             }
 
@@ -167,6 +175,12 @@ ApplicationWindow
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
                 hover_color: backgroundColorError
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save) save_button.setFocus();
+                    else if(dir === Enums.FocusDir.Close) abort_button.setFocus();
+                    else if(dir === Enums.FocusDir.Left) save_button.setFocus();
+                    else if(dir === Enums.FocusDir.Right) abort_button.setFocus();
+                }
 
                 onClicked: {
                     settings.slot_resetThemeColors();
@@ -174,6 +188,7 @@ ApplicationWindow
                     close();
                     initListModel();
                     init_colors();
+                    setStatusMessage(qsTr("Colors reset"), Enums.StatusMsgLvl.Info);
                 }
             }
 
@@ -186,6 +201,12 @@ ApplicationWindow
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
                 hover_color: textColor
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save) save_button.setFocus();
+                    else if(dir === Enums.FocusDir.Close) clicked();
+                    else if(dir === Enums.FocusDir.Left) reset_button.setFocus();
+                    else if(dir === Enums.FocusDir.Right) save_button.setFocus();
+                }
 
                 onClicked: {
                     close();

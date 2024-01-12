@@ -6,6 +6,7 @@ import QtQuick.Dialogs
 import QtPositioning
 
 import "../dialogs"
+import "../types"
 
 MenuBar  // MenuBar shown in the window's header
 {
@@ -109,7 +110,12 @@ MenuBar  // MenuBar shown in the window's header
         FileCloseDialog 
         {
             id: new_file_dialog
-            function callback_function() { status_message = database.slot_readTemplateDB(); }
+            function callback_function() {
+                const msg = setStatusMessage(database.slot_readTemplateDB(), Enums.StatusMsgLvl.Err);
+                if(msg !== "") return;
+
+                setStatusMessage(qsTr("Created new file"), Enums.StatusMsgLvl.Info);
+            }
         }
         Action
         {
@@ -135,7 +141,10 @@ MenuBar  // MenuBar shown in the window's header
 
             onAccepted: 
             {
-                status_message = database.slot_readDB(selectedFile);
+                const msg = setStatusMessage(database.slot_readDB(selectedFile), Enums.StatusMsgLvl.Err);
+                if(msg !== "") return;
+
+                setStatusMessage(qsTr("Opened file"), Enums.StatusMsgLvl.Info);
             }
         }
         Action
@@ -179,7 +188,12 @@ MenuBar  // MenuBar shown in the window's header
             {
                 id: open_recent_file_dialog
                 property string db_path: ""
-                function callback_function() { status_message = database.slot_readDB(db_path) }
+                function callback_function() {
+                    const msg = setStatusMessage(database.slot_readDB(db_path), Enums.StatusMsgLvl.Err);
+                    if(msg !== "") return;
+
+                    setStatusMessage(qsTr("Recent file opened"), Enums.StatusMsgLvl.Info);
+                }
             }
 
             Component 
@@ -214,7 +228,7 @@ MenuBar  // MenuBar shown in the window's header
 
                 // Add default action in case no recent files exist
                 if(settings.getRecentFiles().length === 0) {
-                    let action = actionComponent.createObject(null, { text: "[No Recent Files]" });
+                    let action = actionComponent.createObject(open_recent_menu.contentItem, { text: "[No Recent Files]" });
                     open_recent_menu.addAction(action);
                 }
             }
@@ -233,8 +247,10 @@ MenuBar  // MenuBar shown in the window's header
             defaultSuffix: default_suffix
 
             onAccepted: {
-                console.log("selected file:", selectedFile);
-                status_message = database.slot_saveDB(selectedFile);
+                const msg = setStatusMessage(database.slot_saveDB(selectedFile), Enums.StatusMsgLvl.Err);
+                if(msg !== "") return;
+
+                setStatusMessage(qsTr("Saved as new file"), Enums.StatusMsgLvl.Info);
             }
         }
         Action
@@ -242,8 +258,14 @@ MenuBar  // MenuBar shown in the window's header
             id: action_save
             text: qsTr("Save")
             onTriggered: {
-                if(loaded_db_path === "") save_as_file_dialog.open();
-                else status_message = database.slot_saveDB(loaded_db_path);
+                if(loaded_db_path === "") {
+                    save_as_file_dialog.open();
+                } else {
+                    const msg = setStatusMessage(database.slot_saveDB(loaded_db_path), Enums.StatusMsgLvl.Err);
+                    if(msg !== "") return;
+
+                    setStatusMessage(qsTr("Saved file"), Enums.StatusMsgLvl.Info);
+                }
             }
         }
         Action

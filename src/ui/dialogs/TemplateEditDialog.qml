@@ -57,7 +57,7 @@ ApplicationWindow
         var new_dialog_window = component.createObject(edit_dialog_window, { pk_id: pk, parent_id: identifier });
 
         if (new_dialog_window == null) {
-            status_message = qsTr("Error in creating a new window");
+            setStatusMessage(qsTr("Error in creating a new window"), Enums.StatusMsgLvl.Err);
         }
         else {
             new_dialog_window.show();
@@ -116,7 +116,7 @@ ApplicationWindow
                 {
                     width: main_column.width
                     height: 1
-                    color: backgroundColor2
+                    color: backgroundColor3
                 }
             }
 
@@ -274,8 +274,8 @@ ApplicationWindow
                         }
 
                         onDelete_button_clicked: function delete_button_clicked(pk) {
-                            status_message = database.deleteEntry(pk, "id", edit_dialog_window.table_name);
-                            if(status_message !== "") return;
+                            const msg = setStatusMessage(database.deleteEntry(pk, "id", edit_dialog_window.table_name), Enums.StatusMsgLvl.Err);
+                            if(msg !== "") return;
 
                             edit_dialog_window.derivate_delete_button_clicked(pk);
                         }
@@ -330,7 +330,7 @@ ApplicationWindow
                         {
                             edit_dialog_window.save_button_clicked();
 
-                            if(status_message === "") {
+                            if(status_message === default_status_message) {
                                 close_okay = true;
                                 edit_dialog_window.close();
                             }
@@ -358,8 +358,8 @@ ApplicationWindow
                         {
                             id: delete_dialog
                             function callback_function() {
-                                status_message = database.deleteEntry(edit_dialog_window.identifier, "id", edit_dialog_window.table_name);
-                                if(status_message !== "") return;
+                                const msg = setStatusMessage(database.deleteEntry(edit_dialog_window.identifier, "id", edit_dialog_window.table_name), Enums.StatusMsgLvl.Err);
+                                if(msg !== "") return;
 
                                 edit_dialog_window.delete_button_clicked();
                                 close_okay = true;
@@ -479,7 +479,7 @@ ApplicationWindow
                         id: separator_rect
                         height: parent.height
                         width: 1
-                        color: backgroundColor2
+                        color: backgroundColor3
                     }
 
                     Rectangle

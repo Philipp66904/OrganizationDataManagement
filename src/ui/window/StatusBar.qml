@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
 
+import "../types"
+
 Rectangle  // statusbar in the window's footer
 {
     id: statusbar
@@ -67,7 +69,25 @@ Rectangle  // statusbar in the window's footer
                     - (statusbar_row.spacing_width * (statusbar_row.row_items_count - 1))
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
                     ) / statusbar_row.row_items_count
-            color: (status_message.length > 0) ? backgroundColorError : "transparent"
+            color: {
+                switch(status_message_level) {
+                    case Enums.StatusMsgLvl.Default:
+                        return "transparent";
+                    case Enums.StatusMsgLvl.Info:
+                        return backgroundColorNotification;
+                    case Enums.StatusMsgLvl.Warn:
+                        return backgroundColorWarning;
+                    case Enums.StatusMsgLvl.Err:
+                        return backgroundColorError;
+                }
+            }
+            radius: 4
+
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked: if(status_message_level !== default_status_message_level) setDefaultStatusMessage();
+            }
 
             Text
             {
@@ -75,11 +95,29 @@ Rectangle  // statusbar in the window's footer
                 anchors.fill: parent
                 anchors.margins: 4
                 font.pointSize: textSizeSmall
-                color: textColor
+                color: {
+                    switch(status_message_level) {
+                        case Enums.StatusMsgLvl.Default:
+                            return text_color;
+                        default:
+                            return getContrastColor(parent.color);
+                    }
+                }
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
-                text: (status_message.length > 0) ? qsTr("Status: ") + status_message : ""
+                elide: Text.ElideLeft
+                text: {
+                    switch(status_message_level) {
+                        case Enums.StatusMsgLvl.Default:
+                            return status_message;
+                        case Enums.StatusMsgLvl.Info:
+                            return qsTr("Status") + ": " + status_message;
+                        case Enums.StatusMsgLvl.Warn:
+                            return qsTr("Warning") + ": " + status_message;
+                        case Enums.StatusMsgLvl.Err:
+                            return qsTr("Error") + ": " + status_message;
+                    }
+                }
             }
         }
 

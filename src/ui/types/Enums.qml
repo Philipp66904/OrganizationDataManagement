@@ -14,4 +14,11 @@ Item
         Save = 10,
         Close = 11
     }
+
+    enum StatusMsgLvl {
+        Default,
+        Info,
+        Warn,
+        Err
+    }
 }

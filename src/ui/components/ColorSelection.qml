@@ -15,12 +15,6 @@ Rectangle
 
     signal newColor(new_color: color)
 
-    function getContrastColor(baseColor) {
-        var temp = Qt.darker(baseColor, 1);
-        var a = 1 - ( 0.299 * temp.r + 0.587 * temp.g + 0.114 * temp.b);
-        return !(temp.a > 0 && a >= 0.3) ? Qt.color("#000000") : Qt.color("#ffffff");
-    }
-
     MouseArea
     {
         id: root_mouse_area

@@ -26,8 +26,8 @@ TemplateTab
     }
 
     onDuplicate_button_clicked: function duplicate_button_clicked(pk) {
-        status_message = database.duplicateEntry(pk, "id", tab_main.table_name, "address_id", "address_other");
-        if(status_message !== "") return;
+        const msg = setStatusMessage(database.duplicateEntry(pk, "id", tab_main.table_name, "address_id", "address_other"), Enums.StatusMsgLvl.Err);
+        if(msg !== "") return;
     }
     
     TableModel

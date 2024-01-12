@@ -16,6 +16,9 @@
             "backgroundColorError": "#fc5d5b"
         },
         {
+            "backgroundColorWarning": "#fcc947"
+        },
+        {
             "backgroundColorNotification": "#51b350"
         },
         {
