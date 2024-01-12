@@ -26,8 +26,8 @@ TemplateTab
     }
 
     onDuplicate_button_clicked: function duplicate_button_clicked(pk) {
-        error_message = database.duplicateEntry(pk, "id", tab_main.table_name);
-        if(error_message !== "") return;
+        status_message = database.duplicateEntry(pk, "id", tab_main.table_name);
+        if(status_message !== "") return;
     }
 
     TableModel

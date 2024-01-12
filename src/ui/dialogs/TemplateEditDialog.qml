@@ -57,12 +57,20 @@ ApplicationWindow
         var new_dialog_window = component.createObject(edit_dialog_window, { pk_id: pk, parent_id: identifier });
 
         if (new_dialog_window == null) {
-            error_message = qsTr("Error in creating a new window");
+            status_message = qsTr("Error in creating a new window");
         }
         else {
             new_dialog_window.show();
             new_dialog_window.init_dialog();
         }
+    }
+
+    // Shortcuts
+    CustomShortcuts
+    {
+        onShortcutSave: save_button.clicked();
+        onShortcutClose: abort_button.clicked();
+        onShortcutDelete: delete_button.clicked();
     }
 
     // Closing handler
@@ -201,7 +209,7 @@ ApplicationWindow
                                 if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
                                 else if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
                                 else if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) derivate_table.setFocus(dir);
-                                else abort_button.setFocus(dir);
+                                else button_row_rect.setFocus(dir);
                             }
                         }
                     }
@@ -238,7 +246,7 @@ ApplicationWindow
                             if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
                             else if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
                             else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_component_loader.item.setFocus(dir);
-                            else save_button.setFocus(dir);
+                            else button_row_rect.setFocus(dir);
                         }
 
                         TableModel
@@ -266,8 +274,8 @@ ApplicationWindow
                         }
 
                         onDelete_button_clicked: function delete_button_clicked(pk) {
-                            error_message = database.deleteEntry(pk, "id", edit_dialog_window.table_name);
-                            if(error_message !== "") return;
+                            status_message = database.deleteEntry(pk, "id", edit_dialog_window.table_name);
+                            if(status_message !== "") return;
 
                             edit_dialog_window.derivate_delete_button_clicked(pk);
                         }
@@ -285,6 +293,14 @@ ApplicationWindow
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "transparent"
                 radius: 8
+
+                function setFocus(dir) {
+                    if(dir === Enums.FocusDir.Close) abort_button.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Save) save_button.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) save_button.setFocus(Enums.FocusDir.Right);
+                    else if(dir === Enums.FocusDir.Left) abort_button.setFocus(dir);
+                    else save_button.setFocus(Enums.FocusDir.Right);
+                }
 
                 Row
                 {
@@ -314,7 +330,7 @@ ApplicationWindow
                         {
                             edit_dialog_window.save_button_clicked();
 
-                            if(error_message === "") {
+                            if(status_message === "") {
                                 close_okay = true;
                                 edit_dialog_window.close();
                             }
@@ -342,8 +358,8 @@ ApplicationWindow
                         {
                             id: delete_dialog
                             function callback_function() {
-                                error_message = database.deleteEntry(edit_dialog_window.identifier, "id", edit_dialog_window.table_name);
-                                if(error_message !== "") return;
+                                status_message = database.deleteEntry(edit_dialog_window.identifier, "id", edit_dialog_window.table_name);
+                                if(status_message !== "") return;
 
                                 edit_dialog_window.delete_button_clicked();
                                 close_okay = true;

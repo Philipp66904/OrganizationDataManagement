@@ -54,8 +54,8 @@ Rectangle
             template_root.duplicate_button_clicked(selected_primary_key);
         }
         onDelete_button_clicked: function delete_button_handler(selected_primary_key) {
-            error_message = database.deleteEntry(selected_primary_key, "id", table_name);
-            if(error_message !== "") return;
+            status_message = database.deleteEntry(selected_primary_key, "id", table_name);
+            if(status_message !== "") return;
 
             template_root.delete_button_clicked(selected_primary_key);
         }

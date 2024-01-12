@@ -34,7 +34,7 @@ Table
     }
 
     onDelete_button_clicked: function delete_button_clicked(pk) {
-        error_message = database.deleteEntry(pk, "id", result_table.table_name);
-        if(error_message !== "") return;
+        status_message = database.deleteEntry(pk, "id", result_table.table_name);
+        if(status_message !== "") return;
     }
 }

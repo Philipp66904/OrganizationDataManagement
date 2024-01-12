@@ -40,12 +40,12 @@ ApplicationWindow
     property string loaded_db_path: ""  // alway showing the real database path
     property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path tp template)
     property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved
-    property string error_message: ""
+    property string status_message: ""
     property string db_version
     property string saved_date: new_db_text
     property string created_date: new_db_text
 
-    onError_messageChanged: console.log("error msg:", error_message)
+    onStatus_messageChanged: console.log("status msg:", status_message)
     // TODO implement auto deletion of messages after x seconds
 
     // Locally used variables
@@ -116,8 +116,6 @@ ApplicationWindow
         anchors.bottomMargin: 1
 
         onNextFocus: function next_focus(dir) {
-            // TODO add menubar transition
-            // TODO handle save event (transition to menubar? do nothing?)
             if(dir === Enums.FocusDir.Close) rootWindow.close();
         }
     }
@@ -133,6 +131,15 @@ ApplicationWindow
         close_dialog.show();
 
         if(close_okay) close.accepted = true;
+    }
+
+    // Shortcuts
+    CustomShortcuts
+    {
+        onShortcutSave: menu_bar.triggerSave();
+        onShortcutSaveAs: menu_bar.triggerSaveAs();
+        onShortcutNew: menu_bar.triggerNew();
+        onShortcutOpen: menu_bar.triggerOpen();
     }
 
     // Dialog Windows

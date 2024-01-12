@@ -203,36 +203,36 @@ TemplateEditDialog
         // Save address
         if(identifier >= 0) {
             // Update existing entry
-            error_message = database.setName_Note_byPk(property_name, property_note, identifier, "id", address_dialog.table_name);
-            if(error_message !== "") return;
+            status_message = database.setName_Note_byPk(property_name, property_note, identifier, "id", address_dialog.table_name);
+            if(status_message !== "") return;
 
-            error_message = database.setOther(identifier, "address_id", "address_other", address_other_array);
-            if(error_message !== "") return;
+            status_message = database.setOther(identifier, "address_id", "address_other", address_other_array);
+            if(status_message !== "") return;
 
             let new_street = undefined;
             if(!property_street_derivate_flag) new_street = property_street;
-            error_message = database.setValue_Str("street", identifier, "id", address_dialog.table_name, new_street);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("street", identifier, "id", address_dialog.table_name, new_street);
+            if(status_message !== "") return;
 
             let new_number = undefined;
             if(!property_number_derivate_flag) new_number = property_number;
-            error_message = database.setValue_Str("number", identifier, "id", address_dialog.table_name, new_number);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("number", identifier, "id", address_dialog.table_name, new_number);
+            if(status_message !== "") return;
 
             let new_postalcode = undefined;
             if(!property_postalcode_derivate_flag) new_postalcode = property_postalcode;
-            error_message = database.setValue_Str("postalcode", identifier, "id", address_dialog.table_name, new_postalcode);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("postalcode", identifier, "id", address_dialog.table_name, new_postalcode);
+            if(status_message !== "") return;
 
             let new_city = undefined;
             if(!property_city_derivate_flag) new_city = property_city;
-            error_message = database.setValue_Str("city", identifier, "id", address_dialog.table_name, new_city);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("city", identifier, "id", address_dialog.table_name, new_city);
+            if(status_message !== "") return;
 
             let new_country = undefined;
             if(!property_country_derivate_flag) new_country = property_country;
-            error_message = database.setValue_Str("country", identifier, "id", address_dialog.table_name, new_country);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("country", identifier, "id", address_dialog.table_name, new_country);
+            if(status_message !== "") return;
         }
         else {
             // Create new entry
@@ -254,10 +254,10 @@ TemplateEditDialog
             let new_parent_id = -1;
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
 
-            error_message = database.createAddress(property_name, property_note, new_parent_id,
+            status_message = database.createAddress(property_name, property_note, new_parent_id,
                                                    [new_street, new_number, new_postalcode, new_city, new_country],
                                                    address_other_array);
-            if(error_message !== "") return;
+            if(status_message !== "") return;
         }
     }
 
@@ -270,8 +270,8 @@ TemplateEditDialog
     }
 
     onDerivate_duplicate_button_clicked: function derivate_duplicate_button_clicked(pk) {
-        error_message = database.duplicateEntry(pk, "id", address_dialog.table_name, "address_id", "address_other");
-        if(error_message !== "") return;
+        status_message = database.duplicateEntry(pk, "id", address_dialog.table_name, "address_id", "address_other");
+        if(status_message !== "") return;
     }
 
     Component

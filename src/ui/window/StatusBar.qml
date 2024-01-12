@@ -67,7 +67,7 @@ Rectangle  // statusbar in the window's footer
                     - (statusbar_row.spacing_width * (statusbar_row.row_items_count - 1))
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
                     ) / statusbar_row.row_items_count
-            color: (error_message.length > 0) ? backgroundColorError : "transparent"
+            color: (status_message.length > 0) ? backgroundColorError : "transparent"
 
             Text
             {
@@ -79,7 +79,7 @@ Rectangle  // statusbar in the window's footer
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
-                text: (error_message.length > 0) ? qsTr("Status: ") + error_message : ""
+                text: (status_message.length > 0) ? qsTr("Status: ") + status_message : ""
             }
         }
 

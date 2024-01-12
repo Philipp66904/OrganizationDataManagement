@@ -309,7 +309,7 @@ Rectangle
                     onClicked:
                     {
                         if(table_root.pk_id !== undefined && table_root.pk_id < 0) {
-                            error_message = qsTr("Save Entry before creating a new derivate");
+                            status_message = qsTr("Save Entry before creating a new derivate");
                             return;
                         }
 
@@ -364,7 +364,7 @@ Rectangle
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();
                         if (pk < 0) {
-                            error_message = qsTr("Select a row to duplicate");
+                            status_message = qsTr("Select a row to duplicate");
                             return;
                         }
 
@@ -396,7 +396,7 @@ Rectangle
                         function callback_function() {
                             const pk = table_buttons_main.getPrimaryKey();
                             if (pk < 0) {
-                                error_message = qsTr("Select a row to delete");
+                                status_message = qsTr("Select a row to delete");
                                 return;
                             }
 
@@ -407,7 +407,7 @@ Rectangle
                     onClicked: {
                         const pk = table_buttons_main.getPrimaryKey();
                         if (pk < 0) {
-                            error_message = qsTr("Select a row to delete");
+                            status_message = qsTr("Select a row to delete");
                             return;
                         }
 

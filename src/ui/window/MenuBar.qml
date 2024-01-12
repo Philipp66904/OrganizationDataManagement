@@ -15,6 +15,19 @@ MenuBar  // MenuBar shown in the window's header
     property var name_filters: ["Organization Data Management Database file (*.odmdb)", "SQLite Database file (*.db)"]
     property var default_suffix: ".odmdb"
 
+    function triggerNew() {
+        action_new.trigger();
+    }
+    function triggerOpen() {
+        action_open.trigger();
+    }
+    function triggerSave() {
+        action_save.trigger();
+    }
+    function triggerSaveAs() {
+        action_save_as.trigger();
+    }
+
     Component
     {
         // component used for customizing the menu separator
@@ -24,7 +37,7 @@ MenuBar  // MenuBar shown in the window's header
         {
             implicitWidth: parent.width
             implicitHeight: 1
-            color: backgroundColor1
+            color: backgroundColor2
         }
     }
 
@@ -64,6 +77,7 @@ MenuBar  // MenuBar shown in the window's header
 
     Menu 
     {
+        id: menu_title
         title: qsTr("File")
         background: Loader { sourceComponent: menu_background_component }
         delegate: MenuItem {
@@ -95,9 +109,14 @@ MenuBar  // MenuBar shown in the window's header
         FileCloseDialog 
         {
             id: new_file_dialog
-            function callback_function() { error_message = database.slot_readTemplateDB(); }
+            function callback_function() { status_message = database.slot_readTemplateDB(); }
         }
-        Action { text: qsTr("New"); onTriggered: new_file_dialog.show() }
+        Action
+        {
+            id: action_new
+            text: qsTr("New")
+            onTriggered: new_file_dialog.show()
+        }
         MenuSeparator
         {
             contentItem: Loader { sourceComponent: menu_separator_component }
@@ -116,10 +135,15 @@ MenuBar  // MenuBar shown in the window's header
 
             onAccepted: 
             {
-                error_message = database.slot_readDB(selectedFile);
+                status_message = database.slot_readDB(selectedFile);
             }
         }
-        Action { text: qsTr("Open"); onTriggered: open_file_dialog_1.show() }
+        Action
+        {
+            id: action_open
+            text: qsTr("Open")
+            onTriggered: open_file_dialog_1.show()
+        }
         Menu
         {
             id: open_recent_menu
@@ -155,7 +179,7 @@ MenuBar  // MenuBar shown in the window's header
             {
                 id: open_recent_file_dialog
                 property string db_path: ""
-                function callback_function() { error_message = database.slot_readDB(db_path) }
+                function callback_function() { status_message = database.slot_readDB(db_path) }
             }
 
             Component 
@@ -208,17 +232,26 @@ MenuBar  // MenuBar shown in the window's header
             nameFilters: name_filters
             defaultSuffix: default_suffix
 
-            onAccepted: 
-            {
+            onAccepted: {
                 console.log("selected file:", selectedFile);
-                error_message = database.slot_saveDB(selectedFile);
+                status_message = database.slot_saveDB(selectedFile);
             }
         }
-        Action { text: qsTr("Save"); onTriggered: {
-            if(loaded_db_path === "") save_as_file_dialog.open();
-            else error_message = database.slot_saveDB(loaded_db_path);
-        } }
-        Action { text: qsTr("Save As"); onTriggered: save_as_file_dialog.open() }
+        Action
+        {
+            id: action_save
+            text: qsTr("Save")
+            onTriggered: {
+                if(loaded_db_path === "") save_as_file_dialog.open();
+                else status_message = database.slot_saveDB(loaded_db_path);
+            }
+        }
+        Action
+        {
+            id: action_save_as
+            text: qsTr("Save As")
+            onTriggered: save_as_file_dialog.open()
+        }
 
         MenuSeparator 
         {
@@ -235,6 +268,7 @@ MenuBar  // MenuBar shown in the window's header
 
     Menu 
     {
+        id: menu_settings
         title: qsTr("Settings")
         background: Loader { sourceComponent: menu_background_component }
         delegate: MenuItem {
@@ -275,6 +309,7 @@ MenuBar  // MenuBar shown in the window's header
 
     Menu 
     {
+        id: menu_help
         title: qsTr("Help")
         background: Loader { sourceComponent: menu_background_component }
         delegate: MenuItem {

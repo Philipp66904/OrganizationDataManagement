@@ -132,33 +132,33 @@ TemplateEditDialog
     onSave_button_clicked: {
         if(identifier >= 0) {
             // Update existing entry
-            error_message = database.setName_Note_byPk(property_name, property_note, identifier, "id", person_dialog.table_name);
-            if(error_message !== "") return;
+            status_message = database.setName_Note_byPk(property_name, property_note, identifier, "id", person_dialog.table_name);
+            if(status_message !== "") return;
 
             let new_title = undefined;
             if(!property_title_derivate_flag) new_title = property_title;
-            error_message = database.setValue_Str("title", identifier, "id", person_dialog.table_name, new_title);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("title", identifier, "id", person_dialog.table_name, new_title);
+            if(status_message !== "") return;
 
             let new_gender = undefined;
             if(!property_gender_derivate_flag) new_gender = property_gender;
-            error_message = database.setValue_Str("gender", identifier, "id", person_dialog.table_name, new_gender);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("gender", identifier, "id", person_dialog.table_name, new_gender);
+            if(status_message !== "") return;
 
             let new_firstname = undefined;
             if(!property_firstname_derivate_flag) new_firstname = property_firstname;
-            error_message = database.setValue_Str("firstname", identifier, "id", person_dialog.table_name, new_firstname);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("firstname", identifier, "id", person_dialog.table_name, new_firstname);
+            if(status_message !== "") return;
 
             let new_middlename = undefined;
             if(!property_middlename_derivate_flag) new_middlename = property_middlename;
-            error_message = database.setValue_Str("middlename", identifier, "id", person_dialog.table_name, new_middlename);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("middlename", identifier, "id", person_dialog.table_name, new_middlename);
+            if(status_message !== "") return;
 
             let new_surname = undefined;
             if(!property_surname_derivate_flag) new_surname = property_surname;
-            error_message = database.setValue_Str("surname", identifier, "id", person_dialog.table_name, new_surname);
-            if(error_message !== "") return;
+            status_message = database.setValue_Str("surname", identifier, "id", person_dialog.table_name, new_surname);
+            if(status_message !== "") return;
         }
         else {
             // Create new entry
@@ -180,9 +180,9 @@ TemplateEditDialog
             let new_parent_id = -1;
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
             
-            error_message = database.createPerson(property_name, property_note, new_parent_id,
+            status_message = database.createPerson(property_name, property_note, new_parent_id,
                                                   [new_title, new_gender, new_firstname, new_middlename, new_surname]);
-            if(error_message !== "") return;
+            if(status_message !== "") return;
         }
     }
 
@@ -195,8 +195,8 @@ TemplateEditDialog
     }
 
     onDerivate_duplicate_button_clicked: function derivate_duplicate_button_clicked(pk) {
-        error_message = database.duplicateEntry(pk, "id", person_dialog.table_name);
-        if(error_message !== "") return;
+        status_message = database.duplicateEntry(pk, "id", person_dialog.table_name);
+        if(status_message !== "") return;
     }
 
     Component
