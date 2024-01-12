@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 import sqlite3
-from PySide6.QtCore import QObject, Slot, Signal, QUrl
+from PySide6.QtCore import QObject, Slot, Signal, QUrl, QCoreApplication
 import datetime
 from copy import deepcopy
 import re
@@ -307,7 +307,12 @@ class Database(QObject):
             
             organization_data = res.fetchall()
         
-        res = [["id", "name", "note", "website", "modified", "created"]]
+        res = [["id",
+                QCoreApplication.translate("Database", "name"),
+                QCoreApplication.translate("Database", "note"),
+                QCoreApplication.translate("Database", "website"),
+                QCoreApplication.translate("Database", "modified"),
+                QCoreApplication.translate("Database", "created")]]
         for data in organization_data:
             row = []
             for row_data in data:
@@ -336,7 +341,11 @@ class Database(QObject):
             
             data = res.fetchall()
         
-        res = [["id", "name", "note", "modified", "created"]]
+        res = [["id",
+                QCoreApplication.translate("Database", "name"),
+                QCoreApplication.translate("Database", "note"),
+                QCoreApplication.translate("Database", "modified"),
+                QCoreApplication.translate("Database", "created")]]
         for data_tmp in data:
             row = []
             for row_data in data_tmp:
@@ -362,7 +371,16 @@ class Database(QObject):
             
             address_data = res.fetchall()
         
-        res = [["id", "name", "note", "street", "number", "postalcode", "city", "country", "modified", "created"]]
+        res = [["id",
+                QCoreApplication.translate("Database", "name"),
+                QCoreApplication.translate("Database", "note"),
+                QCoreApplication.translate("Database", "street"),
+                QCoreApplication.translate("Database", "number"),
+                QCoreApplication.translate("Database", "postalcode"),
+                QCoreApplication.translate("Database", "city"),
+                QCoreApplication.translate("Database", "country"),
+                QCoreApplication.translate("Database", "modified"),
+                QCoreApplication.translate("Database", "created")]]
         for data in address_data:
             row = []
             for row_data in data:
@@ -388,7 +406,16 @@ class Database(QObject):
             
             person_data = res.fetchall()
         
-        res = [["id", "name", "note", "title", "gender", "firstname", "middlename", "surname", "modified", "created"]]
+        res = [["id",
+                QCoreApplication.translate("Database", "name"),
+                QCoreApplication.translate("Database", "note"),
+                QCoreApplication.translate("Database", "title"),
+                QCoreApplication.translate("Database", "gender"),
+                QCoreApplication.translate("Database", "firstname"),
+                QCoreApplication.translate("Database", "middlename"),
+                QCoreApplication.translate("Database", "surname"),
+                QCoreApplication.translate("Database", "modified"),
+                QCoreApplication.translate("Database", "created")]]
         for data in person_data:
             row = []
             for row_data in data:
@@ -480,7 +507,11 @@ class Database(QObject):
         returns: List of lists with all the rows. The first list is always reserved for the column names.
         """
         
-        res_list = [["id", "person_name", "person_note", "address_name", "address_note"]]
+        res_list = [["id",
+                     QCoreApplication.translate("Database", "person_name"),
+                     QCoreApplication.translate("Database", "person_note"),
+                     QCoreApplication.translate("Database", "address_name"),
+                     QCoreApplication.translate("Database", "address_note")]]
         
         with self.con:
             res = self.con.execute("""SELECT t.id, d.name, d.note
@@ -1427,7 +1458,7 @@ class Database(QObject):
         return [db_version, date_saved, date_created]
     
     
-    def _getSearchResultCompleteColumnNames(self, table_name: str | None = None, column_names: str | None = None) -> list:
+    def _getSearchResultCompleteColumnNames(self, table_name: str | None = None, column_names: list | None = None) -> list:
         """
         Returns a list of column names used for the search result tables.
         Note: Either table_name or column_names (or both) must be defined!
@@ -1517,6 +1548,8 @@ class Database(QObject):
         returns: List of lists with all the rows. The first list is always reserved for the column names.
         """
         
+        # TODO implement search translation
+        
         # Update cache
         self._updateSearchCache(table_name)
 
@@ -1590,7 +1623,7 @@ class Database(QObject):
             
             res_ids.append(row["id"])
             res.append(row_list)
-            
+        
         if len(res) == 0:
             res.append(self._getSearchResultCompleteColumnNames(table_name))
 

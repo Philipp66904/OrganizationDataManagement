@@ -216,7 +216,7 @@ TemplateEditDialog
 
             let new_number = undefined;
             if(!property_number_derivate_flag) new_number = property_number;
-            msg = setStatusMessage(database.setValue_Str("number", identifier, "id", address_dialog.table_name, new_number), Enmus.StatusMsgLvl.Err);
+            msg = setStatusMessage(database.setValue_Str("number", identifier, "id", address_dialog.table_name, new_number), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
 
             let new_postalcode = undefined;

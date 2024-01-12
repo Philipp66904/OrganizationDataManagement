@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
 
+import "../types"
+
 import tablemodule 1.0
 
 TemplateTab
