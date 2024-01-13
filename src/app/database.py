@@ -307,12 +307,7 @@ class Database(QObject):
             
             organization_data = res.fetchall()
         
-        res = [["id",
-                QCoreApplication.translate("Database", "name"),
-                QCoreApplication.translate("Database", "note"),
-                QCoreApplication.translate("Database", "website"),
-                QCoreApplication.translate("Database", "modified"),
-                QCoreApplication.translate("Database", "created")]]
+        res = [["id", "name", "note", "website", "modified", "created"]]
         for data in organization_data:
             row = []
             for row_data in data:
@@ -341,11 +336,7 @@ class Database(QObject):
             
             data = res.fetchall()
         
-        res = [["id",
-                QCoreApplication.translate("Database", "name"),
-                QCoreApplication.translate("Database", "note"),
-                QCoreApplication.translate("Database", "modified"),
-                QCoreApplication.translate("Database", "created")]]
+        res = [["id", "name", "note", "modified", "created"]]
         for data_tmp in data:
             row = []
             for row_data in data_tmp:
@@ -371,16 +362,7 @@ class Database(QObject):
             
             address_data = res.fetchall()
         
-        res = [["id",
-                QCoreApplication.translate("Database", "name"),
-                QCoreApplication.translate("Database", "note"),
-                QCoreApplication.translate("Database", "street"),
-                QCoreApplication.translate("Database", "number"),
-                QCoreApplication.translate("Database", "postalcode"),
-                QCoreApplication.translate("Database", "city"),
-                QCoreApplication.translate("Database", "country"),
-                QCoreApplication.translate("Database", "modified"),
-                QCoreApplication.translate("Database", "created")]]
+        res = [["id", "name", "note", "street", "number", "postalcode", "city", "country", "modified", "created"]]
         for data in address_data:
             row = []
             for row_data in data:
@@ -406,16 +388,7 @@ class Database(QObject):
             
             person_data = res.fetchall()
         
-        res = [["id",
-                QCoreApplication.translate("Database", "name"),
-                QCoreApplication.translate("Database", "note"),
-                QCoreApplication.translate("Database", "title"),
-                QCoreApplication.translate("Database", "gender"),
-                QCoreApplication.translate("Database", "firstname"),
-                QCoreApplication.translate("Database", "middlename"),
-                QCoreApplication.translate("Database", "surname"),
-                QCoreApplication.translate("Database", "modified"),
-                QCoreApplication.translate("Database", "created")]]
+        res = [["id", "name", "note", "title", "gender", "firstname", "middlename", "surname", "modified", "created"]]
         for data in person_data:
             row = []
             for row_data in data:
@@ -1548,8 +1521,6 @@ class Database(QObject):
         returns: List of lists with all the rows. The first list is always reserved for the column names.
         """
         
-        # TODO implement search translation
-        
         # Update cache
         self._updateSearchCache(table_name)
 
@@ -1627,5 +1598,56 @@ class Database(QObject):
         if len(res) == 0:
             res.append(self._getSearchResultCompleteColumnNames(table_name))
 
+        return res
+    
+    
+    @Slot(list, result=list)
+    def translateColumnNames(self, column_names: list) -> list:
+        """
+        Translates a list of strings which represent the column names to the correct language.
+        If no translation for a column name was found, the original English developer version will be returned.
+        column_names: list[str] with all the column names that should be translated
+        returns: list[str] with the translations
+        """
+        
+        res = []
+        for column_name in column_names:
+            match column_name:
+                case "id":
+                    res.append(column_name)
+                case "name":
+                    res.append(QCoreApplication.translate("Database", "name"))
+                case "note":
+                    res.append(QCoreApplication.translate("Database", "note"))
+                case "modified":
+                    res.append(QCoreApplication.translate("Database", "modified"))
+                case "created":
+                    res.append(QCoreApplication.translate("Database", "created"))
+                case "website":
+                    res.append(QCoreApplication.translate("Database", "website"))
+                case "title":
+                    res.append(QCoreApplication.translate("Database", "title"))
+                case "gender":
+                    res.append(QCoreApplication.translate("Database", "gender"))
+                case "firstname":
+                    res.append(QCoreApplication.translate("Database", "firstname"))
+                case "middlename":
+                    res.append(QCoreApplication.translate("Database", "middlename"))
+                case "surname":
+                    res.append(QCoreApplication.translate("Database", "surname"))
+                case "street":
+                    res.append(QCoreApplication.translate("Database", "street"))
+                case "number":
+                    res.append(QCoreApplication.translate("Database", "number"))
+                case "postalcode":
+                    res.append(QCoreApplication.translate("Database", "postalcode"))
+                case "city":
+                    res.append(QCoreApplication.translate("Database", "city"))
+                case "country":
+                    res.append(QCoreApplication.translate("Database", "country"))
+                case _:
+                    print("Database::translateColumnNames: Missing translation for:", column_name)
+                    res.append(column_name)
+        
         return res
     

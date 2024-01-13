@@ -10,45 +10,56 @@ import "../types"
 ApplicationWindow
 {
     id: dialog
-    title: "Do you want to proceed?"
+    title: qsTr("Do you want to proceed?")
     color: backgroundColor1
     flags: Qt.Dialog
     modality: Qt.ApplicationModal
     minimumWidth: 300
-    minimumHeight: 90
+    minimumHeight: 120
     width: 300
-    height: 90
+    height: 120
+
+    function init() {
+        // Call this function before .show()
+        ok_button.setFocus(Enums.FocusDir.Right);
+    }
 
     Column
     {
+        width: parent.width
+        height: parent.height
         anchors.fill: parent
         anchors.margins: 4
         spacing: 4
 
         Text
         {
-            text: qsTr("<p><b>All unsaved changes will be lost.</b></p>")
-            height: parent.height * 0.5
+            text: qsTr("All unsaved changes will be lost.")
+            height: parent.height * 0.75 - parent.spacing
             width: parent.width
             font.pointSize: textSize
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
-            textFormat: Text.RichText
+            font.bold: true
+            lineHeight: height * 0.4
+            lineHeightMode: Text.FixedHeight
+            maximumLineCount: 2
+            wrapMode: Text.Wrap
         }
 
         Text
         {
-            text: qsTr("<p><i>Do you want to proceed?</i></p>")
-            height: parent.height * 0.5 - parent.spacing
+            text: qsTr("Do you want to proceed?")
+            height: parent.height * 0.25 - parent.spacing
             width: parent.width
             font.pointSize: textSize
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
-            textFormat: Text.RichText
+            font.italic: true
         }
     }
 

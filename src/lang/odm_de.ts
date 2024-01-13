@@ -72,132 +72,121 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../app/database.py" line="311"/>
-        <location filename="../app/database.py" line="345"/>
-        <location filename="../app/database.py" line="375"/>
-        <location filename="../app/database.py" line="410"/>
-        <source>name</source>
-        <translation>Name</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="312"/>
-        <location filename="../app/database.py" line="346"/>
-        <location filename="../app/database.py" line="376"/>
-        <location filename="../app/database.py" line="411"/>
-        <source>note</source>
-        <translation>Notiz</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="313"/>
-        <source>website</source>
-        <translation>Webseite</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="314"/>
-        <location filename="../app/database.py" line="347"/>
-        <location filename="../app/database.py" line="382"/>
-        <location filename="../app/database.py" line="417"/>
-        <source>modified</source>
-        <translation>Verändert</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="316"/>
-        <location filename="../app/database.py" line="349"/>
-        <location filename="../app/database.py" line="384"/>
-        <location filename="../app/database.py" line="419"/>
-        <source>created</source>
-        <translation>Erstellt</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="377"/>
-        <source>street</source>
-        <translation>Straße</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="378"/>
-        <source>number</source>
-        <translation>Hausnummer</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="379"/>
-        <source>postalcode</source>
-        <translation>PLZ</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="380"/>
-        <source>city</source>
-        <translation>Ort</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="381"/>
-        <source>country</source>
-        <translation>Land</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="412"/>
-        <source>title</source>
-        <translation>Titel</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="413"/>
-        <source>gender</source>
-        <translation>Geschlecht</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="414"/>
-        <source>firstname</source>
-        <translation>Vorname</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="415"/>
-        <source>middlename</source>
-        <translation>Mittelname</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="416"/>
-        <source>surname</source>
-        <translation>Nachname</translation>
-    </message>
-    <message>
-        <location filename="../app/database.py" line="511"/>
+        <location filename="../app/database.py" line="484"/>
         <source>person_name</source>
-        <translation>Name</translation>
+        <translation>Name Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="512"/>
+        <location filename="../app/database.py" line="485"/>
         <source>person_note</source>
         <translation>Notiz Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="513"/>
+        <location filename="../app/database.py" line="486"/>
         <source>address_name</source>
-        <translation>Adresse</translation>
+        <translation>Name Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="516"/>
+        <location filename="../app/database.py" line="489"/>
         <source>address_note</source>
         <translation>Notiz Adresse</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1612"/>
+        <source>name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1614"/>
+        <source>note</source>
+        <translation>Notiz</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1616"/>
+        <source>modified</source>
+        <translation>Verändert</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1618"/>
+        <source>created</source>
+        <translation>Erstellt</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1620"/>
+        <source>website</source>
+        <translation>Webseite</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1622"/>
+        <source>title</source>
+        <translation>Titel</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1624"/>
+        <source>gender</source>
+        <translation>Geschlecht</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1626"/>
+        <source>firstname</source>
+        <translation>Vorname</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1628"/>
+        <source>middlename</source>
+        <translation>Mittelname</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1630"/>
+        <source>surname</source>
+        <translation>Nachname</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1632"/>
+        <source>street</source>
+        <translation>Straße</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1634"/>
+        <source>number</source>
+        <translation>Hausnummer</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1636"/>
+        <source>postalcode</source>
+        <translation>PLZ</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1638"/>
+        <source>city</source>
+        <translation>Ort</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="1640"/>
+        <source>country</source>
+        <translation>Land</translation>
     </message>
 </context>
 <context>
     <name>DeleteDialog</name>
     <message>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="13"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="47"/>
+        <source>Do you want to proceed?</source>
+        <translation>Fortfahren?</translation>
+    </message>
+    <message>
         <location filename="../ui/dialogs/DeleteDialog.qml" line="30"/>
-        <source>&lt;p&gt;&lt;b&gt;The specified entry&lt;br&gt;with its derivates and connections&lt;br&gt;will be deleted.&lt;/b&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Der gewählte Eintrag&lt;br&gt;mit seinen Ableitungen und Verbindungen&lt;br&gt;wird gelöscht.&lt;/b&gt;&lt;/p&gt;</translation>
+        <source>The specified entry with its derivates and connections will be deleted.</source>
+        <translation>Der gewählte Eintrag mit all seinen Ableitungen und Verbindungen wird gelöscht.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="43"/>
-        <source>&lt;p&gt;&lt;i&gt;Do you want to proceed?&lt;/i&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;i&gt;Fortfahren?&lt;/i&gt;&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="66"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="71"/>
         <source>Delete Entry</source>
-        <translation>Eintrag Löschen</translation>
+        <translation>Eintrag löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="89"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="94"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -205,22 +194,23 @@
 <context>
     <name>FileCloseDialog</name>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="30"/>
-        <source>&lt;p&gt;&lt;b&gt;All unsaved changes will be lost.&lt;/b&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Alle ungespeicherten Änderungen werden gelöscht.&lt;/b&gt;&lt;/p&gt;</translation>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="13"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="49"/>
+        <source>Do you want to proceed?</source>
+        <translation>Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="43"/>
-        <source>&lt;p&gt;&lt;i&gt;Do you want to proceed?&lt;/i&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;i&gt;Fortfahren?&lt;/i&gt;&lt;/p&gt;</translation>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="32"/>
+        <source>All unsaved changes will be lost.</source>
+        <translation>Alle ungespeicherten Änderungen gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="66"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="72"/>
         <source>Proceed</source>
         <translation>Fortfahren</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="90"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="96"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -260,7 +250,7 @@
     <message>
         <location filename="../ui/window/MenuBar.qml" line="195"/>
         <source>Recent file opened</source>
-        <translation>Zuletzt geöffnete Datei geöffnet</translation>
+        <translation>Datei geöffnet</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="253"/>
@@ -522,17 +512,17 @@
     <message>
         <location filename="../ui/tabs/SearchTab.qml" line="367"/>
         <source>Search in Organization properties:</source>
-        <translation>Suche in Organisations Attributen:</translation>
+        <translation>Suche in Organisations-Attributen:</translation>
     </message>
     <message>
         <location filename="../ui/tabs/SearchTab.qml" line="393"/>
         <source>Search in Person properties:</source>
-        <translation>Suche in Personen Attributen:</translation>
+        <translation>Suche in Personen-Attributen:</translation>
     </message>
     <message>
         <location filename="../ui/tabs/SearchTab.qml" line="419"/>
         <source>Search in Address properties:</source>
-        <translation>Suche in Adressen Attributen:</translation>
+        <translation>Suche in Adress-Attributen:</translation>
     </message>
     <message>
         <location filename="../ui/tabs/SearchTab.qml" line="453"/>
@@ -707,6 +697,7 @@
 <context>
     <name>ThemeEditDialog</name>
     <message>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="14"/>
         <location filename="../ui/dialogs/ThemeEditDialog.qml" line="85"/>
         <source>Edit Color Theme</source>
         <translation>Farbpallete bearbeiten</translation>

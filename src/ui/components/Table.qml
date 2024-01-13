@@ -411,6 +411,7 @@ Rectangle
                             return;
                         }
 
+                        delete_dialog.init();
                         delete_dialog.show();
                     }
                 }

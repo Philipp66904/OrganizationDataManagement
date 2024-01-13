@@ -172,6 +172,7 @@ ApplicationWindow
     }
     onClosing: (close) => {
         close.accepted = false;
+        close_dialog.init();
         close_dialog.show();
 
         if(close_okay) close.accepted = true;

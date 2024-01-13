@@ -121,7 +121,10 @@ MenuBar  // MenuBar shown in the window's header
         {
             id: action_new
             text: qsTr("New")
-            onTriggered: new_file_dialog.show()
+            onTriggered: {
+                new_file_dialog.init();
+                new_file_dialog.show();
+            }
         }
         MenuSeparator
         {
@@ -151,7 +154,10 @@ MenuBar  // MenuBar shown in the window's header
         {
             id: action_open
             text: qsTr("Open")
-            onTriggered: open_file_dialog_1.show()
+            onTriggered: {
+                open_file_dialog_1.init();
+                open_file_dialog_1.show();
+            }
         }
         Menu
         {
@@ -209,6 +215,7 @@ MenuBar  // MenuBar shown in the window's header
                         if(db_path === "") return;
 
                         open_recent_file_dialog.db_path = db_path;
+                        open_recent_file_dialog.init();
                         open_recent_file_dialog.show();
                     }
                 }
@@ -284,7 +291,14 @@ MenuBar  // MenuBar shown in the window's header
             id: exit_dialog
             function callback_function() { Qt.exit(0) }
         }
-        Action { text: qsTr("Exit"); onTriggered: exit_dialog.show() }
+        Action
+        {
+            text: qsTr("Exit")
+            onTriggered: {
+                exit_dialog.init();
+                exit_dialog.show();
+            }
+        }
 
     }
 

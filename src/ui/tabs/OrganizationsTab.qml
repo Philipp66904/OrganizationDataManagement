@@ -40,7 +40,7 @@ TemplateTab
     function load_data_wrapper() {
         const table_name = "organization";
         const res = database.getDataOrganization();
-        const column_names = res.shift();
+        const column_names = database.translateColumnNames(res.shift());
 
         table_model.loadData(table_name, column_names, res);
     }

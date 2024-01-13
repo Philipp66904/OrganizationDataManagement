@@ -40,7 +40,7 @@ TemplateTab
     function load_data_wrapper() {
         const table_name = "person";
         const res = database.getDataPerson();
-        const column_names = res.shift();
+        const column_names = database.translateColumnNames(res.shift());
 
         table_model.loadData(table_name, column_names, res);
     }

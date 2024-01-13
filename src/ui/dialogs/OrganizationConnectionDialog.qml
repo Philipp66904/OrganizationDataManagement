@@ -109,6 +109,7 @@ ApplicationWindow
         close.accepted = false;
 
         if(!organization_connection_dialog_window.close_okay) {
+            close_dialog.init();
             close_dialog.show();
         }
 
@@ -342,6 +343,7 @@ ApplicationWindow
 
                     onClicked:
                     {
+                        delete_dialog.init();
                         delete_dialog.show();
                     }
                 }

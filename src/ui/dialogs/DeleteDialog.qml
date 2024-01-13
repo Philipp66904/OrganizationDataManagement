@@ -10,7 +10,7 @@ import "../types"
 ApplicationWindow
 {
     id: dialog
-    title: "Do you want to proceed?"
+    title: qsTr("Do you want to proceed?")
     color: backgroundColor1
     flags: Qt.Dialog
     modality: Qt.ApplicationModal
@@ -18,6 +18,11 @@ ApplicationWindow
     minimumHeight: 140
     width: 300
     height: 140
+
+    function init() {
+        // Call this function before .show()
+        ok_button.setFocus(Enums.FocusDir.Right);
+    }
 
     Column
     {
@@ -27,20 +32,24 @@ ApplicationWindow
 
         Text
         {
-            text: qsTr("<p><b>The specified entry<br>with its derivates and connections<br>will be deleted.</b></p>")
-            height: parent.height * 0.7
+            text: qsTr("The specified entry with its derivates and connections will be deleted.")
+            height: parent.height * 0.7 - parent.spacing
             width: parent.width
             font.pointSize: textSize
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
-            textFormat: Text.RichText
+            font.bold: true
+            lineHeight: height * 0.3
+            lineHeightMode: Text.FixedHeight
+            maximumLineCount: 3
+            wrapMode: Text.Wrap
         }
 
         Text
         {
-            text: qsTr("<p><i>Do you want to proceed?</i></p>")
+            text: qsTr("Do you want to proceed?")
             width: parent.width
             height: parent.height * 0.3 - parent.spacing
             font.pointSize: textSize
@@ -49,6 +58,7 @@ ApplicationWindow
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
             textFormat: Text.RichText
+            font.italic: true
         }
     }
 

@@ -11,7 +11,7 @@ import "../types"
 ApplicationWindow
 {
     id: dialog
-    title: "Edit Color Theme"
+    title: qsTr("Edit Color Theme")
     color: backgroundColor1
     modality: Qt.ApplicationModal
     minimumWidth: 300
@@ -30,6 +30,7 @@ ApplicationWindow
     onClosing: (close) => {
         close.accepted = false;
         if(!close_okay) {
+            abort_dialog.init();
             abort_dialog.show();
         }
 

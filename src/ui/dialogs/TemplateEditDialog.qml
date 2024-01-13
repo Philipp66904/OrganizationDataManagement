@@ -82,6 +82,7 @@ ApplicationWindow
     onClosing: (close) => {
         close.accepted = false;
         if(!close_okay) {
+            abort_dialog.init();
             abort_dialog.show();
         }
 
@@ -256,7 +257,7 @@ ApplicationWindow
 
                         function load_data() {
                             const res = database.getDataDerivates(edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
-                            const column_names = res.shift();
+                            const column_names = database.translateColumnNames(res.shift());
 
                             table_model.loadData(edit_dialog_window.table_name, column_names, res);
                         }
@@ -369,6 +370,7 @@ ApplicationWindow
 
                         onClicked:
                         {
+                            delete_dialog.init();
                             delete_dialog.show();
                         }
                     }

@@ -27,10 +27,11 @@ Table
     }
 
     function load_data() {
-        let res = search_res;
+        let res = search_res.slice();
         let column_names = res.shift();
         if(res === undefined || res.length <= 0) res = [];
         if(column_names === undefined || column_names.length <= 0) column_names = [];
+        column_names = database.translateColumnNames(column_names);
 
         table_model.loadData(result_table.table_name, column_names, res);
     }
