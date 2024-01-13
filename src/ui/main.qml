@@ -33,9 +33,9 @@ ApplicationWindow
     property color textColor1: "#cfcfcf"
 
     // Text size
-    property real textSize: 12.0
-    property real textSizeBig: 15.0
-    property real textSizeSmall: 10.0
+    readonly property real textSize: 12
+    readonly property real textSizeBig: 15
+    readonly property real textSizeSmall: 10
 
     // Global variables
     property string loaded_db_path: ""  // alway showing the real database path
@@ -61,7 +61,6 @@ ApplicationWindow
 
     function setStatusMessage(msg, msg_lvl) {
         if(msg === "") {
-            setDefaultStatusMessage();
             return msg;
         }
 

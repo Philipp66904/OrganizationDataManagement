@@ -2,10 +2,9 @@ import sys
 import os
 from pathlib import Path
 
-from PySide6.QtCore import QObject, Slot, QLibraryInfo, QTranslator, QLocale
+from PySide6.QtCore import QTranslator, QLocale
 from PySide6.QtWidgets import QApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterType
-from PySide6.QtQuickControls2 import QQuickStyle
 
 from app.database import Database
 from app.settings import Settings
@@ -24,7 +23,7 @@ if __name__ == '__main__':
     
     # Make classes available for use in QML
     settings = Settings(Path(__file__).parent / "settings.json")
-    db = Database(settings)
+    db = Database(settings, QLocale.system())
     engine.rootContext().setContextProperty("settings", settings)
     engine.rootContext().setContextProperty("database", db)
     

@@ -1,10 +1,11 @@
 from pathlib import Path
 import os
 import sqlite3
-from PySide6.QtCore import QObject, Slot, Signal, QUrl, QCoreApplication
+from PySide6.QtCore import QObject, Slot, Signal, QUrl, QCoreApplication, QLocale, QDateTime
 import datetime
 from copy import deepcopy
 import re
+import timeit
 
 from app.settings import Settings
 
@@ -18,7 +19,7 @@ class Database(QObject):
     dataChanged = Signal()  # signals any database change
     
     
-    def __init__(self, settings: Settings):
+    def __init__(self, settings: Settings, locale: QLocale):
         """
         Initialises the in-memory database with the values from the template db.
         """
@@ -29,6 +30,7 @@ class Database(QObject):
         self.path_template_db = Path(__file__).parent / "res" / "template.odmdb"
         self.settings = settings
         self.supported_db_version = "1.0"
+        self.locale = locale
         
         self._search_data_cache = {}  # Caching last search results from database per table
         
@@ -308,10 +310,15 @@ class Database(QObject):
             organization_data = res.fetchall()
         
         res = [["id", "name", "note", "website", "modified", "created"]]
+        date_indexes = (res[0].index("modified"), res[0].index("created"))
         for data in organization_data:
             row = []
-            for row_data in data:
-                row.append(row_data)
+            for i, row_data in enumerate(data):
+                val = row_data
+                if i in date_indexes:
+                    val = self.adaptDateTimeToLocale(val)
+                
+                row.append(val)
             
             res.append(row)
         
@@ -337,10 +344,15 @@ class Database(QObject):
             data = res.fetchall()
         
         res = [["id", "name", "note", "modified", "created"]]
+        date_indexes = (res[0].index("modified"), res[0].index("created"))
         for data_tmp in data:
             row = []
-            for row_data in data_tmp:
-                row.append(row_data)
+            for i, row_data in enumerate(data_tmp):
+                val = row_data
+                if i in date_indexes:
+                    val = self.adaptDateTimeToLocale(val)
+                
+                row.append(val)
             
             res.append(row)
         
@@ -363,10 +375,15 @@ class Database(QObject):
             address_data = res.fetchall()
         
         res = [["id", "name", "note", "street", "number", "postalcode", "city", "country", "modified", "created"]]
+        date_indexes = (res[0].index("modified"), res[0].index("created"))
         for data in address_data:
             row = []
-            for row_data in data:
-                row.append(row_data)
+            for i, row_data in enumerate(data):
+                val = row_data
+                if i in date_indexes:
+                    val = self.adaptDateTimeToLocale(val)
+                
+                row.append(val)
             
             res.append(row)
         
@@ -391,8 +408,12 @@ class Database(QObject):
         res = [["id", "name", "note", "title", "gender", "firstname", "middlename", "surname", "modified", "created"]]
         for data in person_data:
             row = []
-            for row_data in data:
-                row.append(row_data)
+            for i, row_data in enumerate(data):
+                val = row_data
+                if i in (res[0].index("modified"), res[0].index("created")):
+                    val = self.adaptDateTimeToLocale(val)
+                
+                row.append(val)
             
             res.append(row)
         
@@ -1393,7 +1414,7 @@ class Database(QObject):
             
             dates = res.fetchone()
         
-        return [dates[0], dates[1]]
+        return [self.adaptDateTimeToLocale(dates[0]), self.adaptDateTimeToLocale(dates[1])]
     
     
     @Slot(result=list)
@@ -1418,7 +1439,7 @@ class Database(QObject):
                                 LIMIT 1;""",
                                 ("date_saved",))
             
-            date_saved = res.fetchone()[0]
+            date_saved = self.adaptDateTimeToLocale(res.fetchone()[0])
             
             res = self.con.execute(f"""SELECT datetime(content, 'localtime')
                                 FROM __meta__
@@ -1426,7 +1447,7 @@ class Database(QObject):
                                 LIMIT 1;""",
                                 ("date_created",))
             
-            date_created = res.fetchone()[0]
+            date_created = self.adaptDateTimeToLocale(res.fetchone()[0])
         
         return [db_version, date_saved, date_created]
     
@@ -1492,7 +1513,10 @@ class Database(QObject):
         for row in data_list:
             row_dict = {}
             for i, column_name in enumerate(complete_column_names):
-                row_dict[column_name] = row[i]
+                val = row[i]
+                if column_name in ["modified", "created"]:
+                    val = self.adaptDateTimeToLocale(val)
+                row_dict[column_name] = val
             data.append(row_dict)
         
         self._search_data_cache[table_name] = data
@@ -1650,4 +1674,19 @@ class Database(QObject):
                     res.append(column_name)
         
         return res
+    
+    
+    def adaptDateTimeToLocale(self, datetime_str: str) -> str:
+        """
+        Converts a time string to the format of self.locale, beginning with the time followed by the date.
+        datetime_str: Datetime string in the format "yyyy-MM-dd HH:mm:ss"
+        returns: Datetime string based on self.locale; first time than date
+        """
+        
+        datetime = QDateTime.fromString(datetime_str, "yyyy-MM-dd HH:mm:ss")
+        
+        local_time = self.locale.toString(datetime, self.locale.timeFormat(QLocale.LongFormat))
+        local_date = self.locale.toString(datetime, self.locale.dateFormat(QLocale.ShortFormat))
+
+        return local_time + ' ' + local_date
     

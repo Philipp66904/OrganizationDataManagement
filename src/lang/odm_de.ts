@@ -527,7 +527,7 @@
     <message>
         <location filename="../ui/tabs/SearchTab.qml" line="453"/>
         <source>Reload Results</source>
-        <translation>Ergebnisse Neuladen</translation>
+        <translation>Ergebnisse neuladen</translation>
     </message>
     <message>
         <location filename="../ui/tabs/SearchTab.qml" line="473"/>

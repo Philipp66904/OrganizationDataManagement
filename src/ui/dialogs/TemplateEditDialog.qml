@@ -327,11 +327,10 @@ ApplicationWindow
                             else delete_button.setFocus(dir);
                         }
 
-                        onClicked:
-                        {
+                        onClicked: {
                             edit_dialog_window.save_button_clicked();
 
-                            if(status_message === default_status_message) {
+                            if(status_message_level !== Enums.StatusMsgLvl.Warn && status_message_level !== Enums.StatusMsgLvl.Err) {
                                 close_okay = true;
                                 edit_dialog_window.close();
                             }
@@ -368,8 +367,7 @@ ApplicationWindow
                             }
                         }
 
-                        onClicked:
-                        {
+                        onClicked: {
                             delete_dialog.init();
                             delete_dialog.show();
                         }
@@ -391,8 +389,7 @@ ApplicationWindow
                             else if(property_component_loader.item !== null) property_component_loader.item.setFocus(dir);
                         }
 
-                        onClicked:
-                        {
+                        onClicked: {
                             edit_dialog_window.close();
                         }
                     }
