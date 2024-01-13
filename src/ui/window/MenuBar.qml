@@ -68,7 +68,7 @@ MenuBar  // MenuBar shown in the window's header
             leftPadding: menuItem.indicator.width
             rightPadding: menuItem.arrow.width
             text: menuItem.text
-            font.pointSize: textSizeSmall
+            font.pointSize: (textSizeSmall) ? textSizeSmall : 1
             color: menuItem.highlighted ? highlightColor : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
@@ -81,23 +81,26 @@ MenuBar  // MenuBar shown in the window's header
         id: menu_title
         title: qsTr("File")
         background: Loader { sourceComponent: menu_background_component }
-        delegate: MenuItem {
+        delegate: MenuItem
+        {
             id: menuItem
             implicitWidth: 200
             implicitHeight: 40
 
-            contentItem: Text {
+            contentItem: Text
+            {
                 leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
-                font.pointSize: textSizeSmall
+                font.pointSize: (textSizeSmall) ? textSizeSmall : 1
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
             }
 
-            background: Rectangle {
+            background: Rectangle
+            {
                 implicitWidth: 200
                 implicitHeight: 40
                 color: menuItem.highlighted ? backgroundColor2 : "transparent"
@@ -142,8 +145,7 @@ MenuBar  // MenuBar shown in the window's header
             fileMode: FileDialog.OpenFile
             nameFilters: name_filters
 
-            onAccepted: 
-            {
+            onAccepted: {
                 const msg = setStatusMessage(database.slot_readDB(selectedFile), Enums.StatusMsgLvl.Err);
                 if(msg !== "") return;
 
@@ -169,18 +171,20 @@ MenuBar  // MenuBar shown in the window's header
                 implicitWidth: 200
                 implicitHeight: 40
 
-                contentItem: Text {
+                contentItem: Text
+                {
                     leftPadding: menuItem.indicator.width
                     rightPadding: menuItem.arrow.width
                     text: menuItem.text
-                    font.pointSize: textSizeSmall
+                    font.pointSize: (textSizeSmall) ? textSizeSmall : 1
                     color: menuItem.highlighted ? highlightColor : textColor
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     elide: Text.ElideLeft
                 }
 
-                background: Rectangle {
+                background: Rectangle
+                {
                     implicitWidth: 200
                     implicitHeight: 40
                     color: menuItem.highlighted ? backgroundColor2 : "transparent"
@@ -312,18 +316,20 @@ MenuBar  // MenuBar shown in the window's header
             implicitWidth: 200
             implicitHeight: 40
 
-            contentItem: Text {
+            contentItem: Text
+            {
                 leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
-                font.pointSize: textSizeSmall
+                font.pointSize: (textSizeSmall) ? textSizeSmall : 1
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
             }
 
-            background: Rectangle {
+            background: Rectangle
+            {
                 implicitWidth: 200
                 implicitHeight: 40
                 color: menuItem.highlighted ? backgroundColor2 : "transparent"
@@ -337,10 +343,14 @@ MenuBar  // MenuBar shown in the window's header
         {
             id: theme_edit_dialog
         }
-        Action { text: qsTr("Edit Color Theme"); onTriggered: {
+        Action
+        {
+            text: qsTr("Edit Color Theme")
+            onTriggered: {
                 theme_edit_dialog.initListModel();
                 theme_edit_dialog.show();
-        } }
+            }
+        }
     }
 
     Menu 
@@ -353,18 +363,20 @@ MenuBar  // MenuBar shown in the window's header
             implicitWidth: 200
             implicitHeight: 40
 
-            contentItem: Text {
+            contentItem: Text
+            {
                 leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
-                font.pointSize: textSizeSmall
+                font.pointSize: (textSizeSmall) ? textSizeSmall : 1
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
             }
 
-            background: Rectangle {
+            background: Rectangle
+            {
                 implicitWidth: 200
                 implicitHeight: 40
                 color: menuItem.highlighted ? backgroundColor2 : "transparent"
@@ -390,19 +402,22 @@ MenuBar  // MenuBar shown in the window's header
         Action { text: qsTr("Licences") }
     }
 
-    delegate: MenuBarItem {
+    delegate: MenuBarItem
+    {
         id: menuBarItem
 
-        contentItem: Text {
+        contentItem: Text
+        {
             text: menuBarItem.text
-            font.pointSize: textSize
+            font.pointSize: (textSize) ? textSize : 1
             color: menuBarItem.highlighted ? highlightColor : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
         }
 
-        background: Rectangle {
+        background: Rectangle
+        {
             implicitWidth: 40
             implicitHeight: 30
             color: menuBarItem.highlighted ? backgroundColor2 : "transparent"
@@ -412,12 +427,14 @@ MenuBar  // MenuBar shown in the window's header
         }
     }
 
-    background: Rectangle {
+    background: Rectangle
+    {
         implicitWidth: 40
         implicitHeight: 30
         color: "transparent"
 
-        Rectangle {
+        Rectangle
+        {
             color: backgroundColor3
             width: parent.width
             height: 1
