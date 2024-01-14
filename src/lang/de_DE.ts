@@ -72,97 +72,97 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../app/database.py" line="484"/>
+        <location filename="../app/database.py" line="505"/>
         <source>person_name</source>
         <translation>Name Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="485"/>
+        <location filename="../app/database.py" line="506"/>
         <source>person_note</source>
         <translation>Notiz Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="486"/>
+        <location filename="../app/database.py" line="507"/>
         <source>address_name</source>
         <translation>Name Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="489"/>
+        <location filename="../app/database.py" line="510"/>
         <source>address_note</source>
         <translation>Notiz Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1612"/>
+        <location filename="../app/database.py" line="1643"/>
         <source>name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1614"/>
+        <location filename="../app/database.py" line="1645"/>
         <source>note</source>
         <translation>Notiz</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1616"/>
+        <location filename="../app/database.py" line="1647"/>
         <source>modified</source>
         <translation>Verändert</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1618"/>
+        <location filename="../app/database.py" line="1649"/>
         <source>created</source>
         <translation>Erstellt</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1620"/>
+        <location filename="../app/database.py" line="1651"/>
         <source>website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1622"/>
+        <location filename="../app/database.py" line="1653"/>
         <source>title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1624"/>
+        <location filename="../app/database.py" line="1655"/>
         <source>gender</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1626"/>
+        <location filename="../app/database.py" line="1657"/>
         <source>firstname</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1628"/>
+        <location filename="../app/database.py" line="1659"/>
         <source>middlename</source>
         <translation>Mittelname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1630"/>
+        <location filename="../app/database.py" line="1661"/>
         <source>surname</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1632"/>
+        <location filename="../app/database.py" line="1663"/>
         <source>street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1634"/>
+        <location filename="../app/database.py" line="1665"/>
         <source>number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1636"/>
+        <location filename="../app/database.py" line="1667"/>
         <source>postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1638"/>
+        <location filename="../app/database.py" line="1669"/>
         <source>city</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1640"/>
+        <location filename="../app/database.py" line="1671"/>
         <source>country</source>
         <translation>Land</translation>
     </message>
@@ -171,22 +171,22 @@
     <name>DeleteDialog</name>
     <message>
         <location filename="../ui/dialogs/DeleteDialog.qml" line="13"/>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="47"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="52"/>
         <source>Do you want to proceed?</source>
         <translation>Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="30"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="35"/>
         <source>The specified entry with its derivates and connections will be deleted.</source>
         <translation>Der gewählte Eintrag mit all seinen Ableitungen und Verbindungen wird gelöscht.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="71"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="76"/>
         <source>Delete Entry</source>
         <translation>Eintrag löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="94"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="99"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -195,22 +195,71 @@
     <name>FileCloseDialog</name>
     <message>
         <location filename="../ui/dialogs/FileCloseDialog.qml" line="13"/>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="49"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="54"/>
         <source>Do you want to proceed?</source>
         <translation>Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="32"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="37"/>
         <source>All unsaved changes will be lost.</source>
         <translation>Alle ungespeicherten Änderungen gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="72"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="77"/>
         <source>Proceed</source>
         <translation>Fortfahren</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="96"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="101"/>
+        <source>Abort</source>
+        <translation>Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>LanguageSelectionDialog</name>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="14"/>
+        <source>Change Language</source>
+        <translation>Sprache ändern</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="54"/>
+        <source>Follow System</source>
+        <translation>System Standardeinstellung</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="55"/>
+        <source>English Development (Fallback)</source>
+        <translation>Englisch Entwicklungsversion (Fallback)</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="90"/>
+        <source>Select Language</source>
+        <translation>Sprache wählen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="106"/>
+        <source>Language</source>
+        <translation>Sprache</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="129"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="148"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="175"/>
+        <source>Restart program for new language</source>
+        <translation>Programm neustarten, um Sprachänderung anzuwenden</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="155"/>
+        <source>Reset</source>
+        <translation>Zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="182"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -223,92 +272,102 @@
         <translation>Datei</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="117"/>
+        <location filename="../ui/window/MenuBar.qml" line="120"/>
         <source>Created new file</source>
         <translation>Neue Datei erstellt</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="123"/>
+        <location filename="../ui/window/MenuBar.qml" line="126"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="147"/>
+        <location filename="../ui/window/MenuBar.qml" line="152"/>
         <source>Opened file</source>
         <translation>Datei geöffnet</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="153"/>
+        <location filename="../ui/window/MenuBar.qml" line="158"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="159"/>
+        <location filename="../ui/window/MenuBar.qml" line="167"/>
         <source>Open Recent...</source>
         <translation>Zuletzt geöffnet...</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="195"/>
+        <location filename="../ui/window/MenuBar.qml" line="205"/>
         <source>Recent file opened</source>
         <translation>Datei geöffnet</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="253"/>
+        <location filename="../ui/window/MenuBar.qml" line="264"/>
         <source>Saved as new file</source>
         <translation>Als neue Datei gespeichert</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="259"/>
+        <location filename="../ui/window/MenuBar.qml" line="270"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="267"/>
+        <location filename="../ui/window/MenuBar.qml" line="278"/>
         <source>Saved file</source>
         <translation>Datei gespeichert</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="274"/>
+        <location filename="../ui/window/MenuBar.qml" line="285"/>
         <source>Save As</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="287"/>
+        <location filename="../ui/window/MenuBar.qml" line="301"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="294"/>
+        <location filename="../ui/window/MenuBar.qml" line="313"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="326"/>
+        <location filename="../ui/window/MenuBar.qml" line="349"/>
+        <source>Change Language</source>
+        <translation>Sprache ändern</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="362"/>
         <source>Edit Color Theme</source>
         <translation>Farbpallete bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="335"/>
+        <location filename="../ui/window/MenuBar.qml" line="376"/>
+        <source>Reset Settings</source>
+        <translation>Einstellungen zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="387"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="363"/>
+        <location filename="../ui/window/MenuBar.qml" line="417"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="369"/>
+        <location filename="../ui/window/MenuBar.qml" line="423"/>
         <source>Github</source>
         <translation>Github</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="370"/>
+        <location filename="../ui/window/MenuBar.qml" line="424"/>
         <source>Search for updates</source>
         <translation>Suche nach Updates</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="376"/>
+        <location filename="../ui/window/MenuBar.qml" line="430"/>
         <source>Licences</source>
         <translation>Lizenzen</translation>
     </message>
@@ -336,32 +395,32 @@
         <translation>Neue Verbindung</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="204"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="205"/>
         <source>Person</source>
         <translation>Person</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="232"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="233"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="271"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="272"/>
         <source>Combination available.</source>
         <translation>Kombination verfügbar.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="299"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="300"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="322"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="323"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="355"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="357"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -659,12 +718,12 @@
         <translation>Fehler beim Erstellen eines neuen Fensters</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="224"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="225"/>
         <source>Derivates:</source>
         <translation>Ableitungen:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="319"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="320"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -679,17 +738,17 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="443"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="442"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="466"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="465"/>
         <source>Modified: </source>
         <translation>Verändert: </translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="495"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="494"/>
         <source>Created: </source>
         <translation>Erstellt: </translation>
     </message>
@@ -698,32 +757,32 @@
     <name>ThemeEditDialog</name>
     <message>
         <location filename="../ui/dialogs/ThemeEditDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="85"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="86"/>
         <source>Edit Color Theme</source>
         <translation>Farbpallete bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="141"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="142"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="165"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="166"/>
         <source>Colors saved and applied</source>
         <translation>Farben gespeichert und angewendet</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="172"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="173"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="191"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="192"/>
         <source>Colors reset</source>
         <translation>Farben zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="198"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="199"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>

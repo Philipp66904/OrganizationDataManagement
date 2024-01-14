@@ -1,4 +1,4 @@
 @echo off
 
 echo Compile German translations:
-pyside6-lrelease ..\src\lang\odm_de.ts -qm ..\build\translations\odm_de.qm
+pyside6-lrelease ..\src\lang\de_DE.ts -qm ..\build\translations\de_DE.qm

@@ -1,7 +1,8 @@
 import json
 import re
+import os
 from pathlib import Path
-from PySide6.QtCore import QObject, Slot, Signal, QUrl
+from PySide6.QtCore import QObject, Slot, Signal, QUrl, QCoreApplication
 from PySide6.QtGui import QColor
 
 
@@ -10,7 +11,7 @@ class Settings(QObject):
     Class used for handling the settings json file with all nonvolatile settings.
     """
     
-    def __init__(self, file_path: Path) -> None:
+    def __init__(self, file_path: Path, translations_path: Path) -> None:
         """
         file_path: Path to the settings file that should be used
         """
@@ -19,6 +20,7 @@ class Settings(QObject):
         self.file_path = file_path
         self.settings = {}
         self.default_file_path = Path(__file__).parent / "res" / "default_settings.json"
+        self.translations_path = translations_path
         
         self.__load_settings_file__()
     
@@ -206,5 +208,33 @@ class Settings(QObject):
                 continue
             
             res.append([color_name, color_value])
+        
+        return res
+    
+    
+    @Slot(result=str)
+    def getActiveLanguage(self) -> str:
+        return self.settings["language"]
+    
+    
+    @Slot(str)
+    def slot_setActiveLanguage(self, new_language: str):
+        self.setActiveLanguage(new_language)
+    
+    
+    @settings_autosave
+    def setActiveLanguage(self, new_language: str):
+        self.settings["language"] = new_language
+    
+    
+    @Slot(result=list)
+    def getAvailableLanguages(self) -> list:
+        """
+        Returns a list of available languages for selection:
+        returns: list[str]
+        """
+        
+        res = ["Follow System","English Development (Fallback)"]
+        res.extend(os.listdir(self.translations_path))
         
         return res

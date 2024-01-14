@@ -27,6 +27,10 @@ Rectangle
 
     signal nextFocus(dir: int)
 
+    function setCurrentIndex(new_selected_index) {
+        combo_selection.currentIndex = new_selected_index;
+    }
+
     ListModel
     {
         id: combo_selection_list_model

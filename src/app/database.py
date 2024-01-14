@@ -1685,7 +1685,7 @@ class Database(QObject):
         
         datetime = QDateTime.fromString(datetime_str, "yyyy-MM-dd HH:mm:ss")
         
-        local_time = self.locale.toString(datetime, self.locale.timeFormat(QLocale.LongFormat))
+        local_time = self.locale.toString(datetime, "HH:mm:ss")
         local_date = self.locale.toString(datetime, self.locale.dateFormat(QLocale.ShortFormat))
 
         return local_time + ' ' + local_date

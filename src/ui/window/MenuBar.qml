@@ -290,6 +290,7 @@ MenuBar  // MenuBar shown in the window's header
         {
             contentItem: Loader { sourceComponent: menu_separator_component }
         }
+
         FileCloseDialog 
         {
             id: exit_dialog
@@ -339,6 +340,19 @@ MenuBar  // MenuBar shown in the window's header
             }
         }
 
+        LanguageSelectionDialog
+        {
+            id: language_selection_dialog
+        }
+        Action
+        {
+            text: qsTr("Change Language")
+            onTriggered: {
+                language_selection_dialog.init();
+                language_selection_dialog.show();
+            }
+        }
+
         ThemeEditDialog
         {
             id: theme_edit_dialog
@@ -349,6 +363,20 @@ MenuBar  // MenuBar shown in the window's header
             onTriggered: {
                 theme_edit_dialog.initListModel();
                 theme_edit_dialog.show();
+            }
+        }
+
+        MenuSeparator 
+        {
+            contentItem: Loader { sourceComponent: menu_separator_component }
+        }
+
+        Action
+        {
+            text: qsTr("Reset Settings")
+            onTriggered: {
+                // TODO implement settings reset (open dialog to ask before applying)
+                console.log("reset settings");
             }
         }
     }
