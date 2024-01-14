@@ -15,7 +15,7 @@ ApplicationWindow
     color: backgroundColor1
     modality: Qt.ApplicationModal
     minimumWidth: 300
-    minimumHeight: 140
+    minimumHeight: 200
     width: 500
     height: 300
 
