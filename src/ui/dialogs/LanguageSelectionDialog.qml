@@ -37,6 +37,26 @@ ApplicationWindow
         if(close_okay) close.accepted = true;
     }
 
+    TemplateDialog
+    {
+        id: reset_dialog
+
+        title_text: qsTr("Do you want to proceed?")
+        main_text: qsTr("The language will be set to the default value.")
+        sub_text: qsTr("Do you want to proceed?")
+        ok_text: qsTr("Reset Language")
+        abort_text: qsTr("Abort")
+
+        function callback_function() {
+            const active_language = (settings.getAvailableLanguages())[0];
+            settings.slot_setActiveLanguage(active_language);
+            
+            dialog.close_okay = true;
+            dialog.close();
+            setStatusMessage(qsTr("Restart program for new language"), Enums.StatusMsgLvl.Info);
+        }
+    }
+
     function init() {
         save_button.setFocus(Enums.FocusDir.Right);
 
@@ -167,12 +187,8 @@ ApplicationWindow
                 }
 
                 onClicked: {
-                    const active_language = (settings.getAvailableLanguages())[0];
-                    settings.slot_setActiveLanguage(active_language);
-                    
-                    close_okay = true;
-                    close();
-                    setStatusMessage(qsTr("Restart program for new language"), Enums.StatusMsgLvl.Info);
+                    reset_dialog.init();
+                    reset_dialog.show();
                 }
             }
 

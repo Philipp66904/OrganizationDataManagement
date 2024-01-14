@@ -223,43 +223,60 @@
         <translation>Sprache ändern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="54"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="44"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="46"/>
+        <source>Do you want to proceed?</source>
+        <translation>Fortfahren?</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="45"/>
+        <source>The language will be set to the default value.</source>
+        <translation>Die Sprache wird auf die Standardeinstellung zurückgesetzt.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="47"/>
+        <source>Reset Language</source>
+        <translation>Sprache Zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="74"/>
         <source>Follow System</source>
         <translation>System Standardeinstellung</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="55"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="75"/>
         <source>English Development (Fallback)</source>
         <translation>Englisch Entwicklungsversion (Fallback)</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="90"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="110"/>
         <source>Select Language</source>
         <translation>Sprache wählen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="106"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="126"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="129"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="149"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="148"/>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="175"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="56"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="168"/>
         <source>Restart program for new language</source>
         <translation>Programm neustarten, um Sprachänderung anzuwenden</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="155"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="175"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="182"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="48"/>
+        <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="198"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
