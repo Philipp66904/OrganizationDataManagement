@@ -147,9 +147,9 @@ ApplicationWindow
                 highlight_color: highlightColor
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save) clicked();
-                    else if(dir === Enums.FocusDir.Close) abort_button.setFocus();
-                    else if(dir === Enums.FocusDir.Left) abort_button.setFocus();
-                    else if(dir === Enums.FocusDir.Right) reset_button.setFocus();
+                    else if(dir === Enums.FocusDir.Close) abort_button.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Left) abort_button.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Right) reset_button.setFocus(dir);
                 }
 
                 onClicked: {
@@ -177,10 +177,10 @@ ApplicationWindow
                 anchors.bottomMargin: 4
                 hover_color: backgroundColorError
                 onNextFocus: function next_focus(dir) {
-                    if(dir === Enums.FocusDir.Save) save_button.setFocus();
-                    else if(dir === Enums.FocusDir.Close) abort_button.setFocus();
-                    else if(dir === Enums.FocusDir.Left) save_button.setFocus();
-                    else if(dir === Enums.FocusDir.Right) abort_button.setFocus();
+                    if(dir === Enums.FocusDir.Save) save_button.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Close) abort_button.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Left) save_button.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Right) abort_button.setFocus(dir);
                 }
 
                 onClicked: {
@@ -203,10 +203,10 @@ ApplicationWindow
                 anchors.bottomMargin: 4
                 hover_color: textColor
                 onNextFocus: function next_focus(dir) {
-                    if(dir === Enums.FocusDir.Save) save_button.setFocus();
+                    if(dir === Enums.FocusDir.Save) save_button.setFocus(dir);
                     else if(dir === Enums.FocusDir.Close) clicked();
-                    else if(dir === Enums.FocusDir.Left) reset_button.setFocus();
-                    else if(dir === Enums.FocusDir.Right) save_button.setFocus();
+                    else if(dir === Enums.FocusDir.Left) reset_button.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Right) save_button.setFocus(dir);
                 }
 
                 onClicked: {
@@ -214,6 +214,4 @@ ApplicationWindow
                 }
             }
         }
-
-    function callback_function() {}
 }
