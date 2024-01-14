@@ -368,7 +368,8 @@ Rectangle
                     onNextFocus: function next_focus(dir) {
                         organization_button_selection.element_id_with_focus = -2;
                         if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
-                        else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) select_all_button.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Up) select_all_button.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Left) invert_selection_button.setFocus(dir);
                         else person_button_selection.setFocus(dir);
                     }
 

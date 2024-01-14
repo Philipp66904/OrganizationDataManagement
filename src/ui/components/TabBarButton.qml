@@ -23,6 +23,7 @@ Rectangle
     function setFocus(dir) {
         if(button_enabled) {
             bar_rect.forceActiveFocus();
+            clicked();
         } else {
             nextFocus(dir);
         }
