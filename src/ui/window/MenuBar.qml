@@ -298,6 +298,7 @@ MenuBar  // MenuBar shown in the window's header
         }
         Action
         {
+            id: action_exit
             text: qsTr("Exit")
             onTriggered: {
                 exit_dialog.init();
@@ -346,6 +347,7 @@ MenuBar  // MenuBar shown in the window's header
         }
         Action
         {
+            id: action_change_language
             text: qsTr("Change Language")
             onTriggered: {
                 language_selection_dialog.init();
@@ -359,6 +361,7 @@ MenuBar  // MenuBar shown in the window's header
         }
         Action
         {
+            id: action_edit_color_theme
             text: qsTr("Edit Color Theme")
             onTriggered: {
                 theme_edit_dialog.initListModel();
@@ -371,12 +374,31 @@ MenuBar  // MenuBar shown in the window's header
             contentItem: Loader { sourceComponent: menu_separator_component }
         }
 
+        TemplateDialog
+        {
+            id: settings_reset_dialog
+
+            title_text: qsTr("Do you want to proceed?")
+            main_text: qsTr("The settings will be set to the default values.")
+            sub_text: qsTr("Do you want to proceed?")
+            ok_text: qsTr("Reset Settings")
+            abort_text: qsTr("Abort")
+
+            function callback_function() {
+                const msg = setStatusMessage(settings.resetSettings(), Enums.StatusMsgLvl.Err);
+                if(msg !== "") return;
+
+                init_colors();
+                setStatusMessage(qsTr("Settings reset"), Enums.StatusMsgLvl.Info);
+            }
+        }
         Action
         {
-            text: qsTr("Reset Settings")
+            id: action_settings_reset
+            text: qsTr("Reset Settings", "Action Button")
             onTriggered: {
-                // TODO implement settings reset (open dialog to ask before applying)
-                console.log("reset settings");
+                settings_reset_dialog.init();
+                settings_reset_dialog.show();
             }
         }
     }

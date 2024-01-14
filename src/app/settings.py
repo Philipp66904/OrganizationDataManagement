@@ -44,7 +44,7 @@ class Settings(QObject):
     
     def __load_default_settings__(self) -> None:
         """
-        Loads the default settings file and initialzes self.settings with the contents.
+        Loads the default settings file and initilizes self.settings with the contents.
         With these values, a new settings file is created.
         raises RuntimeError: In case the default settings file is missing
         """
@@ -238,3 +238,18 @@ class Settings(QObject):
         res.extend(os.listdir(self.translations_path))
         
         return res
+    
+    
+    @Slot(result=str)
+    def resetSettings(self) -> str:
+        """
+        Overwrites the current settings with the default settings file.
+        returns: Error msg as string; Empty string if no error
+        """
+        
+        try:
+            self.__load_default_settings__()
+        except RuntimeError as e:
+            return "Settings::resetSettings: " + str(e)
+        
+        return ""

@@ -194,23 +194,23 @@
 <context>
     <name>FileCloseDialog</name>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="13"/>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="54"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="14"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="16"/>
         <source>Do you want to proceed?</source>
         <translation>Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="37"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="15"/>
         <source>All unsaved changes will be lost.</source>
         <translation>Alle ungespeicherten Änderungen gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="77"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="17"/>
         <source>Proceed</source>
         <translation>Fortfahren</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="101"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="18"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -322,52 +322,79 @@
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="301"/>
+        <location filename="../ui/window/MenuBar.qml" line="302"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="313"/>
+        <location filename="../ui/window/MenuBar.qml" line="314"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="349"/>
+        <location filename="../ui/window/MenuBar.qml" line="351"/>
         <source>Change Language</source>
         <translation>Sprache ändern</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="362"/>
+        <location filename="../ui/window/MenuBar.qml" line="365"/>
         <source>Edit Color Theme</source>
         <translation>Farbpallete bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="376"/>
+        <location filename="../ui/window/MenuBar.qml" line="381"/>
+        <location filename="../ui/window/MenuBar.qml" line="383"/>
+        <source>Do you want to proceed?</source>
+        <translation>Fortfahren?</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="382"/>
+        <source>The settings will be set to the default values.</source>
+        <translation>Die Einstellungen werden auf ihre Standardwerte zurückgesetzt.</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="384"/>
         <source>Reset Settings</source>
+        <translation>Einstellungen Zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="385"/>
+        <source>Abort</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="392"/>
+        <source>Settings reset</source>
+        <translation>Einstellungen zurückgesetzt</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="398"/>
+        <source>Reset Settings</source>
+        <comment>Action Button</comment>
         <translation>Einstellungen zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="387"/>
+        <location filename="../ui/window/MenuBar.qml" line="409"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="417"/>
+        <location filename="../ui/window/MenuBar.qml" line="439"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="423"/>
+        <location filename="../ui/window/MenuBar.qml" line="445"/>
         <source>Github</source>
         <translation>Github</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="424"/>
+        <location filename="../ui/window/MenuBar.qml" line="446"/>
         <source>Search for updates</source>
         <translation>Suche nach Updates</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="430"/>
+        <location filename="../ui/window/MenuBar.qml" line="452"/>
         <source>Licences</source>
         <translation>Lizenzen</translation>
     </message>
@@ -574,42 +601,42 @@
         <translation>Suche in Organisations-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="393"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="394"/>
         <source>Search in Person properties:</source>
         <translation>Suche in Personen-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="419"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="420"/>
         <source>Search in Address properties:</source>
         <translation>Suche in Adress-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="453"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="454"/>
         <source>Reload Results</source>
         <translation>Ergebnisse neuladen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="473"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="474"/>
         <source>Reset Search</source>
         <translation>Suche zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="584"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="585"/>
         <source>Results:</source>
         <translation>Ergebnisse:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="599"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="600"/>
         <source>Organization</source>
         <translation>Organisation</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="621"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="622"/>
         <source>Person</source>
         <translation>Person</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="643"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="644"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
@@ -757,32 +784,49 @@
     <name>ThemeEditDialog</name>
     <message>
         <location filename="../ui/dialogs/ThemeEditDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="86"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="106"/>
         <source>Edit Color Theme</source>
         <translation>Farbpallete bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="142"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="44"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="46"/>
+        <source>Do you want to proceed?</source>
+        <translation>Fortfahren?</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="45"/>
+        <source>The colors will be set to the default values.</source>
+        <translation>Die Farben werden auf ihre Standardwerte zurückgesetzt.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="47"/>
+        <source>Reset Colors</source>
+        <translation>Farben Zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="162"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="166"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="186"/>
         <source>Colors saved and applied</source>
         <translation>Farben gespeichert und angewendet</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="173"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="193"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="192"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="56"/>
         <source>Colors reset</source>
         <translation>Farben zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="199"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="48"/>
+        <location filename="../ui/dialogs/ThemeEditDialog.qml" line="215"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>

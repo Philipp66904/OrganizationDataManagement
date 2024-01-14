@@ -37,6 +37,26 @@ ApplicationWindow
         if(close_okay) close.accepted = true;
     }
 
+    TemplateDialog
+    {
+        id: reset_dialog
+
+        title_text: qsTr("Do you want to proceed?")
+        main_text: qsTr("The colors will be set to the default values.")
+        sub_text: qsTr("Do you want to proceed?")
+        ok_text: qsTr("Reset Colors")
+        abort_text: qsTr("Abort")
+
+        function callback_function() {
+            settings.slot_resetThemeColors();
+            dialog.close_okay = true;
+            dialog.close();
+            dialog.initListModel();
+            init_colors();
+            setStatusMessage(qsTr("Colors reset"), Enums.StatusMsgLvl.Info);
+        }
+    }
+
     ListModel
     {
         id: color_theme_list_model
@@ -184,12 +204,8 @@ ApplicationWindow
                 }
 
                 onClicked: {
-                    settings.slot_resetThemeColors();
-                    close_okay = true;
-                    close();
-                    initListModel();
-                    init_colors();
-                    setStatusMessage(qsTr("Colors reset"), Enums.StatusMsgLvl.Info);
+                    reset_dialog.init();
+                    reset_dialog.show();
                 }
             }
 
