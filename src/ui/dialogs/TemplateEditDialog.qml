@@ -237,6 +237,7 @@ ApplicationWindow
                         height: main_column.table_height
                         width: parent.width - 8
                         anchors.horizontalCenter: parent.horizontalCenter
+                        table_name: edit_dialog_window.table_name
                         table_view_main_height_factor: 0.8
                         table_cell_rect_height_factor: 0.25
                         pk_id: identifier
@@ -260,6 +261,19 @@ ApplicationWindow
                             const column_names = database.translateColumnNames(res.shift());
 
                             table_model.loadData(edit_dialog_window.table_name, column_names, res);
+                        }
+
+                        function load_row_data(index) {
+                            const row_data = database.getDataRowDerivate(index, "id", edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
+                            if(row_data.length > 0) {
+                                table_model.changeRowData(index, "id", row_data);
+                            }
+                        }
+                        function load_add_row_data(index) {
+                            const row_data = database.getDataRowDerivate(index, "id", edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
+                            if(row_data.length > 0) {
+                                table_model.addRowData(-1, row_data);
+                            }
                         }
 
                         onAdd_button_clicked: function add_button_clicked() {

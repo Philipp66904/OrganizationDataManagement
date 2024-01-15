@@ -4,67 +4,69 @@
 <context>
     <name>AddressEditDialog</name>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="18"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="19"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="54"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="324"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="19"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="20"/>
         <source>Add / Edit Address</source>
         <translation>Adresse hinzufügen / bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="20"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="21"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="301"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="302"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="335"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="336"/>
         <source>Street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="371"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="372"/>
         <source>Number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="407"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="408"/>
         <source>Postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="443"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="444"/>
         <source>City</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="479"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="480"/>
         <source>Country</source>
         <translation>Land</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="540"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="541"/>
         <source>Other:</source>
         <translation>Sonstiges:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="596"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="603"/>
         <source>Other </source>
         <translation>Sonstiges </translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="681"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="688"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="712"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="719"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
@@ -72,97 +74,97 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../app/database.py" line="503"/>
+        <location filename="../app/database.py" line="659"/>
         <source>person_name</source>
         <translation>Name Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="504"/>
+        <location filename="../app/database.py" line="660"/>
         <source>person_note</source>
         <translation>Notiz Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="505"/>
+        <location filename="../app/database.py" line="661"/>
         <source>address_name</source>
         <translation>Name Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="508"/>
+        <location filename="../app/database.py" line="664"/>
         <source>address_note</source>
         <translation>Notiz Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1641"/>
+        <location filename="../app/database.py" line="1958"/>
         <source>name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1643"/>
+        <location filename="../app/database.py" line="1960"/>
         <source>note</source>
         <translation>Notiz</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1645"/>
+        <location filename="../app/database.py" line="1962"/>
         <source>modified</source>
         <translation>Verändert</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1647"/>
+        <location filename="../app/database.py" line="1964"/>
         <source>created</source>
         <translation>Erstellt</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1649"/>
+        <location filename="../app/database.py" line="1966"/>
         <source>website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1651"/>
+        <location filename="../app/database.py" line="1968"/>
         <source>title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1653"/>
+        <location filename="../app/database.py" line="1970"/>
         <source>gender</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1655"/>
+        <location filename="../app/database.py" line="1972"/>
         <source>firstname</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1657"/>
+        <location filename="../app/database.py" line="1974"/>
         <source>middlename</source>
         <translation>Mittelname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1659"/>
+        <location filename="../app/database.py" line="1976"/>
         <source>surname</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1661"/>
+        <location filename="../app/database.py" line="1978"/>
         <source>street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1663"/>
+        <location filename="../app/database.py" line="1980"/>
         <source>number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1665"/>
+        <location filename="../app/database.py" line="1982"/>
         <source>postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1667"/>
+        <location filename="../app/database.py" line="1984"/>
         <source>city</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1669"/>
+        <location filename="../app/database.py" line="1986"/>
         <source>country</source>
         <translation>Land</translation>
     </message>
@@ -473,6 +475,8 @@
     <name>OrganizationEditDialog</name>
     <message>
         <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="18"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="35"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="145"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
@@ -497,27 +501,27 @@
         <translation>Verbindungen:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="205"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="219"/>
         <source>Add / Edit Connection</source>
         <translation>Verbindung hinzufügen / bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="207"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="221"/>
         <source>Connection</source>
         <translation>Verbindung</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="222"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="236"/>
         <source>Couldn&apos;t delete connection.</source>
         <translation>Verbindung konnte nicht gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="232"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="246"/>
         <source>Website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="268"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="282"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
@@ -526,6 +530,8 @@
     <name>PersonEditDialog</name>
     <message>
         <location filename="../ui/dialogs/PersonEditDialog.qml" line="18"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="47"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="247"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
@@ -578,82 +584,82 @@
 <context>
     <name>SearchTab</name>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="146"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="151"/>
         <source>Search</source>
         <translation>Suche</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="176"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="181"/>
         <source>Search in Organization</source>
         <translation>In Organisation suchen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="212"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="217"/>
         <source>Search in Person</source>
         <translation>In Person suchen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="248"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="253"/>
         <source>Search in Address</source>
         <translation>In Adresse suchen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="306"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="311"/>
         <source>Select All</source>
         <translation>Alle auswählen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="325"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="330"/>
         <source>Unselect All</source>
         <translation>Alle abwählen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="345"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="350"/>
         <source>Invert Selection</source>
         <translation>Auswahl umkehren</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="367"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="372"/>
         <source>Search in Organization properties:</source>
         <translation>Suche in Organisations-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="394"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="399"/>
         <source>Search in Person properties:</source>
         <translation>Suche in Personen-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="420"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="425"/>
         <source>Search in Address properties:</source>
         <translation>Suche in Adress-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="454"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="459"/>
         <source>Reload Results</source>
         <translation>Ergebnisse neuladen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="474"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="479"/>
         <source>Reset Search</source>
         <translation>Suche zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="585"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="590"/>
         <source>Results:</source>
         <translation>Ergebnisse:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="600"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="605"/>
         <source>Organization</source>
         <translation>Organisation</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="622"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="627"/>
         <source>Person</source>
         <translation>Person</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="644"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="649"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
@@ -712,44 +718,44 @@
 <context>
     <name>Table</name>
     <message>
-        <location filename="../ui/components/Table.qml" line="169"/>
-        <location filename="../ui/components/Table.qml" line="213"/>
+        <location filename="../ui/components/Table.qml" line="202"/>
+        <location filename="../ui/components/Table.qml" line="246"/>
         <source>null</source>
         <translation>Leer</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="297"/>
+        <location filename="../ui/components/Table.qml" line="330"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="312"/>
+        <location filename="../ui/components/Table.qml" line="345"/>
         <source>Save Entry before creating a new derivate</source>
         <translation>Speichere den Eintrag vor Erstellung einer Ableitung</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="326"/>
+        <location filename="../ui/components/Table.qml" line="359"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="351"/>
+        <location filename="../ui/components/Table.qml" line="384"/>
         <source>Duplicate</source>
         <translation>Duplizieren</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="367"/>
+        <location filename="../ui/components/Table.qml" line="400"/>
         <source>Select a row to duplicate</source>
         <translation>Wähle eine Zeile aus, die dupliziert werden soll</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="381"/>
+        <location filename="../ui/components/Table.qml" line="414"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="399"/>
-        <location filename="../ui/components/Table.qml" line="410"/>
+        <location filename="../ui/components/Table.qml" line="432"/>
+        <location filename="../ui/components/Table.qml" line="443"/>
         <source>Select a row to delete</source>
         <translation>Wähle eine Zeile aus, die gelöscht werden soll</translation>
     </message>
@@ -767,32 +773,32 @@
         <translation>Ableitungen:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="320"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="334"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="346"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="360"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="382"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="396"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="442"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="456"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="465"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="479"/>
         <source>Modified: </source>
         <translation>Verändert: </translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="494"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="508"/>
         <source>Created: </source>
         <translation>Erstellt: </translation>
     </message>

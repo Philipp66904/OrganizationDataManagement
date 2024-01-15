@@ -80,6 +80,11 @@ Rectangle
             softResetSearch();
         }
 
+        function onSearchCacheChanged(tb_name) {
+            updateSearch();
+            softResetSearch();
+        }
+
         function onDatabaseLoaded(db_path) {
             resetSearch();
         }

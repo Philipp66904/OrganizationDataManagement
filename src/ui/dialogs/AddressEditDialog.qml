@@ -3,6 +3,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
+import QtQuick.Controls.Basic
 
 import "../components"
 import "../types"
@@ -50,7 +51,7 @@ TemplateEditDialog
 
     function init_dialog() {
         // call this function after .show() called on the ApplicationWindow
-        let entry_name_tmp = "New Entry";
+        let entry_name_tmp = qsTr("New Entry");
         if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", address_dialog.table_name);
         address_dialog.entry_name = entry_name_tmp.trim();
 
@@ -320,7 +321,7 @@ TemplateEditDialog
                 onNew_value: function new_value(value, derivate_flag) {
                     property_name = value;
 
-                    if(identifier < 0 && value.trim() === "") address_dialog.entry_name = "New Entry";
+                    if(identifier < 0 && value.trim() === "") address_dialog.entry_name = qsTr("New Entry");
                     else address_dialog.entry_name = value.trim();
 
                     address_dialog.save_button_enabled = (property_name.trim().length > 0);
@@ -561,6 +562,12 @@ TemplateEditDialog
                         onElement_id_with_focusChanged: {
                             if(element_id_with_focus === -1) property_line_edit_country.setFocus(Enums.FocusDir.Left);
                             else if(element_id_with_focus >= address_other_list_model.count) add_button.setFocus(Enums.FocusDir.Right);
+                        }
+
+                        ScrollBar.vertical: ScrollBar
+                        {
+                            parent: address_other_list_view
+                            anchors.right: parent.right
                         }
 
                         Connections {

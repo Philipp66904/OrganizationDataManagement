@@ -3,6 +3,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
+import QtQuick.Controls.Basic
 
 import tablemodule 1.0
 
@@ -18,6 +19,7 @@ Rectangle
     property var selected_pk: undefined
     property bool show_duplicate_button: true
     property bool show_add_button: true
+    required property string table_name
     required property var pk_id  // set to -1 if new entry  // set to undefined if root table
     required property var parent_id  // set to undefined if it has no parent
     required property double table_view_main_height_factor
@@ -49,8 +51,27 @@ Rectangle
     Connections {
         target: database
         function onDataChanged() {
-            load_data();  // implement function with specific implementation per tab
             table_root.selected_pk = undefined;
+            load_data();  // implement function with specific implementation per tab
+        }
+
+        function onDataRowChanged(tb_name, index) {
+            if(tb_name === table_name) {
+                load_row_data(index);  // implement function with specific implementation per tab
+            }
+        }
+
+        function onDataRowAdded(tb_name, index) {
+            if(tb_name === table_name) {
+                load_add_row_data(index);  // implement function with specific implementation per tab
+            }
+        }
+
+        function onDataRowRemoved(tb_name, index) {
+            if(tb_name === table_name) {
+                table_root.selected_pk = undefined;
+                table_model.removeRowData(index, "id");
+            }
         }
     }
 
@@ -143,6 +164,18 @@ Rectangle
                     onLayoutChanged: {
                         table_root.selected_pk = undefined;
                         table_view_selection_model.clear();
+                    }
+
+                    ScrollBar.horizontal: ScrollBar
+                    {
+                        parent: table_view
+                        anchors.bottom: parent.bottom
+                    }
+
+                    ScrollBar.vertical: ScrollBar
+                    {
+                        parent: table_view
+                        anchors.right: parent.right
                     }
 
                     Text

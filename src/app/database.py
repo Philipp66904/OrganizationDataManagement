@@ -15,6 +15,10 @@ class Database(QObject):
     # Signals
     databaseLoaded = Signal(str)  # signals the new database name when a new database was loaded
     dataChanged = Signal()  # signals any database change
+    dataRowChanged = Signal(str, int)  # signals a row change: table_name, id
+    dataRowAdded = Signal(str, int)  # signals a row addition: table_name, id
+    dataRowRemoved = Signal(str, int)  # signals a row removal: table_name, id
+    searchCacheChanged = Signal(str)  # signals an update to the search cache for a specific table name
     
     
     def __init__(self, settings: Settings, locale: QLocale):
@@ -31,6 +35,11 @@ class Database(QObject):
         self.locale = locale
         
         self._search_data_cache = {}  # Caching last search results from database per table
+        
+        # Connect signals
+        self.dataRowChanged.connect(self._changeRowInSearchCache)
+        self.dataRowAdded.connect(self._changeRowInSearchCache)
+        self.dataRowRemoved.connect(self._removeRowFromSearchCache)
         
         self.readTemplateDB()
         
@@ -323,6 +332,41 @@ class Database(QObject):
         return res
     
     
+    @Slot(int, result=list)
+    def getDataRowOrganization(self, pk_id: int) -> list:
+        """
+        Returns all column values for a row that should be shown in the organization view.
+        pk_id: Primary key of the row that shall be returned
+        returns: List with all column values
+        raises ValueError: If primary key is not found
+        """
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, t.website, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+                             FROM organization t, description d, metadata m
+                             WHERE t.id = ? AND t.description_id = d.id AND t.metadata_id = m.id
+                             ORDER BY d.name ASC
+                             LIMIT 1;""",
+                             (pk_id,))
+            
+            organization_data = res.fetchone()
+        
+        if organization_data is None:
+            raise ValueError("Database::getDataRowOrganization: Primary key not found")
+        
+        column_names = [["id", "name", "note", "website", "modified", "created"]]
+        date_indexes = (column_names[0].index("modified"), column_names[0].index("created"))
+        row = []
+        for i, row_data in enumerate(organization_data):
+            val = row_data
+            if i in date_indexes:
+                val = self.adaptDateTimeToLocale(val)
+            
+            row.append(val)
+        
+        return row
+    
+    
     @Slot(int, str, str, result=list)
     def getDataDerivates(self, parent_id: int, parent_column_name: str, table_name: str) -> list:
         """
@@ -357,6 +401,48 @@ class Database(QObject):
         return res
     
     
+    @Slot(int, str, int, str, str, result=list)
+    def getDataRowDerivate(self, pk_id: int, pk_column_name: str, parent_id: int, parent_column_name: str, table_name: str) -> list:
+        """
+        Returns all column values of a derivate for a given primary key.
+        pk_id: Id of the derivate whose values shall be returned
+        pk_column_name: Name of the column where the primary key is located
+        parent_id: Id of the parent whose derivate shall be returned
+        parent_column_name: Name of the column where the parent_ids are defined
+        table_name: Name of the table where the derivate is located
+        returns: List with all the column values; Empty list if pk_id is not found or not a derivate of the parent
+        raises ValueError: If primary key is not found
+        """
+        
+        if pk_id == parent_id:
+            return []
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+                             FROM {table_name} t, description d, metadata m
+                             WHERE t.{pk_column_name} = ? AND t.{parent_column_name} = ? AND t.description_id = d.id AND t.metadata_id = m.id
+                             ORDER BY d.name ASC
+                             LIMIT 1;""",
+                             (pk_id, parent_id))
+            
+            data = res.fetchone()
+        
+        if data is None:
+            return []
+        
+        res = [["id", "name", "note", "modified", "created"]]
+        date_indexes = (res[0].index("modified"), res[0].index("created"))
+        row = []
+        for i, row_data in enumerate(data):
+            val = row_data
+            if i in date_indexes:
+                val = self.adaptDateTimeToLocale(val)
+            
+            row.append(val)
+        
+        return row
+    
+    
     @Slot(result=list)
     def getDataAddress(self) -> list:
         """
@@ -388,6 +474,41 @@ class Database(QObject):
         return res
     
     
+    @Slot(int, result=list)
+    def getDataRowAddress(self, pk_id: int) -> list:
+        """
+        Returns all column values for a row that should be shown in the address view.
+        pk_id: Primary key of the row that shall be returned
+        returns: List with all column values
+        raises ValueError: If primary key is not found
+        """
+        
+        with self.con:
+            res = self.con.execute("""SELECT t.id, d.name, d.note, t.street, t.number, t.postalcode, t.city, t.country, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+                             FROM address t, description d, metadata m
+                             WHERE t.id = ? AND t.description_id = d.id AND t.metadata_id = m.id
+                             ORDER BY d.name ASC
+                             LIMIT 1;""",
+                             (pk_id,))
+            
+            address_data = res.fetchone()
+        
+        if address_data is None:
+            raise ValueError("Database::getDataRowAddress: Primary key not found")
+        
+        res = [["id", "name", "note", "street", "number", "postalcode", "city", "country", "modified", "created"]]
+        date_indexes = (res[0].index("modified"), res[0].index("created"))
+        row = []
+        for i, row_data in enumerate(address_data):
+            val = row_data
+            if i in date_indexes:
+                val = self.adaptDateTimeToLocale(val)
+            
+            row.append(val)
+        
+        return row
+    
+    
     @Slot(result=list)
     def getDataPerson(self) -> list:
         """
@@ -416,6 +537,40 @@ class Database(QObject):
             res.append(row)
         
         return res
+    
+    
+    @Slot(int, result=list)
+    def getDataRowPerson(self, pk_id: int) -> list:
+        """
+        Returns all column values for a row that should be shown in the person view.
+        pk_id: Primary key of the row that shall be returned
+        returns: List with all column values
+        raises ValueError: If primary key is not found
+        """
+        
+        with self.con:
+            res = self.con.execute("""SELECT t.id, d.name, d.note, t.title, t.gender, t.firstname, t.middlename, t.surname, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+                             FROM person t, description d, metadata m
+                             WHERE t.id = ? AND t.description_id = d.id AND t.metadata_id = m.id
+                             ORDER BY d.name ASC
+                             LIMIT 1;""",
+                             (pk_id,))
+            
+            person_data = res.fetchone()
+            
+        if person_data is None:
+            raise ValueError("Database::getDataRowPerson: Primary key not found")
+        
+        res = [["id", "name", "note", "title", "gender", "firstname", "middlename", "surname", "modified", "created"]]
+        row = []
+        for i, row_data in enumerate(person_data):
+            val = row_data
+            if i in (res[0].index("modified"), res[0].index("created")):
+                val = self.adaptDateTimeToLocale(val)
+            
+            row.append(val)
+        
+        return row
     
     
     @Slot(int, str, str, str, str, result=list)
@@ -538,11 +693,51 @@ class Database(QObject):
                 return res_list
             
             if person_data[0] != address_data[0]:
-                raise ValueError("Database::getRelations: Organization ids don't match")
+                raise ValueError("Database::getRelations: Connection ids don't match")
         
             res_list.append([person_data[0], person_data[1], person_data[2], address_data[1], address_data[2]])
         
         return res_list
+    
+    
+    @Slot(int, int, result=list)
+    def getRowConnection(self, connection_id: int, organization_id: int) -> list:
+        """
+        Returns all values for a relation of a specific organization.
+        connection_id: Connection id which relation shall be returned
+        returns: List with all the column values
+        """
+        
+        with self.con:
+            res = self.con.execute(f"""SELECT organization_id, person_id, address_id
+                                   FROM connection
+                                   WHERE id = ?
+                                   LIMIT 1;""",
+                                   (connection_id,))
+            
+            ids = res.fetchone()
+            organization_id_res, person_id, address_id = ids
+            
+            if organization_id_res != organization_id:
+                return []
+            
+            res = self.con.execute("""SELECT d.name, d.note
+                                   FROM person t, description d
+                                   WHERE t.id = ? AND t.description_id = d.id
+                                   LIMIT 1;""",
+                                   (person_id,))
+            
+            person_data = res.fetchone()
+            
+            res = self.con.execute("""SELECT d.name, d.note
+                                   FROM address t, description d
+                                   WHERE t.id = ? AND t.description_id = d.id
+                                   LIMIT 1;""",
+                                   (address_id,))
+            
+            address_data = res.fetchone()
+        
+        return [connection_id, person_data[0], person_data[1], address_data[0], address_data[1]]
     
     
     @Slot(int, result=list)
@@ -694,7 +889,7 @@ class Database(QObject):
         table_name: Name of the table where pk_column_name and the parent id are located.
         pk: Primary key for the specific row
         pk_column_name: Primary key column name
-        returns: Parent_id if it is defined, otherwise -1
+        returns: Parent_id if defined, otherwise -1
         """
         
         with self.con:
@@ -703,10 +898,10 @@ class Database(QObject):
             
             parent_id = res.fetchone()
             
-        if parent_id is None:
+        if parent_id is None or parent_id[0] is None:
             return -1
         
-        return parent_id
+        return parent_id[0]
 
     
     @Slot(int, str, str, str, result=int)
@@ -926,9 +1121,8 @@ class Database(QObject):
         except Exception as e:
             return "Database::setName_Note_byPk: " + str(e)
         
-        self.clear_cache()
         self.setModified_CreatedTimestamps(metadata_id)
-        self.dataChanged.emit()
+        self.dataRowChanged.emit(table_name, pk)
         return ""
     
     
@@ -957,8 +1151,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::setValue_Str: " + str(e)
         
-        self.clear_cache()
-        self.dataChanged.emit()
+        self.dataRowChanged.emit(table_name, pk_id)
         return ""
     
     
@@ -995,8 +1188,8 @@ class Database(QObject):
         except Exception as e:
             return "Database::setOther: " + str(e)
         
-        self.clear_cache()
-        self.dataChanged.emit()
+        # TODO evaluate:
+        # self.dataChanged.emit()
         return ""
     
     
@@ -1071,9 +1264,8 @@ class Database(QObject):
         except Exception as e:
             return "Database::duplicateEntry: " + str(e)
         
-        self.clear_cache()
         self.setModified_CreatedTimestamps(new_metadata_id)
-        self.dataChanged.emit()
+        self.dataRowAdded.emit(table_name, new_pk)
         return ""
     
     
@@ -1109,16 +1301,17 @@ class Database(QObject):
                                     (name, note))
                 description_id = res.fetchone()[0]
                 
-                self.con.execute("""INSERT INTO organization (parent_id, description_id, metadata_id, website)
-                                    VALUES (?, ?, ?, ?);""",
-                                 (parent_id, description_id, metadata_id, website))
+                res = self.con.execute("""INSERT INTO organization (parent_id, description_id, metadata_id, website)
+                                          VALUES (?, ?, ?, ?) RETURNING id;""",
+                                       (parent_id, description_id, metadata_id, website))
+                
+                new_id = res.fetchone()[0]
         
             self.setModified_CreatedTimestamps(metadata_id)
         except Exception as e:
             return "Database::createOrganization: " + str(e)
         
-        self.clear_cache()
-        self.dataChanged.emit()
+        self.dataRowAdded.emit("organization", new_id)
         return ""
     
     
@@ -1154,16 +1347,17 @@ class Database(QObject):
                                        (name, note))
                 description_id = res.fetchone()[0]
                 
-                self.con.execute("""INSERT INTO person (parent_id, description_id, metadata_id, title, gender, firstname, middlename, surname)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?);""",
-                                 (parent_id, description_id, metadata_id, values[0], values[1], values[2], values[3], values[4]))
+                res = self.con.execute("""INSERT INTO person (parent_id, description_id, metadata_id, title, gender, firstname, middlename, surname)
+                                          VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;""",
+                                       (parent_id, description_id, metadata_id, values[0], values[1], values[2], values[3], values[4]))
+                
+                new_id = res.fetchone()[0]
         
             self.setModified_CreatedTimestamps(metadata_id)
         except Exception as e:
             return "Database::createPerson: " + str(e)
         
-        self.clear_cache()
-        self.dataChanged.emit()
+        self.dataRowAdded.emit("person", new_id)
         return ""
     
     
@@ -1212,8 +1406,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::createAddress: " + str(e)
         
-        self.clear_cache()
-        self.dataChanged.emit()
+        self.dataRowAdded.emit("address", pk_id)
         return ""
     
     
@@ -1234,6 +1427,8 @@ class Database(QObject):
         if not self.checkConnection(connection_id, organization_id, person_id, address_id):
             return "Database::saveConnection: " + "Connection is not unique."
         
+        new_connection_id = connection_id
+        
         try:
             with self.con:
                 if connection_id >= 0:
@@ -1244,14 +1439,18 @@ class Database(QObject):
                                      (person_id, address_id, connection_id))
                 else:
                     # Create new entry
-                    self.con.execute("""INSERT INTO connection (organization_id, person_id, address_id)
-                                        VALUES (?, ?, ?);""",
-                                     (organization_id, person_id, address_id))
+                    res = self.con.execute("""INSERT INTO connection (organization_id, person_id, address_id)
+                                              VALUES (?, ?, ?) RETURNING id;""",
+                                           (organization_id, person_id, address_id))
+                    
+                    new_connection_id = res.fetchone()[0]
         except Exception as e:
             return "Database::saveConnection: " + str(e)
         
-        self.clear_cache()
-        self.dataChanged.emit()
+        if connection_id < 0:
+            self.dataRowAdded.emit("connection", new_connection_id)
+        else:
+            self.dataRowChanged.emit("connection", new_connection_id)
         return ""
     
     
@@ -1270,8 +1469,7 @@ class Database(QObject):
             self.con.execute("""DELETE FROM connection WHERE id = ?;""",
                              (connection_id,))
         
-        self.clear_cache()
-        self.dataChanged.emit()
+        self.dataRowRemoved.emit("connection", connection_id)
         return True
     
     
@@ -1309,8 +1507,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::deleteEntry: " + str(e)
         
-        self.clear_cache()
-        self.dataChanged.emit()
+        self.dataRowRemoved.emit(table_name, pk)
         return ""
 
 
@@ -1472,6 +1669,125 @@ class Database(QObject):
         return complete_column_names
     
     
+    @Slot(str, int)
+    def _changeRowInSearchCache(self, table_name: str, pk_id: int) -> None:
+        """
+        Updates a row, specified by the pk_id, in the search cache with the newest data from the database.
+        If a connection was changed, the function will query the organization, person, and address id
+        and recursively call this function to update the entries one by one.
+        table_name: Table name where the change occured
+        pk_id: Primary key of the changed row
+        """
+        
+        if table_name == "connection":
+            # Get organization_id, person_id, and address_id
+            with self.con:
+                res = self.con.execute("""SELECT organization_id, person_id, address_id
+                                       FROM connection
+                                       WHERE id = ?
+                                       LIMIT 1;""",
+                                       (pk_id,))
+                
+                ids = res.fetchone()
+            
+            organization_id, person_id, address_id = ids
+            self._changeRowInSearchCache("organization", organization_id)
+            self._changeRowInSearchCache("person", person_id)
+            self._changeRowInSearchCache("address", address_id)
+            return
+        
+        if table_name not in self._search_data_cache.keys():
+            self._updateSearchCache(table_name)
+            self.searchCacheChanged.emit(table_name)
+            return
+        
+        with self.con:
+            column_names = self.getNonPrimaryKeyNonForeignKeyColumnNames(table_name)
+            column_names_str = ""
+            for column_name in column_names:
+                column_names_str += f", t.{column_name}"
+            
+            res = self.con.execute(f"""SELECT c.id, c.organization_id, c.person_id, c.address_id, t.id, d.name, d.note {column_names_str}, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+                                       FROM {table_name} t
+                                       LEFT JOIN connection c
+                                       ON t.id = c.{table_name}_id
+                                       LEFT JOIN description d
+                                       ON t.description_id = d.id
+                                       LEFT JOIN metadata m
+                                       ON t.metadata_id = m.id
+                                       WHERE t.id = ?
+                                       ORDER BY d.name ASC;""",
+                                       (pk_id,))
+            
+            data_list = res.fetchall()
+        
+        # Convert list[tupel] to list[dict]
+        complete_column_names = ["connection_id", "organization_id", "person_id", "address_id"]
+        complete_column_names.extend(self._getSearchResultCompleteColumnNames(table_name, column_names))
+        
+        for data in data_list:
+            row_dict = {}
+            for i, column_name in enumerate(complete_column_names):
+                val = data[i]
+                if column_name in ["modified", "created"]:
+                    val = self.adaptDateTimeToLocale(val)
+                row_dict[column_name] = val
+            
+            # Find id and connection_id in cache
+            index = -1
+            for i, row in enumerate(self._search_data_cache[table_name]):
+                if row["id"] == pk_id and row["connection_id"] == row_dict["connection_id"]:
+                    index = i
+                    break
+            
+            if index < 0:
+                self._search_data_cache[table_name].append(row_dict)
+            else:
+                self._search_data_cache[table_name][index] = row_dict
+            
+        self.searchCacheChanged.emit(table_name)
+    
+    
+    @Slot(str, int)
+    def _removeRowFromSearchCache(self, table_name: str, pk_id: int) -> None:
+        """
+        Deletes a specific row in a specific table from the search cache.
+        If the table is "connection", all rows with the specified connection will be deleted from every table.
+        table_name: Name of the table where the row shall be removed from
+        pk_id: Primary key of the row that shall be removed
+        """
+        
+        if table_name == "connection":
+            for table_name in self._search_data_cache.keys():
+                i = 0
+                while i < len(self._search_data_cache[table_name]):
+                    row = self._search_data_cache[table_name]
+                    if row[i]["connection_id"] == pk_id:
+                        self._search_data_cache[table_name].pop(i)
+                        i -= 1
+                    
+                    i += 1
+            
+            self.searchCacheChanged.emit(table_name)
+            return
+        
+        if table_name not in self._search_data_cache.keys():
+            self._updateSearchCache(table_name)
+            self.searchCacheChanged.emit(table_name)
+            return
+        
+        i = 0
+        while i < len(self._search_data_cache[table_name]):
+            row = self._search_data_cache[table_name]
+            if row[i]["id"] == pk_id:
+                self._search_data_cache[table_name].pop(i)
+                i -= 1
+            
+            i += 1
+        
+        self.searchCacheChanged.emit(table_name)
+    
+    
     def _updateSearchCache(self, table_name) -> None:
         """
         Checks if the data for a specific table name is already cached or adds it for faster search responses.
@@ -1491,7 +1807,7 @@ class Database(QObject):
             for column_name in column_names:
                 column_names_str += f", t.{column_name}"
             
-            res = self.con.execute(f"""SELECT c.organization_id, c.person_id, c.address_id, t.id, d.name, d.note {column_names_str}, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+            res = self.con.execute(f"""SELECT c.id, c.organization_id, c.person_id, c.address_id, t.id, d.name, d.note {column_names_str}, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                                        FROM {table_name} t
                                        LEFT JOIN connection c
                                        ON t.id = c.{table_name}_id
@@ -1504,7 +1820,7 @@ class Database(QObject):
             data_list = res.fetchall()
         
         # Convert list[tupel] to list[dict]
-        complete_column_names = ["organization_id", "person_id", "address_id"]
+        complete_column_names = ["connection_id", "organization_id", "person_id", "address_id"]
         complete_column_names.extend(self._getSearchResultCompleteColumnNames(table_name, column_names))
         
         data = []
@@ -1599,14 +1915,14 @@ class Database(QObject):
                 header_list = []
                 
                 for column_name in row.keys():
-                    if column_name not in ["organization_id", "person_id", "address_id"]:
+                    if column_name not in ["connection_id", "organization_id", "person_id", "address_id"]:
                         header_list.append(column_name)
                         
                 res.append(header_list)
             
             row_list = []
             for column_name, cell in row.items():
-                if column_name in ["organization_id", "person_id", "address_id"]:
+                if column_name in ["connection_id", "organization_id", "person_id", "address_id"]:
                     continue
                 
                 row_list.append(cell)

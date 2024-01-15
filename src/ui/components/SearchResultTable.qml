@@ -18,7 +18,6 @@ Table
     show_duplicate_button: false
     show_add_button: false
 
-    required property string table_name
     required property var search_res
 
     TableModel
@@ -34,6 +33,13 @@ Table
         column_names = database.translateColumnNames(column_names);
 
         table_model.loadData(result_table.table_name, column_names, res);
+    }
+
+    function load_row_data(index) {
+        //console.log("SearchResultTable::load_row_data:", index);
+    }
+    function load_add_row_data(index) {
+        //console.log("SearchResultTable::load_add_row_data:", index);
     }
 
     onDelete_button_clicked: function delete_button_clicked(pk) {

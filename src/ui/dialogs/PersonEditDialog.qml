@@ -44,7 +44,7 @@ TemplateEditDialog
 
     function init_dialog() {
         // call this function after .show() called on the ApplicationWindow
-        let entry_name_tmp = "New Entry";
+        let entry_name_tmp = qsTr("New Entry");
         if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", person_dialog.table_name);
         person_dialog.entry_name = entry_name_tmp.trim();
 
@@ -244,7 +244,7 @@ TemplateEditDialog
                 onNew_value: function new_value(value, derivate_flag) {
                     property_name = value;
 
-                    if(identifier < 0 && value.trim() === "") person_dialog.entry_name = "New Entry";
+                    if(identifier < 0 && value.trim() === "") person_dialog.entry_name = qsTr("New Entry");
                     else person_dialog.entry_name = value.trim();
 
                     person_dialog.save_button_enabled = (property_name.trim().length > 0);

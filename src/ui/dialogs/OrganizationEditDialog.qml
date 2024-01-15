@@ -32,7 +32,7 @@ TemplateEditDialog
 
     function init_dialog() {
         // call this function after .show() called on the ApplicationWindow
-        let entry_name_tmp = "New Entry";
+        let entry_name_tmp = qsTr("New Entry");
         if(pk_id >= 0) entry_name_tmp = database.getName_byPk(pk_id, "id", organization_dialog.table_name);
         organization_dialog.entry_name = entry_name_tmp.trim();
 
@@ -142,7 +142,7 @@ TemplateEditDialog
                 onNew_value: function new_value(value, derivate_flag) {
                     property_name = value;
 
-                    if(identifier < 0 && value.trim() === "") organization_dialog.entry_name = "New Entry";
+                    if(identifier < 0 && value.trim() === "") organization_dialog.entry_name = qsTr("New Entry");
                     else organization_dialog.entry_name = value.trim();
 
                     organization_dialog.save_button_enabled = (value.trim().length > 0);
@@ -170,6 +170,7 @@ TemplateEditDialog
                 width: parent.width
                 parent_id: undefined
                 anchors.horizontalCenter: parent.horizontalCenter
+                table_name: "connection"
                 table_view_main_height_factor: 0.8
                 table_cell_rect_height_factor: 0.25
                 pk_id: organization_dialog.identifier
@@ -190,6 +191,19 @@ TemplateEditDialog
                     const column_names = res.shift();
 
                     table_model.loadData(organization_dialog.table_name, column_names, res);
+                }
+
+                function load_row_data(index) {
+                    const row_data = database.getRowConnection(index, organization_dialog.identifier);
+                    if(row_data.length > 0) {
+                        table_model.changeRowData(index, "id", row_data);
+                    }
+                }
+                function load_add_row_data(index) {
+                    const row_data = database.getRowConnection(index, organization_dialog.identifier);
+                    if(row_data.length > 0) {
+                        table_model.addRowData(-1, row_data);
+                    }
                 }
 
                 Connections {

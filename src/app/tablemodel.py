@@ -19,6 +19,73 @@ class TableModel(QAbstractTableModel):
         
         self.layoutChanged.emit()
         self.updateView.emit()
+        
+    
+    @Slot(int, str, list)
+    def changeRowData(self, pk_id: int, pk_column_name: str, row_data: list) -> None:
+        """
+        Update the data for a specific row
+        pk_id: Primary key of the row whose values shall be updated
+        pk_column_name: Column name where the pk_id is located
+        row_data: New column data as a list
+        raises ValueError: In case the pk_column_name or pk_id couldn't be found in the table
+        """
+        
+        column_id = -1
+        for i, column_name in enumerate(self.column_names):
+            if column_name == pk_column_name:
+                column_id = i
+                break
+                
+        if column_id < 0:
+            raise ValueError("TableModel::changeRowData: pk_column_name not found")
+        
+        for row_id, row in enumerate(self.row_data):
+            if row[column_id] == pk_id:
+                self.row_data[row_id] = row_data
+                start_index = self.index(row_id, 0)
+                end_index = self.index(row_id, self.columnCount() - 1)
+                self.dataChanged.emit(start_index, end_index, [])
+                self.layoutChanged.emit()
+                self.updateView.emit()
+                return
+        
+        # Primary key was not found in table -> do nothing
+    
+    
+    @Slot(int, list)
+    def addRowData(self, pos: int, row_data: list) -> None:
+        if pos < 0:
+            pos = len(self.row_data)
+        
+        self.beginInsertRows(QModelIndex(), pos, pos)
+        self.row_data.insert(pos, row_data)
+        self.endInsertRows()
+        self.layoutChanged.emit()
+        self.updateView.emit()
+    
+    
+    @Slot(int, str)
+    def removeRowData(self, pk_id: int, pk_column_name: str) -> None:
+        column_id = -1
+        for i, column_name in enumerate(self.column_names):
+            if column_name == pk_column_name:
+                column_id = i
+                break
+                
+        if column_id < 0:
+            raise ValueError("TableModel::removeRowData: pk_column_name not found")
+        
+        for row_id, row in enumerate(self.row_data):
+            if row[column_id] == pk_id:
+                self.beginRemoveRows(QModelIndex(), row_id, row_id)
+                self.row_data.pop(row_id)
+                self.endRemoveRows()
+                self.layoutChanged.emit()
+                self.updateView.emit()
+                return
+        
+        # Primary key was not found in table -> do nothing
 
 
     def rowCount(self, parent: QModelIndex = QModelIndex) -> int:

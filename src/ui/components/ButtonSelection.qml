@@ -73,12 +73,12 @@ Rectangle
     function init() {
         button_selection_list_model.clear();
 
-        const col_names_description = database.getNonPrimaryKeyNonForeignKeyColumnNames("description");
+        const col_names_description = database.translateColumnNames(database.getNonPrimaryKeyNonForeignKeyColumnNames("description"));
         for(let col_name of col_names_description) {
             button_selection_list_model.append({"column_name": col_name, "button_checked": true});
         }
-
-        const col_names = database.getNonPrimaryKeyNonForeignKeyColumnNames(table_name);
+        
+        const col_names = database.translateColumnNames(database.getNonPrimaryKeyNonForeignKeyColumnNames(table_name));
         for(let col_name of col_names) {
             button_selection_list_model.append({"column_name": col_name, "button_checked": true});
         }

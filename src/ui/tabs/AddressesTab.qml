@@ -44,4 +44,13 @@ TemplateTab
 
         table_model.loadData(table_name, column_names, res);
     }
+
+    function load_row_data_wrapper(index) {
+        const row_data = database.getDataRowAddress(index);
+        table_model.changeRowData(index, "id", row_data);
+    }
+    function load_add_row_data_wrapper(index) {
+        const row_data = database.getDataRowAddress(index);
+        table_model.addRowData(-1, row_data);
+    }
 }

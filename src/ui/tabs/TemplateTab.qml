@@ -31,6 +31,7 @@ Rectangle
         anchors.fill: parent
         pk_id: undefined
         parent_id: undefined
+        table_name: template_root.table_name
         table_view_main_height_factor: 0.94
         table_cell_rect_height_factor: 0.07
         
@@ -42,6 +43,18 @@ Rectangle
 
         function load_data() {
             load_data_wrapper();  // implement function with specific implementation per tab
+        }
+        function load_row_data(index) {
+            const parent_id = database.getParentId(template_root.table_name, index, "id");
+            if(parent_id < 0) {
+                load_row_data_wrapper(index);  // implement function with specific implementation per tab
+            }
+        }
+        function load_add_row_data(index) {
+            const parent_id = database.getParentId(template_root.table_name, index, "id");
+            if(parent_id < 0) {
+                load_add_row_data_wrapper(index);  // implement function with specific implementation per tab
+            }
         }
 
         onAdd_button_clicked: function add_button_handler() {
