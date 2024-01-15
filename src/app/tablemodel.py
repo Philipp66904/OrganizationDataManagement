@@ -8,8 +8,8 @@ class TableModel(QAbstractTableModel):
         self.table_name = ""
         self.column_names = []
         self.row_data = []
-       
-     
+    
+    
     @Slot(str, list, list)
     def loadData(self, table_name: str, column_names: list, row_data: list) -> None:
         self.layoutAboutToBeChanged.emit()
@@ -19,7 +19,7 @@ class TableModel(QAbstractTableModel):
         
         self.layoutChanged.emit()
         self.updateView.emit()
-        
+    
     
     @Slot(int, str, list)
     def changeRowData(self, pk_id: int, pk_column_name: str, row_data: list) -> None:
@@ -36,7 +36,7 @@ class TableModel(QAbstractTableModel):
             if column_name == pk_column_name:
                 column_id = i
                 break
-                
+        
         if column_id < 0:
             raise ValueError("TableModel::changeRowData: pk_column_name not found")
         
@@ -55,6 +55,12 @@ class TableModel(QAbstractTableModel):
     
     @Slot(int, list)
     def addRowData(self, pos: int, row_data: list) -> None:
+        """
+        Adds a row with the row_data at position pos.
+        pos: Position where the data should be inserted; if < 0 the row will be added at the end
+        row_data: List with column values for the row
+        """
+        
         if pos < 0:
             pos = len(self.row_data)
         
@@ -67,12 +73,19 @@ class TableModel(QAbstractTableModel):
     
     @Slot(int, str)
     def removeRowData(self, pk_id: int, pk_column_name: str) -> None:
+        """
+        Removes the row with the specified primary key from the data.
+        If the primary key doesn't exist in the data, nothing happens.
+        pk_id: Primary key of the row that shall be deleted
+        pk_column_name: Primary key column name
+        """
+        
         column_id = -1
         for i, column_name in enumerate(self.column_names):
             if column_name == pk_column_name:
                 column_id = i
                 break
-                
+        
         if column_id < 0:
             raise ValueError("TableModel::removeRowData: pk_column_name not found")
         
@@ -106,12 +119,18 @@ class TableModel(QAbstractTableModel):
     
     @Slot(int, result=str)
     def getLongestText(self, column_index: int) -> str:
+        """
+        Returns the longest text for a specific column.
+        column_index: Column index
+        returns: Longest text as string
+        """
+        
         res = str(self.column_names[column_index])
         
         for row in self.row_data:
             if len(str(row[column_index])) > len(res):
                 res = str(row[column_index])
-                
+        
         return res
     
     
@@ -181,4 +200,3 @@ class TableModel(QAbstractTableModel):
             raise ValueError("TableModel::getValueFloat: The requested value is not of type 'float'")
         
         return self.row_data[row_index][column_index]  
-    
