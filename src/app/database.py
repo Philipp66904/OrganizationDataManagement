@@ -3,9 +3,7 @@ import os
 import sqlite3
 from PySide6.QtCore import QObject, Slot, Signal, QUrl, QCoreApplication, QLocale, QDateTime
 import datetime
-from copy import deepcopy
 import re
-import timeit
 
 from app.settings import Settings
 
