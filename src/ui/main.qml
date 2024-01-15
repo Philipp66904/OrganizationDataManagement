@@ -12,7 +12,7 @@ import "types"
 ApplicationWindow
 {
     id: rootWindow
-    title: "Organization Data Management" + " - " + db_path_text
+    title: qsTr("Organization Data Management") + " - " + db_path_text
     width: 400
     height: 600
     minimumWidth: 300
