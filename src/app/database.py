@@ -1188,8 +1188,6 @@ class Database(QObject):
         except Exception as e:
             return "Database::setOther: " + str(e)
         
-        # TODO evaluate:
-        # self.dataChanged.emit()
         return ""
     
     
