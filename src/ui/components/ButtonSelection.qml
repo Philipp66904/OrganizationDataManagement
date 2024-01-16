@@ -73,14 +73,22 @@ Rectangle
     function init() {
         button_selection_list_model.clear();
 
-        const col_names_description = database.translateColumnNames(database.getNonPrimaryKeyNonForeignKeyColumnNames("description"));
+        const col_names_description = database.getNonPrimaryKeyNonForeignKeyColumnNames("description");
+        const col_names_description_translated = database.translateColumnNames(database.getNonPrimaryKeyNonForeignKeyColumnNames("description"));
+        let i = 0;
         for(let col_name of col_names_description) {
-            button_selection_list_model.append({"column_name": col_name, "button_checked": true});
+            const col_trans = col_names_description_translated[i];
+            button_selection_list_model.append({"column_name": col_name, "button_checked": true, "column_name_translation": col_trans});
+            i++;
         }
         
-        const col_names = database.translateColumnNames(database.getNonPrimaryKeyNonForeignKeyColumnNames(table_name));
+        const col_names = database.getNonPrimaryKeyNonForeignKeyColumnNames(table_name);
+        const col_names_translation = database.translateColumnNames(database.getNonPrimaryKeyNonForeignKeyColumnNames(table_name));
+        i = 0;
         for(let col_name of col_names) {
-            button_selection_list_model.append({"column_name": col_name, "button_checked": true});
+            const col_trans = col_names_translation[i];
+            button_selection_list_model.append({"column_name": col_name, "button_checked": true, "column_name_translation": col_trans});
+            i++;
         }
 
         element_id_with_focus = -2;
@@ -128,13 +136,14 @@ Rectangle
                 delegate: BasicCheckbox
                 {
                     id: checkbox
-                    text: column_name
+                    text: column_name_translation
                     height: button_selection_list_view.height
                     width: (button_selection_column.width - ((button_selection_list_view.button_count - 1) * button_selection_list_view.spacing)) / button_selection_list_view.button_count
                     checked: button_checked
                     required property int index
                     required property bool button_checked
                     required property string column_name
+                    required property string column_name_translation
                     property int element_id_with_focus_wrapper: element_id_with_focus
 
                     onElement_id_with_focus_wrapperChanged: {
