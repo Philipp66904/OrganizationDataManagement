@@ -46,6 +46,7 @@ ApplicationWindow
     property string db_version
     property string saved_date: new_db_text
     property string created_date: new_db_text
+    property var locale_obj: undefined
 
     // Locally used variables
     property bool close_okay: false
@@ -134,6 +135,8 @@ ApplicationWindow
     // Startup procedure
     Component.onCompleted: {
         database.init_db();
+
+        locale_obj = database.getLocale();
 
         const db_metadata = database.getDBMetadata();
         db_version = db_metadata[0];

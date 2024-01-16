@@ -3,6 +3,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Basic
 
 import tablemodule 1.0
@@ -24,6 +25,9 @@ Rectangle
     required property var parent_id  // set to undefined if it has no parent
     required property double table_view_main_height_factor
     required property double table_cell_rect_height_factor
+
+    property bool sort_reverse: false
+    property string sort_column_name: ""
 
     signal add_button_clicked()
     signal edit_button_clicked(selected_primary_key: int)
@@ -81,6 +85,11 @@ Rectangle
             table_view.forceLayout();
             table_root.selected_pk = undefined;
         }
+
+        function onSortingChanged(column_name, reverse_flag) {
+            sort_reverse = reverse_flag;
+            sort_column_name = column_name;
+        }
     }
 
     Column
@@ -114,26 +123,82 @@ Rectangle
                     syncView: table_view
                     clip: true
                     resizableColumns: false
+                    reuseItems: false
                     flickableDirection: Flickable.AutoFlickIfNeeded
 
                     delegate: Rectangle
                     {
                         implicitWidth: table_view_main.width * 0.22
                         implicitHeight: table_view_main.height * table_cell_rect_height_factor
-                        color: "transparent"
+                        color: (header_rect_mouse_area.containsMouse) ? backgroundColor1 : "transparent"
                         radius: 4
+
+                        required property int index
+                        required property string display
 
                         Text
                         {
                             text: (display !== undefined) ? display : ""
-                            anchors.fill: parent
-                            anchors.margins: 4
+                            height: parent.height - 8
+                            width: (sort_indicator.visible) ? parent.width - 8 - sort_indicator.width : parent.width - 8
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            anchors.leftMargin: 4
                             font.pointSize: textSize
                             font.bold: true
                             color: textColor
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             elide: Text.ElideRight
+                        }
+
+                        Rectangle
+                        {
+                            id: sort_indicator
+                            height: (parent.height * 0.65) - 8
+                            width: height
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+                            anchors.rightMargin: 4
+                            color: "transparent"
+                            property bool sort_status: (display === sort_column_name) ? true : false
+                            visible: !(!sort_status && !header_rect_mouse_area.containsMouse)
+
+                            Image
+                            {
+                                id: arrow_image
+                                visible: false
+                                anchors.fill: parent
+                                fillMode: Image.PreserveAspectFit
+                                source: "../res/svg/arrow_down.svg"
+                            }
+
+                            ColorOverlay
+                            {
+                                id: arrow_image_overlay
+                                anchors.fill: arrow_image
+                                source: arrow_image
+                                color: {
+                                    if(!sort_indicator.sort_status) return backgroundColor3;
+                                    else return highlightColor;
+                                }
+                                visible: parent.visible
+                                antialiasing: true
+                                rotation: (sort_reverse && sort_indicator.sort_status) ? 180 : 0
+                            }
+                        }
+
+                        MouseArea
+                        {
+                            id: header_rect_mouse_area
+                            anchors.fill: parent
+                            hoverEnabled: true
+
+                            onClicked: {
+                                if(sort_indicator.sort_status && !sort_reverse) table_model.sort(display, !sort_reverse, locale_obj);
+                                else if(sort_indicator.sort_status && sort_reverse) table_model.sort(table_model.getColumnName(1), false, locale_obj);
+                                else table_model.sort(display, false, locale_obj);
+                            }
                         }
                     }
                 }

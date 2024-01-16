@@ -298,7 +298,6 @@ class Database(QObject):
     
         self.clear_cache()
         self.databaseLoaded.emit(db_path)
-        self.dataChanged.emit()
 
 
     @Slot(result=list)
@@ -1938,7 +1937,8 @@ class Database(QObject):
     
     
     @Slot(list, result=list)
-    def translateColumnNames(self, column_names: list) -> list:
+    @staticmethod
+    def translateColumnNames(column_names: list) -> list:
         """
         Translates a list of strings which represent the column names to the correct language.
         If no translation for a column name was found, the original English developer version will be returned.
@@ -1986,6 +1986,11 @@ class Database(QObject):
                     res.append(column_name)
         
         return res
+    
+    
+    @Slot(result=QLocale)
+    def getLocale(self) -> QLocale:
+        return self.locale
     
     
     def adaptDateTimeToLocale(self, datetime_str: str) -> str:
