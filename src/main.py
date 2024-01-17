@@ -20,7 +20,7 @@ if __name__ == '__main__':
     app.setApplicationName(QCoreApplication.translate("Main", "Organization Data Management"))
     app.setWindowIcon(QIcon(os.path.abspath(Path(__file__).parent / "ui" / "res" / "svg" / "window_icon.svg")))
     
-    translations_path = Path(__file__).parent.parent / "build" / "translations"
+    translations_path = Path(__file__).parent / "lang" / "build"
     settings = Settings(Path(__file__).parent / "settings.json", translations_path)
     
     # Load translations
