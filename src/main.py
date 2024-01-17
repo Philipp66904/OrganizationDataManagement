@@ -2,9 +2,10 @@ import sys
 import os
 from pathlib import Path
 
-from PySide6.QtCore import QTranslator, QLocale
+from PySide6.QtCore import QTranslator, QLocale, QCoreApplication
 from PySide6.QtWidgets import QApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterType
+from PySide6.QtGui import QIcon
 
 from app.database import Database
 from app.settings import Settings
@@ -14,6 +15,10 @@ from app.tablemodel import TableModel
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
+    
+    app.setOrganizationName("Philipp Grueber")
+    app.setApplicationName(QCoreApplication.translate("Main", "Organization Data Management"))
+    app.setWindowIcon(QIcon(os.path.abspath(Path(__file__).parent / "ui" / "res" / "svg" / "window_icon.svg")))
     
     translations_path = Path(__file__).parent.parent / "build" / "translations"
     settings = Settings(Path(__file__).parent / "settings.json", translations_path)

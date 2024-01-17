@@ -74,97 +74,97 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../app/database.py" line="659"/>
+        <location filename="../app/database.py" line="657"/>
         <source>person_name</source>
         <translation>Name Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="660"/>
+        <location filename="../app/database.py" line="658"/>
         <source>person_note</source>
         <translation>Notiz Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="661"/>
+        <location filename="../app/database.py" line="659"/>
         <source>address_name</source>
         <translation>Name Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="664"/>
+        <location filename="../app/database.py" line="662"/>
         <source>address_note</source>
         <translation>Notiz Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1958"/>
+        <location filename="../app/database.py" line="1955"/>
         <source>name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1960"/>
+        <location filename="../app/database.py" line="1957"/>
         <source>note</source>
         <translation>Notiz</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1962"/>
+        <location filename="../app/database.py" line="1959"/>
         <source>modified</source>
         <translation>Verändert</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1964"/>
+        <location filename="../app/database.py" line="1961"/>
         <source>created</source>
         <translation>Erstellt</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1966"/>
+        <location filename="../app/database.py" line="1963"/>
         <source>website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1968"/>
+        <location filename="../app/database.py" line="1965"/>
         <source>title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1970"/>
+        <location filename="../app/database.py" line="1967"/>
         <source>gender</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1972"/>
+        <location filename="../app/database.py" line="1969"/>
         <source>firstname</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1974"/>
+        <location filename="../app/database.py" line="1971"/>
         <source>middlename</source>
         <translation>Mittelname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1976"/>
+        <location filename="../app/database.py" line="1973"/>
         <source>surname</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1978"/>
+        <location filename="../app/database.py" line="1975"/>
         <source>street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1980"/>
+        <location filename="../app/database.py" line="1977"/>
         <source>number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1982"/>
+        <location filename="../app/database.py" line="1979"/>
         <source>postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1984"/>
+        <location filename="../app/database.py" line="1981"/>
         <source>city</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1986"/>
+        <location filename="../app/database.py" line="1983"/>
         <source>country</source>
         <translation>Land</translation>
     </message>
@@ -281,6 +281,14 @@
         <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="198"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>Main</name>
+    <message>
+        <location filename="../main.py" line="18"/>
+        <source>Organization Data Management</source>
+        <translation>OrganisationsDatenManagement</translation>
     </message>
 </context>
 <context>
@@ -718,44 +726,44 @@
 <context>
     <name>Table</name>
     <message>
-        <location filename="../ui/components/Table.qml" line="202"/>
-        <location filename="../ui/components/Table.qml" line="246"/>
+        <location filename="../ui/components/Table.qml" line="267"/>
+        <location filename="../ui/components/Table.qml" line="311"/>
         <source>null</source>
         <translation>Leer</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="330"/>
+        <location filename="../ui/components/Table.qml" line="395"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="345"/>
+        <location filename="../ui/components/Table.qml" line="410"/>
         <source>Save Entry before creating a new derivate</source>
         <translation>Speichere den Eintrag vor Erstellung einer Ableitung</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="359"/>
+        <location filename="../ui/components/Table.qml" line="424"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="384"/>
+        <location filename="../ui/components/Table.qml" line="449"/>
         <source>Duplicate</source>
         <translation>Duplizieren</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="400"/>
+        <location filename="../ui/components/Table.qml" line="465"/>
         <source>Select a row to duplicate</source>
         <translation>Wähle eine Zeile aus, die dupliziert werden soll</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="414"/>
+        <location filename="../ui/components/Table.qml" line="479"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="432"/>
-        <location filename="../ui/components/Table.qml" line="443"/>
+        <location filename="../ui/components/Table.qml" line="497"/>
+        <location filename="../ui/components/Table.qml" line="508"/>
         <source>Select a row to delete</source>
         <translation>Wähle eine Zeile aus, die gelöscht werden soll</translation>
     </message>
@@ -867,7 +875,7 @@
         <translation>Neue Datei</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="52"/>
+        <location filename="../ui/main.qml" line="53"/>
         <source>Ready</source>
         <translation>Bereit</translation>
     </message>
