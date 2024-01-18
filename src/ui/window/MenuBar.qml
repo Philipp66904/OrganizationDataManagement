@@ -374,6 +374,101 @@ MenuBar  // MenuBar shown in the window's header
             contentItem: Loader { sourceComponent: menu_separator_component }
         }
 
+        Menu
+        {
+            id: open_advanced_settings
+            title: qsTr("Advanced Settings") + "..."
+            background: Loader { sourceComponent: menu_background_component }
+            delegate: MenuItem
+            {
+                id: menuItem
+                implicitWidth: 200
+                implicitHeight: 40
+
+                contentItem: Text
+                {
+                    leftPadding: menuItem.indicator.width
+                    rightPadding: menuItem.arrow.width
+                    text: menuItem.text
+                    font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+                    color: menuItem.highlighted ? highlightColor : textColor
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+
+                background: Rectangle
+                {
+                    implicitWidth: 200
+                    implicitHeight: 40
+                    color: menuItem.highlighted ? backgroundColor2 : "transparent"
+                    radius: menu_bar.radius
+                    border.color: backgroundColor
+                    border.width: 2
+                }
+            }
+
+            Action
+            {
+                id: action_status_registry_entries
+                text: qsTr("File association")
+                enabled: false
+            }
+            onAboutToShow: {
+                let text = qsTr("File association") + ": ";
+
+                if(winregistry.getRegistrySupported()) {
+                    action_add_registry_entries.enabled = true;
+                    action_remove_registry_entries.enabled = true;
+
+                    if(settings.getFileTypeAssociation()) {
+                        text += qsTr("Active");
+                    } else {
+                        text += qsTr("Inactive");
+                    }
+                }
+                else {
+                    action_add_registry_entries.enabled = false;
+                    action_remove_registry_entries.enabled = false;
+                    text += qsTr("Unsupported");
+                }
+
+                action_status_registry_entries.text = text;
+            }
+
+            MenuSeparator 
+            {
+                contentItem: Loader { sourceComponent: menu_separator_component }
+            }
+
+            Action
+            {
+                id: action_add_registry_entries
+                text: qsTr("Add file association")
+                onTriggered: {
+                    settings.slot_setFileTypeAssociation(true);
+                    winregistry.add_registry_entries();
+                    setStatusMessage(qsTr("File association actived"), Enums.StatusMsgLvl.Info);
+                }
+            }
+
+            Action
+            {
+                id: action_remove_registry_entries
+                text: qsTr("Remove file association")
+                onTriggered: {
+                    settings.slot_setFileTypeAssociation(false);
+                    winregistry.remove_registry_entries();
+                    setStatusMessage(qsTr("File association deactivated"), Enums.StatusMsgLvl.Info);
+                }
+            }
+        }
+
+        MenuSeparator 
+        {
+            contentItem: Loader { sourceComponent: menu_separator_component }
+        }
+
         TemplateDialog
         {
             id: settings_reset_dialog
@@ -438,7 +533,7 @@ MenuBar  // MenuBar shown in the window's header
 
         Action { text: qsTr("About") }
 
-        MenuSeparator 
+        MenuSeparator
         {
             contentItem: Loader { sourceComponent: menu_separator_component }
         }

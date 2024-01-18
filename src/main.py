@@ -1,6 +1,7 @@
 import sys
 import os
 from pathlib import Path
+from sqlite3 import Error
 
 from PySide6.QtCore import QTranslator, QLocale, QCoreApplication
 from PySide6.QtWidgets import QApplication
@@ -11,8 +12,10 @@ from app.database import Database
 from app.settings import Settings
 from app.tablemodel import TableModel
 
+from app.win.registry import WinRegistry
 
-if __name__ == '__main__':
+
+if __name__ == '__main__':    
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
     
@@ -35,10 +38,18 @@ if __name__ == '__main__':
             app.installTranslator(translator)
             locale = QLocale(settings.getActiveLanguage())
 
+    # Handle registry entries
+    winregistry = WinRegistry()
+    if settings.getFileTypeAssociation():
+        winregistry.add_registry_entries()
+    else:
+        winregistry.remove_registry_entries()
+    
     # Make classes available for use in QML
     db = Database(settings, locale)
     engine.rootContext().setContextProperty("settings", settings)
     engine.rootContext().setContextProperty("database", db)
+    engine.rootContext().setContextProperty("winregistry", winregistry)
     
     qmlRegisterType(TableModel, 'tablemodule', 1, 0, 'TableModel')
     
@@ -48,5 +59,13 @@ if __name__ == '__main__':
     
     if not engine.rootObjects():
         sys.exit(-1)
+    
+    if len(sys.argv) >= 2 and sys.argv[1].endswith(('.odmdb', '.db')):  # automatically open path if provided
+        try:
+            db.readDB(sys.argv[1])
+            settings.addRecentFile(sys.argv[1])
+        except Error as e:
+            print("Failed to load file:", sys.argv[1])
+            print("Error:", e)
     
     sys.exit(app.exec())

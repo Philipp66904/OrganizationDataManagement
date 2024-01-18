@@ -253,3 +253,32 @@ class Settings(QObject):
             return "Settings::resetSettings: " + str(e)
         
         return ""
+    
+    
+    @Slot(bool)
+    def slot_setFileTypeAssociation(self, new_file_type_association: bool) -> None:
+        """
+        Slot for setFileTypeAssociation.
+        """
+        
+        self.setFileTypeAssociation(new_file_type_association)
+    
+    
+    @settings_autosave
+    def setFileTypeAssociation(self, new_file_type_association: bool) -> None:
+        """
+        Sets the file type association to a new value.
+        new_file_type_association: New value to be set.
+        """
+        
+        self.settings["file_type_association"] = new_file_type_association
+    
+    
+    @Slot(result=bool)
+    def getFileTypeAssociation(self) -> bool:
+        """
+        Returns the file type association value:
+        returns: True if association should exist, otherwise False
+        """
+        
+        return self.settings["file_type_association"]
