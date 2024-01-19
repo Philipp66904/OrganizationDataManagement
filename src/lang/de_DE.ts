@@ -88,97 +88,97 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../app/database.py" line="657"/>
+        <location filename="../app/database.py" line="667"/>
         <source>person_name</source>
         <translation>Name Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="658"/>
+        <location filename="../app/database.py" line="668"/>
         <source>person_note</source>
         <translation>Notiz Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="659"/>
+        <location filename="../app/database.py" line="669"/>
         <source>address_name</source>
         <translation>Name Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="662"/>
+        <location filename="../app/database.py" line="672"/>
         <source>address_note</source>
         <translation>Notiz Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1955"/>
+        <location filename="../app/database.py" line="1965"/>
         <source>name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1957"/>
+        <location filename="../app/database.py" line="1967"/>
         <source>note</source>
         <translation>Notiz</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1959"/>
+        <location filename="../app/database.py" line="1969"/>
         <source>modified</source>
         <translation>Verändert</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1961"/>
+        <location filename="../app/database.py" line="1971"/>
         <source>created</source>
         <translation>Erstellt</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1963"/>
+        <location filename="../app/database.py" line="1973"/>
         <source>website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1965"/>
+        <location filename="../app/database.py" line="1975"/>
         <source>title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1967"/>
+        <location filename="../app/database.py" line="1977"/>
         <source>gender</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1969"/>
+        <location filename="../app/database.py" line="1979"/>
         <source>firstname</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1971"/>
+        <location filename="../app/database.py" line="1981"/>
         <source>middlename</source>
         <translation>Mittelname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1973"/>
+        <location filename="../app/database.py" line="1983"/>
         <source>surname</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1975"/>
+        <location filename="../app/database.py" line="1985"/>
         <source>street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1977"/>
+        <location filename="../app/database.py" line="1987"/>
         <source>number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1979"/>
+        <location filename="../app/database.py" line="1989"/>
         <source>postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1981"/>
+        <location filename="../app/database.py" line="1991"/>
         <source>city</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1983"/>
+        <location filename="../app/database.py" line="1993"/>
         <source>country</source>
         <translation>Land</translation>
     </message>
@@ -938,6 +938,11 @@
         <location filename="../ui/main.qml" line="53"/>
         <source>Ready</source>
         <translation>Bereit</translation>
+    </message>
+    <message>
+        <location filename="../ui/main.qml" line="176"/>
+        <source>Opened file</source>
+        <translation>Datei geöffnet</translation>
     </message>
 </context>
 </TS>

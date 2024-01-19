@@ -142,6 +142,39 @@ ApplicationWindow
         db_version = db_metadata[0];
 
         init_colors();
+
+        // Load startup file
+        const startup_file_path = database.getLoadOnStartUpPath();
+        if(startup_file_path.length > 0) {
+            busy_indicator_timer.start();
+        }
+    }
+    Timer
+    {
+        // Load busy indicator
+        id: busy_indicator_timer
+        interval: 10
+        repeat: false
+
+        onTriggered: {
+            busy_indicator_dialog.show();
+            open_startup_timer.start();
+        }
+    }
+    Timer
+    {
+        // Load startup file
+        id: open_startup_timer
+        interval: 10
+        repeat: false
+
+        onTriggered: {
+            const msg = setStatusMessage(database.slot_readDB(database.getLoadOnStartUpPath()), Enums.StatusMsgLvl.Err);
+            busy_indicator_dialog.close();
+            if(msg !== "") return;
+
+            setStatusMessage(qsTr("Opened file"), Enums.StatusMsgLvl.Info);
+        }
     }
 
     // Menu Bar

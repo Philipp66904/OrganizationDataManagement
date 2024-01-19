@@ -45,8 +45,13 @@ if __name__ == '__main__':
     else:
         winregistry.remove_registry_entries()
     
+    # Handle file opening at startup
+    load_on_startup_path = None
+    if len(sys.argv) >= 2 and sys.argv[1].endswith(('.odmdb', '.db')):  # automatically open path if provided
+        load_on_startup_path = sys.argv[1]
+    
     # Make classes available for use in QML
-    db = Database(settings, locale)
+    db = Database(settings, locale, load_on_startup_path)
     engine.rootContext().setContextProperty("settings", settings)
     engine.rootContext().setContextProperty("database", db)
     engine.rootContext().setContextProperty("winregistry", winregistry)
@@ -59,13 +64,5 @@ if __name__ == '__main__':
     
     if not engine.rootObjects():
         sys.exit(-1)
-    
-    if len(sys.argv) >= 2 and sys.argv[1].endswith(('.odmdb', '.db')):  # automatically open path if provided
-        try:
-            db.readDB(sys.argv[1])
-            settings.addRecentFile(sys.argv[1])
-        except Error as e:
-            print("Failed to load file:", sys.argv[1])
-            print("Error:", e)
     
     sys.exit(app.exec())

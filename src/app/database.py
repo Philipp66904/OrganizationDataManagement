@@ -21,7 +21,7 @@ class Database(QObject):
     searchCacheChanged = Signal(str)  # signals an update to the search cache for a specific table name
     
     
-    def __init__(self, settings: Settings, locale: QLocale):
+    def __init__(self, settings: Settings, locale: QLocale, load_on_startup_path: str | None = None):
         """
         Initialises the in-memory database with the values from the template db.
         """
@@ -33,6 +33,7 @@ class Database(QObject):
         self.settings = settings
         self.supported_db_version = "1.0"
         self.locale = locale
+        self.load_on_startup_path = load_on_startup_path
         
         self._search_data_cache = {}  # Caching last search results from database per table
         
@@ -65,6 +66,15 @@ class Database(QObject):
         """
         
         self._search_data_cache = {}
+        
+    
+    @Slot(result=str)
+    def getLoadOnStartUpPath(self) -> str:
+        path = ""
+        if self.load_on_startup_path is not None:
+            path = self.load_on_startup_path
+        
+        return path
     
     
     @Slot(str, result=list)
