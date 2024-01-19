@@ -146,10 +146,23 @@ MenuBar  // MenuBar shown in the window's header
             nameFilters: name_filters
 
             onAccepted: {
-                const msg = setStatusMessage(database.slot_readDB(selectedFile), Enums.StatusMsgLvl.Err);
-                if(msg !== "") return;
+                busy_indicator_dialog.show();
+                open_file_timer.start();
+            }
 
-                setStatusMessage(qsTr("Opened file"), Enums.StatusMsgLvl.Info);
+            Timer
+            {
+                id: open_file_timer
+                interval: 10
+                repeat: false
+
+                onTriggered: {
+                    const msg = setStatusMessage(database.slot_readDB(open_file_dialog_2.selectedFile), Enums.StatusMsgLvl.Err);
+                    busy_indicator_dialog.close();
+                    if(msg !== "") return;
+
+                    setStatusMessage(qsTr("Opened file"), Enums.StatusMsgLvl.Info);
+                }
             }
         }
         Action
@@ -199,10 +212,23 @@ MenuBar  // MenuBar shown in the window's header
                 id: open_recent_file_dialog
                 property string db_path: ""
                 function callback_function() {
-                    const msg = setStatusMessage(database.slot_readDB(db_path), Enums.StatusMsgLvl.Err);
-                    if(msg !== "") return;
+                    busy_indicator_dialog.show();
+                    open_recent_file_timer.start();
+                }
 
-                    setStatusMessage(qsTr("Recent file opened"), Enums.StatusMsgLvl.Info);
+                Timer
+                {
+                    id: open_recent_file_timer
+                    interval: 10
+                    repeat: false
+
+                    onTriggered: {
+                        const msg = setStatusMessage(database.slot_readDB(open_recent_file_dialog.db_path), Enums.StatusMsgLvl.Err);
+                        busy_indicator_dialog.close();
+                        if(msg !== "") return;
+
+                        setStatusMessage(qsTr("Recent file opened"), Enums.StatusMsgLvl.Info);
+                    }
                 }
             }
 
@@ -258,10 +284,23 @@ MenuBar  // MenuBar shown in the window's header
             defaultSuffix: default_suffix
 
             onAccepted: {
-                const msg = setStatusMessage(database.slot_saveDB(selectedFile), Enums.StatusMsgLvl.Err);
-                if(msg !== "") return;
+                busy_indicator_dialog.show();
+                save_as_timer.start();
+            }
 
-                setStatusMessage(qsTr("Saved as new file"), Enums.StatusMsgLvl.Info);
+            Timer
+            {
+                id: save_as_timer
+                interval: 10
+                repeat: false
+
+                onTriggered: {
+                    const msg = setStatusMessage(database.slot_saveDB(save_as_file_dialog.selectedFile), Enums.StatusMsgLvl.Err);
+                    busy_indicator_dialog.close();
+                    if(msg !== "") return;
+
+                    setStatusMessage(qsTr("Saved as new file"), Enums.StatusMsgLvl.Info);
+                }
             }
         }
         Action
@@ -272,11 +311,23 @@ MenuBar  // MenuBar shown in the window's header
                 if(loaded_db_path === "") {
                     save_as_file_dialog.open();
                 } else {
-                    const msg = setStatusMessage(database.slot_saveDB(loaded_db_path), Enums.StatusMsgLvl.Err);
-                    if(msg !== "") return;
-
-                    setStatusMessage(qsTr("Saved file"), Enums.StatusMsgLvl.Info);
+                    busy_indicator_dialog.show();
+                    save_timer.start();
                 }
+            }
+        }
+        Timer
+        {
+            id: save_timer
+            interval: 10
+            repeat: false
+
+            onTriggered: {
+                const msg = setStatusMessage(database.slot_saveDB(loaded_db_path), Enums.StatusMsgLvl.Err);
+                busy_indicator_dialog.close();
+                if(msg !== "") return;
+
+                setStatusMessage(qsTr("Saved file"), Enums.StatusMsgLvl.Info);
             }
         }
         Action

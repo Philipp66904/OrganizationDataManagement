@@ -65,7 +65,7 @@ ApplicationWindow
             return msg;
         }
 
-        let timer_duration_s = 5;
+        let timer_duration_s = 10;
         switch(msg_lvl) {
             case Enums.StatusMsgLvl.Info:
                 timer_duration_s = 10;
@@ -213,5 +213,10 @@ ApplicationWindow
     {
         id: person_edit_dialog
         pk_id: -1
+    }
+
+    BusyDialog
+    {
+        id: busy_indicator_dialog
     }
 }
