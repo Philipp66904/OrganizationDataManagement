@@ -2,6 +2,66 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="77"/>
+        <source>About</source>
+        <translation>Über</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="91"/>
+        <source>Organization Data Management</source>
+        <translation>OrganisationsDatenManagement</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="27"/>
+        <source>General</source>
+        <translation>Allgemein</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="29"/>
+        <source>By</source>
+        <translation>Von</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="29"/>
+        <source>Philipp Grueber</source>
+        <translation>Philipp Grüber</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="30"/>
+        <source>Visit Github for more information.</source>
+        <translation>Besuche Github für mehr Informationen.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="32"/>
+        <source>Currently loaded file</source>
+        <translation>Aktuell geladene Datei</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="35"/>
+        <source>Versions</source>
+        <translation>Versionen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="37"/>
+        <source>UI version</source>
+        <translation>UI Version</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="40"/>
+        <source>DB Core version</source>
+        <translation>DB Core Version</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="42"/>
+        <source>Supported DB version</source>
+        <translation>Unterstütze DB-Versionen</translation>
+    </message>
+</context>
+<context>
     <name>AddressEditDialog</name>
     <message>
         <location filename="../ui/dialogs/AddressEditDialog.qml" line="19"/>
@@ -88,97 +148,97 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../app/database.py" line="667"/>
+        <location filename="../app/database.py" line="678"/>
         <source>person_name</source>
         <translation>Name Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="668"/>
+        <location filename="../app/database.py" line="679"/>
         <source>person_note</source>
         <translation>Notiz Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="669"/>
+        <location filename="../app/database.py" line="680"/>
         <source>address_name</source>
         <translation>Name Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="672"/>
+        <location filename="../app/database.py" line="683"/>
         <source>address_note</source>
         <translation>Notiz Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1965"/>
+        <location filename="../app/database.py" line="1976"/>
         <source>name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1967"/>
+        <location filename="../app/database.py" line="1978"/>
         <source>note</source>
         <translation>Notiz</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1969"/>
+        <location filename="../app/database.py" line="1980"/>
         <source>modified</source>
         <translation>Verändert</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1971"/>
+        <location filename="../app/database.py" line="1982"/>
         <source>created</source>
         <translation>Erstellt</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1973"/>
+        <location filename="../app/database.py" line="1984"/>
         <source>website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1975"/>
+        <location filename="../app/database.py" line="1986"/>
         <source>title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1977"/>
+        <location filename="../app/database.py" line="1988"/>
         <source>gender</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1979"/>
+        <location filename="../app/database.py" line="1990"/>
         <source>firstname</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1981"/>
+        <location filename="../app/database.py" line="1992"/>
         <source>middlename</source>
         <translation>Mittelname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1983"/>
+        <location filename="../app/database.py" line="1994"/>
         <source>surname</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1985"/>
+        <location filename="../app/database.py" line="1996"/>
         <source>street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1987"/>
+        <location filename="../app/database.py" line="1998"/>
         <source>number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1989"/>
+        <location filename="../app/database.py" line="2000"/>
         <source>postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1991"/>
+        <location filename="../app/database.py" line="2002"/>
         <source>city</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1993"/>
+        <location filename="../app/database.py" line="2004"/>
         <source>country</source>
         <translation>Land</translation>
     </message>
@@ -466,22 +526,22 @@
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="585"/>
+        <location filename="../ui/window/MenuBar.qml" line="589"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="591"/>
+        <location filename="../ui/window/MenuBar.qml" line="600"/>
         <source>Github</source>
         <translation>Github</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="592"/>
+        <location filename="../ui/window/MenuBar.qml" line="601"/>
         <source>Search for updates</source>
         <translation>Suche nach Updates</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="598"/>
+        <location filename="../ui/window/MenuBar.qml" line="607"/>
         <source>Licences</source>
         <translation>Lizenzen</translation>
     </message>
@@ -930,17 +990,17 @@
         <translation>OrganisationsDatenManagement</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="43"/>
+        <location filename="../ui/main.qml" line="44"/>
         <source>New File</source>
         <translation>Neue Datei</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="53"/>
+        <location filename="../ui/main.qml" line="54"/>
         <source>Ready</source>
         <translation>Bereit</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="176"/>
+        <location filename="../ui/main.qml" line="177"/>
         <source>Opened file</source>
         <translation>Datei geöffnet</translation>
     </message>

@@ -582,7 +582,16 @@ MenuBar  // MenuBar shown in the window's header
             }
         }
 
-        Action { text: qsTr("About") }
+        AboutDialog { id: about_dialog; }
+        Action
+        {
+            id: action_about
+            text: qsTr("About")
+            onTriggered: {
+                about_dialog.init();
+                about_dialog.show();
+            }
+        }
 
         MenuSeparator
         {
