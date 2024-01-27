@@ -5,58 +5,98 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="77"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="103"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="91"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="117"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="27"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="36"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="29"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="38"/>
         <source>By</source>
         <translation>Von</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="29"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="38"/>
         <source>Philipp Grueber</source>
         <translation>Philipp Grüber</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="30"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="39"/>
         <source>Visit Github for more information.</source>
         <translation>Besuche Github für mehr Informationen.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="32"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="41"/>
         <source>Currently loaded file</source>
         <translation>Aktuell geladene Datei</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="35"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="44"/>
+        <source>Keyboard Shortcuts</source>
+        <translation>Tastenkombinationen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="46"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
+        <source>Save As</source>
+        <translation>Speichern unter</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="50"/>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="52"/>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="54"/>
+        <source>Duplicate</source>
+        <translation>Duplizieren</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="56"/>
+        <source>New</source>
+        <translation>Neu</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="58"/>
+        <source>Open</source>
+        <translation>Öffnen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="61"/>
         <source>Versions</source>
         <translation>Versionen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="37"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="63"/>
         <source>UI version</source>
         <translation>UI Version</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="40"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="66"/>
         <source>DB Core version</source>
         <translation>DB Core Version</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="42"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="68"/>
         <source>Supported DB version</source>
         <translation>Unterstütze DB-Versionen</translation>
     </message>
@@ -143,6 +183,15 @@
         <location filename="../ui/dialogs/BusyDialog.qml" line="62"/>
         <source>Please Wait.</source>
         <translation>Bitte warten.</translation>
+    </message>
+</context>
+<context>
+    <name>CustomShortcuts</name>
+    <message>
+        <location filename="../ui/types/CustomShortcuts.qml" line="67"/>
+        <location filename="../ui/types/CustomShortcuts.qml" line="91"/>
+        <source>undefined</source>
+        <translation>unbekannt</translation>
     </message>
 </context>
 <context>

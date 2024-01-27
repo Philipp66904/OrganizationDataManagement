@@ -61,8 +61,10 @@ Item
 
                 if(sequences[i].nativeText !== undefined) {
                     sequenceText += sequences[i].nativeText;
-                } else {
+                } else if (isNaN(sequences[i])) {
                     sequenceText += sequences[i];
+                } else {
+                    sequenceText += qsTr("undefined");
                 }
             }
             return sequenceText;
@@ -83,8 +85,10 @@ Item
 
                 if(sequences[i].nativeText !== undefined) {
                     sequenceText += sequences[i].nativeText;
-                } else {
+                } else if (isNaN(sequences[i])) {
                     sequenceText += sequences[i];
+                } else {
+                    sequenceText += qsTr("undefined");
                 }
             }
             return sequenceText;
