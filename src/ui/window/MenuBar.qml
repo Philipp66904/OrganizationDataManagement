@@ -604,7 +604,16 @@ MenuBar  // MenuBar shown in the window's header
         {
             contentItem: Loader { sourceComponent: menu_separator_component }
         }
-        Action { text: qsTr("Licences") }
+        LicensesDialog { id: licenses_dialog; }
+        Action
+        {
+            id: action_licenses
+            text: qsTr("Licenses")
+            onTriggered: {
+                licenses_dialog.init();
+                licenses_dialog.show();
+            }
+        }
     }
 
     delegate: MenuBarItem

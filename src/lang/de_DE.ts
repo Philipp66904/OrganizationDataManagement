@@ -5,13 +5,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="103"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="102"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="117"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="116"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
@@ -407,6 +407,51 @@
     </message>
 </context>
 <context>
+    <name>LicensesDialog</name>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="86"/>
+        <source>Licenses</source>
+        <translation>Lizenzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="100"/>
+        <source>Organization Data Management</source>
+        <translation>OrganisationsDatenManagement</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="36"/>
+        <source>Images</source>
+        <translation>Bilder</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="38"/>
+        <source>Window Icon</source>
+        <translation>Fenster Icon</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="40"/>
+        <source>Checkmark</source>
+        <translation>Hacken</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="42"/>
+        <source>Error mark</source>
+        <translation>Fehlerzeichen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="45"/>
+        <source>Qt6.6 &amp; QML</source>
+        <translation>Qt6.6 &amp; QML</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="49"/>
+        <source>Reference</source>
+        <translation>Referenz</translation>
+    </message>
+</context>
+<context>
     <name>Main</name>
     <message>
         <location filename="../main.py" line="23"/>
@@ -590,8 +635,8 @@
         <translation>Suche nach Updates</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="607"/>
-        <source>Licences</source>
+        <location filename="../ui/window/MenuBar.qml" line="611"/>
+        <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>
 </context>

@@ -87,7 +87,6 @@ ApplicationWindow
             height: (parent.height - (parent.spacing * parent.row_count)) * 0.15
             color: backgroundColor2
             focus: true
-            //Keys.onEscapePressed: dialog.close();
 
             Row
             {
