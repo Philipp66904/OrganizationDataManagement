@@ -40,6 +40,9 @@ TemplateEditDialog
     property var property_city: ""
     property bool property_city_derivate_flag: false
     property var property_city_derivate: undefined
+    property var property_state: ""
+    property bool property_state_derivate_flag: false
+    property var property_state_derivate: undefined
     property var property_country: ""
     property bool property_country_derivate_flag: false
     property var property_country_derivate: undefined
@@ -80,6 +83,11 @@ TemplateEditDialog
             address_dialog.property_city_derivate_flag = property_city_tmp[1];
             address_dialog.property_city_derivate = database.getDataDerivate(identifier, "id", "city", address_dialog.table_name)[0];
 
+            const property_state_tmp = database.getData(identifier, "id", "state", address_dialog.table_name);
+            address_dialog.property_state = property_state_tmp[0];
+            address_dialog.property_state_derivate_flag = property_state_tmp[1];
+            address_dialog.property_state_derivate = database.getDataDerivate(identifier, "id", "state", address_dialog.table_name)[0];
+
             const property_country_tmp = database.getData(identifier, "id", "country", address_dialog.table_name);
             address_dialog.property_country = property_country_tmp[0];
             address_dialog.property_country_derivate_flag = property_country_tmp[1];
@@ -106,6 +114,11 @@ TemplateEditDialog
             address_dialog.property_city_derivate_flag = true;
             address_dialog.property_city_derivate = property_city_tmp[0];
 
+            const property_state_tmp = database.getData(parent_identifier, "id", "state", address_dialog.table_name);
+            address_dialog.property_state = property_state_tmp[0];
+            address_dialog.property_state_derivate_flag = true;
+            address_dialog.property_state_derivate = property_state_tmp[0];
+
             const property_country_tmp = database.getData(parent_identifier, "id", "country", address_dialog.table_name);
             address_dialog.property_country = property_country_tmp[0];
             address_dialog.property_country_derivate_flag = true;
@@ -127,6 +140,10 @@ TemplateEditDialog
             address_dialog.property_city = undefined;
             address_dialog.property_city_derivate_flag = false;
             address_dialog.property_city_derivate = undefined;
+
+            address_dialog.property_state = undefined;
+            address_dialog.property_state_derivate_flag = false;
+            address_dialog.property_state_derivate = undefined;
 
             address_dialog.property_country = undefined;
             address_dialog.property_country_derivate_flag = false;
@@ -230,6 +247,11 @@ TemplateEditDialog
             msg = setStatusMessage(database.setValue_Str("city", identifier, "id", address_dialog.table_name, new_city), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
 
+            let new_state = undefined;
+            if(!property_state_derivate_flag) new_state = property_state;
+            msg = setStatusMessage(database.setValue_Str("state", identifier, "id", address_dialog.table_name, new_state), Enums.StatusMsgLvl.Err);
+            if(msg !== "") return;
+
             let new_country = undefined;
             if(!property_country_derivate_flag) new_country = property_country;
             msg = setStatusMessage(database.setValue_Str("country", identifier, "id", address_dialog.table_name, new_country), Enums.StatusMsgLvl.Err);
@@ -249,6 +271,9 @@ TemplateEditDialog
             let new_city = undefined;
             if(!property_city_derivate_flag) new_city = property_city;
 
+            let new_state = undefined;
+            if(!property_state_derivate_flag) new_state = property_state;
+
             let new_country = undefined;
             if(!property_country_derivate_flag) new_country = property_country;
             
@@ -256,7 +281,7 @@ TemplateEditDialog
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
 
             const msg = setStatusMessage(database.createAddress(property_name, property_note, new_parent_id,
-                                            [new_street, new_number, new_postalcode, new_city, new_country],
+                                            [new_street, new_number, new_postalcode, new_city, new_state, new_country],
                                             address_other_array),
                                          Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
@@ -449,7 +474,7 @@ TemplateEditDialog
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_postalcode.setFocus(dir);
-                    else property_line_edit_country.setFocus(dir);
+                    else property_line_edit_state.setFocus(dir);
                 }
 
                 Connections {
@@ -474,6 +499,42 @@ TemplateEditDialog
 
             PropertyLineEdit
             {
+                id: property_line_edit_state
+                width: parent.width
+                height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
+                description: qsTr("State")
+                value: property_state
+                derivate_value: undefined
+                derivate_mode: true
+                derivate_flag: (value === undefined) ? true : address_dialog.property_state_derivate_flag
+                onNextFocus: function next_focus(dir) {
+                    if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_city.setFocus(dir);
+                    else property_line_edit_country.setFocus(dir);
+                }
+
+                Connections {
+                    target: address_dialog
+                    function onInitProperties() {
+                        property_line_edit_state.derivate_flag = Qt.binding(function() { return (property_line_edit_state.value === undefined) ? true : address_dialog.property_state_derivate_flag; })
+                        
+                        property_line_edit_state.value = property_state;
+                        property_line_edit_state.derivate_value = property_state_derivate;
+
+                        property_line_edit_state.init();
+                    }
+                }
+
+                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    if (!undefined_flag) property_state = value;
+                    else property_state = undefined;
+
+                    address_dialog.property_state_derivate_flag = derivate_flag;
+                }
+            }
+
+            PropertyLineEdit
+            {
                 id: property_line_edit_country
                 width: parent.width
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
@@ -484,7 +545,7 @@ TemplateEditDialog
                 derivate_flag: (value === undefined) ? true : address_dialog.property_country_derivate_flag
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
-                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_city.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_state.setFocus(dir);
                     else address_other_list_view.setFocus(dir);
                 }
 

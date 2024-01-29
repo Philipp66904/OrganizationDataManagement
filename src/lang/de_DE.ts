@@ -98,15 +98,15 @@
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="68"/>
         <source>Supported DB version</source>
-        <translation>Unterstütze DB-Versionen</translation>
+        <translation>Unterstütze DB-Version</translation>
     </message>
 </context>
 <context>
     <name>AddressEditDialog</name>
     <message>
         <location filename="../ui/dialogs/AddressEditDialog.qml" line="19"/>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="54"/>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="324"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="57"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="349"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
@@ -121,52 +121,57 @@
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="302"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="327"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="336"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="361"/>
         <source>Street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="372"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="397"/>
         <source>Number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="408"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="433"/>
         <source>Postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="444"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="469"/>
         <source>City</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="480"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="505"/>
+        <source>State</source>
+        <translation>Bundesland</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="541"/>
         <source>Country</source>
         <translation>Land</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="541"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="602"/>
         <source>Other:</source>
         <translation>Sonstiges:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="603"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="664"/>
         <source>Other </source>
         <translation>Sonstiges </translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="688"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="749"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="719"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="780"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
@@ -197,97 +202,107 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../app/database.py" line="678"/>
+        <location filename="../app/database.py" line="726"/>
         <source>person_name</source>
         <translation>Name Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="679"/>
+        <location filename="../app/database.py" line="727"/>
         <source>person_note</source>
         <translation>Notiz Person</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="680"/>
+        <location filename="../app/database.py" line="728"/>
         <source>address_name</source>
         <translation>Name Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="683"/>
+        <location filename="../app/database.py" line="731"/>
         <source>address_note</source>
         <translation>Notiz Adresse</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1976"/>
+        <location filename="../app/database.py" line="1310"/>
+        <source>Copy</source>
+        <translation>Kopie</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="2035"/>
         <source>name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1978"/>
+        <location filename="../app/database.py" line="2037"/>
         <source>note</source>
         <translation>Notiz</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1980"/>
+        <location filename="../app/database.py" line="2039"/>
         <source>modified</source>
         <translation>Verändert</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1982"/>
+        <location filename="../app/database.py" line="2041"/>
         <source>created</source>
         <translation>Erstellt</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1984"/>
+        <location filename="../app/database.py" line="2043"/>
         <source>website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1986"/>
+        <location filename="../app/database.py" line="2045"/>
         <source>title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1988"/>
+        <location filename="../app/database.py" line="2047"/>
         <source>gender</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1990"/>
+        <location filename="../app/database.py" line="2049"/>
         <source>firstname</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1992"/>
+        <location filename="../app/database.py" line="2051"/>
         <source>middlename</source>
         <translation>Mittelname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1994"/>
+        <location filename="../app/database.py" line="2053"/>
         <source>surname</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1996"/>
+        <location filename="../app/database.py" line="2055"/>
         <source>street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="1998"/>
+        <location filename="../app/database.py" line="2057"/>
         <source>number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2000"/>
+        <location filename="../app/database.py" line="2059"/>
         <source>postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2002"/>
+        <location filename="../app/database.py" line="2061"/>
         <source>city</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2004"/>
+        <location filename="../app/database.py" line="2063"/>
+        <source>state</source>
+        <translation>Bundesland</translation>
+    </message>
+    <message>
+        <location filename="../app/database.py" line="2065"/>
         <source>country</source>
         <translation>Land</translation>
     </message>
@@ -410,43 +425,43 @@
     <name>LicensesDialog</name>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="86"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="85"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="100"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="99"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="36"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="35"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="38"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="37"/>
         <source>Window Icon</source>
         <translation>Fenster Icon</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="40"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="39"/>
         <source>Checkmark</source>
         <translation>Hacken</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="42"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="41"/>
         <source>Error mark</source>
         <translation>Fehlerzeichen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="45"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="44"/>
         <source>Qt6.6 &amp; QML</source>
         <translation>Qt6.6 &amp; QML</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="49"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="48"/>
         <source>Reference</source>
         <translation>Referenz</translation>
     </message>

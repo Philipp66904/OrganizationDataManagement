@@ -31,8 +31,8 @@ class Database(QObject):
         self.con = sqlite3.connect(":memory:")
         self.path_template_db = Path(__file__).parent / "res" / "template.odmdb"
         self.settings = settings
-        self.db_core_version = "1.0.0"
-        self.supported_db_version = "1.0"
+        self.db_core_version = "1.1.0"
+        self.supported_db_version = "1.1"
         self.locale = locale
         self.load_on_startup_path = load_on_startup_path
         
@@ -328,15 +328,23 @@ class Database(QObject):
         returns: List of lists with all the rows. The first list is always reserved for the column names.
         """
         
+        column_names_list = self.getNonPrimaryKeyNonForeignKeyColumnNames("organization")
+        column_names = ""
+        if len(column_names_list) > 0:
+            column_names = "t." + ", t.".join(column_names_list) + ","
+        
         with self.con:
-            res = self.con.execute("""SELECT t.id, d.name, d.note, t.website, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, {column_names} datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM organization t, description d, metadata m
                              WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC;""")
             
             organization_data = res.fetchall()
         
-        res = [["id", "name", "note", "website", "modified", "created"]]
+        all_column_names = ["id", "name", "note"]
+        all_column_names.extend(column_names_list)
+        all_column_names.extend(["modified", "created"])
+        res = [all_column_names]
         date_indexes = (res[0].index("modified"), res[0].index("created"))
         for data in organization_data:
             row = []
@@ -361,8 +369,13 @@ class Database(QObject):
         raises ValueError: If primary key is not found
         """
         
+        column_names_list = self.getNonPrimaryKeyNonForeignKeyColumnNames("organization")
+        column_names = ""
+        if len(column_names_list) > 0:
+            column_names = "t." + ", t.".join(column_names_list) + ","
+        
         with self.con:
-            res = self.con.execute(f"""SELECT t.id, d.name, d.note, t.website, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, {column_names} datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM organization t, description d, metadata m
                              WHERE t.id = ? AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC
@@ -374,7 +387,10 @@ class Database(QObject):
         if organization_data is None:
             raise ValueError("Database::getDataRowOrganization: Primary key not found")
         
-        column_names = [["id", "name", "note", "website", "modified", "created"]]
+        all_column_names = ["id", "name", "note"]
+        all_column_names.extend(column_names_list)
+        all_column_names.extend(["modified", "created"])
+        column_names = [all_column_names]
         date_indexes = (column_names[0].index("modified"), column_names[0].index("created"))
         row = []
         for i, row_data in enumerate(organization_data):
@@ -470,15 +486,23 @@ class Database(QObject):
         returns: List of lists with all the rows. The first list is always reserved for the column names.
         """
         
+        column_names_list = self.getNonPrimaryKeyNonForeignKeyColumnNames("address")
+        column_names = ""
+        if len(column_names_list) > 0:
+            column_names = "t." + ", t.".join(column_names_list) + ","
+        
         with self.con:
-            res = self.con.execute("""SELECT t.id, d.name, d.note, t.street, t.number, t.postalcode, t.city, t.country, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, {column_names} datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM address t, description d, metadata m
                              WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC;""")
             
             address_data = res.fetchall()
         
-        res = [["id", "name", "note", "street", "number", "postalcode", "city", "country", "modified", "created"]]
+        all_column_names = ["id", "name", "note"]
+        all_column_names.extend(column_names_list)
+        all_column_names.extend(["modified", "created"])
+        res = [all_column_names]
         date_indexes = (res[0].index("modified"), res[0].index("created"))
         for data in address_data:
             row = []
@@ -503,8 +527,13 @@ class Database(QObject):
         raises ValueError: If primary key is not found
         """
         
+        column_names_list = self.getNonPrimaryKeyNonForeignKeyColumnNames("address")
+        column_names = ""
+        if len(column_names_list) > 0:
+            column_names = "t." + ", t.".join(column_names_list) + ","
+        
         with self.con:
-            res = self.con.execute("""SELECT t.id, d.name, d.note, t.street, t.number, t.postalcode, t.city, t.country, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, {column_names} datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM address t, description d, metadata m
                              WHERE t.id = ? AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC
@@ -516,7 +545,10 @@ class Database(QObject):
         if address_data is None:
             raise ValueError("Database::getDataRowAddress: Primary key not found")
         
-        res = [["id", "name", "note", "street", "number", "postalcode", "city", "country", "modified", "created"]]
+        all_column_names = ["id", "name", "note"]
+        all_column_names.extend(column_names_list)
+        all_column_names.extend(["modified", "created"])
+        res = [all_column_names]
         date_indexes = (res[0].index("modified"), res[0].index("created"))
         row = []
         for i, row_data in enumerate(address_data):
@@ -536,15 +568,23 @@ class Database(QObject):
         returns: List of lists with all the rows. The first list is always reserved for the column names.
         """
         
+        column_names_list = self.getNonPrimaryKeyNonForeignKeyColumnNames("person")
+        column_names = ""
+        if len(column_names_list) > 0:
+            column_names = "t." + ", t.".join(column_names_list) + ","
+        
         with self.con:
-            res = self.con.execute("""SELECT t.id, d.name, d.note, t.title, t.gender, t.firstname, t.middlename, t.surname, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, {column_names} datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM person t, description d, metadata m
                              WHERE t.parent_id is NULL AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC;""")
             
             person_data = res.fetchall()
         
-        res = [["id", "name", "note", "title", "gender", "firstname", "middlename", "surname", "modified", "created"]]
+        all_column_names = ["id", "name", "note"]
+        all_column_names.extend(column_names_list)
+        all_column_names.extend(["modified", "created"])
+        res = [all_column_names]
         for data in person_data:
             row = []
             for i, row_data in enumerate(data):
@@ -568,8 +608,13 @@ class Database(QObject):
         raises ValueError: If primary key is not found
         """
         
+        column_names_list = self.getNonPrimaryKeyNonForeignKeyColumnNames("person")
+        column_names = ""
+        if len(column_names_list) > 0:
+            column_names = "t." + ", t.".join(column_names_list) + ","
+        
         with self.con:
-            res = self.con.execute("""SELECT t.id, d.name, d.note, t.title, t.gender, t.firstname, t.middlename, t.surname, datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
+            res = self.con.execute(f"""SELECT t.id, d.name, d.note, {column_names} datetime(m.date_modified, 'localtime'), datetime(m.date_created, 'localtime')
                              FROM person t, description d, metadata m
                              WHERE t.id = ? AND t.description_id = d.id AND t.metadata_id = m.id
                              ORDER BY d.name ASC
@@ -581,7 +626,10 @@ class Database(QObject):
         if person_data is None:
             raise ValueError("Database::getDataRowPerson: Primary key not found")
         
-        res = [["id", "name", "note", "title", "gender", "firstname", "middlename", "surname", "modified", "created"]]
+        all_column_names = ["id", "name", "note"]
+        all_column_names.extend(column_names_list)
+        all_column_names.extend(["modified", "created"])
+        res = [all_column_names]
         row = []
         for i, row_data in enumerate(person_data):
             val = row_data
@@ -1216,6 +1264,7 @@ class Database(QObject):
     def duplicateEntry(self, pk: int, pk_column_name: str, table_name: str, other_fk_column_name: str | None = None, other_table_name: str | None = None) -> str:
         """
         Shallow duplicate a specific entry with metadata and description (and optional 'other' table).
+        Appends "- Copy" to name of entry.
         pk: Primary key of the entry that shall be duplicated
         pk_column_name: Column name of the primary key
         table_name: Name of the table where the primary key column is located
@@ -1251,12 +1300,22 @@ class Database(QObject):
                 res = self.con.execute("""SELECT last_insert_rowid() AS id;""")
                 new_description_id = res.fetchone()[0]
                 
+                # Append " - Copy" to new name in description, if column "name" exists
+                if "name" in description_column_names_non_pk:
+                    res = self.con.execute("""SELECT name FROM description WHERE id = ? LIMIT 1;""",
+                                           (description_id,))
+                    original_name = res.fetchone()[0]
+                    new_name = original_name + " - " + QCoreApplication.translate("Database", "Copy")
+                    
+                    res = self.con.execute("""UPDATE description SET name = ? WHERE id = ?;""",
+                                           (new_name, new_description_id))
+                
                 self.con.execute(f"""INSERT INTO metadata ({metadata_column_names_non_pk})
                                      SELECT {metadata_column_names_non_pk} FROM metadata WHERE id = ? LIMIT 1;""",
                                  (metadata_id,))
                 res = self.con.execute("""SELECT last_insert_rowid() AS id;""")
                 new_metadata_id = res.fetchone()[0]
-                self.con.execute("""UPDATE metadata SET date_created = '' WHERE id = ?""",
+                self.con.execute("""UPDATE metadata SET date_created = '' WHERE id = ?;""",
                                  (new_metadata_id,))
                 
                 # Duplicate entry
@@ -1324,7 +1383,7 @@ class Database(QObject):
                                        (parent_id, description_id, metadata_id, website))
                 
                 new_id = res.fetchone()[0]
-        
+
             self.setModified_CreatedTimestamps(metadata_id)
         except Exception as e:
             return "Database::createOrganization: " + str(e)
@@ -1387,7 +1446,7 @@ class Database(QObject):
         note: Note of the new address
         parent_id: Parent id of the new address; set to <0 if no parent exists
         values: List of values for the new address:
-                list[street: str | None, number: str | None, postalcode: str | None, city: str | None, country: str | None]
+                list[street: str | None, number: str | None, postalcode: str | None, city: str | None, state: str | None, country: str | None]
         other: List of 'other' values to be set:
                list[dict['other_index': int, 'property_derivate_flag': bool, 'property_value': str]]
         returns: Error message as string; Empty string if no error message
@@ -1413,10 +1472,10 @@ class Database(QObject):
                                        (name, note))
                 description_id = res.fetchone()[0]
                 
-                res = self.con.execute("""INSERT INTO address (parent_id, description_id, metadata_id, street, number, postalcode, city, country)
-                                          VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;""",
-                                       (parent_id, description_id, metadata_id, values[0], values[1], values[2], values[3], values[4]))
-        
+                res = self.con.execute("""INSERT INTO address (parent_id, description_id, metadata_id, street, number, postalcode, city, state, country)
+                                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;""",
+                                       (parent_id, description_id, metadata_id, values[0], values[1], values[2], values[3], values[4], values[5]))
+
                 pk_id = res.fetchone()[0]
             
             self.setOther(pk_id, "address_id", "address_other", other)
@@ -2000,6 +2059,8 @@ class Database(QObject):
                     res.append(QCoreApplication.translate("Database", "postalcode"))
                 case "city":
                     res.append(QCoreApplication.translate("Database", "city"))
+                case "state":
+                    res.append(QCoreApplication.translate("Database", "state"))
                 case "country":
                     res.append(QCoreApplication.translate("Database", "country"))
                 case _:
