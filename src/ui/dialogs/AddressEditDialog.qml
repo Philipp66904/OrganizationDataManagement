@@ -309,8 +309,8 @@ TemplateEditDialog
         {
             id: property_column
             spacing: 8
-            property var row_count: 8
-            property var row_height_count: 12
+            property var row_count: 9
+            property var row_height_count: 13
 
             function setFocus(dir) {
                 if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) property_line_edit_name.setFocus(dir);
