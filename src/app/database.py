@@ -1550,6 +1550,38 @@ class Database(QObject):
         return True
     
     
+    def getChildIDs(self, parent_id: int, pk_column_name: str, parent_column_name: str, table_name: str) -> list:
+        """
+        Recursively find childs of the parent_id and returns all child ids as list.
+        Returns empty list if no childs were found or if the SQL command fails
+        (e.g. because the parent_column_name doesn't exist).
+        parent_id: ID whose childs shall be returned
+        pk_column_name: Column name where the primary key is located
+        parent_column_name: Column name where the parent id of each row is defined
+        table_name: Name of the table where the columns are located
+        returns: List of integers with the child ids: list[int]
+        """
+        
+        try:
+            res = self.con.execute(f"""SELECT {pk_column_name} FROM {table_name} WHERE {parent_column_name} = ?;""",
+                                            (parent_id,))
+
+            child_ids = res.fetchall()
+        except Exception:
+            return []
+        
+        if child_ids is None or len(child_ids) <= 0:
+            return []
+        else:
+            child_list = [element[0] for element in child_ids]
+            result_list = child_list
+            
+            for child_id in child_list:
+                result_list.extend(self.getChildIDs(child_id, pk_column_name, parent_column_name, table_name))
+            
+            return result_list
+    
+    
     @Slot(int, str, str, result=str)
     def deleteEntry(self, pk: int, pk_column_name: str, table_name: str) -> str:
         """
@@ -1563,6 +1595,9 @@ class Database(QObject):
         try:
             if pk < 0:
                 raise ValueError("Primary key < 0")
+            
+            # Recursively find childs of this entry and store ids in child_list
+            child_ids = self.getChildIDs(pk, pk_column_name, "parent_id", table_name)
             
             with self.con:
                 # Delete entry
@@ -1584,7 +1619,13 @@ class Database(QObject):
         except Exception as e:
             return "Database::deleteEntry: " + str(e)
         
+        # Signal removal of original entry
         self.dataRowRemoved.emit(table_name, pk)
+        
+        # Signal removal of all the child entries of the original entry
+        for child_id in child_ids:
+            self.dataRowRemoved.emit(table_name, child_id)
+        
         return ""
 
 
