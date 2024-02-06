@@ -9,7 +9,7 @@ import QtQuick.Controls.Universal
 ApplicationWindow
 {
     id: dialog
-    title: qsTr("Loading...")
+    title: description
     color: "transparent"
     flags: Qt.SplashScreen
     modality: Qt.ApplicationModal
@@ -17,6 +17,7 @@ ApplicationWindow
     minimumHeight: 150
     width: 150
     height: 150
+    required property string description
 
     Rectangle
     {
@@ -46,7 +47,7 @@ ApplicationWindow
 
             Text
             {
-                text: qsTr("Loading...")
+                text: description
                 width: parent.width
                 height: parent.height * 0.1
                 font.pointSize: textSize

@@ -158,7 +158,7 @@ ApplicationWindow
         repeat: false
 
         onTriggered: {
-            busy_indicator_dialog.show();
+            busy_loading_indicator_dialog.show();
             open_startup_timer.start();
         }
     }
@@ -171,7 +171,7 @@ ApplicationWindow
 
         onTriggered: {
             const msg = setStatusMessage(database.slot_readDB(database.getLoadOnStartUpPath()), Enums.StatusMsgLvl.Err);
-            busy_indicator_dialog.close();
+            busy_loading_indicator_dialog.close();
             if(msg !== "") return;
 
             setStatusMessage(qsTr("Opened file"), Enums.StatusMsgLvl.Info);
@@ -249,8 +249,14 @@ ApplicationWindow
         pk_id: -1
     }
 
-    BusyDialog
+    // Busy dialogs
+    BusyLoadDialog
     {
-        id: busy_indicator_dialog
+        id: busy_loading_indicator_dialog
+    }
+
+    BusySaveDialog
+    {
+        id: busy_saving_indicator_dialog
     }
 }

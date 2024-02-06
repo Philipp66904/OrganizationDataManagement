@@ -146,7 +146,7 @@ MenuBar  // MenuBar shown in the window's header
             nameFilters: name_filters
 
             onAccepted: {
-                busy_indicator_dialog.show();
+                busy_loading_indicator_dialog.show();
                 open_file_timer.start();
             }
 
@@ -158,7 +158,7 @@ MenuBar  // MenuBar shown in the window's header
 
                 onTriggered: {
                     const msg = setStatusMessage(database.slot_readDB(open_file_dialog_2.selectedFile), Enums.StatusMsgLvl.Err);
-                    busy_indicator_dialog.close();
+                    busy_loading_indicator_dialog.close();
                     if(msg !== "") return;
 
                     setStatusMessage(qsTr("Opened file"), Enums.StatusMsgLvl.Info);
@@ -212,7 +212,7 @@ MenuBar  // MenuBar shown in the window's header
                 id: open_recent_file_dialog
                 property string db_path: ""
                 function callback_function() {
-                    busy_indicator_dialog.show();
+                    busy_loading_indicator_dialog.show();
                     open_recent_file_timer.start();
                 }
 
@@ -224,7 +224,7 @@ MenuBar  // MenuBar shown in the window's header
 
                     onTriggered: {
                         const msg = setStatusMessage(database.slot_readDB(open_recent_file_dialog.db_path), Enums.StatusMsgLvl.Err);
-                        busy_indicator_dialog.close();
+                        busy_loading_indicator_dialog.close();
                         if(msg !== "") return;
 
                         setStatusMessage(qsTr("Recent file opened"), Enums.StatusMsgLvl.Info);
@@ -284,7 +284,7 @@ MenuBar  // MenuBar shown in the window's header
             defaultSuffix: default_suffix
 
             onAccepted: {
-                busy_indicator_dialog.show();
+                busy_saving_indicator_dialog.show();
                 save_as_timer.start();
             }
 
@@ -296,7 +296,7 @@ MenuBar  // MenuBar shown in the window's header
 
                 onTriggered: {
                     const msg = setStatusMessage(database.slot_saveDB(save_as_file_dialog.selectedFile), Enums.StatusMsgLvl.Err);
-                    busy_indicator_dialog.close();
+                    busy_saving_indicator_dialog.close();
                     if(msg !== "") return;
 
                     setStatusMessage(qsTr("Saved as new file"), Enums.StatusMsgLvl.Info);
@@ -311,7 +311,7 @@ MenuBar  // MenuBar shown in the window's header
                 if(loaded_db_path === "") {
                     save_as_file_dialog.open();
                 } else {
-                    busy_indicator_dialog.show();
+                    busy_saving_indicator_dialog.show();
                     save_timer.start();
                 }
             }
@@ -324,7 +324,7 @@ MenuBar  // MenuBar shown in the window's header
 
             onTriggered: {
                 const msg = setStatusMessage(database.slot_saveDB(loaded_db_path), Enums.StatusMsgLvl.Err);
-                busy_indicator_dialog.close();
+                busy_saving_indicator_dialog.close();
                 if(msg !== "") return;
 
                 setStatusMessage(qsTr("Saved file"), Enums.StatusMsgLvl.Info);
