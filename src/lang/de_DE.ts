@@ -344,25 +344,30 @@
 <context>
     <name>FileCloseDialog</name>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="16"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="22"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="24"/>
         <source>Do you want to proceed?</source>
         <translation>Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="15"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="23"/>
         <source>All unsaved changes will be lost.</source>
         <translation>Alle ungespeicherten Änderungen gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="17"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="25"/>
         <source>Proceed</source>
         <translation>Fortfahren</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="18"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="26"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="68"/>
+        <source>Remove file from recent files list</source>
+        <translation>Aus &quot;Zuletzt geöffnet&quot; entfernen</translation>
     </message>
 </context>
 <context>

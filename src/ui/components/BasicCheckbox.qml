@@ -11,7 +11,10 @@ CheckBox
 {
     id: checkbox_root
     checked: true
+    enabled: true
     property color highlight_color: highlightColor
+    property color background_color_hover: backgroundColor2
+    property color background_color: "transparent"
 
     Keys.onReturnPressed: toggle();
     Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
@@ -23,6 +26,11 @@ CheckBox
     Keys.onRightPressed: nextFocus(Enums.FocusDir.Right);
 
     function setFocus(dir) {
+        if(!enabled) {
+            nextFocus(dir);
+            return;
+        }
+
         forceActiveFocus();
     }
 
@@ -36,7 +44,7 @@ CheckBox
         y: parent.height / 2 - height / 2
         radius: 4
         color: backgroundColor3
-        border.color: (checkbox_mouse_area.containsMouse) ? highlight_color : color
+        border.color: (checkbox_mouse_area.containsMouse && checkbox_root.enabled) ? highlight_color : color
         property bool checked: parent.checked
 
         Rectangle
@@ -64,7 +72,12 @@ CheckBox
         text: parent.text
         leftPadding: parent.indicator.width + parent.spacing
         font.pointSize: textSize
-        color: (parent.checked) ? highlight_color : textColor
+        color: {
+            if(!checkbox_root.enabled) return textColor1;
+            else if(parent.checked) return highlight_color;
+            else return textColor;
+        }
+        font.italic: !parent.enabled
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
@@ -73,7 +86,7 @@ CheckBox
     background: Rectangle
     {
         anchors.fill: parent
-        color: (checkbox_mouse_area.containsMouse) ? backgroundColor2 : "transparent"
+        color: (checkbox_mouse_area.containsMouse && checkbox_root.enabled) ? parent.background_color_hover : parent.background_color
         border.color: (checkbox_root.activeFocus) ? highlightColor : color
         border.width: 1
         radius: 4

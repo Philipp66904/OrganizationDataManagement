@@ -120,11 +120,20 @@ class Settings(QObject):
             self.settings["recent_files"].pop()
             
     
+    @Slot(str)
+    def slot_removeRecentFile(self, file_path: str) -> None:
+        """
+        Wrapper slot for removeRecentFile.
+        """
+
+        return self.removeRecentFile(file_path)
+
+
     @settings_autosave
     def removeRecentFile(self, file_path: str) -> None:
         """
         Remove a file path from the recent file list.
-        If the file path doesn't exist in the recent files list, nothing changes.
+        If the file path doesn't exist in the recent files list, nothing happens.
         """
         
         if file_path in self.settings["recent_files"]:
