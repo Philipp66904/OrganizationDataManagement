@@ -83,6 +83,8 @@ TemplateEditDialog
             const msg = setStatusMessage(database.createOrganization(property_name, property_note, new_parent_id, new_website), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
         }
+
+        unsaved_changes = false;
     }
 
     onDerivate_add_button_clicked: function derivate_add_button_clicked() {
@@ -140,6 +142,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag) {
+                    unsaved_changes = true;
                     property_name = value;
 
                     if(identifier < 0 && value.trim() === "") organization_dialog.entry_name = qsTr("New Entry");
@@ -206,7 +209,8 @@ TemplateEditDialog
                     }
                 }
 
-                Connections {
+                Connections
+                {
                     target: organization_dialog
                     function onInitProperties() {
                         connections_table.load_data();
@@ -267,6 +271,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_website = value;
                     else property_website = undefined;
 
@@ -296,6 +301,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag) {
+                    unsaved_changes = true;
                     property_note = value;
                 }
             }

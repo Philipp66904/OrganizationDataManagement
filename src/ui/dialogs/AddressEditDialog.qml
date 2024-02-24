@@ -286,6 +286,8 @@ TemplateEditDialog
                                          Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
         }
+
+        unsaved_changes = false;
     }
 
     onDerivate_add_button_clicked: function derivate_add_button_clicked() {
@@ -344,6 +346,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag) {
+                    unsaved_changes = true;
                     property_name = value;
 
                     if(identifier < 0 && value.trim() === "") address_dialog.entry_name = qsTr("New Entry");
@@ -382,6 +385,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_street = value;
                     else property_street = undefined;
 
@@ -418,6 +422,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_number = value;
                     else property_number = undefined;
 
@@ -454,6 +459,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_postalcode = value;
                     else property_postalcode = undefined;
 
@@ -490,6 +496,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_city = value;
                     else property_city = undefined;
 
@@ -526,6 +533,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_state = value;
                     else property_state = undefined;
 
@@ -562,6 +570,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_country = value;
                     else property_country = undefined;
 
@@ -703,6 +712,8 @@ TemplateEditDialog
                                 }
 
                                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                                    unsaved_changes = true;
+
                                     if (!undefined_flag) {
                                         address_other_list_model.set(index, {"property_value": value});
                                         property_line_edit_other.property_value = value;
@@ -756,6 +767,8 @@ TemplateEditDialog
 
                             onClicked:
                             {
+                                unsaved_changes = true;
+
                                 if(address_other_list_view.element_id_with_focus === address_other_list_model.count) {
                                     address_other_list_view.element_id_with_focus++;
                                 }
@@ -794,6 +807,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag) {
+                    unsaved_changes = true;
                     property_note = value;
                 }
             }

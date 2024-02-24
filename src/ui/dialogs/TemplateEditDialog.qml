@@ -13,7 +13,13 @@ import tablemodule 1.0
 ApplicationWindow
 {
     id: edit_dialog_window
-    title: window_title + " - " + entry_name
+    title: {
+        let res = "";
+        if(unsaved_changes) res += "*";
+        res += window_title;
+        res += " - " + entry_name;
+        return res;
+    }
     color: backgroundColor1
     modality: Qt.ApplicationModal
     minimumWidth: 300
@@ -23,6 +29,7 @@ ApplicationWindow
 
     property bool save_button_enabled: true
     property bool close_okay: false
+    property bool unsaved_changes: false
 
     required property string window_title
     required property var identifier
@@ -47,6 +54,7 @@ ApplicationWindow
 
     function init() {  // call this function in your init_dialog override
         close_okay = false;
+        unsaved_changes = false;
         derivate_table.load_data();
         edit_dialog_window.initProperties();
         save_button.setFocus(Enums.FocusDir.Down);
@@ -74,12 +82,14 @@ ApplicationWindow
     }
 
     // Closing handler
-    FileCloseDialog
+    UnsavedChangesCloseDialog
     {
         id: abort_dialog
         function callback_function() { edit_dialog_window.close_okay = true; edit_dialog_window.close(); }
     }
     onClosing: (close) => {
+        if(!unsaved_changes) return;
+
         close.accepted = false;
         if(!close_okay) {
             abort_dialog.init();

@@ -185,6 +185,8 @@ TemplateEditDialog
                                          Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
         }
+
+        unsaved_changes = false;
     }
 
     onDerivate_add_button_clicked: function derivate_add_button_clicked() {
@@ -242,6 +244,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag) {
+                    unsaved_changes = true;
                     property_name = value;
 
                     if(identifier < 0 && value.trim() === "") person_dialog.entry_name = qsTr("New Entry");
@@ -280,6 +283,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_title = value;
                     else property_title = undefined;
 
@@ -316,6 +320,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_gender = value;
                     else property_gender = undefined;
 
@@ -352,6 +357,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_firstname = value;
                     else property_firstname = undefined;
 
@@ -388,6 +394,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_middlename = value;
                     else property_middlename = undefined;
 
@@ -424,6 +431,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                    unsaved_changes = true;
                     if (!undefined_flag) property_surname = value;
                     else property_surname = undefined;
 
@@ -453,6 +461,7 @@ TemplateEditDialog
                 }
 
                 onNew_value: function new_value(value, derivate_flag) {
+                    unsaved_changes = true;
                     property_note = value;
                 }
             }
