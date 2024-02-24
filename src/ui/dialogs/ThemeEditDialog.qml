@@ -22,7 +22,7 @@ ApplicationWindow
     // Closing handler
     property bool close_okay: false
 
-    FileCloseDialog 
+    UnsavedChangesCloseDialog 
     {
         id: abort_dialog
         function callback_function() { dialog.close_okay = true; dialog.close(); }

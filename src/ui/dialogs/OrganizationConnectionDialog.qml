@@ -100,7 +100,7 @@ ApplicationWindow
     }
 
     // Closing handler
-    FileCloseDialog 
+    UnsavedChangesCloseDialog 
     {
         id: close_dialog
         function callback_function() { organization_connection_dialog_window.close_okay = true; organization_connection_dialog_window.close(); }
