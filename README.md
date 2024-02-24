@@ -17,14 +17,14 @@ Furthermore, ODM's user interface is highly customizable, with options for indep
 ODM allows effortless tracking of shared information, with the added assurance of your information remaining on your device.  
 The choice of where to store files rests entirely with you, ensuring optimal user convenience and control.  
 
-## How to install
+## Installation
 ### Using the .exe [Windows only]
 1) Click on the newest release on the sidebar to your right.
 1) Download the .zip file and unzip it.
 1) Double click on the ```OrganizationDataManagement.exe``` file to start the application.
 1) It will initialize itself automatically.
 
-### Using the git repository
+### Using the Git Repository
 1) Clone the git repository to your PC
 1) Install **Python3** and **pip**
 1) Install **PySide6**: ```pip install PySide6```
@@ -38,13 +38,13 @@ The choice of where to store files rests entirely with you, ensuring optimal use
 1) Execute the ```create_executable.bat``` script
 1) Execute the `OrganizationDataManagement.exe` found in ```build\exe\dist\OrganizationDataManagement``` to set up the file association for `.odmdb` files (can be configured in the program settings)
 
-#### Required programs
+#### Required Programs
 - Python - <kbd>3.11.0</kbd>  
 - PySide6  
 - [pyinstaller (if you want to create your own .exe)]
 - [Pillow (if you want to create your own .exe)]
 
-## .odmdb file best practices
+## `.odmdb` file best practices
 The `.odmdb` file includes personal information like the saved persons, addresses, and organization, their connections and some metadata.  
 
 The information is <ins>not encrypted</ins> and therefore anyone with access to the stored location can access or modify the data.  
@@ -53,7 +53,7 @@ Therefore, it is **highly encouraged** to store the database in an **encrypted**
 A good way to store your data is **in a Keepass database**.  
 Keepass supports files as attachments and one can even open the file from within Keepass.  
 
-## Bugs and support
+## Bugs and Support
 Please **open an issue** to get the problem fixed.
 
 ## How to contribute
@@ -67,7 +67,7 @@ You can take a look at the documentation found in the Github Wiki to assist you 
 If you want to **add or modify a language**, take a look at the Github Wiki for instructions.
 
 **Please keep in mind to always stick to the main goals and rules of the project!**
-## Main goals and rules
+## Main Goals and Rules
 - **KISS**: *Keep it simple, stupid!* -> Don't overengineer the program
 - **No highly personal data** or **passwords** may be stored in the database created by this program. *Highly personal data* includes, but is not limited to: Health, bank, religious, and ethnic data. See **EU-GDPR articel 9** for more categories.
 - **No email-address** shall be stored in the database, as a password manager usually already takes care of this information.
