@@ -197,7 +197,7 @@ class Database(QObject):
             self.settings.addRecentFile(path_str)
             self.readDB(path_str)
         except Exception as e:
-            return "Database::slot_readDB: " + str(e)
+            return str(e)
         
         return ""
     
@@ -217,7 +217,7 @@ class Database(QObject):
         # Check if path exists
         if not os.path.isfile(db_path):
             self.settings.removeRecentFile(db_path)
-            raise RuntimeError("Database::readDB: file doesn't exist")
+            raise RuntimeError(QCoreApplication.translate("Database", "Database::readDB: file doesn't exist"))
         
         try:
             # Open source database path
@@ -233,7 +233,9 @@ class Database(QObject):
                 db_version = res_tmp[0]
             
             if not (db_version == self.supported_db_version):
-                raise RuntimeError(f"Database::readDB: Incorrect db_version: {db_version} (supported: {self.supported_db_version})")
+                err_msg = QCoreApplication.translate("Database", "Database::readDB: Incorrect db_version") + f": {db_version}"
+                err_msg += " (" + QCoreApplication.translate("Database", "supported") + f": {self.supported_db_version})"
+                raise RuntimeError(err_msg)
             
             # Copy data over
             with con_external:
@@ -266,7 +268,7 @@ class Database(QObject):
             self.settings.addRecentFile(db_path_tmp)
             self.saveDB(db_path_tmp)
         except Exception as e:
-            return "Database::slot_saveDB: " + str(e)
+            return QCoreApplication.translate("Database", "Database::slot_saveDB") + ": " + str(e)
         
         return ""
     

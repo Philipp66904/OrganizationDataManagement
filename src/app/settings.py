@@ -54,7 +54,7 @@ class Settings(QObject):
             default_file = open(self.default_file_path, 'r')
             self.settings = json.loads(default_file.read())
         except FileNotFoundError as e:
-            raise RuntimeError("Settings::__load_default_settings__: Default settings file missing. Try reinstalling the program.")
+            raise RuntimeError(QCoreApplication.translate("Settings", "Settings::__load_default_settings__: Default settings file missing. Try reinstalling the program."))
         finally:
             if default_file:
                 default_file.close()
@@ -193,7 +193,7 @@ class Settings(QObject):
             default_file = open(self.default_file_path, 'r')
             default_settings = json.loads(default_file.read())
         except FileNotFoundError as e:
-            raise RuntimeError("Settings::resetThemeColors: Default settings file missing. Try reinstalling the program.")
+            raise RuntimeError(QCoreApplication.translate("Settings", "Settings::resetThemeColors: Default settings file missing. Try reinstalling the program."))
         finally:
             if default_file:
                 default_file.close()
