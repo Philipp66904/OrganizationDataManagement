@@ -66,7 +66,8 @@ You can take a look at the documentation found in the Github Wiki to assist you 
 
 If you want to **add or modify a language**, take a look at the Github Wiki for instructions.
 
-**Please keep in mind to always stick to the main goals and rules of the project!**
+> [!IMPORTANT]
+> **Keep in mind to always stick to the main goals and rules of the project!**
 ## Main Goals and Rules
 - **KISS**: *Keep it simple, stupid!* -> Don't overengineer the program
 - **No highly personal data** or **passwords** may be stored in the database created by this program. *Highly personal data* includes, but is not limited to: Health, bank, religious, and ethnic data. See **EU-GDPR articel 9** for more categories.
