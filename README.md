@@ -18,15 +18,15 @@ ODM allows effortless tracking of shared information, with the added assurance o
 The choice of where to store files rests entirely with you, ensuring optimal user convenience and control.  
 
 ## Installation
-### Using the .exe [Windows only]
+### Using the `.exe` [Windows only]
 1) Click on the newest release on the sidebar to your right.
-1) Download the .zip file and unzip it.
+1) Download the `.zip` file and unzip it.
 1) Double click on the ```OrganizationDataManagement.exe``` file to start the application.
 1) It will initialize itself automatically.
 
 ### Using the Git Repository
 1) Clone the git repository to your PC
-1) Install **Python3** and **pip**
+1) Install **Python 3** and **pip**
 1) Install **PySide6**: ```pip install PySide6```
 1) Use Python to execute `main.py` found in the `src` directory: ```python main.py```
 
