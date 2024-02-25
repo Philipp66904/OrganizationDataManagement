@@ -77,7 +77,7 @@ If you want to **add or modify a language**, take a look at the Github Wiki for 
 - **Ease of use** and **speed** take precedence over maximum functionality.
 - Support **Keyboard-Control** wherever easily possible.
 - **Document** your changes.
-- **All OS modifications** (e.g. registry entries) must be **removed on deinstall**..
+- **All OS modifications** (e.g. registry entries) must be **removed on deinstall**.
 
 ## Documentation and User Manual
 The documentation and user manual can be found in the **Github Wiki**.
