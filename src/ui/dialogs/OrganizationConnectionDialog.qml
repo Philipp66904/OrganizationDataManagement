@@ -11,7 +11,12 @@ import "../types"
 ApplicationWindow
 {
     id: organization_connection_dialog_window
-    title: window_title + " - " + entry_name
+    title: {
+        let res = "";
+        if(unsaved_changes) res += "*";
+        res += window_title + " - " + entry_name;
+        return res;
+    }
     color: backgroundColor1
     modality: Qt.ApplicationModal
     minimumWidth: 300
@@ -19,11 +24,12 @@ ApplicationWindow
     width: rootWindow.width * 0.8
     height: rootWindow.height * 0.3
 
-    required property string window_title
+    property string window_title: (identifier >= 0) ? qsTr("Edit Connection") : qsTr("Add Connection")
     required property var identifier  // -1 if new entry, otherwise connection.id
     property int organization_id: -1
     required property string title_name
     property string entry_name: ""
+    property bool unsaved_changes: false
     
     property string current_person
     property string current_address
@@ -64,6 +70,7 @@ ApplicationWindow
         error_text = database.saveConnection(identifier, organization_id, current_person_id, current_address_id);
         
         if (error_text === "") {
+            unsaved_changes = false;
             organization_connection_dialog_window.close();
         }
     }
@@ -97,6 +104,7 @@ ApplicationWindow
         organization_connection_dialog_window.initProperties(connection_id, organization_id);
         error_text = check_connection();
         save_button.setFocus(Enums.FocusDir.Right);
+        unsaved_changes = false;
     }
 
     // Closing handler
@@ -106,6 +114,7 @@ ApplicationWindow
         function callback_function() { organization_connection_dialog_window.close_okay = true; organization_connection_dialog_window.close(); }
     }
     onClosing: (close) => {
+        if(!unsaved_changes) return;
         close.accepted = false;
 
         if(!organization_connection_dialog_window.close_okay) {
@@ -211,6 +220,7 @@ ApplicationWindow
                 }
 
                 onSelected_indexChanged: {
+                    unsaved_changes = true;
                     organization_connection_dialog_window.current_person_id = combo_selection_person.selected_index;
                 }
 
@@ -239,6 +249,7 @@ ApplicationWindow
                 }
 
                 onSelected_indexChanged: {
+                    unsaved_changes = true;
                     organization_connection_dialog_window.current_address_id = combo_selection_address.selected_index;
                 }
 

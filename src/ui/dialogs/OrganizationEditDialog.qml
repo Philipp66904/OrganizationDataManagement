@@ -220,7 +220,6 @@ TemplateEditDialog
                 OrganizationConnectionDialog
                 {
                     id: organization_connection_dialog
-                    window_title: qsTr("Add / Edit Connection")
                     identifier: -1
                     title_name: qsTr("Connection")
                 }

@@ -739,52 +739,62 @@
 <context>
     <name>OrganizationConnectionDialog</name>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="50"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="27"/>
+        <source>Edit Connection</source>
+        <translation>Verbindung bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="27"/>
+        <source>Add Connection</source>
+        <translation>Verbindung hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="56"/>
         <source>Specify person and address.</source>
         <translation>Spezifiziere Person und Adresse.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="59"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="65"/>
         <source>Combination already exists.</source>
         <translation>Kombination existiert bereits.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="73"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="80"/>
         <source>Couldn&apos;t delete connection.</source>
         <translation>Verbindung konnte nicht gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="90"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="97"/>
         <source>New Connection</source>
         <translation>Neue Verbindung</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="205"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="214"/>
         <source>Person</source>
         <translation>Person</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="233"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="243"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="272"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="283"/>
         <source>Combination available.</source>
         <translation>Kombination verfügbar.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="300"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="311"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="323"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="334"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="357"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="368"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -824,27 +834,22 @@
         <translation>Verbindungen:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="223"/>
-        <source>Add / Edit Connection</source>
-        <translation>Verbindung hinzufügen / bearbeiten</translation>
-    </message>
-    <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="225"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="224"/>
         <source>Connection</source>
         <translation>Verbindung</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="240"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="239"/>
         <source>Couldn&apos;t delete connection.</source>
         <translation>Verbindung konnte nicht gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="250"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="249"/>
         <source>Website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="287"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="286"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
