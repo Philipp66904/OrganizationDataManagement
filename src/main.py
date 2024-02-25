@@ -13,12 +13,14 @@ from app.settings import Settings
 from app.tablemodel import TableModel
 
 from app.win.registry import WinRegistry
+from app.win.startmenu import Startmenu
 
 
 if __name__ == '__main__':    
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
     
+    application_name = "OrganizationDataManagement"
     app.setOrganizationName("Philipp Grueber")
     app.setApplicationName(QCoreApplication.translate("Main", "Organization Data Management"))
     app.setWindowIcon(QIcon(os.path.abspath(Path(__file__).parent / "ui" / "res" / "svg" / "window_icon.svg")))
@@ -45,6 +47,13 @@ if __name__ == '__main__':
     else:
         winregistry.remove_registry_entries()
     
+    # Handle startmenu entry
+    startmenu = Startmenu(application_name)
+    if settings.getStartmenuState():
+        startmenu.add_to_startmenu()
+    else:
+        startmenu.remove_from_startmenu()
+    
     # Handle file opening at startup
     load_on_startup_path = None
     if len(sys.argv) >= 2 and sys.argv[1].endswith(('.odmdb', '.db')):  # automatically open path if provided
@@ -55,6 +64,7 @@ if __name__ == '__main__':
     engine.rootContext().setContextProperty("settings", settings)
     engine.rootContext().setContextProperty("database", db)
     engine.rootContext().setContextProperty("winregistry", winregistry)
+    engine.rootContext().setContextProperty("startmenu", startmenu)
     
     qmlRegisterType(TableModel, 'tablemodule', 1, 0, 'TableModel')
     

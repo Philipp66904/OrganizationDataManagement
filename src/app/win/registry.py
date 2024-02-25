@@ -1,4 +1,3 @@
-import os
 import sys
 import platform
 import threading
@@ -16,7 +15,7 @@ class WinRegistry(QObject):
     
     @Slot()
     def add_registry_entries(self):
-        if getattr(sys, 'frozen', False) and platform.system() == "Windows":
+        if self.getRegistrySupported():
             thread = threading.Thread(None, self.__worker_add_registry_entries__)
             thread.start()
     
@@ -40,7 +39,7 @@ class WinRegistry(QObject):
     
     @Slot()
     def remove_registry_entries(self):
-        if getattr(sys, 'frozen', False) and platform.system() == "Windows":
+        if self.getRegistrySupported():
             thread = threading.Thread(None, self.__worker_remove_registry_entries__)
             thread.start()
     
@@ -58,8 +57,8 @@ class WinRegistry(QObject):
             winreg.DeleteKey(winreg.HKEY_CURRENT_USER, key_path)
         except FileNotFoundError:
             pass
-            
-            
+    
+    
     @Slot(result=bool)
     def getRegistrySupported(self) -> bool:
         return (getattr(sys, 'frozen', False) and platform.system() == "Windows")

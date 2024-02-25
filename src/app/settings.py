@@ -291,3 +291,32 @@ class Settings(QObject):
         """
         
         return self.settings["file_type_association"]
+    
+
+    @Slot(bool)
+    def slot_setStartmenuState(self, new_startmenu_state: bool) -> None:
+        """
+        Slot for setStartmenuState.
+        """
+        
+        self.setStartmenuState(new_startmenu_state)
+    
+    
+    @settings_autosave
+    def setStartmenuState(self, new_startmenu_state: bool) -> None:
+        """
+        Sets the startmenu state to a new value.
+        new_startmenu_state: New value to be set.
+        """
+        
+        self.settings["startmenu_state"] = new_startmenu_state
+    
+    
+    @Slot(result=bool)
+    def getStartmenuState(self) -> bool:
+        """
+        Returns the startmenu state value:
+        returns: True if startmenu entry should exist, otherwise False
+        """
+        
+        return self.settings["startmenu_state"]
