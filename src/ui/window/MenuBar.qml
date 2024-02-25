@@ -582,6 +582,20 @@ MenuBar  // MenuBar shown in the window's header
             }
         }
 
+        Action { text: qsTr("Manual") }
+
+        MenuSeparator
+        {
+            contentItem: Loader { sourceComponent: menu_separator_component }
+        }
+        Action { text: qsTr("Documentation") }
+        Action { text: qsTr("Github") }
+
+        MenuSeparator
+        {
+            contentItem: Loader { sourceComponent: menu_separator_component }
+        }
+
         AboutDialog { id: about_dialog; }
         Action
         {
@@ -593,17 +607,6 @@ MenuBar  // MenuBar shown in the window's header
             }
         }
 
-        MenuSeparator
-        {
-            contentItem: Loader { sourceComponent: menu_separator_component }
-        }
-        Action { text: qsTr("Github") }
-        Action { text: qsTr("Search for updates") }
-
-        MenuSeparator 
-        {
-            contentItem: Loader { sourceComponent: menu_separator_component }
-        }
         LicensesDialog { id: licenses_dialog; }
         Action
         {

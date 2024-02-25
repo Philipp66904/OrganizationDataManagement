@@ -670,22 +670,27 @@
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="589"/>
+        <location filename="../ui/window/MenuBar.qml" line="585"/>
+        <source>Manual</source>
+        <translation>Anleitung</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="591"/>
+        <source>Documentation</source>
+        <translation>Dokumentation</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="603"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="600"/>
+        <location filename="../ui/window/MenuBar.qml" line="592"/>
         <source>Github</source>
         <translation>Github</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="601"/>
-        <source>Search for updates</source>
-        <translation>Suche nach Updates</translation>
-    </message>
-    <message>
-        <location filename="../ui/window/MenuBar.qml" line="611"/>
+        <location filename="../ui/window/MenuBar.qml" line="618"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>
