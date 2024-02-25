@@ -31,14 +31,14 @@ Rectangle
     property bool required: false
 
     property bool editing: value_text.activeFocus
-    property bool derivate_mode: true
+    property bool derivative_mode: true
     required property string description
     required property var value
-    required property var derivate_value
-    property bool derivate_flag: false
+    required property var derivative_value
+    property bool derivative_flag: false
 
-    onDerivate_flagChanged: value_text.text = getValueText()
-    onDerivate_valueChanged: value_text.text = getValueText()
+    onDerivative_flagChanged: value_text.text = getValueText()
+    onDerivative_valueChanged: value_text.text = getValueText()
     onValueChanged: value_text.text = getValueText()
 
     MouseArea
@@ -49,23 +49,23 @@ Rectangle
         acceptedButtons: Qt.NoButton
     }
 
-    function init(derivate_flag_arg) {
+    function init(derivative_flag_arg) {
         // Call this function whenever new properties are loaded
-        if(derivate_flag_arg !== undefined) {
-            null_switch.start_value = derivate_flag_arg;
-            null_switch.setState(derivate_flag_arg);
+        if(derivative_flag_arg !== undefined) {
+            null_switch.start_value = derivative_flag_arg;
+            null_switch.setState(derivative_flag_arg);
         }
         else {
-            null_switch.start_value = derivate_flag;
-            null_switch.setState(derivate_flag);
+            null_switch.start_value = derivative_flag;
+            null_switch.setState(derivative_flag);
         }
     }
 
-    signal new_value(val: string, derivate_flag: bool, undefined_flag: bool)
+    signal new_value(val: string, derivative_flag: bool, undefined_flag: bool)
 
     function getValueText() {
-        if(derivate_flag) {
-            if(derivate_value !== undefined) return derivate_value;
+        if(derivative_flag) {
+            if(derivative_value !== undefined) return derivative_value;
             else return "";
         }
         else {
@@ -86,32 +86,32 @@ Rectangle
         anchors.fill: parent
         anchors.margins: 4
         spacing: 8
-        property int column_count: (derivate_mode) ? 3 : 2
+        property int column_count: (derivative_mode) ? 3 : 2
 
         property int description_text_width: (width - (column_count * spacing)) * 0.3
-        property int value_text_width: (derivate_mode) ? (width - (column_count * spacing)) * 0.5 : (width - (column_count * spacing)) * 0.7
+        property int value_text_width: (derivative_mode) ? (width - (column_count * spacing)) * 0.5 : (width - (column_count * spacing)) * 0.7
         property int null_switch_width: (width - (column_count * spacing)) * 0.2
 
         function send_new_value() {
-            if(derivate_flag) {
-                value_text.text = (derivate_value !== undefined) ? derivate_value : "";
+            if(derivative_flag) {
+                value_text.text = (derivative_value !== undefined) ? derivative_value : "";
 
-                if(derivate_value === undefined) {
-                    property_line_edit_root.new_value("", derivate_flag, true);
+                if(derivative_value === undefined) {
+                    property_line_edit_root.new_value("", derivative_flag, true);
                 }
                 else {
-                    property_line_edit_root.new_value(derivate_value, derivate_flag, false);
+                    property_line_edit_root.new_value(derivative_value, derivative_flag, false);
                 }
             }
             else {
-                property_line_edit_root.new_value(value_text.text, derivate_flag, false);
+                property_line_edit_root.new_value(value_text.text, derivative_flag, false);
             }
         }
 
-        function toggleDerivate(new_derivate_flag) {
-            derivate_flag = new_derivate_flag;
+        function toggleDerivative(new_derivative_flag) {
+            derivative_flag = new_derivative_flag;
 
-            if(new_derivate_flag) {
+            if(new_derivative_flag) {
                 if(value === undefined) value_text.text = "";
                 else value_text.text = value;
             }
@@ -139,12 +139,12 @@ Rectangle
             width: property_row_main.value_text_width
             height: parent.height
             font.pointSize: textSize
-            color: (derivate_flag) ? backgroundColor3 : textColor
+            color: (derivative_flag) ? backgroundColor3 : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             clip: true
-            font.italic: (derivate_flag) ? true : false
-            readOnly: derivate_flag
+            font.italic: (derivative_flag) ? true : false
+            readOnly: derivative_flag
             Keys.onTabPressed: nextFocus(Enums.FocusDir.Down);
             Keys.onReturnPressed: nextFocus(Enums.FocusDir.Save);
             Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
@@ -153,9 +153,9 @@ Rectangle
             Keys.onDownPressed: nextFocus(Enums.FocusDir.Down);
 
             onActiveFocusChanged: {
-                if(activeFocus && derivate_flag) {
+                if(activeFocus && derivative_flag) {
                     null_switch.setState(false);
-                    property_row_main.toggleDerivate(false);
+                    property_row_main.toggleDerivative(false);
                 }
             }
 
@@ -189,10 +189,10 @@ Rectangle
             height: parent.height * null_switch_height_percentage
             anchors.verticalCenter: parent.verticalCenter
             start_value: false
-            visible: derivate_mode
+            visible: derivative_mode
 
             onToggled: function toggle_handler(checked) {
-                property_row_main.toggleDerivate(checked);
+                property_row_main.toggleDerivative(checked);
             }
         }
     }

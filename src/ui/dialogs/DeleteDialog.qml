@@ -32,7 +32,7 @@ ApplicationWindow
 
         Text
         {
-            text: qsTr("The specified entry with its derivates and connections will be deleted.")
+            text: qsTr("The specified entry with its derivatives and connections will be deleted.")
             height: parent.height * 0.7 - parent.spacing
             width: parent.width
             font.pointSize: textSize

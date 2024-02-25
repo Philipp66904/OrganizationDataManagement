@@ -40,10 +40,10 @@ ApplicationWindow
 
     required property var property_height
 
-    signal derivate_add_button_clicked()
-    signal derivate_edit_button_clicked(selected_primary_key: int)
-    signal derivate_duplicate_button_clicked(selected_primary_key: int)
-    signal derivate_delete_button_clicked(selected_primary_key: int)
+    signal derivative_add_button_clicked()
+    signal derivative_edit_button_clicked(selected_primary_key: int)
+    signal derivative_duplicate_button_clicked(selected_primary_key: int)
+    signal derivative_delete_button_clicked(selected_primary_key: int)
 
     signal save_button_clicked()
     signal delete_button_clicked()
@@ -55,12 +55,12 @@ ApplicationWindow
     function init() {  // call this function in your init_dialog override
         close_okay = false;
         unsaved_changes = false;
-        derivate_table.load_data();
+        derivative_table.load_data();
         edit_dialog_window.initProperties();
         save_button.setFocus(Enums.FocusDir.Down);
     }
 
-    function create_derivate_window(pk, qml_file_name) {
+    function create_derivative_window(pk, qml_file_name) {
         var component = Qt.createComponent(qml_file_name);
         var new_dialog_window = component.createObject(edit_dialog_window, { pk_id: pk, parent_id: identifier });
 
@@ -116,7 +116,7 @@ ApplicationWindow
             property int date_row_height: (height - (row_count * spacing)) - title_rect_height - scrollview_height - button_row_height - 2
 
             // ScrollView content heights
-            property int derivate_description_text_height: (height - (row_count * spacing)) * 0.03
+            property int derivative_description_text_height: (height - (row_count * spacing)) * 0.03
             property int table_height: (height - (row_count * spacing)) * 0.3
 
             Component
@@ -188,8 +188,8 @@ ApplicationWindow
                     id: scrollview_column
                     width: parent.width
                     height: {
-                        let h = derivate_description_text.height;
-                        h += derivate_table.height;
+                        let h = derivative_description_text.height;
+                        h += derivative_table.height;
                         h += property_settings.height;
                         h += 1 * 1;  // separator_component.height
                         h += spacing * row_count;
@@ -219,7 +219,7 @@ ApplicationWindow
                             function onNextFocus(dir) {
                                 if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
                                 else if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
-                                else if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) derivate_table.setFocus(dir);
+                                else if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) derivative_table.setFocus(dir);
                                 else button_row_rect.setFocus(dir);
                             }
                         }
@@ -229,10 +229,10 @@ ApplicationWindow
 
                     Text
                     {
-                        id: derivate_description_text
+                        id: derivative_description_text
                         width: parent.width - 8
-                        height: main_column.derivate_description_text_height
-                        text: qsTr("Derivates:")
+                        height: main_column.derivative_description_text_height
+                        text: qsTr("Derivatives:")
                         font.pointSize: textSize
                         color: textColor1
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -243,7 +243,7 @@ ApplicationWindow
 
                     Table
                     {
-                        id: derivate_table
+                        id: derivative_table
                         height: main_column.table_height
                         width: parent.width - 8
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -267,42 +267,42 @@ ApplicationWindow
                         }
 
                         function load_data() {
-                            const res = database.getDataDerivates(edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
+                            const res = database.getDataDerivatives(edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
                             const column_names = database.translateColumnNames(res.shift());
 
                             table_model.loadData(edit_dialog_window.table_name, column_names, res);
                         }
 
                         function load_row_data(index) {
-                            const row_data = database.getDataRowDerivate(index, "id", edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
+                            const row_data = database.getDataRowDerivative(index, "id", edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
                             if(row_data.length > 0) {
                                 table_model.changeRowData(index, "id", row_data);
                             }
                         }
                         function load_add_row_data(index) {
-                            const row_data = database.getDataRowDerivate(index, "id", edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
+                            const row_data = database.getDataRowDerivative(index, "id", edit_dialog_window.identifier, "parent_id", edit_dialog_window.table_name);
                             if(row_data.length > 0) {
                                 table_model.addRowData(-1, row_data);
                             }
                         }
 
                         onAdd_button_clicked: function add_button_clicked() {
-                            edit_dialog_window.derivate_add_button_clicked();
+                            edit_dialog_window.derivative_add_button_clicked();
                         }
 
                         onEdit_button_clicked: function edit_button_clicked(pk) {
-                            edit_dialog_window.derivate_edit_button_clicked(pk);
+                            edit_dialog_window.derivative_edit_button_clicked(pk);
                         }
 
                         onDuplicate_button_clicked: function duplicate_button_clicked(pk) {
-                            edit_dialog_window.derivate_duplicate_button_clicked(pk);
+                            edit_dialog_window.derivative_duplicate_button_clicked(pk);
                         }
 
                         onDelete_button_clicked: function delete_button_clicked(pk) {
                             const msg = setStatusMessage(database.deleteEntry(pk, "id", edit_dialog_window.table_name), Enums.StatusMsgLvl.Err);
                             if(msg !== "") return;
 
-                            edit_dialog_window.derivate_delete_button_clicked(pk);
+                            edit_dialog_window.derivative_delete_button_clicked(pk);
                         }
                     }
                 }
@@ -346,7 +346,7 @@ ApplicationWindow
                         focus: true
                         onNextFocus: function next_focus(dir) {
                             if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
-                            else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) derivate_table.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) derivative_table.setFocus(dir);
                             else if(dir === Enums.FocusDir.Down && property_component_loader.item !== null) property_component_loader.item.setFocus(dir);
                             else delete_button.setFocus(dir);
                         }
@@ -372,7 +372,7 @@ ApplicationWindow
                         onNextFocus: function next_focus(dir) {
                             if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
                             else if(dir === Enums.FocusDir.Close) abort_button.setFocus(Enums.FocusDir.Left);
-                            else if(dir === Enums.FocusDir.Up) derivate_table.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Up) derivative_table.setFocus(dir);
                             else if(dir === Enums.FocusDir.Left) save_button.setFocus(dir);
                             else if(dir === Enums.FocusDir.Down && property_component_loader.item !== null) property_component_loader.item.setFocus(dir);
                             else abort_button.setFocus(dir);
@@ -408,7 +408,7 @@ ApplicationWindow
                         onNextFocus: function next_focus(dir) {
                             if(dir === Enums.FocusDir.Save) save_button.setFocus(Enums.FocusDir.Right);
                             else if(dir === Enums.FocusDir.Close) clicked();
-                            else if(dir === Enums.FocusDir.Up) derivate_table.setFocus(dir);
+                            else if(dir === Enums.FocusDir.Up) derivative_table.setFocus(dir);
                             else if(dir === Enums.FocusDir.Left) delete_button.setFocus(dir);
                             else if(property_component_loader.item !== null) property_component_loader.item.setFocus(dir);
                         }

@@ -352,7 +352,7 @@
     </message>
     <message>
         <location filename="../ui/dialogs/DeleteDialog.qml" line="35"/>
-        <source>The specified entry with its derivates and connections will be deleted.</source>
+        <source>The specified entry with its derivatives and connections will be deleted.</source>
         <translation>Der gewählte Eintrag mit all seinen Ableitungen und Verbindungen wird gelöscht.</translation>
     </message>
     <message>
@@ -1076,7 +1076,7 @@
     </message>
     <message>
         <location filename="../ui/components/Table.qml" line="410"/>
-        <source>Save Entry before creating a new derivate</source>
+        <source>Save Entry before creating a new derivative</source>
         <translation>Speichere den Eintrag vor Erstellung einer Ableitung</translation>
     </message>
     <message>
@@ -1115,7 +1115,7 @@
     </message>
     <message>
         <location filename="../ui/dialogs/TemplateEditDialog.qml" line="235"/>
-        <source>Derivates:</source>
+        <source>Derivatives:</source>
         <translation>Ableitungen:</translation>
     </message>
     <message>

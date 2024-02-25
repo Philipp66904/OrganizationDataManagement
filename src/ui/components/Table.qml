@@ -407,7 +407,7 @@ Rectangle
                     onClicked:
                     {
                         if(table_root.pk_id !== undefined && table_root.pk_id < 0) {
-                            setStatusMessage(qsTr("Save Entry before creating a new derivate"), Enums.StatusMsgLvl.Warn);
+                            setStatusMessage(qsTr("Save Entry before creating a new derivative"), Enums.StatusMsgLvl.Warn);
                             return;
                         }
 

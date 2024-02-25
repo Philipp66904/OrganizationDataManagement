@@ -406,12 +406,12 @@ class Database(QObject):
     
     
     @Slot(int, str, str, result=list)
-    def getDataDerivates(self, parent_id: int, parent_column_name: str, table_name: str) -> list:
+    def getDataDerivatives(self, parent_id: int, parent_column_name: str, table_name: str) -> list:
         """
-        Returns all derivates for a given primary key.
-        parent_id: Id of the parent whose derivates shall be returned
+        Returns all derivatives for a given primary key.
+        parent_id: Id of the parent whose derivatives shall be returned
         parent_column_name: Name of the column where the parent_ids are defined
-        table_name: Name of the table whose derivates shall be returned
+        table_name: Name of the table whose derivatives shall be returned
         returns: List of lists with all the rows. The first list is always reserved for the column names.
         """
         
@@ -440,15 +440,15 @@ class Database(QObject):
     
     
     @Slot(int, str, int, str, str, result=list)
-    def getDataRowDerivate(self, pk_id: int, pk_column_name: str, parent_id: int, parent_column_name: str, table_name: str) -> list:
+    def getDataRowDerivative(self, pk_id: int, pk_column_name: str, parent_id: int, parent_column_name: str, table_name: str) -> list:
         """
-        Returns all column values of a derivate for a given primary key.
-        pk_id: Id of the derivate whose values shall be returned
+        Returns all column values of a derivative for a given primary key.
+        pk_id: Id of the derivative whose values shall be returned
         pk_column_name: Name of the column where the primary key is located
-        parent_id: Id of the parent whose derivate shall be returned
+        parent_id: Id of the parent whose derivative shall be returned
         parent_column_name: Name of the column where the parent_ids are defined
-        table_name: Name of the table where the derivate is located
-        returns: List with all the column values; Empty list if pk_id is not found or not a derivate of the parent
+        table_name: Name of the table where the derivative is located
+        returns: List with all the column values; Empty list if pk_id is not found or not a derivative of the parent
         raises ValueError: If primary key is not found
         """
         
@@ -652,7 +652,7 @@ class Database(QObject):
         table_name: Base table name
         fk_column_name: Name of the foreign key column in the 'other' table
         other_table_name: Other table name
-        returns: list[list[other_id: int, other_index: int, content: str, derivate_flag: bool]]
+        returns: list[list[other_id: int, other_index: int, content: str, derivative_flag: bool]]
         """
         
         if pk_id < 0:
@@ -1233,7 +1233,7 @@ class Database(QObject):
         fk_column_name: Name of the foreign key column in the 'other' table
         table_name: 'other' table name
         new_other: List of new values to be set:
-                   list[dict['other_index': int, 'property_derivate_flag': bool, 'property_value': str]]
+                   list[dict['other_index': int, 'property_derivative_flag': bool, 'property_value': str]]
         returns: Error message as string; Empty string if no error
         """
         
@@ -1249,7 +1249,7 @@ class Database(QObject):
                     other_index = other["other_index"]
                     value = other["property_value"]
                     
-                    if other["property_derivate_flag"] == True or value is None:
+                    if other["property_derivative_flag"] == True or value is None:
                         continue
                     
                     self.con.execute(f"""INSERT INTO {table_name} ({fk_column_name}, other_index, content)
@@ -1450,7 +1450,7 @@ class Database(QObject):
         values: List of values for the new address:
                 list[street: str | None, number: str | None, postalcode: str | None, city: str | None, state: str | None, country: str | None]
         other: List of 'other' values to be set:
-               list[dict['other_index': int, 'property_derivate_flag': bool, 'property_value': str]]
+               list[dict['other_index': int, 'property_derivative_flag': bool, 'property_value': str]]
         returns: Error message as string; Empty string if no error message
         """
         
@@ -1640,8 +1640,8 @@ class Database(QObject):
         pk_column_name: Column name of the primary key's column
         column_name: Column name whose value shall be returned
         table_name: Name of the table where the column_name and pk_column_name are located
-        returns: list[column_value: str | None, derivate_flag: bool].
-                 The derivate_flag is True if the column value from one of the parents is returned, otherwise False.
+        returns: list[column_value: str | None, derivative_flag: bool].
+                 The derivative_flag is True if the column value from one of the parents is returned, otherwise False.
         """
         
         if pk_id < 0:
@@ -1649,7 +1649,7 @@ class Database(QObject):
         
         result = None
         parent_id = pk_id
-        derivate = False
+        derivative = False
         
         with self.con:
             while parent_id is not None and result is None:
@@ -1662,19 +1662,19 @@ class Database(QObject):
                 result = tmp_res[0]
                 
                 if result == None and parent_id == pk_id and tmp_res[1] is not None:
-                    derivate = True
+                    derivative = True
                 
                 parent_id = tmp_res[1]
         
-        return [result, derivate]
+        return [result, derivative]
     
     
     @Slot(int, str, str, str, result=list)
-    def getDataDerivate(self, pk_id: int, pk_column_name: str, column_name: str, table_name: str) -> list:
+    def getDataDerivative(self, pk_id: int, pk_column_name: str, column_name: str, table_name: str) -> list:
         """
         Returns the parent's column value. If the row has no parent, [None] is returned.
         If the parent's column valule is Null, searching for the column value at parent's parent and so on.
-        pk_id: Primary key id whose derivate column value shall be returned
+        pk_id: Primary key id whose derivative column value shall be returned
         pk_column_name: Column name of the primary key's column
         column_name: Column name whose value shall be returned
         table_name: Name of the table where the column_name and pk_column_name are located

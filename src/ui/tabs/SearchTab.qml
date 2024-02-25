@@ -150,8 +150,8 @@ Rectangle
                     height: search_parameter_column.module_height * 1.5
                     description: qsTr("Search")
                     value: ""
-                    derivate_value: ""
-                    derivate_mode: false
+                    derivative_value: ""
+                    derivative_mode: false
                     required: false
                     onNextFocus: function next_focus(dir) {
                         if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
@@ -167,7 +167,7 @@ Rectangle
                         }
                     }
 
-                    onNew_value: function new_value(value, derivate_flag) {
+                    onNew_value: function new_value(value, derivative_flag) {
                         search_term = value;
                         updateSearch();
                     }

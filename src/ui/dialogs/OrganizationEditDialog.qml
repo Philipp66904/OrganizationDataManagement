@@ -27,8 +27,8 @@ TemplateEditDialog
     property string property_name: ""
     property string property_note: ""
     property var property_website: ""
-    property bool property_website_derivate_flag: false
-    property var property_website_derivate: undefined
+    property bool property_website_derivative_flag: false
+    property var property_website_derivative: undefined
 
     function init_dialog() {
         // call this function after .show() called on the ApplicationWindow
@@ -43,19 +43,19 @@ TemplateEditDialog
         if(identifier >= 0) {
             const property_website_tmp = database.getData(identifier, "id", "website", organization_dialog.table_name);
             organization_dialog.property_website = property_website_tmp[0];
-            organization_dialog.property_website_derivate_flag = property_website_tmp[1];
-            organization_dialog.property_website_derivate = database.getDataDerivate(identifier, "id", "website", organization_dialog.table_name)[0];
+            organization_dialog.property_website_derivative_flag = property_website_tmp[1];
+            organization_dialog.property_website_derivative = database.getDataDerivative(identifier, "id", "website", organization_dialog.table_name)[0];
         }
         else if(parent_identifier !== undefined && parent_identifier >= 0) {
             const property_website_tmp = database.getData(parent_identifier, "id", "website", organization_dialog.table_name);
             organization_dialog.property_website = property_website_tmp[0];
-            organization_dialog.property_website_derivate_flag = true;
-            organization_dialog.property_website_derivate = property_website_tmp[0];
+            organization_dialog.property_website_derivative_flag = true;
+            organization_dialog.property_website_derivative = property_website_tmp[0];
         }
         else {
             organization_dialog.property_website = undefined;
-            organization_dialog.property_website_derivate_flag = false;
-            organization_dialog.property_website_derivate = undefined;
+            organization_dialog.property_website_derivative_flag = false;
+            organization_dialog.property_website_derivative = undefined;
         }
 
         init();
@@ -68,14 +68,14 @@ TemplateEditDialog
             if(msg !== "") return;
 
             let new_website = undefined;
-            if(!property_website_derivate_flag) new_website = property_website;
+            if(!property_website_derivative_flag) new_website = property_website;
             msg = setStatusMessage(database.setValue_Str("website", identifier, "id", organization_dialog.table_name, new_website), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
         }
         else {
             // Create new entry
             let new_website = undefined;
-            if(!property_website_derivate_flag) new_website = property_website;
+            if(!property_website_derivative_flag) new_website = property_website;
 
             let new_parent_id = -1;
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
@@ -87,15 +87,15 @@ TemplateEditDialog
         unsaved_changes = false;
     }
 
-    onDerivate_add_button_clicked: function derivate_add_button_clicked() {
-        create_derivate_window(-1, qml_file_name);
+    onDerivative_add_button_clicked: function derivative_add_button_clicked() {
+        create_derivative_window(-1, qml_file_name);
     }
 
-    onDerivate_edit_button_clicked: function derivate_edit_button_clicked(pk) {
-        create_derivate_window(pk, qml_file_name);
+    onDerivative_edit_button_clicked: function derivative_edit_button_clicked(pk) {
+        create_derivative_window(pk, qml_file_name);
     }
 
-    onDerivate_duplicate_button_clicked: function derivate_duplicate_button_clicked(pk) {
+    onDerivative_duplicate_button_clicked: function derivative_duplicate_button_clicked(pk) {
         const msg = setStatusMessage(database.duplicateEntry(pk, "id", organization_dialog.table_name), Enums.StatusMsgLvl.Err);
         if(msg !== "") return;
     }
@@ -124,8 +124,8 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Name")
                 value: property_name
-                derivate_value: ""
-                derivate_mode: false
+                derivative_value: ""
+                derivative_mode: false
                 required: true
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
@@ -136,12 +136,12 @@ TemplateEditDialog
                 Connections {
                     target: organization_dialog
                     function onInitProperties() {
-                        property_line_edit_name.derivate_value = property_name;
+                        property_line_edit_name.derivative_value = property_name;
                         organization_dialog.save_button_enabled = (property_name.trim().length > 0);
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag) {
+                onNew_value: function new_value(value, derivative_flag) {
                     unsaved_changes = true;
                     property_name = value;
 
@@ -154,7 +154,7 @@ TemplateEditDialog
 
             Text
             {
-                id: derivate_description_text
+                id: derivative_description_text
                 width: parent.width
                 height: ((parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count) * 0.5
                 text: qsTr("Connections:")
@@ -248,9 +248,9 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Website")
                 value: property_website
-                derivate_value: undefined
-                derivate_mode: true
-                derivate_flag: (value === undefined) ? true : organization_dialog.property_website_derivate_flag
+                derivative_value: undefined
+                derivative_mode: true
+                derivative_flag: (value === undefined) ? true : organization_dialog.property_website_derivative_flag
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) connections_table.setFocus(dir);
@@ -260,21 +260,21 @@ TemplateEditDialog
                 Connections {
                     target: organization_dialog
                     function onInitProperties() {
-                        property_line_edit_website.derivate_flag = Qt.binding(function() { return (property_line_edit_website.value === undefined) ? true : organization_dialog.property_website_derivate_flag; })
+                        property_line_edit_website.derivative_flag = Qt.binding(function() { return (property_line_edit_website.value === undefined) ? true : organization_dialog.property_website_derivative_flag; })
                         
                         property_line_edit_website.value = property_website;
-                        property_line_edit_website.derivate_value = property_website_derivate;
+                        property_line_edit_website.derivative_value = property_website_derivative;
 
                         property_line_edit_website.init();
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                onNew_value: function new_value(value, derivative_flag, undefined_flag) {
                     unsaved_changes = true;
                     if (!undefined_flag) property_website = value;
                     else property_website = undefined;
 
-                    organization_dialog.property_website_derivate_flag = derivate_flag;
+                    organization_dialog.property_website_derivative_flag = derivative_flag;
                 }
             }
 
@@ -299,7 +299,7 @@ TemplateEditDialog
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag) {
+                onNew_value: function new_value(value, derivative_flag) {
                     unsaved_changes = true;
                     property_note = value;
                 }

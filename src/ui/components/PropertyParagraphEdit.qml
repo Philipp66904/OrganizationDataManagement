@@ -18,9 +18,9 @@ Rectangle
     required property string description
     required property string value
     required property string original_value
-    property bool derivate_flag: false
+    property bool derivative_flag: false
 
-    signal new_value(val: string, derivate_flag: bool)
+    signal new_value(val: string, derivative_flag: bool)
 
     function setFocus(dir) {
         value_text.forceActiveFocus();
@@ -56,12 +56,12 @@ Rectangle
             property int description_text_width: (width - (column_count * spacing)) * 1.0
 
             function send_new_value() {
-                if(derivate_flag) {
+                if(derivative_flag) {
                     value_text.text = original_value;
-                    property_paragraph_edit_root.new_value(value, derivate_flag);
+                    property_paragraph_edit_root.new_value(value, derivative_flag);
                 }
                 else {
-                    property_paragraph_edit_root.new_value(value_text.text, derivate_flag);
+                    property_paragraph_edit_root.new_value(value_text.text, derivative_flag);
                 }
             }
 
@@ -82,16 +82,16 @@ Rectangle
         TextInput
         {
             id: value_text
-            text: (derivate_flag) ? original_value : value
+            text: (derivative_flag) ? original_value : value
             width: parent.width
             height: (parent.height - (parent.spacing * parent.row_count)) - property_row_main.height
             font.pointSize: textSize
-            color: (derivate_flag) ? backgroundColor3 : textColor
+            color: (derivative_flag) ? backgroundColor3 : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             clip: true
-            font.italic: (derivate_flag) ? true : false
-            readOnly: derivate_flag
+            font.italic: (derivative_flag) ? true : false
+            readOnly: derivative_flag
             wrapMode: TextEdit.Wrap
             Keys.onTabPressed: nextFocus(Enums.FocusDir.Down);
             Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Up);

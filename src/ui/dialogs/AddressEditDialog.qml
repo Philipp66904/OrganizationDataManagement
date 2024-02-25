@@ -29,23 +29,23 @@ TemplateEditDialog
     property string property_name: ""
     property string property_note: ""
     property var property_street: ""
-    property bool property_street_derivate_flag: false
-    property var property_street_derivate: undefined
+    property bool property_street_derivative_flag: false
+    property var property_street_derivative: undefined
     property var property_number: ""
-    property bool property_number_derivate_flag: false
-    property var property_number_derivate: undefined
+    property bool property_number_derivative_flag: false
+    property var property_number_derivative: undefined
     property var property_postalcode: ""
-    property bool property_postalcode_derivate_flag: false
-    property var property_postalcode_derivate: undefined
+    property bool property_postalcode_derivative_flag: false
+    property var property_postalcode_derivative: undefined
     property var property_city: ""
-    property bool property_city_derivate_flag: false
-    property var property_city_derivate: undefined
+    property bool property_city_derivative_flag: false
+    property var property_city_derivative: undefined
     property var property_state: ""
-    property bool property_state_derivate_flag: false
-    property var property_state_derivate: undefined
+    property bool property_state_derivative_flag: false
+    property var property_state_derivative: undefined
     property var property_country: ""
-    property bool property_country_derivate_flag: false
-    property var property_country_derivate: undefined
+    property bool property_country_derivative_flag: false
+    property var property_country_derivative: undefined
 
     ListModel
     {
@@ -65,89 +65,89 @@ TemplateEditDialog
         if(identifier >= 0) {
             const property_street_tmp = database.getData(identifier, "id", "street", address_dialog.table_name);
             address_dialog.property_street = property_street_tmp[0];
-            address_dialog.property_street_derivate_flag = property_street_tmp[1];
-            address_dialog.property_street_derivate = database.getDataDerivate(identifier, "id", "street", address_dialog.table_name)[0];
+            address_dialog.property_street_derivative_flag = property_street_tmp[1];
+            address_dialog.property_street_derivative = database.getDataDerivative(identifier, "id", "street", address_dialog.table_name)[0];
 
             const property_number_tmp = database.getData(identifier, "id", "number", address_dialog.table_name);
             address_dialog.property_number = property_number_tmp[0];
-            address_dialog.property_number_derivate_flag = property_number_tmp[1];
-            address_dialog.property_number_derivate = database.getDataDerivate(identifier, "id", "number", address_dialog.table_name)[0];
+            address_dialog.property_number_derivative_flag = property_number_tmp[1];
+            address_dialog.property_number_derivative = database.getDataDerivative(identifier, "id", "number", address_dialog.table_name)[0];
 
             const property_postalcode_tmp = database.getData(identifier, "id", "postalcode", address_dialog.table_name);
             address_dialog.property_postalcode = property_postalcode_tmp[0];
-            address_dialog.property_postalcode_derivate_flag = property_postalcode_tmp[1];
-            address_dialog.property_postalcode_derivate = database.getDataDerivate(identifier, "id", "postalcode", address_dialog.table_name)[0];
+            address_dialog.property_postalcode_derivative_flag = property_postalcode_tmp[1];
+            address_dialog.property_postalcode_derivative = database.getDataDerivative(identifier, "id", "postalcode", address_dialog.table_name)[0];
 
             const property_city_tmp = database.getData(identifier, "id", "city", address_dialog.table_name);
             address_dialog.property_city = property_city_tmp[0];
-            address_dialog.property_city_derivate_flag = property_city_tmp[1];
-            address_dialog.property_city_derivate = database.getDataDerivate(identifier, "id", "city", address_dialog.table_name)[0];
+            address_dialog.property_city_derivative_flag = property_city_tmp[1];
+            address_dialog.property_city_derivative = database.getDataDerivative(identifier, "id", "city", address_dialog.table_name)[0];
 
             const property_state_tmp = database.getData(identifier, "id", "state", address_dialog.table_name);
             address_dialog.property_state = property_state_tmp[0];
-            address_dialog.property_state_derivate_flag = property_state_tmp[1];
-            address_dialog.property_state_derivate = database.getDataDerivate(identifier, "id", "state", address_dialog.table_name)[0];
+            address_dialog.property_state_derivative_flag = property_state_tmp[1];
+            address_dialog.property_state_derivative = database.getDataDerivative(identifier, "id", "state", address_dialog.table_name)[0];
 
             const property_country_tmp = database.getData(identifier, "id", "country", address_dialog.table_name);
             address_dialog.property_country = property_country_tmp[0];
-            address_dialog.property_country_derivate_flag = property_country_tmp[1];
-            address_dialog.property_country_derivate = database.getDataDerivate(identifier, "id", "country", address_dialog.table_name)[0];
+            address_dialog.property_country_derivative_flag = property_country_tmp[1];
+            address_dialog.property_country_derivative = database.getDataDerivative(identifier, "id", "country", address_dialog.table_name)[0];
         }
         else if(parent_identifier !== undefined && parent_identifier >= 0) {
             const property_street_tmp = database.getData(parent_identifier, "id", "street", address_dialog.table_name);
             address_dialog.property_street = property_street_tmp[0];
-            address_dialog.property_street_derivate_flag = true;
-            address_dialog.property_street_derivate = property_street_tmp[0]
+            address_dialog.property_street_derivative_flag = true;
+            address_dialog.property_street_derivative = property_street_tmp[0]
 
             const property_number_tmp = database.getData(parent_identifier, "id", "number", address_dialog.table_name);
             address_dialog.property_number = property_number_tmp[0];
-            address_dialog.property_number_derivate_flag = true;
-            address_dialog.property_number_derivate = property_number_tmp[0];
+            address_dialog.property_number_derivative_flag = true;
+            address_dialog.property_number_derivative = property_number_tmp[0];
 
             const property_postalcode_tmp = database.getData(parent_identifier, "id", "postalcode", address_dialog.table_name);
             address_dialog.property_postalcode = property_postalcode_tmp[0];
-            address_dialog.property_postalcode_derivate_flag = true;
-            address_dialog.property_postalcode_derivate = property_postalcode_tmp[0];
+            address_dialog.property_postalcode_derivative_flag = true;
+            address_dialog.property_postalcode_derivative = property_postalcode_tmp[0];
 
             const property_city_tmp = database.getData(parent_identifier, "id", "city", address_dialog.table_name);
             address_dialog.property_city = property_city_tmp[0];
-            address_dialog.property_city_derivate_flag = true;
-            address_dialog.property_city_derivate = property_city_tmp[0];
+            address_dialog.property_city_derivative_flag = true;
+            address_dialog.property_city_derivative = property_city_tmp[0];
 
             const property_state_tmp = database.getData(parent_identifier, "id", "state", address_dialog.table_name);
             address_dialog.property_state = property_state_tmp[0];
-            address_dialog.property_state_derivate_flag = true;
-            address_dialog.property_state_derivate = property_state_tmp[0];
+            address_dialog.property_state_derivative_flag = true;
+            address_dialog.property_state_derivative = property_state_tmp[0];
 
             const property_country_tmp = database.getData(parent_identifier, "id", "country", address_dialog.table_name);
             address_dialog.property_country = property_country_tmp[0];
-            address_dialog.property_country_derivate_flag = true;
-            address_dialog.property_country_derivate = property_country_tmp[0];
+            address_dialog.property_country_derivative_flag = true;
+            address_dialog.property_country_derivative = property_country_tmp[0];
         }
         else {
             address_dialog.property_street = undefined;
-            address_dialog.property_street_derivate_flag = false;
-            address_dialog.property_street_derivate = undefined;
+            address_dialog.property_street_derivative_flag = false;
+            address_dialog.property_street_derivative = undefined;
 
             address_dialog.property_number = undefined;
-            address_dialog.property_number_derivate_flag = false;
-            address_dialog.property_number_derivate = undefined;
+            address_dialog.property_number_derivative_flag = false;
+            address_dialog.property_number_derivative = undefined;
 
             address_dialog.property_postalcode = undefined;
-            address_dialog.property_postalcode_derivate_flag = false;
-            address_dialog.property_postalcode_derivate = undefined;
+            address_dialog.property_postalcode_derivative_flag = false;
+            address_dialog.property_postalcode_derivative = undefined;
 
             address_dialog.property_city = undefined;
-            address_dialog.property_city_derivate_flag = false;
-            address_dialog.property_city_derivate = undefined;
+            address_dialog.property_city_derivative_flag = false;
+            address_dialog.property_city_derivative = undefined;
 
             address_dialog.property_state = undefined;
-            address_dialog.property_state_derivate_flag = false;
-            address_dialog.property_state_derivate = undefined;
+            address_dialog.property_state_derivative_flag = false;
+            address_dialog.property_state_derivative = undefined;
 
             address_dialog.property_country = undefined;
-            address_dialog.property_country_derivate_flag = false;
-            address_dialog.property_country_derivate = undefined;
+            address_dialog.property_country_derivative_flag = false;
+            address_dialog.property_country_derivative = undefined;
         }
 
         // init address_other properties
@@ -158,30 +158,30 @@ TemplateEditDialog
             const address_other_parent_tmp = database.getDataOther(parent_id, "id", address_dialog.table_name, "address_id", address_dialog.table_name_other);
 
             for (let address_other_row of address_other_tmp) {
-                let derivate_value_tmp = undefined;
+                let derivative_value_tmp = undefined;
                 for (let address_other_parent_row of address_other_parent_tmp) {
                     if (address_other_row[1] === address_other_parent_row[1]) {
-                        derivate_value_tmp = address_other_parent_row[2];
+                        derivative_value_tmp = address_other_parent_row[2];
                         break;
                     }
                 }
 
-                if (derivate_value_tmp !== undefined) {
+                if (derivative_value_tmp !== undefined) {
                     address_other_list_model.append({"pk": address_other_row[0],
                                                      "other_index": address_other_row[1],
                                                      "property_value": address_other_row[2],
-                                                     "property_derivate_flag": address_other_row[3],
-                                                     "property_derivate": derivate_value_tmp,
-                                                     "property_derivate_undefined_flag": false});
+                                                     "property_derivative_flag": address_other_row[3],
+                                                     "property_derivative": derivative_value_tmp,
+                                                     "property_derivative_undefined_flag": false});
                 }
                 else
                 {
                     address_other_list_model.append({"pk": address_other_row[0],
                                                      "other_index": address_other_row[1],
                                                      "property_value": address_other_row[2],
-                                                     "property_derivate_flag": address_other_row[3],
-                                                     "property_derivate": "",
-                                                     "property_derivate_undefined_flag": true});
+                                                     "property_derivative_flag": address_other_row[3],
+                                                     "property_derivative": "",
+                                                     "property_derivative_undefined_flag": true});
                 }
             }
         }
@@ -192,9 +192,9 @@ TemplateEditDialog
                 address_other_list_model.append({"pk": address_other_row[0],
                                                  "other_index": address_other_row[1],
                                                  "property_value": address_other_row[2],
-                                                 "property_derivate_flag": true,
-                                                 "property_derivate": address_other_row[2],
-                                                 "property_derivate_undefined_flag": false});
+                                                 "property_derivative_flag": true,
+                                                 "property_derivative": address_other_row[2],
+                                                 "property_derivative_undefined_flag": false});
             }
         }
 
@@ -213,7 +213,7 @@ TemplateEditDialog
             }
             changes_obj["other_index"] = i;
 
-            if(changes_obj["property_derivate_flag"] === false) {
+            if(changes_obj["property_derivative_flag"] === false) {
                 address_other_array.push(changes_obj);
             }
         }
@@ -228,54 +228,54 @@ TemplateEditDialog
             if(msg !== "") return;
 
             let new_street = undefined;
-            if(!property_street_derivate_flag) new_street = property_street;
+            if(!property_street_derivative_flag) new_street = property_street;
             msg = setStatusMessage(database.setValue_Str("street", identifier, "id", address_dialog.table_name, new_street), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
 
             let new_number = undefined;
-            if(!property_number_derivate_flag) new_number = property_number;
+            if(!property_number_derivative_flag) new_number = property_number;
             msg = setStatusMessage(database.setValue_Str("number", identifier, "id", address_dialog.table_name, new_number), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
 
             let new_postalcode = undefined;
-            if(!property_postalcode_derivate_flag) new_postalcode = property_postalcode;
+            if(!property_postalcode_derivative_flag) new_postalcode = property_postalcode;
             msg = setStatusMessage(database.setValue_Str("postalcode", identifier, "id", address_dialog.table_name, new_postalcode), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
 
             let new_city = undefined;
-            if(!property_city_derivate_flag) new_city = property_city;
+            if(!property_city_derivative_flag) new_city = property_city;
             msg = setStatusMessage(database.setValue_Str("city", identifier, "id", address_dialog.table_name, new_city), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
 
             let new_state = undefined;
-            if(!property_state_derivate_flag) new_state = property_state;
+            if(!property_state_derivative_flag) new_state = property_state;
             msg = setStatusMessage(database.setValue_Str("state", identifier, "id", address_dialog.table_name, new_state), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
 
             let new_country = undefined;
-            if(!property_country_derivate_flag) new_country = property_country;
+            if(!property_country_derivative_flag) new_country = property_country;
             msg = setStatusMessage(database.setValue_Str("country", identifier, "id", address_dialog.table_name, new_country), Enums.StatusMsgLvl.Err);
             if(msg !== "") return;
         }
         else {
             // Create new entry
             let new_street = undefined;
-            if(!property_street_derivate_flag) new_street = property_street;
+            if(!property_street_derivative_flag) new_street = property_street;
 
             let new_number = undefined;
-            if(!property_number_derivate_flag) new_number = property_number;
+            if(!property_number_derivative_flag) new_number = property_number;
 
             let new_postalcode = undefined;
-            if(!property_postalcode_derivate_flag) new_postalcode = property_postalcode;
+            if(!property_postalcode_derivative_flag) new_postalcode = property_postalcode;
 
             let new_city = undefined;
-            if(!property_city_derivate_flag) new_city = property_city;
+            if(!property_city_derivative_flag) new_city = property_city;
 
             let new_state = undefined;
-            if(!property_state_derivate_flag) new_state = property_state;
+            if(!property_state_derivative_flag) new_state = property_state;
 
             let new_country = undefined;
-            if(!property_country_derivate_flag) new_country = property_country;
+            if(!property_country_derivative_flag) new_country = property_country;
             
             let new_parent_id = -1;
             if(parent_identifier !== undefined) new_parent_id = parent_identifier;
@@ -290,15 +290,15 @@ TemplateEditDialog
         unsaved_changes = false;
     }
 
-    onDerivate_add_button_clicked: function derivate_add_button_clicked() {
-        create_derivate_window(-1, qml_file_name);
+    onDerivative_add_button_clicked: function derivative_add_button_clicked() {
+        create_derivative_window(-1, qml_file_name);
     }
 
-    onDerivate_edit_button_clicked: function derivate_edit_button_clicked(pk) {
-        create_derivate_window(pk, qml_file_name);
+    onDerivative_edit_button_clicked: function derivative_edit_button_clicked(pk) {
+        create_derivative_window(pk, qml_file_name);
     }
 
-    onDerivate_duplicate_button_clicked: function derivate_duplicate_button_clicked(pk) {
+    onDerivative_duplicate_button_clicked: function derivative_duplicate_button_clicked(pk) {
         const msg = setStatusMessage(database.duplicateEntry(pk, "id", address_dialog.table_name, "address_id", "address_other"), Enums.StatusMsgLvl.Err);
         if(msg !== "") return;
     }
@@ -328,8 +328,8 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Name")
                 value: property_name
-                derivate_value: ""
-                derivate_mode: false
+                derivative_value: ""
+                derivative_mode: false
                 required: true
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
@@ -340,12 +340,12 @@ TemplateEditDialog
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
-                        property_line_edit_name.derivate_value = property_name;
+                        property_line_edit_name.derivative_value = property_name;
                         address_dialog.save_button_enabled = (property_name.trim().length > 0);
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag) {
+                onNew_value: function new_value(value, derivative_flag) {
                     unsaved_changes = true;
                     property_name = value;
 
@@ -363,9 +363,9 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Street")
                 value: property_street
-                derivate_value: undefined
-                derivate_mode: true
-                derivate_flag: (value === undefined) ? true : address_dialog.property_street_derivate_flag
+                derivative_value: undefined
+                derivative_mode: true
+                derivative_flag: (value === undefined) ? true : address_dialog.property_street_derivative_flag
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_name.setFocus(dir);
@@ -375,21 +375,21 @@ TemplateEditDialog
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
-                        property_line_edit_street.derivate_flag = Qt.binding(function() { return (property_line_edit_street.value === undefined) ? true : address_dialog.property_street_derivate_flag; })
+                        property_line_edit_street.derivative_flag = Qt.binding(function() { return (property_line_edit_street.value === undefined) ? true : address_dialog.property_street_derivative_flag; })
                         
                         property_line_edit_street.value = property_street;
-                        property_line_edit_street.derivate_value = property_street_derivate;
+                        property_line_edit_street.derivative_value = property_street_derivative;
 
                         property_line_edit_street.init();
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                onNew_value: function new_value(value, derivative_flag, undefined_flag) {
                     unsaved_changes = true;
                     if (!undefined_flag) property_street = value;
                     else property_street = undefined;
 
-                    address_dialog.property_street_derivate_flag = derivate_flag;
+                    address_dialog.property_street_derivative_flag = derivative_flag;
                 }
             }
 
@@ -400,9 +400,9 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Number")
                 value: property_number
-                derivate_value: undefined
-                derivate_mode: true
-                derivate_flag: (value === undefined) ? true : address_dialog.property_number_derivate_flag
+                derivative_value: undefined
+                derivative_mode: true
+                derivative_flag: (value === undefined) ? true : address_dialog.property_number_derivative_flag
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_street.setFocus(dir);
@@ -412,21 +412,21 @@ TemplateEditDialog
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
-                        property_line_edit_number.derivate_flag = Qt.binding(function() { return (property_line_edit_number.value === undefined) ? true : address_dialog.property_number_derivate_flag; })
+                        property_line_edit_number.derivative_flag = Qt.binding(function() { return (property_line_edit_number.value === undefined) ? true : address_dialog.property_number_derivative_flag; })
                         
                         property_line_edit_number.value = property_number;
-                        property_line_edit_number.derivate_value = property_number_derivate;
+                        property_line_edit_number.derivative_value = property_number_derivative;
 
                         property_line_edit_number.init();
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                onNew_value: function new_value(value, derivative_flag, undefined_flag) {
                     unsaved_changes = true;
                     if (!undefined_flag) property_number = value;
                     else property_number = undefined;
 
-                    address_dialog.property_number_derivate_flag = derivate_flag;
+                    address_dialog.property_number_derivative_flag = derivative_flag;
                 }
             }
 
@@ -437,9 +437,9 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Postalcode")
                 value: property_postalcode
-                derivate_value: undefined
-                derivate_mode: true
-                derivate_flag: (value === undefined) ? true : address_dialog.property_postalcode_derivate_flag
+                derivative_value: undefined
+                derivative_mode: true
+                derivative_flag: (value === undefined) ? true : address_dialog.property_postalcode_derivative_flag
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_number.setFocus(dir);
@@ -449,21 +449,21 @@ TemplateEditDialog
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
-                        property_line_edit_postalcode.derivate_flag = Qt.binding(function() { return (property_line_edit_postalcode.value === undefined) ? true : address_dialog.property_postalcode_derivate_flag; })
+                        property_line_edit_postalcode.derivative_flag = Qt.binding(function() { return (property_line_edit_postalcode.value === undefined) ? true : address_dialog.property_postalcode_derivative_flag; })
                         
                         property_line_edit_postalcode.value = property_postalcode;
-                        property_line_edit_postalcode.derivate_value = property_postalcode_derivate;
+                        property_line_edit_postalcode.derivative_value = property_postalcode_derivative;
 
                         property_line_edit_postalcode.init();
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                onNew_value: function new_value(value, derivative_flag, undefined_flag) {
                     unsaved_changes = true;
                     if (!undefined_flag) property_postalcode = value;
                     else property_postalcode = undefined;
 
-                    address_dialog.property_postalcode_derivate_flag = derivate_flag;
+                    address_dialog.property_postalcode_derivative_flag = derivative_flag;
                 }
             }
 
@@ -474,9 +474,9 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("City")
                 value: property_city
-                derivate_value: undefined
-                derivate_mode: true
-                derivate_flag: (value === undefined) ? true : address_dialog.property_city_derivate_flag
+                derivative_value: undefined
+                derivative_mode: true
+                derivative_flag: (value === undefined) ? true : address_dialog.property_city_derivative_flag
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_postalcode.setFocus(dir);
@@ -486,21 +486,21 @@ TemplateEditDialog
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
-                        property_line_edit_city.derivate_flag = Qt.binding(function() { return (property_line_edit_city.value === undefined) ? true : address_dialog.property_city_derivate_flag; })
+                        property_line_edit_city.derivative_flag = Qt.binding(function() { return (property_line_edit_city.value === undefined) ? true : address_dialog.property_city_derivative_flag; })
                         
                         property_line_edit_city.value = property_city;
-                        property_line_edit_city.derivate_value = property_city_derivate;
+                        property_line_edit_city.derivative_value = property_city_derivative;
 
                         property_line_edit_city.init();
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                onNew_value: function new_value(value, derivative_flag, undefined_flag) {
                     unsaved_changes = true;
                     if (!undefined_flag) property_city = value;
                     else property_city = undefined;
 
-                    address_dialog.property_city_derivate_flag = derivate_flag;
+                    address_dialog.property_city_derivative_flag = derivative_flag;
                 }
             }
 
@@ -511,9 +511,9 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("State")
                 value: property_state
-                derivate_value: undefined
-                derivate_mode: true
-                derivate_flag: (value === undefined) ? true : address_dialog.property_state_derivate_flag
+                derivative_value: undefined
+                derivative_mode: true
+                derivative_flag: (value === undefined) ? true : address_dialog.property_state_derivative_flag
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_city.setFocus(dir);
@@ -523,21 +523,21 @@ TemplateEditDialog
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
-                        property_line_edit_state.derivate_flag = Qt.binding(function() { return (property_line_edit_state.value === undefined) ? true : address_dialog.property_state_derivate_flag; })
+                        property_line_edit_state.derivative_flag = Qt.binding(function() { return (property_line_edit_state.value === undefined) ? true : address_dialog.property_state_derivative_flag; })
                         
                         property_line_edit_state.value = property_state;
-                        property_line_edit_state.derivate_value = property_state_derivate;
+                        property_line_edit_state.derivative_value = property_state_derivative;
 
                         property_line_edit_state.init();
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                onNew_value: function new_value(value, derivative_flag, undefined_flag) {
                     unsaved_changes = true;
                     if (!undefined_flag) property_state = value;
                     else property_state = undefined;
 
-                    address_dialog.property_state_derivate_flag = derivate_flag;
+                    address_dialog.property_state_derivative_flag = derivative_flag;
                 }
             }
 
@@ -548,9 +548,9 @@ TemplateEditDialog
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_height_count
                 description: qsTr("Country")
                 value: property_country
-                derivate_value: undefined
-                derivate_mode: true
-                derivate_flag: (value === undefined) ? true : address_dialog.property_country_derivate_flag
+                derivative_value: undefined
+                derivative_mode: true
+                derivative_flag: (value === undefined) ? true : address_dialog.property_country_derivative_flag
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_state.setFocus(dir);
@@ -560,21 +560,21 @@ TemplateEditDialog
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
-                        property_line_edit_country.derivate_flag = Qt.binding(function() { return (property_line_edit_country.value === undefined) ? true : address_dialog.property_country_derivate_flag; })
+                        property_line_edit_country.derivative_flag = Qt.binding(function() { return (property_line_edit_country.value === undefined) ? true : address_dialog.property_country_derivative_flag; })
                         
                         property_line_edit_country.value = property_country;
-                        property_line_edit_country.derivate_value = property_country_derivate;
+                        property_line_edit_country.derivative_value = property_country_derivative;
 
                         property_line_edit_country.init();
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                onNew_value: function new_value(value, derivative_flag, undefined_flag) {
                     unsaved_changes = true;
                     if (!undefined_flag) property_country = value;
                     else property_country = undefined;
 
-                    address_dialog.property_country_derivate_flag = derivate_flag;
+                    address_dialog.property_country_derivative_flag = derivative_flag;
                 }
             }
 
@@ -672,9 +672,9 @@ TemplateEditDialog
                                 height: address_other_list_view.height * 0.4
                                 description: qsTr("Other ") + (index + 1)
                                 value: property_value
-                                derivate_value: undefined
-                                derivate_mode: true
-                                derivate_flag: (value === undefined) ? true : property_derivate_flag
+                                derivative_value: undefined
+                                derivative_mode: true
+                                derivative_flag: (value === undefined) ? true : property_derivative_flag
                                 border.color: (editing) ? highlightColor : color
                                 null_switch_height_percentage: 1.0
                                 onNextFocus: function next_focus(dir) {
@@ -692,26 +692,26 @@ TemplateEditDialog
                                 required property int pk
                                 required property int other_index
                                 required property var property_value
-                                required property bool property_derivate_flag
-                                required property var property_derivate
-                                required property bool property_derivate_undefined_flag
+                                required property bool property_derivative_flag
+                                required property var property_derivative
+                                required property bool property_derivative_undefined_flag
 
                                 Component.onCompleted: {
-                                    property_line_edit_other.derivate_flag = Qt.binding(function() { return (property_line_edit_other.value === undefined) ? true : property_derivate_flag; })
+                                    property_line_edit_other.derivative_flag = Qt.binding(function() { return (property_line_edit_other.value === undefined) ? true : property_derivative_flag; })
                                     
                                     property_line_edit_other.value = property_value;
 
-                                    if(!property_derivate_undefined_flag) {
-                                        property_line_edit_other.derivate_value = property_derivate;
+                                    if(!property_derivative_undefined_flag) {
+                                        property_line_edit_other.derivative_value = property_derivative;
                                     }
                                     else {
-                                        property_line_edit_other.derivate_value = undefined;
+                                        property_line_edit_other.derivative_value = undefined;
                                     }
 
-                                    property_line_edit_other.init(derivate_flag);
+                                    property_line_edit_other.init(derivative_flag);
                                 }
 
-                                onNew_value: function new_value(value, derivate_flag, undefined_flag) {
+                                onNew_value: function new_value(value, derivative_flag, undefined_flag) {
                                     unsaved_changes = true;
 
                                     if (!undefined_flag) {
@@ -723,10 +723,10 @@ TemplateEditDialog
                                         property_line_edit_other.property_value = undefined;
                                     }
 
-                                    address_other_list_model.set(index, {"property_derivate_flag": derivate_flag});
-                                    property_line_edit_other.property_derivate_flag = derivate_flag;
+                                    address_other_list_model.set(index, {"property_derivative_flag": derivative_flag});
+                                    property_line_edit_other.property_derivative_flag = derivative_flag;
 
-                                    if(derivate_flag && property_derivate.length === 0) {
+                                    if(derivative_flag && property_derivative.length === 0) {
                                         address_other_list_model.remove(index, 1);
                                     }
                                 }
@@ -776,9 +776,9 @@ TemplateEditDialog
                                 address_other_list_model.append({"pk": -1,
                                                                  "other_index": -1,
                                                                  "property_value": "",
-                                                                 "property_derivate_flag": false,
-                                                                 "property_derivate": "",
-                                                                 "property_derivate_undefined_flag": true});
+                                                                 "property_derivative_flag": false,
+                                                                 "property_derivative": "",
+                                                                 "property_derivative_undefined_flag": true});
                             }
                         }
                     }
@@ -806,7 +806,7 @@ TemplateEditDialog
                     }
                 }
 
-                onNew_value: function new_value(value, derivate_flag) {
+                onNew_value: function new_value(value, derivative_flag) {
                     unsaved_changes = true;
                     property_note = value;
                 }
