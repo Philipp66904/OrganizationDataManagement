@@ -76,5 +76,5 @@ If you want to **add or modify a language**, take a look at the Github Wiki for 
 - Support **Keyboard-Control** wherever easily possible.
 - **Document** your changes.
 
-## Documentation
-The documentation can be found in the **Github Wiki**.
+## Documentation and User Manual
+The documentation and user manual can be found in the **Github Wiki**.
