@@ -112,8 +112,13 @@
     </message>
     <message>
         <location filename="../ui/dialogs/AddressEditDialog.qml" line="20"/>
-        <source>Add / Edit Address</source>
-        <translation>Adresse hinzufügen / bearbeiten</translation>
+        <source>Edit Address</source>
+        <translation>Adresse bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="20"/>
+        <source>Add Address</source>
+        <translation>Adresse hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/AddressEditDialog.qml" line="21"/>
@@ -795,8 +800,13 @@
     </message>
     <message>
         <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="19"/>
-        <source>Add / Edit Organization</source>
-        <translation>Organisation hinzufügen / bearbeiten</translation>
+        <source>Edit Organization</source>
+        <translation>Organisation bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="19"/>
+        <source>Add Organization</source>
+        <translation>Organisation hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="20"/>
@@ -850,8 +860,13 @@
     </message>
     <message>
         <location filename="../ui/dialogs/PersonEditDialog.qml" line="19"/>
-        <source>Add / Edit Person</source>
-        <translation>Person hinzufügen / bearbeiten</translation>
+        <source>Edit Person</source>
+        <translation>Person bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="19"/>
+        <source>Add Person</source>
+        <translation>Person hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/PersonEditDialog.qml" line="20"/>

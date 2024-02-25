@@ -16,7 +16,7 @@ TemplateEditDialog
     identifier: pk_id
     parent_identifier: parent_id
     entry_name: qsTr("New Entry")
-    window_title: qsTr("Add / Edit Person")
+    window_title: (pk_id >= 0) ? qsTr("Edit Person") : qsTr("Add Person")
     title_name: qsTr("Person")
     table_name: "person"
     property var parent_id: undefined

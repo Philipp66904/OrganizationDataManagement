@@ -17,7 +17,7 @@ TemplateEditDialog
     identifier: pk_id
     parent_identifier: parent_id
     entry_name: qsTr("New Entry")
-    window_title: qsTr("Add / Edit Address")
+    window_title: (pk_id >= 0) ? qsTr("Edit Address") : qsTr("Add Address")
     title_name: qsTr("Address")
     table_name: "address"
     property string table_name_other: "address_other"
