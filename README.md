@@ -28,6 +28,7 @@ The choice of where to store files rests entirely with you, ensuring optimal use
 1) Clone the git repository to your PC
 1) Install **Python 3** and **pip**
 1) Install **PySide6**: ```pip install PySide6```
+1) Install **pywin32**: ```pip install pywin32```
 1) Use Python to execute `main.py` found in the `src` directory: ```python main.py```
 
 #### Create .exe [Windows only]
@@ -38,9 +39,10 @@ The choice of where to store files rests entirely with you, ensuring optimal use
 1) Execute the ```create_executable.bat``` script
 1) Execute the `OrganizationDataManagement.exe` found in ```build\exe\dist\OrganizationDataManagement``` to set up the file association for `.odmdb` files (can be configured in the program settings)
 
-#### Required Programs
+#### Required Programs and non-standard Dependencies
 - Python - <kbd>3.11.0</kbd>  
-- PySide6  
+- PySide6
+- pywin32
 - [pyinstaller (if you want to create your own .exe)]
 - [Pillow (if you want to create your own .exe)]
 
