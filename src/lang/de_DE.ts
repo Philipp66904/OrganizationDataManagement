@@ -509,7 +509,7 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../main.py" line="25"/>
+        <location filename="../main.py" line="29"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
@@ -603,20 +603,24 @@
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="465"/>
-        <location filename="../ui/window/MenuBar.qml" line="499"/>
-        <location filename="../ui/window/MenuBar.qml" line="503"/>
         <source>File association</source>
         <translation>Datei Assoziation</translation>
     </message>
     <message>
+        <location filename="../ui/window/MenuBar.qml" line="499"/>
+        <location filename="../ui/window/MenuBar.qml" line="503"/>
+        <location filename="../ui/window/MenuBar.qml" line="594"/>
+        <location filename="../ui/window/MenuBar.qml" line="598"/>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
         <location filename="../ui/window/MenuBar.qml" line="510"/>
-        <location filename="../ui/window/MenuBar.qml" line="605"/>
         <source>Active</source>
         <translation>Aktiv</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="512"/>
-        <location filename="../ui/window/MenuBar.qml" line="607"/>
         <source>Inactive</source>
         <translation>Inaktiv</translation>
     </message>
@@ -643,10 +647,18 @@
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="560"/>
-        <location filename="../ui/window/MenuBar.qml" line="594"/>
-        <location filename="../ui/window/MenuBar.qml" line="598"/>
         <source>Startmenu</source>
         <translation>Startmenü</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="605"/>
+        <source>Added</source>
+        <translation>Hinzugefügt</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="607"/>
+        <source>Removed</source>
+        <translation>Entfernt</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="627"/>
@@ -671,6 +683,7 @@
     <message>
         <location filename="../ui/window/MenuBar.qml" line="657"/>
         <location filename="../ui/window/MenuBar.qml" line="659"/>
+        <location filename="../ui/window/MenuBar.qml" line="711"/>
         <source>Do you want to proceed?</source>
         <translation>Fortfahren?</translation>
     </message>
@@ -686,6 +699,8 @@
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="661"/>
+        <location filename="../ui/window/MenuBar.qml" line="696"/>
+        <location filename="../ui/window/MenuBar.qml" line="713"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -701,27 +716,64 @@
         <translation>Einstellungen zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="685"/>
+        <location filename="../ui/window/MenuBar.qml" line="692"/>
+        <source>Program Deinstall Prepared Successfully</source>
+        <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="693"/>
+        <source>You can now manually delete the directory
+containing the program data.</source>
+        <translation>Das Programmverzeichnis kann nun
+manuell gelöscht werden.</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="694"/>
+        <source>The program will close itself.</source>
+        <translation>Das Programm beendet sich jetzt.</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="695"/>
+        <source>Understood</source>
+        <translation>Verstanden</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="709"/>
+        <source>Prepare Program Deinstall?</source>
+        <translation>Programm-Deinstallation vorbereiten?</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="710"/>
+        <source>The program removes all changes made to the OS.</source>
+        <translation>Das Programm entfernt alle am System vorgenommenen Änderungen.</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="721"/>
+        <source>Program deinstall prepared successfully</source>
+        <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="740"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="715"/>
+        <location filename="../ui/window/MenuBar.qml" line="770"/>
         <source>Manual</source>
         <translation>Anleitung</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="721"/>
+        <location filename="../ui/window/MenuBar.qml" line="776"/>
         <source>Documentation</source>
         <translation>Dokumentation</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="733"/>
+        <location filename="../ui/window/MenuBar.qml" line="788"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="722"/>
+        <location filename="../ui/window/MenuBar.qml" line="777"/>
         <source>Github</source>
         <translation>Github</translation>
     </message>
@@ -731,7 +783,17 @@
         <translation>Datei Assoziation aktiviert</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="744"/>
+        <location filename="../ui/window/MenuBar.qml" line="712"/>
+        <source>Continue Deinstall</source>
+        <translation>Deinstallation fortsetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="729"/>
+        <source>Prepare Program Deinstall</source>
+        <translation>Deinstallation vorbereiten</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="799"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>

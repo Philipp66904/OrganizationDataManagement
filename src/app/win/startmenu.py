@@ -14,11 +14,14 @@ class Startmenu(QObject):
         self.application_name = application_name
     
 
-    @Slot()
-    def add_to_startmenu(self):
+    @Slot(bool)
+    def add_to_startmenu(self, wait_for_worker_finished: bool):
         if self.getStartmenuSupported():
             thread = threading.Thread(None, self.__worker_add_to_startmenu__)
             thread.start()
+            
+            if wait_for_worker_finished:
+                thread.join()
     
     
     def __worker_add_to_startmenu__(self):
@@ -36,11 +39,14 @@ class Startmenu(QObject):
         persist_file.Save(os.path.join(startmenu_path, lnk_name), 0)
     
     
-    @Slot()
-    def remove_from_startmenu(self):
+    @Slot(bool)
+    def remove_from_startmenu(self, wait_for_worker_finished: bool):
         if self.getStartmenuSupported():
             thread = threading.Thread(None, self.__worker_remove_from_startmenu__)
             thread.start()
+            
+            if wait_for_worker_finished:
+                thread.join()
     
     
     def __worker_remove_from_startmenu__(self):

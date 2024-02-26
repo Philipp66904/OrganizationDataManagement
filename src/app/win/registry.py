@@ -13,11 +13,14 @@ class WinRegistry(QObject):
         self.file_type_name = "OrganizationDataManagement-Database"
     
     
-    @Slot()
-    def add_registry_entries(self):
+    @Slot(bool)
+    def add_registry_entries(self, wait_for_worker_finished: bool):
         if self.getRegistrySupported():
             thread = threading.Thread(None, self.__worker_add_registry_entries__)
             thread.start()
+            
+            if wait_for_worker_finished:
+                thread.join()
     
     
     def __worker_add_registry_entries__(self):
@@ -37,11 +40,14 @@ class WinRegistry(QObject):
             winreg.SetValueEx(key, "", 0, winreg.REG_SZ, f"\"{path_to_exe}\" \"%1\"")
     
     
-    @Slot()
-    def remove_registry_entries(self):
+    @Slot(bool)
+    def remove_registry_entries(self, wait_for_worker_finished: bool):
         if self.getRegistrySupported():
             thread = threading.Thread(None, self.__worker_remove_registry_entries__)
             thread.start()
+            
+            if wait_for_worker_finished:
+                thread.join()
     
     
     def __worker_remove_registry_entries__(self):

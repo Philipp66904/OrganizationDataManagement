@@ -25,6 +25,8 @@ ApplicationWindow
     required property string ok_text
     required property string abort_text
 
+    property bool show_abort_button: true
+
     function init() {
         // Call this function before .show()
         ok_button.setFocus(Enums.FocusDir.Right);
@@ -82,7 +84,7 @@ ApplicationWindow
                 id: ok_button
                 text: ok_text
                 height: parent.height - anchors.bottomMargin
-                width: (parent.width - parent.spacing) / 2
+                width: (show_abort_button) ? (parent.width - parent.spacing) / 2 : parent.width
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
                 highlight_color: backgroundColorError
@@ -104,6 +106,7 @@ ApplicationWindow
             BasicButton
             {
                 id: abort_button
+                visible: show_abort_button
                 text: abort_text
                 height: parent.height - anchors.bottomMargin
                 width: (parent.width - parent.spacing) / 2

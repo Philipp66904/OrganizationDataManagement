@@ -496,11 +496,11 @@ MenuBar  // MenuBar shown in the window's header
                 Action
                 {
                     id: action_status_registry_entries
-                    text: qsTr("File association")
+                    text: qsTr("Status")
                     enabled: false
                 }
                 onAboutToShow: {
-                    let text = qsTr("File association") + ": ";
+                    let text = qsTr("Status") + ": ";
 
                     if(winregistry.getRegistrySupported()) {
                         action_add_registry_entries.enabled = true;
@@ -532,7 +532,7 @@ MenuBar  // MenuBar shown in the window's header
                     text: qsTr("Add file association")
                     onTriggered: {
                         settings.slot_setFileTypeAssociation(true);
-                        winregistry.add_registry_entries();
+                        winregistry.add_registry_entries(false);
                         setStatusMessage(qsTr("File association activated"), Enums.StatusMsgLvl.Info);
                     }
                 }
@@ -543,7 +543,7 @@ MenuBar  // MenuBar shown in the window's header
                     text: qsTr("Remove file association")
                     onTriggered: {
                         settings.slot_setFileTypeAssociation(false);
-                        winregistry.remove_registry_entries();
+                        winregistry.remove_registry_entries(false);
                         setStatusMessage(qsTr("File association deactivated"), Enums.StatusMsgLvl.Info);
                     }
                 }
@@ -591,20 +591,20 @@ MenuBar  // MenuBar shown in the window's header
                 Action
                 {
                     id: action_status_startmenu
-                    text: qsTr("Startmenu")
+                    text: qsTr("Status")
                     enabled: false
                 }
                 onAboutToShow: {
-                    let text = qsTr("Startmenu") + ": ";
+                    let text = qsTr("Status") + ": ";
 
                     if(startmenu.getStartmenuSupported()) {
                         action_add_to_startmenu.enabled = true;
                         action_remove_from_startmenu.enabled = true;
 
                         if(settings.getStartmenuState()) {
-                            text += qsTr("Active");
+                            text += qsTr("Added");
                         } else {
-                            text += qsTr("Inactive");
+                            text += qsTr("Removed");
                         }
                     }
                     else {
@@ -627,7 +627,7 @@ MenuBar  // MenuBar shown in the window's header
                     text: qsTr("Add to startmenu")
                     onTriggered: {
                         settings.slot_setStartmenuState(true);
-                        startmenu.add_to_startmenu();
+                        startmenu.add_to_startmenu(false);
                         setStatusMessage(qsTr("Added to startmenu"), Enums.StatusMsgLvl.Info);
                     }
                 }
@@ -638,7 +638,7 @@ MenuBar  // MenuBar shown in the window's header
                     text: qsTr("Remove from startmenu")
                     onTriggered: {
                         settings.slot_setStartmenuState(false);
-                        startmenu.remove_from_startmenu();
+                        startmenu.remove_from_startmenu(false);
                         setStatusMessage(qsTr("Removed from startmenu"), Enums.StatusMsgLvl.Info);
                     }
                 }
@@ -675,6 +675,61 @@ MenuBar  // MenuBar shown in the window's header
             onTriggered: {
                 settings_reset_dialog.init();
                 settings_reset_dialog.show();
+            }
+        }
+
+        MenuSeparator 
+        {
+            contentItem: Loader { sourceComponent: menu_separator_component }
+        }
+
+        TemplateDialog
+        {
+            id: program_deinstall_next_steps_dialog
+            minimumWidth: 400
+            width: 400
+
+            title_text: qsTr("Program Deinstall Prepared Successfully")
+            main_text: qsTr("You can now manually delete the directory\ncontaining the program data.")
+            sub_text: qsTr("The program will close itself.")
+            ok_text: qsTr("Understood")
+            abort_text: qsTr("Abort")
+            show_abort_button: false
+
+            function callback_function() {
+                rootWindow.close();
+            }
+        }
+        TemplateDialog
+        {
+            id: program_prepare_deinstall_dialog
+            minimumWidth: 400
+            width: 400
+
+            title_text: qsTr("Prepare Program Deinstall?")
+            main_text: qsTr("The program removes all changes made to the OS.")
+            sub_text: qsTr("Do you want to proceed?")
+            ok_text: qsTr("Continue Deinstall")
+            abort_text: qsTr("Abort")
+
+            function callback_function() {
+                winregistry.remove_registry_entries(true);
+                settings.slot_setFileTypeAssociation(false);
+                startmenu.remove_from_startmenu(true);
+                settings.slot_setStartmenuState(false);
+
+                setStatusMessage(qsTr("Program deinstall prepared successfully"), Enums.StatusMsgLvl.Info);
+                program_deinstall_next_steps_dialog.init();
+                program_deinstall_next_steps_dialog.show();
+            }
+        }
+        Action
+        {
+            id: action_prepare_program_deinstall
+            text: qsTr("Prepare Program Deinstall")
+            onTriggered: {
+                program_prepare_deinstall_dialog.init();
+                program_prepare_deinstall_dialog.show();
             }
         }
     }

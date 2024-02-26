@@ -3,6 +3,10 @@ import os
 from pathlib import Path
 from sqlite3 import Error
 
+# Included because pyinstaller otherwise sometimes doesn't include them
+import pythoncom
+from win32com.shell import shell, shellcon
+
 from PySide6.QtCore import QTranslator, QLocale, QCoreApplication
 from PySide6.QtWidgets import QApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterType
@@ -43,16 +47,16 @@ if __name__ == '__main__':
     # Handle registry entries
     winregistry = WinRegistry()
     if settings.getFileTypeAssociation():
-        winregistry.add_registry_entries()
+        winregistry.add_registry_entries(False)
     else:
-        winregistry.remove_registry_entries()
+        winregistry.remove_registry_entries(False)
     
     # Handle startmenu entry
     startmenu = Startmenu(application_name)
     if settings.getStartmenuState():
-        startmenu.add_to_startmenu()
+        startmenu.add_to_startmenu(False)
     else:
-        startmenu.remove_from_startmenu()
+        startmenu.remove_from_startmenu(False)
     
     # Handle file opening at startup
     load_on_startup_path = None
