@@ -65,10 +65,27 @@ Rectangle  // statusbar in the window's footer
         Rectangle
         {
             height: parent.height
-            width: ( parent.width 
+            width:
+            { 
+                let res = ( parent.width 
                     - (statusbar_row.spacing_width * (statusbar_row.row_items_count - 1))
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
-                    ) / statusbar_row.row_items_count
+                    ) / statusbar_row.row_items_count;
+                
+                if(status_message_level !== Enums.StatusMsgLvl.Default) res = res * 2;
+                else res = res / 2;
+
+                return res;
+            }
+            Behavior on width {
+                enabled: true
+
+                NumberAnimation
+                {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
+            }
             color: {
                 switch(status_message_level) {
                     case Enums.StatusMsgLvl.Default:
@@ -86,6 +103,8 @@ Rectangle  // statusbar in the window's footer
             MouseArea
             {
                 anchors.fill: parent
+                enabled: (status_message_level !== default_status_message_level)
+                cursorShape: (enabled) ? Qt.PointingHandCursor : Qt.ArrowCursor
                 onClicked: if(status_message_level !== default_status_message_level) setDefaultStatusMessage();
             }
 
@@ -126,10 +145,26 @@ Rectangle  // statusbar in the window's footer
         Rectangle
         {
             height: parent.height
-            width: ( parent.width 
+            width: {
+                let res = ( parent.width 
                     - (statusbar_row.spacing_width * (statusbar_row.row_items_count - 1))
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
-                    ) / statusbar_row.row_items_count
+                    ) / statusbar_row.row_items_count;
+
+                if(status_message_level !== Enums.StatusMsgLvl.Default) res = res * 0.5;
+                else res = res * 1.25;
+
+                return res;
+            }
+            Behavior on width {
+                enabled: true
+
+                NumberAnimation
+                {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
+            }
             color: "transparent"
 
             Text
@@ -151,10 +186,26 @@ Rectangle  // statusbar in the window's footer
         Rectangle
         {
             height: parent.height
-            width: ( parent.width 
+            width: {
+                let res = ( parent.width 
                     - (statusbar_row.spacing_width * (statusbar_row.row_items_count - 1))
                     - ((statusbar_row.row_items_count - 1) * 2 * parent.spacing)
-                    ) / statusbar_row.row_items_count
+                    ) / statusbar_row.row_items_count;
+                
+                if(status_message_level !== Enums.StatusMsgLvl.Default) res = res * 0.5;
+                else res = res * 1.25;
+
+                return res;
+            }
+            Behavior on width {
+                enabled: true
+
+                NumberAnimation
+                {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
+            }
             color: "transparent"
 
             Text
