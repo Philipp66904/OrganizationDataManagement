@@ -93,8 +93,8 @@ Rectangle
             font.italic: (derivative_flag) ? true : false
             readOnly: derivative_flag
             wrapMode: TextEdit.Wrap
-            Keys.onTabPressed: nextFocus(Enums.FocusDir.Down);
-            Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Up);
+            Keys.onTabPressed: nextFocus(Enums.FocusDir.Right);
+            Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Left);
             Keys.onReturnPressed: nextFocus(Enums.FocusDir.Save);
             Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
             Keys.onUpPressed: nextFocus(Enums.FocusDir.Up);

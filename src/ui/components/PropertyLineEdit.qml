@@ -145,10 +145,10 @@ Rectangle
             clip: true
             font.italic: (derivative_flag) ? true : false
             readOnly: derivative_flag
-            Keys.onTabPressed: nextFocus(Enums.FocusDir.Down);
+            Keys.onTabPressed: nextFocus(Enums.FocusDir.Right);
             Keys.onReturnPressed: nextFocus(Enums.FocusDir.Save);
             Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
-            Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Up);
+            Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Left);
             Keys.onUpPressed: nextFocus(Enums.FocusDir.Up);
             Keys.onDownPressed: nextFocus(Enums.FocusDir.Down);
 
