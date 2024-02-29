@@ -23,7 +23,7 @@ TemplateEditDialog
     property string table_name_other: "address_other"
     property var parent_id: undefined
     property string qml_file_name: "AddressEditDialog.qml"
-    property_height: 1.2
+    property_height: 1.2 * (480.0 / height)
 
     // current property values
     property string property_name: ""
@@ -312,7 +312,7 @@ TemplateEditDialog
             id: property_column
             spacing: 8
             property var row_count: 9
-            property var row_height_count: 13
+            property var row_height_count: 13 * (height / 576.0)
 
             function setFocus(dir) {
                 if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) property_line_edit_name.setFocus(dir);

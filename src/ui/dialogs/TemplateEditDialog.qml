@@ -23,7 +23,7 @@ ApplicationWindow
     color: backgroundColor1
     modality: Qt.ApplicationModal
     minimumWidth: 300
-    minimumHeight: 90
+    minimumHeight: 450
     width: rootWindow.width * 0.8
     height: rootWindow.height * 0.8
 
@@ -181,6 +181,7 @@ ApplicationWindow
                 contentHeight: scrollview_column.height
                 contentWidth: width
                 clip: true
+                enabled: (scrollview_column.height > height)
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff  // actually not needed because of contentWidth: width, just to be safe
 
                 Column

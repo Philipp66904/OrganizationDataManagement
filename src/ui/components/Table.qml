@@ -265,7 +265,7 @@ Rectangle
 
                         let longest_text = table_model.getLongestText(column);
                         if(longest_text.length <= 0) longest_text = qsTr("null");
-                        dummy_txt.text = longest_text + "    ";
+                        dummy_txt.text = longest_text + "      ";
                         return dummy_txt.contentWidth;
                     }
 

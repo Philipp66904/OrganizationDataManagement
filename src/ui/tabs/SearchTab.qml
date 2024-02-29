@@ -111,11 +111,13 @@ Rectangle
         anchors.bottomMargin: 4
         spacing: 4
         property int column_count: 2
-        property var max_distribution: 0.7
-        property var min_distribution: 0.25
+        property var max_distribution: 0.75
+        property var min_distribution: 0.10
         property var distribution: 0.5
         property var search_parameter_scroll_view_height: (height - separator.height - (spacing * (column_count - 1))) * distribution
+        property var search_parameter_scroll_view_default_height: (height - separator.height - (spacing * (column_count - 1))) * 0.5
         property var table_column_height: (height - separator.height - (spacing * (column_count - 1))) * (1 - distribution) - 4
+        property var table_column_default_height: (height - separator.height - (spacing * (column_count - 1))) * (1 - 0.5) - 4
 
         ScrollView
         {
@@ -140,8 +142,8 @@ Rectangle
                 spacing: 8
 
                 property var row_count: 9
-                property var row_height_count: 7 * Math.pow(main_column.distribution + 0.5, 2)
-                property var module_height: (search_parameter_scroll_view.height - ((search_parameter_column.row_count - 1) * search_parameter_column.spacing)) / search_parameter_column.row_height_count
+                property var row_height_count: Math.max(Math.round(main_column.height / 70), 3)
+                property var module_height: (main_column.search_parameter_scroll_view_default_height - ((search_parameter_column.row_count - 1) * search_parameter_column.spacing)) / search_parameter_column.row_height_count
 
                 PropertyLineEdit
                 {
@@ -559,8 +561,10 @@ Rectangle
 
             property int row_count: 2
             property var distribution: 0.9
-            property var tab_row_height: (height - ((row_count - 1) * spacing)) * (1 - distribution)
-            property var table_height: (height - ((row_count - 1) * spacing)) * distribution
+            property var tab_row_height: (main_column.table_column_default_height - ((row_count - 1) * spacing)) * (1 - distribution)
+            //property var tab_row_default_height: (main_column.table_column_default_height - ((row_count - 1) * spacing)) * (1 - distribution)
+            property var table_height: (height - ((row_count - 1) * spacing)) - tab_row_height
+            //property var table_default_height: (main_column.table_column_default_height - ((row_count - 1) * spacing)) * distribution
 
             Rectangle
             {
@@ -681,10 +685,13 @@ Rectangle
                 SearchResultTable
                 {
                     id: organization_result_table
+                    height: parent.height
+                    width: parent.width
 
                     table_name: "organization"
                     search_res: organization_search_res
-                    table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
+                    table_cell_rect_height_factor: Math.min(Math.max(0.0, 0.16 * (211 / height)), 1.0)
+                    table_view_main_height_factor: 0.87 + Math.min(Math.max(-0.3, (height / 1918) - 0.12), 0.05)
 
                     onNextFocus: function next_focus(dir) {
                         if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
@@ -714,10 +721,13 @@ Rectangle
                 SearchResultTable
                 {
                     id: person_result_table
+                    height: parent.height
+                    width: parent.width
 
                     table_name: "person"
                     search_res: person_search_res
-                    table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
+                    table_cell_rect_height_factor: Math.min(Math.max(0.0, 0.16 * (211 / height)), 1.0)
+                    table_view_main_height_factor: 0.87 + Math.min(Math.max(-0.3, (height / 1918) - 0.12), 0.05)
 
                     onNextFocus: function next_focus(dir) {
                         if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
@@ -742,10 +752,13 @@ Rectangle
                 SearchResultTable
                 {
                     id: address_result_table
+                    height: parent.height
+                    width: parent.width
 
                     table_name: "address"
                     search_res: address_search_res
-                    table_cell_rect_height_factor: 0.16 / (Math.pow(1 - main_column.distribution + 0.5, 2))
+                    table_cell_rect_height_factor: Math.min(Math.max(0.0, 0.16 * (211 / height)), 1.0)
+                    table_view_main_height_factor: 0.87 + Math.min(Math.max(-0.3, (height / 1918) - 0.12), 0.05)
 
                     onNextFocus: function next_focus(dir) {
                         if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) tab_main.nextFocus(dir);
