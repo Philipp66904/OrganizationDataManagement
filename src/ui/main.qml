@@ -34,7 +34,7 @@ ApplicationWindow
 
     // Text family and size
     property string fontFamily_default: "Roboto"
-    property string fontFamily_small: "Roboto"
+    property string fontFamily_small: "Roboto Condensed Regular"
     property string fontFamily_big: "Roboto"
     property real fontSize_default: 12.0
     property real fontSize_small: 10.0

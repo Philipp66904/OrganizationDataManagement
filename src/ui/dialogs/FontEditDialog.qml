@@ -89,8 +89,8 @@ ApplicationWindow
         anchors.top: parent.top
         spacing: 4
         property int row_count: 1
-        property var title_rect_height: (height - (row_count - 1) * spacing) * 0.15
-        property var font_edit_list_view_height: (height - (row_count - 1) * spacing) * 0.85
+        property var title_rect_height: Math.min(33, (height - (row_count - 1) * spacing) * 0.20)
+        property var font_edit_list_view_height: (height - (row_count - 1) * spacing) * 0.80
 
         Rectangle
         {
