@@ -36,6 +36,7 @@ ApplicationWindow
             height: parent.height * 0.7 - parent.spacing
             width: parent.width
             font.pointSize: fontSize_default
+            font.family: fontFamily_default
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -53,6 +54,7 @@ ApplicationWindow
             width: parent.width
             height: parent.height * 0.3 - parent.spacing
             font.pointSize: fontSize_default
+            font.family: fontFamily_default
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

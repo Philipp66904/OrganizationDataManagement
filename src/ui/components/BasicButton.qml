@@ -100,6 +100,7 @@ Rectangle
         anchors.fill: parent
         anchors.margins: 4
         font.pointSize: (button_mouse_area.pressed) ? fontSize_small : fontSize_default
+        font.family: (button_mouse_area.pressed) ? fontFamily_small : fontFamily_default
         color:
         {
             if(button_enabled === false) return textColor1;

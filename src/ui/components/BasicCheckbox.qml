@@ -72,6 +72,7 @@ CheckBox
         text: parent.text
         leftPadding: parent.indicator.width + parent.spacing
         font.pointSize: fontSize_default
+        font.family: fontFamily_default
         color: {
             if(!checkbox_root.enabled) return textColor1;
             else if(parent.checked) return highlight_color;

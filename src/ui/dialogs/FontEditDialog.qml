@@ -14,10 +14,10 @@ ApplicationWindow
     title: qsTr("Edit Fonts")
     color: backgroundColor1
     modality: Qt.ApplicationModal
-    minimumWidth: 300
+    minimumWidth: 250
     minimumHeight: 200
-    width: 500
-    height: 300
+    width: 300
+    height: 200
 
     // Closing handler
     property bool close_okay: false
@@ -106,6 +106,7 @@ ApplicationWindow
                 anchors.margins: 4
                 text: qsTr("Edit Fonts")
                 font.pointSize: fontSize_big
+                font.family: fontFamily_big
                 color: textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

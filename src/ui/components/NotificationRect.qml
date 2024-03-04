@@ -39,6 +39,7 @@ Rectangle
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter
             font.pointSize: fontSize_default
+            font.family: fontFamily_default
             color: textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter

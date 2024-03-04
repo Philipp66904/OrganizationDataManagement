@@ -77,6 +77,7 @@ Rectangle
             height: parent.height
             width: (parent.width - (parent.spacing * (combo_selection_row.column_count - 1))) / combo_selection_row.column_count
             font.pointSize: fontSize_default
+            font.family: fontFamily_default
             color: textColor1
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter

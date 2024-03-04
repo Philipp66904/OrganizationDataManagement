@@ -99,6 +99,7 @@ ApplicationWindow
                     height: parent.height
                     text: qsTr("About")
                     font.pointSize: fontSize_big
+                    font.family: fontFamily_big
                     color: textColor
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
@@ -113,6 +114,7 @@ ApplicationWindow
                     height: parent.height
                     text: qsTr("Organization Data Management")
                     font.pointSize: fontSize_big
+                    font.family: fontFamily_big
                     color: textColor1
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
@@ -136,6 +138,7 @@ ApplicationWindow
                 text: ""
                 width: about_text_scroll_view.width
                 font.pointSize: fontSize_default
+                font.family: fontFamily_default
                 color: textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

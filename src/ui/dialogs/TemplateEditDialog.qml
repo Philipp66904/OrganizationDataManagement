@@ -147,6 +147,7 @@ ApplicationWindow
                     height: parent.height
                     text: edit_dialog_window.title_name
                     font.pointSize: fontSize_big
+                    font.family: fontFamily_big
                     color: textColor
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
@@ -161,6 +162,7 @@ ApplicationWindow
                     height: parent.height
                     text: edit_dialog_window.entry_name
                     font.pointSize: fontSize_big
+                    font.family: fontFamily_big
                     color: textColor1
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
@@ -231,6 +233,7 @@ ApplicationWindow
                     height: main_column.derivative_description_text_height
                     text: qsTr("Derivatives:")
                     font.pointSize: fontSize_default
+                    font.family: fontFamily_default
                     color: textColor1
                     anchors.horizontalCenter: parent.horizontalCenter
                     horizontalAlignment: Text.AlignLeft
@@ -487,6 +490,7 @@ ApplicationWindow
                         anchors.fill: parent
                         anchors.margins: 4
                         font.pointSize: fontSize_small
+                        font.family: fontFamily_small
                         color: date_row.text_color
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -516,6 +520,7 @@ ApplicationWindow
                         anchors.fill: parent
                         anchors.margins: 4
                         font.pointSize: fontSize_small
+                        font.family: fontFamily_small
                         color: date_row.text_color
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter

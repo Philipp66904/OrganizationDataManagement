@@ -44,6 +44,7 @@ Rectangle
             height: parent.height
             width: (parent.width - ((parent.column_count - 1) * parent.spacing)) / 2
             font.pointSize: fontSize_default
+            font.family: fontFamily_default
             color: textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
@@ -67,6 +68,7 @@ Rectangle
                 anchors.fill: parent
                 anchors.margins: 4
                 font.pointSize: fontSize_default
+                font.family: fontFamily_default
                 color: getContrastColor(parent.color)
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

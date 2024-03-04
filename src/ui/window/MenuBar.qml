@@ -69,6 +69,7 @@ MenuBar  // MenuBar shown in the window's header
             rightPadding: menuItem.arrow.width
             text: menuItem.text
             font.pointSize: (fontSize_small) ? fontSize_small : 1
+            font.family: fontFamily_small
             color: menuItem.highlighted ? highlightColor : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
@@ -93,6 +94,7 @@ MenuBar  // MenuBar shown in the window's header
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
                 font.pointSize: (fontSize_small) ? fontSize_small : 1
+                font.family: fontFamily_small
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -190,6 +192,7 @@ MenuBar  // MenuBar shown in the window's header
                     rightPadding: menuItem.arrow.width
                     text: menuItem.text
                     font.pointSize: (fontSize_small) ? fontSize_small : 1
+                    font.family: fontFamily_small
                     color: menuItem.highlighted ? highlightColor : textColor
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
@@ -375,6 +378,7 @@ MenuBar  // MenuBar shown in the window's header
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
                 font.pointSize: (fontSize_small) ? fontSize_small : 1
+                font.family: fontFamily_small
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -456,6 +460,7 @@ MenuBar  // MenuBar shown in the window's header
                     rightPadding: menuItem.arrow.width
                     text: menuItem.text
                     font.pointSize: (fontSize_small) ? fontSize_small : 1
+                    font.family: fontFamily_small
                     color: menuItem.highlighted ? highlightColor : textColor
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
@@ -490,6 +495,7 @@ MenuBar  // MenuBar shown in the window's header
                         rightPadding: menuItem.arrow.width
                         text: menuItem.text
                         font.pointSize: (fontSize_small) ? fontSize_small : 1
+                        font.family: fontFamily_small
                         color: menuItem.highlighted ? highlightColor : textColor
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -585,6 +591,7 @@ MenuBar  // MenuBar shown in the window's header
                         rightPadding: menuItem.arrow.width
                         text: menuItem.text
                         font.pointSize: (fontSize_small) ? fontSize_small : 1
+                        font.family: fontFamily_small
                         color: menuItem.highlighted ? highlightColor : textColor
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -764,6 +771,7 @@ MenuBar  // MenuBar shown in the window's header
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
                 font.pointSize: (fontSize_small) ? fontSize_small : 1
+                font.family: fontFamily_small
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -826,6 +834,7 @@ MenuBar  // MenuBar shown in the window's header
         {
             text: menuBarItem.text
             font.pointSize: (fontSize_default) ? fontSize_default : 1
+            font.family: fontFamily_default
             color: menuBarItem.highlighted ? highlightColor : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter

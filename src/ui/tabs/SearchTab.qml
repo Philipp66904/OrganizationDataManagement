@@ -595,6 +595,7 @@ Rectangle
                         width: tab_row.module_width
                         height: parent.height
                         font.pointSize: fontSize_default
+                        font.family: fontFamily_default
                         color: textColor1
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter

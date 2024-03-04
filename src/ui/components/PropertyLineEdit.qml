@@ -133,6 +133,7 @@ Rectangle
             width: property_row_main.description_text_width
             height: parent.height
             font.pointSize: fontSize_default
+            font.family: fontFamily_default
             color: (required && value_text.text.trim().length <= 0) ? backgroundColorError : textColor1
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
@@ -146,6 +147,7 @@ Rectangle
             width: property_row_main.value_text_width
             height: parent.height
             font.pointSize: fontSize_default
+            font.family: fontFamily_default
             color: (derivative_flag) ? backgroundColor3 : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter

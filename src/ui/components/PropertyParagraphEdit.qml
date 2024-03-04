@@ -72,6 +72,7 @@ Rectangle
                 width: property_row_main.description_text_width
                 height: parent.height
                 font.pointSize: fontSize_default
+                font.family: fontFamily_default
                 color: textColor1
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -86,6 +87,7 @@ Rectangle
             width: parent.width
             height: (parent.height - (parent.spacing * parent.row_count)) - property_row_main.height
             font.pointSize: fontSize_default
+            font.family: fontFamily_default
             color: (derivative_flag) ? backgroundColor3 : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop

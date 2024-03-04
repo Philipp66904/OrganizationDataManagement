@@ -114,6 +114,7 @@ Rectangle  // statusbar in the window's footer
                 anchors.fill: parent
                 anchors.margins: 4
                 font.pointSize: fontSize_small
+                font.family: fontFamily_small
                 color: {
                     switch(status_message_level) {
                         case Enums.StatusMsgLvl.Default:
@@ -173,6 +174,7 @@ Rectangle  // statusbar in the window's footer
                 anchors.fill: parent
                 anchors.margins: 4
                 font.pointSize: fontSize_small
+                font.family: fontFamily_small
                 color: text_color
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -214,6 +216,7 @@ Rectangle  // statusbar in the window's footer
                 anchors.fill: parent
                 anchors.margins: 4
                 font.pointSize: fontSize_small
+                font.family: fontFamily_small
                 color: text_color
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter

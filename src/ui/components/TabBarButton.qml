@@ -63,6 +63,7 @@ Rectangle
         anchors.fill: parent
         anchors.margins: 4
         font.pointSize: fontSize_default
+        font.family: fontFamily_default
         color: (parent.highlighted) ? highlightColor : textColor
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
