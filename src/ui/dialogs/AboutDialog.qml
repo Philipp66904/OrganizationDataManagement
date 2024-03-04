@@ -13,7 +13,6 @@ ApplicationWindow
     id: dialog
     title: qsTr("About") + " - " + qsTr("Organization Data Management")
     color: backgroundColor1
-    flags: Qt.Dialog
     modality: Qt.ApplicationModal
     minimumWidth: 300
     minimumHeight: 200

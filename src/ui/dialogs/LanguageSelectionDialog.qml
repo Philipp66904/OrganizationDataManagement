@@ -14,6 +14,7 @@ ApplicationWindow
     title: qsTr("Change Language")
     color: backgroundColor1
     modality: Qt.ApplicationModal
+    flags: Qt.Dialog
     minimumWidth: 300
     minimumHeight: 120
     width: 300

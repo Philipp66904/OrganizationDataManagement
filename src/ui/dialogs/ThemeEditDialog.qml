@@ -127,7 +127,7 @@ ApplicationWindow
             delegate: ColorSelection
             {
                 width: theme_edit_list_view.width
-                height: theme_edit_list_view.height / 4
+                height: Math.min(56, theme_edit_list_view.height / 4)
 
                 required property int index
                 required property string color_name

@@ -128,7 +128,7 @@ ApplicationWindow
             delegate: PropertyLineEdit
             {
                 width: font_edit_list_view.width
-                height: font_edit_list_view.height / 4
+                height: Math.min(35, font_edit_list_view.height / 4)
 
                 required property int index
                 required property string font_name
