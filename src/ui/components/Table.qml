@@ -45,7 +45,7 @@ Rectangle
     }
 
     function setFocus(dir) {
-        if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) add_button.setFocus(Enums.FocusDir.Right);
+        if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) table_view.setFocus(dir);
         else if(dir === Enums.FocusDir.Up) add_button.setFocus(Enums.FocusDir.Up);
         else delete_button.setFocus(Enums.FocusDir.Left);
     }
@@ -250,12 +250,38 @@ Rectangle
                                 event.accepted = true;
                             }
                         } else if (event.key === Qt.Key_Escape) {
-                            table_root.setFocus(Enums.FocusDir.Down);
+                            table_root.nextFocus(Enums.FocusDir.Close);
+                            event.accepted = true;
+                        } else if (event.key === Qt.Key_Left || event.key === Qt.Key_Backtab) {
+                            table_root.nextFocus(Enums.FocusDir.Left);
+                            event.accepted = true;
+                        } else if (event.key === Qt.Key_Right || event.key === Qt.Key_Tab) {
+                            add_button.setFocus(Enums.FocusDir.Right);
+                            event.accepted = true;
+                        } else if (event.key === Qt.Key_Up && table_view_selection_model.selectedIndexes.length > 0 && table_view_selection_model.selectedIndexes[0].row === 0) {
+                            table_root.nextFocus(Enums.FocusDir.Up);
+                            event.accepted = true;
+                        } else if (event.key === Qt.Key_Down && table_view_selection_model.selectedIndexes.length > 0 && table_view_selection_model.selectedIndexes[0].row === table_model.rowCount() - 1) {
+                            add_button.setFocus(Enums.FocusDir.Right);
+                            event.accepted = true;
                         }
                     }
 
-                    function setFocus() {
-                        forceActiveFocus();
+                    function setFocus(dir) {
+                        if(table_model.rowCount() <= 0) {
+                            if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) add_button.setFocus(dir);
+                            else table_root.nextFocus(dir);
+                        } else {
+                            forceActiveFocus();
+
+                            if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) {
+                                table_view.selectionModel.select(table_model.getModelIndex(0, 0), ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
+                            } else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) {
+                                table_view.selectionModel.select(table_model.getModelIndex(-1, 0), ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
+                            } else {
+                                table_root.nextFocus(dir);
+                            }
+                        }
                     }
 
                     onLayoutChanged: {
@@ -346,6 +372,15 @@ Rectangle
                         required property bool selected
                         required property bool current
 
+                        Gradient {
+                            id: selected_gradient
+                            GradientStop { position: 0.0; color: border.color }
+                            GradientStop { position: 0.10; color: cell_rect.color }
+                            GradientStop { position: 0.90; color: cell_rect.color }
+                            GradientStop { position: 1.0; color: border.color }
+                        }
+                        gradient: (selected && table_view.focus) ? selected_gradient : null
+
                         Text
                         {
                             id: cell_text
@@ -368,7 +403,7 @@ Rectangle
                             anchors.fill: parent
                             hoverEnabled: true
                             onClicked: function (mouse)  {
-                                table_view.setFocus();
+                                table_view.setFocus(Enums.FocusDir.Right);
                                 var mp = table_view.mapFromItem(delegate_mouse_area, mouse.x, mouse.y);
                                 var cell = table_view.cellAtPos(mp.x, mp.y, false);
                                 var min_idx = table_view.model.index(cell.y, 0);
@@ -377,7 +412,7 @@ Rectangle
 
                             onDoubleClicked: function double_clicked(mouse)
                             {
-                                table_view.setFocus();
+                                table_view.setFocus(Enums.FocusDir.Right);
                                 delegate_mouse_area.clicked(mouse);
                                 table_root.editEntry();
                             }
@@ -445,6 +480,7 @@ Rectangle
                         }
 
                         if(dir === Enums.FocusDir.Right) edit_button.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) table_view.setFocus(dir);
                         else table_root.nextFocus(dir);
                     }
 
@@ -475,6 +511,7 @@ Rectangle
 
                         if(dir === Enums.FocusDir.Right) duplicate_button.setFocus(dir);
                         else if(dir === Enums.FocusDir.Left) add_button.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Up) table_view.setFocus(dir);
                         else table_root.nextFocus(dir);
                     }
 
@@ -500,6 +537,7 @@ Rectangle
 
                         if(dir === Enums.FocusDir.Left) edit_button.setFocus(dir);
                         else if(dir === Enums.FocusDir.Right) delete_button.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Up) table_view.setFocus(dir);
                         else table_root.nextFocus(dir);
                     }
 
@@ -529,6 +567,7 @@ Rectangle
                         }
 
                         if(dir === Enums.FocusDir.Left) duplicate_button.setFocus(dir);
+                        else if(dir === Enums.FocusDir.Up) table_view.setFocus(dir);
                         else table_root.nextFocus(dir);
                     }
 

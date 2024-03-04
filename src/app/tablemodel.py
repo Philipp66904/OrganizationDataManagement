@@ -329,4 +329,12 @@ class TableModel(QAbstractTableModel):
         if type(val) != str:
             raise ValueError("TableModel::getValueFloat: The requested value is not of type 'float'")
         
-        return self.row_data[row_index][column_index]  
+        return self.row_data[row_index][column_index]
+    
+    
+    @Slot(int, int, result=QModelIndex)
+    def getModelIndex(self, row: int, column: int) -> QModelIndex:
+        if row < 0:
+            row = self.rowCount() - 1
+        
+        return self.index(row, column)
