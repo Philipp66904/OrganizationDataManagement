@@ -46,6 +46,7 @@ Rectangle
 
     function setFocus(dir) {
         if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) add_button.setFocus(Enums.FocusDir.Right);
+        else if(dir === Enums.FocusDir.Up) add_button.setFocus(Enums.FocusDir.Up);
         else delete_button.setFocus(Enums.FocusDir.Left);
     }
 
@@ -226,6 +227,36 @@ Rectangle
                     selectionMode: TableView.SingleSelection
                     flickableDirection: Flickable.AutoFlickIfNeeded
 
+                    Keys.onPressed: (event) => {
+                        if (event.key === Qt.Key_A && (event.modifiers & Qt.ControlModifier)) {
+                            if(add_button.button_enabled && add_button.visible) {
+                                add_button.clicked();
+                                event.accepted = true;
+                            }
+                        } else if (event.key === Qt.Key_Return) {
+                            if(edit_button.button_enabled && edit_button.visible) {
+                                edit_button.clicked();
+                                event.accepted = true;
+                            }
+                        } else if (event.key === Qt.Key_D && (event.modifiers & Qt.ControlModifier)) {
+                            if(duplicate_button.button_enabled && duplicate_button.visible) {
+                                duplicate_button.clicked();
+                                event.accepted = true;
+                            }
+                        } else if (event.key === Qt.Key_Backspace) {
+                            if(delete_button.button_enabled && delete_button.visible) {
+                                delete_button.clicked();
+                                event.accepted = true;
+                            }
+                        } else if (event.key === Qt.Key_Escape) {
+                            table_root.setFocus(Enums.FocusDir.Down);
+                        }
+                    }
+
+                    function setFocus() {
+                        forceActiveFocus();
+                    }
+
                     onLayoutChanged: {
                         table_root.selected_pk = undefined;
                         table_view_selection_model.clear();
@@ -290,6 +321,14 @@ Rectangle
                             else if(pk_type === "float") pk = table_model.getValueFloat(column_index, row);
 
                             table_root.selected_pk = pk;
+
+                            setCurrentIndex(table_view_selection_model.selectedIndexes[0], ItemSelectionModel.Current);
+                        }
+
+                        onCurrentChanged: function (current, previous) {
+                            if(current.row !== previous.row) {
+                                table_view.selectionModel.select(current, ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
+                            }
                         }
                     }
 
@@ -326,6 +365,7 @@ Rectangle
                             anchors.fill: parent
                             hoverEnabled: true
                             onClicked: function (mouse)  {
+                                table_view.setFocus();
                                 var mp = table_view.mapFromItem(delegate_mouse_area, mouse.x, mouse.y);
                                 var cell = table_view.cellAtPos(mp.x, mp.y, false);
                                 var min_idx = table_view.model.index(cell.y, 0);
@@ -334,6 +374,7 @@ Rectangle
 
                             onDoubleClicked: function double_clicked(mouse)
                             {
+                                table_view.setFocus();
                                 delegate_mouse_area.clicked(mouse);
                                 table_root.editEntry();
                             }

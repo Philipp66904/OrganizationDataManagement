@@ -51,8 +51,6 @@ ApplicationWindow
         res += "  \n";
         res += "**" + qsTr("Delete") + "**: `" + custom_shortcuts.getSequence("Delete") + "`";
         res += "  \n";
-        res += "**" + qsTr("Duplicate") + "**: `" + custom_shortcuts.getSequence("Duplicate") + "`";
-        res += "  \n";
         res += "**" + qsTr("New") + "**: `" + custom_shortcuts.getSequence("New") + "`";
         res += "  \n";
         res += "**" + qsTr("Open") + "**: `" + custom_shortcuts.getSequence("Open") + "`";

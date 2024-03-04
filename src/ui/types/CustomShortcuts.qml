@@ -10,7 +10,6 @@ Item
     signal shortcutSaveAs()
     signal shortcutClose()
     signal shortcutDelete()
-    signal shortcutDuplicate()
     signal shortcutNew()
     signal shortcutOpen()
 
@@ -24,8 +23,6 @@ Item
                 return shortcut_close.getSequence();
             case "Delete":
                 return shortcut_delete.getSequence();
-            case "Duplicate":
-                return shortcut_duplicate.getSequence();
             case "New":
                 return shortcut_new.getSequence();
             case "Open":
@@ -104,18 +101,6 @@ Item
 
         function getSequence() {
             return nativeText;
-        }
-    }
-
-    Shortcut
-    {
-        id: shortcut_duplicate
-        sequence: "Ctrl+D"
-        autoRepeat: false
-        onActivated: shortcutDuplicate()
-
-        function getSequence() {
-            return sequence;
         }
     }
 
