@@ -91,7 +91,7 @@ Rectangle
         else nextFocus(dir);
     }
 
-    onButton_enabledChanged: if(!button_enabled) nextFocus(Enums.FocusDir.Left)
+    onButton_enabledChanged: if(!button_enabled && focus) nextFocus(Enums.FocusDir.Left)
 
     Text
     {
