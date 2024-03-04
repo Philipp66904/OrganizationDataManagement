@@ -594,7 +594,7 @@ Rectangle
                         text: qsTr("Results:")
                         width: tab_row.module_width
                         height: parent.height
-                        font.pointSize: textSize
+                        font.pointSize: fontSize_default
                         color: textColor1
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter

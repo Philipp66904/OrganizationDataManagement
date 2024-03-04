@@ -24,7 +24,7 @@ Rectangle
 
     Keys.onReturnPressed: {
         clicked();
-        button_text.font.pointSize = textSizeSmall;
+        button_text.font.pointSize = fontSize_small;
         button_root_rect.border.color = highlight_color;
         button_text.color = highlight_color;
         timer.start();
@@ -43,7 +43,7 @@ Rectangle
         interval: 200
         onTriggered: {
             button_text.font.pointSize = Qt.binding(function() {
-                return (button_mouse_area.pressed) ? textSizeSmall : textSize
+                return (button_mouse_area.pressed) ? fontSize_small : fontSize_default
             });
 
             button_root_rect.border.color = Qt.binding(function() {
@@ -99,7 +99,7 @@ Rectangle
         text: button_root_rect.text
         anchors.fill: parent
         anchors.margins: 4
-        font.pointSize: (button_mouse_area.pressed) ? textSizeSmall : textSize
+        font.pointSize: (button_mouse_area.pressed) ? fontSize_small : fontSize_default
         color:
         {
             if(button_enabled === false) return textColor1;

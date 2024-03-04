@@ -132,7 +132,7 @@ Rectangle
             text: description + ":"
             width: property_row_main.description_text_width
             height: parent.height
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: (required && value_text.text.trim().length <= 0) ? backgroundColorError : textColor1
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
@@ -145,7 +145,7 @@ Rectangle
             text: getValueText()
             width: property_row_main.value_text_width
             height: parent.height
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: (derivative_flag) ? backgroundColor3 : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter

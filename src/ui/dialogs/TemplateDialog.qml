@@ -45,7 +45,7 @@ ApplicationWindow
             text: main_text
             height: parent.height * 0.75 - parent.spacing
             width: parent.width
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -62,7 +62,7 @@ ApplicationWindow
             text: sub_text
             height: parent.height * 0.25 - parent.spacing
             width: parent.width
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

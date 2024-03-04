@@ -113,7 +113,7 @@ Rectangle
                 text: description_text
                 height: (parent.height - ((parent.row_count - 1) * parent.spacing)) / parent.row_count
                 width: parent.width
-                font.pointSize: textSize
+                font.pointSize: fontSize_default
                 color: textColor1
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter

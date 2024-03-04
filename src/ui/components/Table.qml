@@ -144,7 +144,7 @@ Rectangle
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.left
                             anchors.leftMargin: 4
-                            font.pointSize: textSize
+                            font.pointSize: fontSize_default
                             font.bold: true
                             color: textColor
                             horizontalAlignment: Text.AlignHCenter
@@ -249,7 +249,7 @@ Rectangle
                         visible: false
                         width: table_view_main.width * 0.50 - 8
                         height: table_view_main.height * table_cell_rect_height_factor - 8
-                        font.pointSize: textSize
+                        font.pointSize: fontSize_default
                         font.bold: true
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -311,7 +311,7 @@ Rectangle
                             text: (display !== undefined) ? display : qsTr("null")
                             anchors.fill: parent
                             anchors.margins: 4
-                            font.pointSize: textSize
+                            font.pointSize: fontSize_default
                             color: (display !== undefined) ? textColor : textColor1
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter

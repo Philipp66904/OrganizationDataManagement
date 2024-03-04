@@ -173,7 +173,7 @@ ApplicationWindow
                     width: (parent.width - parent.spacing) / 2
                     height: parent.height
                     text: organization_connection_dialog_window.title_name
-                    font.pointSize: textSizeBig
+                    font.pointSize: fontSize_big
                     color: textColor
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
@@ -187,7 +187,7 @@ ApplicationWindow
                     width: (parent.width - parent.spacing) / 2
                     height: parent.height
                     text: organization_connection_dialog_window.entry_name
-                    font.pointSize: textSizeBig
+                    font.pointSize: fontSize_big
                     color: backgroundColor3
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter

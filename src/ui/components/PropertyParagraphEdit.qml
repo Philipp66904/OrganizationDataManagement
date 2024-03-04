@@ -71,7 +71,7 @@ Rectangle
                 text: description + ":"
                 width: property_row_main.description_text_width
                 height: parent.height
-                font.pointSize: textSize
+                font.pointSize: fontSize_default
                 color: textColor1
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -85,7 +85,7 @@ Rectangle
             text: (derivative_flag) ? original_value : value
             width: parent.width
             height: (parent.height - (parent.spacing * parent.row_count)) - property_row_main.height
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: (derivative_flag) ? backgroundColor3 : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop

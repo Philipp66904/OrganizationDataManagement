@@ -68,7 +68,7 @@ MenuBar  // MenuBar shown in the window's header
             leftPadding: menuItem.indicator.width
             rightPadding: menuItem.arrow.width
             text: menuItem.text
-            font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+            font.pointSize: (fontSize_small) ? fontSize_small : 1
             color: menuItem.highlighted ? highlightColor : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
@@ -92,7 +92,7 @@ MenuBar  // MenuBar shown in the window's header
                 leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
-                font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+                font.pointSize: (fontSize_small) ? fontSize_small : 1
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -189,7 +189,7 @@ MenuBar  // MenuBar shown in the window's header
                     leftPadding: menuItem.indicator.width
                     rightPadding: menuItem.arrow.width
                     text: menuItem.text
-                    font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+                    font.pointSize: (fontSize_small) ? fontSize_small : 1
                     color: menuItem.highlighted ? highlightColor : textColor
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
@@ -374,7 +374,7 @@ MenuBar  // MenuBar shown in the window's header
                 leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
-                font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+                font.pointSize: (fontSize_small) ? fontSize_small : 1
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -455,7 +455,7 @@ MenuBar  // MenuBar shown in the window's header
                     leftPadding: menuItem.indicator.width
                     rightPadding: menuItem.arrow.width
                     text: menuItem.text
-                    font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+                    font.pointSize: (fontSize_small) ? fontSize_small : 1
                     color: menuItem.highlighted ? highlightColor : textColor
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
@@ -489,7 +489,7 @@ MenuBar  // MenuBar shown in the window's header
                         leftPadding: menuItem.indicator.width
                         rightPadding: menuItem.arrow.width
                         text: menuItem.text
-                        font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+                        font.pointSize: (fontSize_small) ? fontSize_small : 1
                         color: menuItem.highlighted ? highlightColor : textColor
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -584,7 +584,7 @@ MenuBar  // MenuBar shown in the window's header
                         leftPadding: menuItem.indicator.width
                         rightPadding: menuItem.arrow.width
                         text: menuItem.text
-                        font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+                        font.pointSize: (fontSize_small) ? fontSize_small : 1
                         color: menuItem.highlighted ? highlightColor : textColor
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -763,7 +763,7 @@ MenuBar  // MenuBar shown in the window's header
                 leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
                 text: menuItem.text
-                font.pointSize: (textSizeSmall) ? textSizeSmall : 1
+                font.pointSize: (fontSize_small) ? fontSize_small : 1
                 color: menuItem.highlighted ? highlightColor : textColor
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -825,7 +825,7 @@ MenuBar  // MenuBar shown in the window's header
         contentItem: Text
         {
             text: menuBarItem.text
-            font.pointSize: (textSize) ? textSize : 1
+            font.pointSize: (fontSize_default) ? fontSize_default : 1
             color: menuBarItem.highlighted ? highlightColor : textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter

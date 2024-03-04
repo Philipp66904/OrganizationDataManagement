@@ -104,7 +104,7 @@ ApplicationWindow
                 anchors.fill: parent
                 anchors.margins: 4
                 text: qsTr("Edit Color Theme")
-                font.pointSize: textSizeBig
+                font.pointSize: fontSize_big
                 color: textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

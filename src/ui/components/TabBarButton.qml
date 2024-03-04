@@ -62,7 +62,7 @@ Rectangle
         text: bar_text
         anchors.fill: parent
         anchors.margins: 4
-        font.pointSize: textSize
+        font.pointSize: fontSize_default
         color: (parent.highlighted) ? highlightColor : textColor
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

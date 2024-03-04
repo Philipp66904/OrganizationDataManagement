@@ -38,7 +38,7 @@ Rectangle
             width: parent.width - notification_image.width - parent.spacing
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter

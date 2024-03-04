@@ -609,7 +609,7 @@ TemplateEditDialog
                         width: parent.width
                         height: parent.address_other_description_text_height
                         text: qsTr("Other:")
-                        font.pointSize: textSize
+                        font.pointSize: fontSize_default
                         color: textColor1
                         anchors.horizontalCenter: parent.horizontalCenter
                         horizontalAlignment: Text.AlignLeft

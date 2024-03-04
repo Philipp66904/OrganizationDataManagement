@@ -35,7 +35,7 @@ ApplicationWindow
             text: qsTr("The specified entry with its derivatives and connections will be deleted.")
             height: parent.height * 0.7 - parent.spacing
             width: parent.width
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -52,7 +52,7 @@ ApplicationWindow
             text: qsTr("Do you want to proceed?")
             width: parent.width
             height: parent.height * 0.3 - parent.spacing
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

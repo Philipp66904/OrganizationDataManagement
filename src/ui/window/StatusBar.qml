@@ -113,7 +113,7 @@ Rectangle  // statusbar in the window's footer
                 id: db_path_text
                 anchors.fill: parent
                 anchors.margins: 4
-                font.pointSize: textSizeSmall
+                font.pointSize: fontSize_small
                 color: {
                     switch(status_message_level) {
                         case Enums.StatusMsgLvl.Default:
@@ -172,7 +172,7 @@ Rectangle  // statusbar in the window's footer
                 id: saved_date_text
                 anchors.fill: parent
                 anchors.margins: 4
-                font.pointSize: textSizeSmall
+                font.pointSize: fontSize_small
                 color: text_color
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
@@ -213,7 +213,7 @@ Rectangle  // statusbar in the window's footer
                 id: created_date_text
                 anchors.fill: parent
                 anchors.margins: 4
-                font.pointSize: textSizeSmall
+                font.pointSize: fontSize_small
                 color: text_color
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter

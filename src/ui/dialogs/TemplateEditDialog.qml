@@ -146,7 +146,7 @@ ApplicationWindow
                     width: (parent.width - parent.spacing) / 2
                     height: parent.height
                     text: edit_dialog_window.title_name
-                    font.pointSize: textSizeBig
+                    font.pointSize: fontSize_big
                     color: textColor
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
@@ -160,7 +160,7 @@ ApplicationWindow
                     width: (parent.width - parent.spacing) / 2
                     height: parent.height
                     text: edit_dialog_window.entry_name
-                    font.pointSize: textSizeBig
+                    font.pointSize: fontSize_big
                     color: textColor1
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
@@ -230,7 +230,7 @@ ApplicationWindow
                     width: parent.width - 8
                     height: main_column.derivative_description_text_height
                     text: qsTr("Derivatives:")
-                    font.pointSize: textSize
+                    font.pointSize: fontSize_default
                     color: textColor1
                     anchors.horizontalCenter: parent.horizontalCenter
                     horizontalAlignment: Text.AlignLeft
@@ -486,7 +486,7 @@ ApplicationWindow
                         text: qsTr("Modified: ") + date_row.modified_date
                         anchors.fill: parent
                         anchors.margins: 4
-                        font.pointSize: textSizeSmall
+                        font.pointSize: fontSize_small
                         color: date_row.text_color
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -515,7 +515,7 @@ ApplicationWindow
                         text: qsTr("Created: ") + date_row.created_date
                         anchors.fill: parent
                         anchors.margins: 4
-                        font.pointSize: textSizeSmall
+                        font.pointSize: fontSize_small
                         color: date_row.text_color
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter

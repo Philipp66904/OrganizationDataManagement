@@ -43,7 +43,7 @@ Rectangle
             text: description_text
             height: parent.height
             width: (parent.width - ((parent.column_count - 1) * parent.spacing)) / 2
-            font.pointSize: textSize
+            font.pointSize: fontSize_default
             color: textColor
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
@@ -66,7 +66,7 @@ Rectangle
                 text: selected_color
                 anchors.fill: parent
                 anchors.margins: 4
-                font.pointSize: textSize
+                font.pointSize: fontSize_default
                 color: getContrastColor(parent.color)
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

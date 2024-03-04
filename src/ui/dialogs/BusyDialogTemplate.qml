@@ -50,7 +50,7 @@ ApplicationWindow
                 text: description
                 width: parent.width
                 height: parent.height * 0.1
-                font.pointSize: textSize
+                font.pointSize: fontSize_default
                 color: textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -63,7 +63,7 @@ ApplicationWindow
                 text: qsTr("Please Wait.")
                 width: parent.width
                 height: parent.height * 0.1
-                font.pointSize: textSize
+                font.pointSize: fontSize_default
                 color: textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

@@ -32,11 +32,7 @@ ApplicationWindow
     property color textColor: "#ffffff"
     property color textColor1: "#cfcfcf"
 
-    // Text size
-    readonly property real textSize: 12
-    readonly property real textSizeSmall: 10
-    readonly property real textSizeBig: 15
-
+    // Text family and size
     property string fontFamily_default: "Segoe UI"
     property string fontFamily_small: "Segoe UI"
     property string fontFamily_big: "Segoe UI"
