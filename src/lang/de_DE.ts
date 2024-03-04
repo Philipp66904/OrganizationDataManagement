@@ -395,8 +395,8 @@
     <message>
         <location filename="../ui/dialogs/FontEditDialog.qml" line="14"/>
         <location filename="../ui/dialogs/FontEditDialog.qml" line="107"/>
-        <source>Edit Fonts</source>
-        <translation>Schriftarten bearbeiten</translation>
+        <source>Edit Font Sizes</source>
+        <translation>Schriftgrößen bearbeiten</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/FontEditDialog.qml" line="44"/>
@@ -643,11 +643,6 @@
         <translation>Farbpallete bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="434"/>
-        <source>Edit Fonts</source>
-        <translation>Schriftarten bearbeiten</translation>
-    </message>
-    <message>
         <location filename="../ui/window/MenuBar.qml" line="449"/>
         <source>Advanced Settings</source>
         <translation>Einstellungen für Fortgeschrittene</translation>
@@ -827,6 +822,11 @@ manuell gelöscht werden.</translation>
         <location filename="../ui/window/MenuBar.qml" line="799"/>
         <source>Github</source>
         <translation>Github</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="434"/>
+        <source>Edit Font Sizes</source>
+        <translation>Schriftgrößen bearbeiten</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="556"/>

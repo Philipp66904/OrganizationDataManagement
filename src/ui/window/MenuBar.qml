@@ -431,7 +431,7 @@ MenuBar  // MenuBar shown in the window's header
         Action
         {
             id: action_edit_fonts
-            text: qsTr("Edit Fonts")
+            text: qsTr("Edit Font Sizes")
             onTriggered: {
                 font_edit_dialog.initListModel();
                 font_edit_dialog.show();

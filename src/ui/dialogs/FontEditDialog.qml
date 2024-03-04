@@ -11,7 +11,7 @@ import "../types"
 ApplicationWindow
 {
     id: dialog
-    title: qsTr("Edit Fonts")
+    title: qsTr("Edit Font Sizes")
     color: backgroundColor1
     modality: Qt.ApplicationModal
     minimumWidth: 250
@@ -104,7 +104,7 @@ ApplicationWindow
                 id: title_text
                 anchors.fill: parent
                 anchors.margins: 4
-                text: qsTr("Edit Fonts")
+                text: qsTr("Edit Font Sizes")
                 font.pointSize: fontSize_big
                 font.family: fontFamily_big
                 color: textColor
