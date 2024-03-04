@@ -420,6 +420,20 @@ MenuBar  // MenuBar shown in the window's header
             }
         }
 
+        FontEditDialog
+        {
+            id: font_edit_dialog
+        }
+        Action
+        {
+            id: action_edit_fonts
+            text: qsTr("Edit Fonts")
+            onTriggered: {
+                font_edit_dialog.initListModel();
+                font_edit_dialog.show();
+            }
+        }
+
         MenuSeparator 
         {
             contentItem: Loader { sourceComponent: menu_separator_component }

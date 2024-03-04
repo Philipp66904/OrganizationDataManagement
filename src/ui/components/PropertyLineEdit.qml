@@ -19,7 +19,7 @@ Rectangle
             else return color;
         }
         else {
-            if(value_text.text.trim().length <= 0) return backgroundColorError;
+            if(!validator(value_text.text)) return backgroundColorError;
             else if(editing) return highlightColor;
             else return color;
         }
@@ -79,6 +79,13 @@ Rectangle
     }
 
     signal nextFocus(dir: int)
+
+    // Overwrite function with individual validator
+    // Only works if required is set to true as well
+    function validator(text) {
+        // Returns true if the input is valid, otherwise false
+        return !(text.trim().length <= 0);
+    }
 
     Row
     {

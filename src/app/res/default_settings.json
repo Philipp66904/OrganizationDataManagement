@@ -34,5 +34,19 @@
     "recent_files": [],
     "language": "Follow System",
     "file_type_association": true,
-    "startmenu_state": true
+    "startmenu_state": true,
+    "fonts": {
+        "default": {
+            "font_family": "Segoe UI",
+            "font_size": 12.0
+        },
+        "small": {
+            "font_family": "Segoe UI",
+            "font_size": 10.0
+        },
+        "big": {
+            "font_family": "Segoe UI",
+            "font_size": 15.0
+        }
+    }
 }

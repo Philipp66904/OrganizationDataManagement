@@ -320,3 +320,74 @@ class Settings(QObject):
         """
         
         return self.settings["startmenu_state"]
+
+
+    @Slot(str, str, float)
+    def slot_setFont(self, font_name: str, font_family: str, font_size: float) -> None:
+        """
+        Wrapper slot for setFont.
+        """
+        
+        self.setFont(font_name, font_family, font_size)
+    
+    
+    @settings_autosave
+    def setFont(self, font_name: str, font_family: str, font_size: float) -> None:
+        """
+        Set a font to a new value.
+        font_name: Name of the font that will be changed
+        font_size: New font size
+        """
+        
+        try:
+            self.settings["fonts"][font_name]["font_family"] = font_family
+            self.settings["fonts"][font_name]["font_size"] = font_size
+        except KeyError:
+            raise RuntimeError(f"Settings::setFont: font_name not found: {font_name}")
+    
+    
+    @Slot()
+    def slot_resetFonts(self) -> None:
+        """
+        Wrapper slot for resetFonts.
+        """
+        
+        self.resetFonts()
+    
+    
+    @settings_autosave
+    def resetFonts(self) -> None:
+        """
+        Resets all custom set fonts by overriding color settings with default settings.
+        """
+        
+        default_file = None
+        try:
+            default_file = open(self.default_file_path, 'r')
+            default_settings = json.loads(default_file.read())
+        except FileNotFoundError as e:
+            raise RuntimeError(QCoreApplication.translate("Settings", "Settings::resetThemeColors: Default settings file missing. Try reinstalling the program."))
+        finally:
+            if default_file:
+                default_file.close()
+        
+        self.settings["fonts"] = default_settings["fonts"]
+    
+    
+    @Slot(result=list)
+    def getFonts(self) -> list:
+        """
+        returns: A list of lists containing all the fonts: list[[font_name: str, font_family: str, font_size: int]]
+        """
+        
+        res = []
+        for font_name, font in self.settings["fonts"].items():
+            font_family = font["font_family"]
+            font_size = font["font_size"]
+            
+            if type(font_name) != str or type(font_family) != str or type(font_size) != float or len(font_name) <= 0 or len(font_family) <= 0 or font_size <= 0.0:
+                continue
+            
+            res.append([font_name, font_family, font_size])
+        
+        return res

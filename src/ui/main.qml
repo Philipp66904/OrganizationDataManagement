@@ -34,8 +34,15 @@ ApplicationWindow
 
     // Text size
     readonly property real textSize: 12
-    readonly property real textSizeBig: 15
     readonly property real textSizeSmall: 10
+    readonly property real textSizeBig: 15
+
+    property string fontFamily_default: "Segoe UI"
+    property string fontFamily_small: "Segoe UI"
+    property string fontFamily_big: "Segoe UI"
+    property real fontSize_default: 12.0
+    property real fontSize_small: 10.0
+    property real fontSize_big: 15.0
 
     // Global variables
     readonly property string ui_version: "1.1.0"
@@ -127,9 +134,25 @@ ApplicationWindow
         for(const color of colors) {
             const color_name = color[0];
             const color_value = color[1];
-            if(color_name === "" || color_value === "") continue;
+            if(color_name === "" || color_value === "" || color_name === undefined || color_value === undefined) continue;
 
             rootWindow[color_name] = Qt.color(color_value);
+        }
+    }
+
+    // Init fonts
+    function init_fonts() {
+        const fonts = settings.getFonts();
+
+        for(const font of fonts) {
+            const font_name = font[0];
+            const font_family = font[1];
+            const font_size = font[2];
+            if(font_name === "" || font_family === "" || font_size === ""
+               || font_name === undefined || font_family === undefined || font_size === undefined) continue;
+
+            rootWindow["fontFamily_" + font_name] = font_family;
+            rootWindow["fontSize_" + font_name] = font_size;
         }
     }
 
@@ -143,6 +166,7 @@ ApplicationWindow
         db_version = db_metadata[0];
 
         init_colors();
+        init_fonts();
 
         // Load startup file
         const startup_file_path = database.getLoadOnStartUpPath();
