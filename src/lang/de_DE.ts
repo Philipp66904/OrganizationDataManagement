@@ -5,13 +5,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="99"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="104"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="114"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="119"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
@@ -94,6 +94,16 @@
         <location filename="../ui/dialogs/AboutDialog.qml" line="65"/>
         <source>Supported DB version</source>
         <translation>Unterstütze DB-Version</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="69"/>
+        <source>Supported settings version</source>
+        <translation>Unterstütze Einstellungsversion</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="70"/>
+        <source>Loaded settings version</source>
+        <translation>Geladene Einstellungsversion</translation>
     </message>
 </context>
 <context>
@@ -1138,13 +1148,18 @@ manuell gelöscht werden.</translation>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../app/settings.py" line="57"/>
+        <location filename="../app/settings.py" line="103"/>
         <source>Settings::__load_default_settings__: Default settings file missing. Try reinstalling the program.</source>
         <translation>Standard Einstellungsdatei fehlt. Versuche, das Programm neu zu installieren.</translation>
     </message>
     <message>
-        <location filename="../app/settings.py" line="196"/>
-        <location filename="../app/settings.py" line="369"/>
+        <location filename="../app/settings.py" line="105"/>
+        <source>Settings::__load_default_settings__: Default settings file is incompatible. Try reinstalling the program.</source>
+        <translation>Standard Einstellungsdatei ist inkompatibel. Versuche, das Programm neu zu installieren.</translation>
+    </message>
+    <message>
+        <location filename="../app/settings.py" line="244"/>
+        <location filename="../app/settings.py" line="417"/>
         <source>Settings::resetThemeColors: Default settings file missing. Try reinstalling the program.</source>
         <translation>Standard Einstellungsdatei fehlt. Versuche, das Programm neu zu installieren.</translation>
     </message>

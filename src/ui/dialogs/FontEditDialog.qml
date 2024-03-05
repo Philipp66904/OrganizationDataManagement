@@ -168,8 +168,9 @@ ApplicationWindow
             id: notification_rect
             information_text: qsTr("Font types must be set manually in the settings.json file")
             multiline: true
-            width: parent.width
+            width: parent.width - (parent.spacing * 2)
             height: font_edit_column.notification_rect_height
+            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
 

@@ -21,21 +21,66 @@ class Settings(QObject):
         self.settings = {}
         self.default_file_path = Path(__file__).parent / "res" / "default_settings.json"
         self.translations_path = translations_path
+        self.supported_settings_json_major_version = "1"
         
         self.__load_settings_file__()
+
+
+    def __check_settings_versions__(self) -> None:
+        """
+        Checks if the version in the self.settings dictionary is supported by the program.
+        The major version must match the one stored in self.supported_settings_json_major_version, while the minor version is ignored.
+        raises RuntimeError: If version is incompatible
+        """
+
+        if self.settings["version"].split('.')[0] != self.supported_settings_json_major_version:
+            raise RuntimeError("Settings::__load_settings_file__: Settings file version unsupported")
+        
+
+    @Slot(result=str)
+    def getSupportedSettingsVersion(self) -> str:
+        """
+        Returns the supported settings version by the program.
+        returns: Version as string
+        """
+
+        return self.supported_settings_json_major_version + ".x"
+    
+
+    @Slot(result=str)
+    def getLoadedSettingsVersion(self) -> str:
+        """
+        Returns the currently loaded settings version by the program.
+        returns: Version as string
+        """
+
+        version = ""
+
+        try:
+            version = self.settings["version"]
+        except KeyError as e:
+            version = "n/a"
+
+        return version
     
     
     def __load_settings_file__(self) -> None:
         """
         Loads the settings file into the self.settings dictionary.
-        If the settings file doesn't exist, a new one will be created based on the default settings file.
+        If the settings file doesn't exist or has an incompatible version, a new one will be created based on the default settings file.
         """
         
         file = None
         try:
             file = open(self.file_path, 'r')
             self.settings = json.loads(file.read())
+
+            self.__check_settings_versions__()
         except FileNotFoundError as e:
+            self.__load_default_settings__()
+        except KeyError as e:
+            self.__load_default_settings__()
+        except RuntimeError as e:
             self.__load_default_settings__()
         finally:
             if file:
@@ -53,8 +98,11 @@ class Settings(QObject):
         try:
             default_file = open(self.default_file_path, 'r')
             self.settings = json.loads(default_file.read())
+            self.__check_settings_versions__()
         except FileNotFoundError as e:
             raise RuntimeError(QCoreApplication.translate("Settings", "Settings::__load_default_settings__: Default settings file missing. Try reinstalling the program."))
+        except RuntimeError as e:
+            raise RuntimeError(QCoreApplication.translate("Settings", "Settings::__load_default_settings__: Default settings file is incompatible. Try reinstalling the program."))
         finally:
             if default_file:
                 default_file.close()

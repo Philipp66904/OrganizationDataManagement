@@ -65,6 +65,11 @@ ApplicationWindow
             res += "**" + qsTr("Supported DB version") + "**: `" + database.getSupportedDBVersion() + "`";
             res += "  \n";
         }
+        if(settings) {
+            res += "**" + qsTr("Supported settings version") + "**: `" + settings.getSupportedSettingsVersion() + "`";
+            res += " - " + "**" + qsTr("Loaded settings version") + "**: `" + settings.getLoadedSettingsVersion() + "`";
+            res += "  \n";
+        }
 
         about_text.text = res;
     }
@@ -81,7 +86,7 @@ ApplicationWindow
         {
             id: headline_rect
             width: parent.width
-            height: (parent.height - (parent.spacing * parent.row_count)) * 0.15
+            height: Math.min((parent.height - (parent.spacing * parent.row_count)) * 0.15, 43.8)
             color: backgroundColor2
             focus: true
 
@@ -125,7 +130,7 @@ ApplicationWindow
         ScrollView
         {
             id: about_text_scroll_view
-            height: (parent.height - (parent.spacing * parent.row_count)) * 0.85
+            height: (parent.height - (parent.spacing * parent.row_count)) - headline_rect.height
             width: parent.width - 8
             anchors.horizontalCenter: parent.horizontalCenter
             contentWidth: about_text_scroll_view.width
