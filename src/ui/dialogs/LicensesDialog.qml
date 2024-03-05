@@ -40,6 +40,14 @@ ApplicationWindow
         res += "  \n";
         res += "**" + qsTr("Error mark") + "**: *janjf93* - " + "https://pixabay.com/de/vectors/falsch-fehler-fehlt-fehlend-error-2061132/";
         res += "  \n";
+        res += "**" + qsTr("Paper icon") + "**: *OpenClipart-Vectors* - " + "https://pixabay.com/de/vectors/datei-papier-dokumentieren-leer-151104/";
+        res += "  \n";
+        res += "**" + qsTr("Folder icon") + "**: *janjf93* - " + "https://pixabay.com/de/vectors/ordner-flach-design-icon-symbol-2103508/";
+        res += "  \n";
+        res += "**" + qsTr("Save & Save As icon") + "**: *everton_ribas* - " + "https://pixabay.com/de/vectors/icon-pack-paket-symbole-speichern-2129743/";
+        res += "  \n";
+        res += "**" + qsTr("Exit symbol") + "**: *janjf93* - " + "https://pixabay.com/de/vectors/ausgang-ende-exit-notausgang-t%C3%BCr-1699614/";
+        res += "  \n";
 
         res += "# " + qsTr("Qt6.6 & QML");
         res += "  \n";

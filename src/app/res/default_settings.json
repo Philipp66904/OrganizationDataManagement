@@ -22,6 +22,9 @@
             "backgroundColorNotification": "#51b350"
         },
         {
+            "backgroundColorInformation": "#2f86b5"
+        },
+        {
             "highlightColor": "#00ef00"
         },
         {

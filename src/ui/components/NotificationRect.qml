@@ -14,6 +14,7 @@ Rectangle
     border.width: 1
     visible: true
     required property string notification_text
+    property bool multiline: false
 
     Row
     {
@@ -26,6 +27,7 @@ Rectangle
             id: notification_image
             height: parent.height
             width: height
+            fillMode: Image.PreserveAspectFit
             anchors.verticalCenter: parent.verticalCenter
             source: "../res/svg/check.svg"
         }
@@ -44,6 +46,7 @@ Rectangle
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
+            wrapMode: (multiline) ? Text.Wrap : Text.NoWrap
         }
     }
 }

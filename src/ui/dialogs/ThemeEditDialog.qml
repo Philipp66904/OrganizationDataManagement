@@ -89,7 +89,7 @@ ApplicationWindow
         spacing: 4
         property int row_count: 1
         property var title_rect_height: Math.min(39.75, (height - (row_count - 1) * spacing) * 0.15)
-        property var theme_edit_list_view_height: (height - (row_count - 1) * spacing) * 0.85
+        property var theme_edit_list_view_height: (height - (row_count - 1) * spacing - title_rect_height) * 1.0
 
         Rectangle
         {

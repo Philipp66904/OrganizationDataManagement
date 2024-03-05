@@ -88,17 +88,40 @@ MenuBar  // MenuBar shown in the window's header
             implicitWidth: 200
             implicitHeight: 40
 
-            contentItem: Text
+            contentItem: Row
             {
-                leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
-                text: menuItem.text
-                font.pointSize: (fontSize_small) ? fontSize_small : 1
-                font.family: fontFamily_small
-                color: menuItem.highlighted ? highlightColor : textColor
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
+                spacing: 10
+                property int column_count: 2
+
+                Image
+                {
+                    id: icon_image
+                    width: (parent.width - (parent.spacing * (parent.column_count - 1))) * 0.1
+                    height: parent.height - 8
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
+                    source: menuItem.icon.source
+                    fillMode: Image.PreserveAspectFit
+                    horizontalAlignment: Image.AlignLeft
+                    verticalAlignment: Image.AlignVCenter
+                }
+                
+                Text
+                {
+                    text: menuItem.text
+                    width: parent.width - (parent.spacing * (parent.column_count - 1)) - icon_image.width
+                    height: parent.height - 8
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
+                    font.pointSize: (fontSize_small) ? fontSize_small : 1
+                    font.family: fontFamily_small
+                    color: menuItem.highlighted ? highlightColor : textColor
+                    elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    rightPadding: menuItem.arrow.width
+                }
             }
 
             background: Rectangle
@@ -130,6 +153,7 @@ MenuBar  // MenuBar shown in the window's header
                 new_file_dialog.init();
                 new_file_dialog.show();
             }
+            icon.source: "../res/svg/paper_icon.svg"
         }
         MenuSeparator
         {
@@ -175,11 +199,13 @@ MenuBar  // MenuBar shown in the window's header
                 open_file_dialog_1.init();
                 open_file_dialog_1.show();
             }
+            icon.source: "../res/svg/folder_icon.svg"
         }
         Menu
         {
             id: open_recent_menu
             title: qsTr("Open Recent...")
+            icon.source: "../res/svg/folder_recent_icon.svg"
             background: Loader { sourceComponent: menu_background_component }
             delegate: MenuItem {
                 id: menuItem
@@ -318,6 +344,7 @@ MenuBar  // MenuBar shown in the window's header
                     save_timer.start();
                 }
             }
+            icon.source: "../res/svg/save_icon.svg"
         }
         Timer
         {
@@ -338,6 +365,7 @@ MenuBar  // MenuBar shown in the window's header
             id: action_save_as
             text: qsTr("Save As")
             onTriggered: save_as_file_dialog.open()
+            icon.source: "../res/svg/save_as_icon.svg"
         }
 
         MenuSeparator 
@@ -358,6 +386,7 @@ MenuBar  // MenuBar shown in the window's header
                 exit_dialog.init();
                 exit_dialog.show();
             }
+            icon.source: "../res/svg/exit_symbol.svg"
         }
 
     }
@@ -372,17 +401,40 @@ MenuBar  // MenuBar shown in the window's header
             implicitWidth: 200
             implicitHeight: 40
 
-            contentItem: Text
+            contentItem: Row
             {
-                leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
-                text: menuItem.text
-                font.pointSize: (fontSize_small) ? fontSize_small : 1
-                font.family: fontFamily_small
-                color: menuItem.highlighted ? highlightColor : textColor
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
+                spacing: 10
+                property int column_count: 2
+
+                Image
+                {
+                    id: icon_image
+                    width: (parent.width - (parent.spacing * (parent.column_count - 1))) * 0.1
+                    height: parent.height - 8
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
+                    source: menuItem.icon.source
+                    fillMode: Image.PreserveAspectFit
+                    horizontalAlignment: Image.AlignLeft
+                    verticalAlignment: Image.AlignVCenter
+                }
+                
+                Text
+                {
+                    text: menuItem.text
+                    width: parent.width - (parent.spacing * (parent.column_count - 1)) - icon_image.width
+                    height: parent.height - 8
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
+                    font.pointSize: (fontSize_small) ? fontSize_small : 1
+                    font.family: fontFamily_small
+                    color: menuItem.highlighted ? highlightColor : textColor
+                    elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    rightPadding: menuItem.arrow.width
+                }
             }
 
             background: Rectangle
@@ -765,17 +817,40 @@ MenuBar  // MenuBar shown in the window's header
             implicitWidth: 200
             implicitHeight: 40
 
-            contentItem: Text
+            contentItem: Row
             {
-                leftPadding: menuItem.indicator.width
                 rightPadding: menuItem.arrow.width
-                text: menuItem.text
-                font.pointSize: (fontSize_small) ? fontSize_small : 1
-                font.family: fontFamily_small
-                color: menuItem.highlighted ? highlightColor : textColor
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
+                spacing: 10
+                property int column_count: 2
+
+                Image
+                {
+                    id: icon_image
+                    width: (parent.width - (parent.spacing * (parent.column_count - 1))) * 0.1
+                    height: parent.height - 8
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
+                    source: menuItem.icon.source
+                    fillMode: Image.PreserveAspectFit
+                    horizontalAlignment: Image.AlignLeft
+                    verticalAlignment: Image.AlignVCenter
+                }
+                
+                Text
+                {
+                    text: menuItem.text
+                    width: parent.width - (parent.spacing * (parent.column_count - 1)) - icon_image.width
+                    height: parent.height - 8
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
+                    font.pointSize: (fontSize_small) ? fontSize_small : 1
+                    font.family: fontFamily_small
+                    color: menuItem.highlighted ? highlightColor : textColor
+                    elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    rightPadding: menuItem.arrow.width
+                }
             }
 
             background: Rectangle

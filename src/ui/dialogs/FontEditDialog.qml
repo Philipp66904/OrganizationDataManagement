@@ -14,10 +14,10 @@ ApplicationWindow
     title: qsTr("Edit Font Sizes")
     color: backgroundColor1
     modality: Qt.ApplicationModal
-    minimumWidth: 250
-    minimumHeight: 200
-    width: 300
-    height: 200
+    minimumWidth: 300
+    minimumHeight: 250
+    width: 350
+    height: 250
 
     // Closing handler
     property bool close_okay: false
@@ -88,9 +88,10 @@ ApplicationWindow
         width: parent.width
         anchors.top: parent.top
         spacing: 4
-        property int row_count: 1
+        property int row_count: 3
         property var title_rect_height: Math.min(33, (height - (row_count - 1) * spacing) * 0.20)
-        property var font_edit_list_view_height: (height - (row_count - 1) * spacing) * 0.80
+        property var font_edit_list_view_height: (height - (row_count - 1) * spacing - title_rect_height - notification_rect_height) * 1.0
+        property var notification_rect_height: Math.min(61, (height - (row_count - 1) * spacing - title_rect_height) * 0.35)
 
         Rectangle
         {
@@ -160,6 +161,15 @@ ApplicationWindow
                 parent: font_edit_list_view
                 anchors.right: parent.right
             }
+        }
+
+        InformationRect
+        {
+            id: notification_rect
+            information_text: qsTr("Font types must be set manually in the settings.json file")
+            multiline: true
+            width: parent.width
+            height: font_edit_column.notification_rect_height
         }
     }
 

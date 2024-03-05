@@ -7,13 +7,14 @@ import QtQuick.Controls.Basic
 
 Rectangle
 {
-    id: error_text_rect
-    color: backgroundColorError
+    id: information_text_rect
+    color: backgroundColorInformation
     radius: 8
     border.color: textColor
     border.width: 1
     visible: true
-    required property string error_text
+    required property string information_text
+    property bool multiline: false
 
     Row
     {
@@ -23,20 +24,22 @@ Rectangle
 
         Image
         {
-            id: error_image
+            id: information_image
             height: parent.height
             width: height
-            fillMode: Image.PreserveAspectFit
             anchors.verticalCenter: parent.verticalCenter
-            source: "../res/svg/error_symbol.svg"
+            source: "../res/svg/information_symbol.svg"
+            fillMode: Image.PreserveAspectFit
+            sourceSize.width: 100
+            sourceSize.height: 100
         }
 
         Text
         {
-            id: error_text
-            text: error_text_rect.error_text
+            id: information_text
+            text: information_text_rect.information_text
             visible: parent.visible
-            width: parent.width - error_image.width - parent.spacing
+            width: parent.width - information_image.width - parent.spacing
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter
             font.pointSize: fontSize_default
@@ -45,6 +48,7 @@ Rectangle
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
+            wrapMode: (multiline) ? Text.Wrap : Text.NoWrap
         }
     }
 }

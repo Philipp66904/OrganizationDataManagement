@@ -57,17 +57,22 @@ Rectangle
         target: database
         function onDataChanged() {
             table_root.selected_pk = undefined;
+            table_view_selection_model.clear();
             load_data();  // implement function with specific implementation per tab
         }
 
         function onDataRowChanged(tb_name, index) {
             if(tb_name === table_name) {
+                table_root.selected_pk = undefined;
+                table_view_selection_model.clear();
                 load_row_data(index);  // implement function with specific implementation per tab
             }
         }
 
         function onDataRowAdded(tb_name, index) {
             if(tb_name === table_name) {
+                table_root.selected_pk = undefined;
+                table_view_selection_model.clear();
                 load_add_row_data(index);  // implement function with specific implementation per tab
             }
         }
@@ -75,6 +80,7 @@ Rectangle
         function onDataRowRemoved(tb_name, index) {
             if(tb_name === table_name) {
                 table_root.selected_pk = undefined;
+                table_view_selection_model.clear();
                 table_model.removeRowData(index, "id");
             }
         }
@@ -264,6 +270,12 @@ Rectangle
                         } else if (event.key === Qt.Key_Down && table_view_selection_model.selectedIndexes.length > 0 && table_view_selection_model.selectedIndexes[0].row === table_model.rowCount() - 1) {
                             add_button.setFocus(Enums.FocusDir.Right);
                             event.accepted = true;
+                        } else if (event.key === Qt.Key_Home) {
+                            table_view.selectionModel.select(table_model.getModelIndex(0, 0), ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
+                            event.accepted = true;
+                        } else if (event.key === Qt.Key_End) {
+                            table_view.selectionModel.select(table_model.getModelIndex(-1, 0), ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
+                            event.accepted = true;
                         }
                     }
 
@@ -274,19 +286,16 @@ Rectangle
                         } else {
                             forceActiveFocus();
 
-                            if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) {
-                                table_view.selectionModel.select(table_model.getModelIndex(0, 0), ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
-                            } else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) {
-                                table_view.selectionModel.select(table_model.getModelIndex(-1, 0), ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
-                            } else {
-                                table_root.nextFocus(dir);
+                            if(table_root.selected_pk === undefined || table_root.selected_pk < 0) {
+                                if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) {
+                                    table_view.selectionModel.select(table_model.getModelIndex(0, 0), ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
+                                } else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) {
+                                    table_view.selectionModel.select(table_model.getModelIndex(-1, 0), ItemSelectionModel.Rows | ItemSelectionModel.ClearAndSelect);
+                                } else {
+                                    table_root.nextFocus(dir);
+                                }
                             }
                         }
-                    }
-
-                    onLayoutChanged: {
-                        table_root.selected_pk = undefined;
-                        table_view_selection_model.clear();
                     }
 
                     ScrollBar.horizontal: ScrollBar
@@ -351,6 +360,7 @@ Rectangle
                             table_root.selected_pk = pk;
 
                             setCurrentIndex(table_view_selection_model.selectedIndexes[0], ItemSelectionModel.Current);
+                            table_view.positionViewAtRow(table_view_selection_model.selectedIndexes[0].row, TableView.Contain);
                         }
 
                         onCurrentChanged: function (current, previous) {

@@ -28,6 +28,7 @@ ApplicationWindow
     property color backgroundColorError: "#fc5d5b"
     property color backgroundColorWarning: "#fcc947"
     property color backgroundColorNotification: "#51b350"
+    property color backgroundColorInformation: "#2f86b5"
     property color highlightColor: "#00ef00"
     property color textColor: "#ffffff"
     property color textColor1: "#cfcfcf"
