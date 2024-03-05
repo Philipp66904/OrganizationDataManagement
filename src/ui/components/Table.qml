@@ -56,32 +56,28 @@ Rectangle
     Connections {
         target: database
         function onDataChanged() {
-            table_root.selected_pk = undefined;
-            table_view_selection_model.clear();
             load_data();  // implement function with specific implementation per tab
+            table_view.resetSelection();
         }
 
         function onDataRowChanged(tb_name, index) {
             if(tb_name === table_name) {
-                table_root.selected_pk = undefined;
-                table_view_selection_model.clear();
                 load_row_data(index);  // implement function with specific implementation per tab
+                table_view.resetSelection();
             }
         }
 
         function onDataRowAdded(tb_name, index) {
             if(tb_name === table_name) {
-                table_root.selected_pk = undefined;
-                table_view_selection_model.clear();
                 load_add_row_data(index);  // implement function with specific implementation per tab
+                table_view.resetSelection();
             }
         }
 
         function onDataRowRemoved(tb_name, index) {
             if(tb_name === table_name) {
-                table_root.selected_pk = undefined;
-                table_view_selection_model.clear();
                 table_model.removeRowData(index, "id");
+                table_view.resetSelection();
             }
         }
     }
@@ -90,12 +86,13 @@ Rectangle
         target: table_model
         function onUpdateView() {
             table_view.forceLayout();
-            table_root.selected_pk = undefined;
+            table_view.resetSelection();
         }
 
         function onSortingChanged(column_name, reverse_flag) {
             sort_reverse = reverse_flag;
             sort_column_name = column_name;
+            table_view.resetSelection();
         }
     }
 
@@ -296,6 +293,25 @@ Rectangle
                                 }
                             }
                         }
+                    }
+
+                    Timer
+                    {
+                        id: reset_selection_timer
+                        interval: 10
+                        repeat: false
+
+                        onTriggered: {
+                            table_view.resetSelectionWorker();
+                        }
+                    }
+                    function resetSelection() {
+                        reset_selection_timer.start();
+                    }
+                    function resetSelectionWorker() {
+                        table_root.selected_pk = undefined;
+                        table_view.selectionModel.reset();
+                        table_view.forceLayout();
                     }
 
                     ScrollBar.horizontal: ScrollBar
