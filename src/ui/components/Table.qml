@@ -353,6 +353,20 @@ Rectangle
                         return dummy_txt.contentWidth;
                     }
 
+                    Timer
+                    {
+                        id: position_view_timer
+                        interval: 10
+                        repeat: false
+
+                        onTriggered: {
+                            table_view.positionView();
+                        }
+                    }
+                    function positionView() {
+                        table_view.positionViewAtRow(table_view_selection_model.selectedIndexes[0].row, TableView.Contain);
+                    }
+
                     model: table_model
                     selectionModel: ItemSelectionModel
                     {
@@ -376,7 +390,7 @@ Rectangle
                             table_root.selected_pk = pk;
 
                             setCurrentIndex(table_view_selection_model.selectedIndexes[0], ItemSelectionModel.Current);
-                            table_view.positionViewAtRow(table_view_selection_model.selectedIndexes[0].row, TableView.Contain);
+                            position_view_timer.start();
                         }
 
                         onCurrentChanged: function (current, previous) {
