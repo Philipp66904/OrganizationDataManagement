@@ -166,7 +166,7 @@ ApplicationWindow
         InformationRect
         {
             id: notification_rect
-            information_text: qsTr("Font types must be set manually in the settings.json file")
+            information_text: qsTr("Font types must be set manually in the settings.json file.")
             multiline: true
             width: parent.width - (parent.spacing * 2)
             height: font_edit_column.notification_rect_height

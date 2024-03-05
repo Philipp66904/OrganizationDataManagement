@@ -426,7 +426,7 @@
     </message>
     <message>
         <location filename="../ui/dialogs/FontEditDialog.qml" line="48"/>
-        <location filename="../ui/dialogs/FontEditDialog.qml" line="256"/>
+        <location filename="../ui/dialogs/FontEditDialog.qml" line="257"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -437,21 +437,21 @@
     </message>
     <message>
         <location filename="../ui/dialogs/FontEditDialog.qml" line="169"/>
-        <source>Font types must be set manually in the settings.json file</source>
-        <translation>Schriftarten müssen manuell in der settings.json Datei geändert werden</translation>
+        <source>Font types must be set manually in the settings.json file.</source>
+        <translation>Schriftarten müssen manuell in der settings.json Datei geändert werden.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FontEditDialog.qml" line="201"/>
+        <location filename="../ui/dialogs/FontEditDialog.qml" line="202"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FontEditDialog.qml" line="227"/>
+        <location filename="../ui/dialogs/FontEditDialog.qml" line="228"/>
         <source>Fonts saved and applied</source>
         <translation>Schriftarten gespeichert und angewendet</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FontEditDialog.qml" line="234"/>
+        <location filename="../ui/dialogs/FontEditDialog.qml" line="235"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
