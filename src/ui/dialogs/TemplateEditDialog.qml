@@ -58,6 +58,7 @@ ApplicationWindow
         derivative_table.load_data();
         edit_dialog_window.initProperties();
         save_button.setFocus(Enums.FocusDir.Down);
+        main_scroll_view.ScrollBar.vertical.position = 0;  // Scrolling to the top
     }
 
     function create_derivative_window(pk, qml_file_name) {

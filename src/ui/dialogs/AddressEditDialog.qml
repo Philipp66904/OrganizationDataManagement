@@ -676,7 +676,32 @@ TemplateEditDialog
                                 else element_id_with_focus = address_other_list_model.count - 1;
                             }
 
-                            scrollTo(address_other_root.y, address_other_root.y + address_other_root.height);
+                            property_column.scrollTo(address_other_root.y, address_other_root.y + address_other_root.height);
+                        }
+
+                        function scrollTo(y_coord_top, y_coord_bot) {
+                            // Currently visible area
+                            const y_visible_top = ScrollBar.vertical.position * contentHeight;
+                            const y_visible_bot = y_visible_top + height;
+
+                            // Check if element is already visible
+                            if(y_coord_top >= y_visible_top && y_coord_bot <= y_visible_bot) {
+                                return;  // Element already visible -> nothing to do
+                            }
+
+                            // Check if top of element is not visible
+                            if(y_coord_top < y_visible_top) {
+                                const new_pos = y_coord_top / contentHeight;
+                                ScrollBar.vertical.position = new_pos;
+                                return;
+                            }
+
+                            // Check if bottom of element is not visible
+                            if(y_coord_bot > y_visible_bot) {
+                                const new_pos = (y_coord_bot - height) / contentHeight;
+                                ScrollBar.vertical.position = new_pos;
+                                return;
+                            }
                         }
 
                         Component
@@ -700,6 +725,8 @@ TemplateEditDialog
                                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) address_other_list_view.element_id_with_focus = index - 1;
                                     else address_other_list_view.element_id_with_focus = index + 1;
                                 }
+
+                                onFocusSet: address_other_list_view.scrollTo(y, y + height);
 
                                 property int element_id_with_focus_wrapper: address_other_list_view.element_id_with_focus
                                 onElement_id_with_focus_wrapperChanged: {
