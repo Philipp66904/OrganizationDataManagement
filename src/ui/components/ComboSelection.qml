@@ -23,9 +23,11 @@ Rectangle
 
     function setFocus(dir) {
         combo_selection.forceActiveFocus();
+        focusSet();
     }
 
     signal nextFocus(dir: int)
+    signal focusSet()
 
     function setCurrentIndex(new_selected_index) {
         combo_selection.currentIndex = new_selected_index;

@@ -25,12 +25,15 @@ Rectangle
 
     signal updateListModel()
     signal nextFocus(dir: int)
+    signal focusSet()
 
     function setFocus(dir) {
         if(dir === Enums.FocusDir.Close || dir === Enums.FocusDir.Save) nextFocus(dir);
         else if(button_selection_list_model.count <= 0) nextFocus(dir);
-        else if(dir === Enums.FocusDir.Down || Enums.FocusDir.Right) element_id_with_focus = 0;
-        else element_id_with_focus = button_selection_list_model.count - 1;
+        else {
+            element_id_with_focus = 0;
+            focusSet();
+        }
     }
 
     ListModel
@@ -134,6 +137,31 @@ Rectangle
 
                 property int button_count: Math.min(Math.round(width / 125), button_selection_list_model.count)
 
+                function scrollTo(x_coord_left, x_coord_right) {
+                    // Currently visible area
+                    const x_visible_left = ScrollBar.horizontal.position * contentWidth;
+                    const x_visible_right = x_visible_left + width;
+
+                    // Check if element is already visible
+                    if(x_coord_left >= x_visible_left && x_coord_right <= x_visible_right) {
+                        return;  // Element already visible -> nothing to do
+                    }
+
+                    // Check if top of element is not visible
+                    if(x_coord_left < x_visible_left) {
+                        const new_pos = x_coord_left / contentWidth;
+                        ScrollBar.horizontal.position = new_pos;
+                        return;
+                    }
+
+                    // Check if bottom of element is not visible
+                    if(x_coord_right > x_visible_right) {
+                        const new_pos = (x_coord_right - width) / contentWidth;
+                        ScrollBar.horizontal.position = new_pos;
+                        return;
+                    }
+                }
+
                 delegate: BasicCheckbox
                 {
                     id: checkbox
@@ -157,6 +185,8 @@ Rectangle
                         else if(dir === Enums.FocusDir.Left) element_id_with_focus = index - 1;
                         else element_id_with_focus = index + 1;
                     }
+
+                    onFocusSet: button_selection_list_view.scrollTo(x, x + width);
 
                     onCheckedChanged: {
                         button_selection_list_model.set(index, {"button_checked": checkbox.checked});

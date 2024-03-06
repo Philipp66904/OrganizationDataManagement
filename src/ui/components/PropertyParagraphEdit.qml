@@ -24,9 +24,11 @@ Rectangle
 
     function setFocus(dir) {
         value_text.forceActiveFocus();
+        focusSet();
     }
 
     signal nextFocus(dir: int)
+    signal focusSet()
 
     MouseArea
     {

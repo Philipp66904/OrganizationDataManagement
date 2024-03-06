@@ -320,6 +320,7 @@ TemplateEditDialog
             }
 
             signal nextFocus(dir: int)
+            signal scrollTo(y_coord_top: real, y_coord_bot: real)
 
             PropertyLineEdit
             {
@@ -336,6 +337,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) parent.nextFocus(dir);
                     else property_line_edit_street.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: address_dialog
@@ -371,6 +374,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_name.setFocus(dir);
                     else property_line_edit_number.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: address_dialog
@@ -409,6 +414,8 @@ TemplateEditDialog
                     else property_line_edit_postalcode.setFocus(dir);
                 }
 
+                onFocusSet: scrollTo(y, y + height);
+
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
@@ -445,6 +452,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_number.setFocus(dir);
                     else property_line_edit_city.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: address_dialog
@@ -483,6 +492,8 @@ TemplateEditDialog
                     else property_line_edit_state.setFocus(dir);
                 }
 
+                onFocusSet: scrollTo(y, y + height);
+
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
@@ -520,6 +531,8 @@ TemplateEditDialog
                     else property_line_edit_country.setFocus(dir);
                 }
 
+                onFocusSet: scrollTo(y, y + height);
+
                 Connections {
                     target: address_dialog
                     function onInitProperties() {
@@ -556,6 +569,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_state.setFocus(dir);
                     else address_other_list_view.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: address_dialog
@@ -660,6 +675,8 @@ TemplateEditDialog
                                 else if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) element_id_with_focus = 0;
                                 else element_id_with_focus = address_other_list_model.count - 1;
                             }
+
+                            scrollTo(address_other_root.y, address_other_root.y + address_other_root.height);
                         }
 
                         Component
@@ -766,6 +783,8 @@ TemplateEditDialog
                                 else property_paragraph_edit_note.setFocus(dir);
                             }
 
+                            onFocusSet: scrollTo(address_other_root.y, address_other_root.y + address_other_root.height);
+
                             onClicked:
                             {
                                 unsaved_changes = true;
@@ -799,6 +818,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) add_button.setFocus(dir);
                     else parent.nextFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: address_dialog

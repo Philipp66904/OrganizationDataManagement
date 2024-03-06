@@ -218,6 +218,7 @@ TemplateEditDialog
             }
 
             signal nextFocus(dir: int)
+            signal scrollTo(y_coord_top: real, y_coord_bot: real)
 
             PropertyLineEdit
             {
@@ -234,6 +235,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) parent.nextFocus(dir);
                     else property_line_edit_title.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: person_dialog
@@ -269,6 +272,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_name.setFocus(dir);
                     else property_line_edit_gender.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: person_dialog
@@ -307,6 +312,8 @@ TemplateEditDialog
                     else property_line_edit_firstname.setFocus(dir);
                 }
 
+                onFocusSet: scrollTo(y, y + height);
+
                 Connections {
                     target: person_dialog
                     function onInitProperties() {
@@ -343,6 +350,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_gender.setFocus(dir);
                     else property_line_edit_middlename.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: person_dialog
@@ -381,6 +390,8 @@ TemplateEditDialog
                     else property_line_edit_surname.setFocus(dir);
                 }
 
+                onFocusSet: scrollTo(y, y + height);
+
                 Connections {
                     target: person_dialog
                     function onInitProperties() {
@@ -418,6 +429,8 @@ TemplateEditDialog
                     else property_paragraph_edit_note.setFocus(dir);
                 }
 
+                onFocusSet: scrollTo(y, y + height);
+
                 Connections {
                     target: person_dialog
                     function onInitProperties() {
@@ -452,6 +465,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_surname.setFocus(dir);
                     else parent.nextFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: person_dialog

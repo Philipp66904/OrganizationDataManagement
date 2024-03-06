@@ -130,6 +130,31 @@ Rectangle
             clip: true
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff  // actually not needed because of contentWidth: width, just to be safe
 
+            function scrollTo(y_coord_top, y_coord_bot) {
+                // Currently visible area
+                const y_visible_top = ScrollBar.vertical.position * contentHeight;
+                const y_visible_bot = y_visible_top + height;
+
+                // Check if element is already visible
+                if(y_coord_top >= y_visible_top && y_coord_bot <= y_visible_bot) {
+                    return;  // Element already visible -> nothing to do
+                }
+
+                // Check if top of element is not visible
+                if(y_coord_top < y_visible_top) {
+                    const new_pos = y_coord_top / contentHeight;
+                    ScrollBar.vertical.position = new_pos;
+                    return;
+                }
+
+                // Check if bottom of element is not visible
+                if(y_coord_bot > y_visible_bot) {
+                    const new_pos = (y_coord_bot - height) / contentHeight;
+                    ScrollBar.vertical.position = new_pos;
+                    return;
+                }
+            }
+
             Column
             {
                 id: search_parameter_column
@@ -161,6 +186,8 @@ Rectangle
                         else combo_selection_organization.setFocus(dir);
                     }
 
+                    onFocusSet: search_parameter_scroll_view.scrollTo(y, y + height);
+
                     Connections {
                         target: tab_main
                         function onResetSearch() {
@@ -187,6 +214,8 @@ Rectangle
                         else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) property_line_edit_search.setFocus(dir);
                         else combo_selection_person.setFocus(dir);
                     }
+
+                    onFocusSet: search_parameter_scroll_view.scrollTo(y, y + height);
 
                     onSelected_indexChanged: {
                         selected_organization_id = combo_selection_organization.selected_index;
@@ -224,6 +253,8 @@ Rectangle
                         else combo_selection_address.setFocus(dir);
                     }
 
+                    onFocusSet: search_parameter_scroll_view.scrollTo(y, y + height);
+
                     onSelected_indexChanged: {
                         selected_person_id = combo_selection_person.selected_index;
                         updateSearch();
@@ -259,6 +290,8 @@ Rectangle
                         else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) combo_selection_person.setFocus(dir);
                         else select_all_button.setFocus(dir);
                     }
+
+                    onFocusSet: search_parameter_scroll_view.scrollTo(y, y + height);
 
                     onSelected_indexChanged: {
                         selected_address_id = combo_selection_address.selected_index;
@@ -319,6 +352,8 @@ Rectangle
                                 else organization_button_selection.setFocus(dir);
                             }
 
+                            onFocusSet: search_parameter_scroll_view.scrollTo(selection_button_row_rect.y, selection_button_row_rect.y + selection_button_row_rect.height);
+
                             onClicked: {
                                 selection_button_row.setSelection(1);
                             }
@@ -339,6 +374,8 @@ Rectangle
                                 else organization_button_selection.setFocus(dir);
                             }
 
+                            onFocusSet: search_parameter_scroll_view.scrollTo(selection_button_row_rect.y, selection_button_row_rect.y + selection_button_row_rect.height);
+
                             onClicked: {
                                 selection_button_row.setSelection(0);
                             }
@@ -357,6 +394,8 @@ Rectangle
                                 else if(dir === Enums.FocusDir.Left) unselect_all_button.setFocus(dir);
                                 else organization_button_selection.setFocus(dir);
                             }
+
+                            onFocusSet: search_parameter_scroll_view.scrollTo(selection_button_row_rect.y, selection_button_row_rect.y + selection_button_row_rect.height);
 
                             onClicked: {
                                 selection_button_row.setSelection(-1);
@@ -379,6 +418,8 @@ Rectangle
                         else if(dir === Enums.FocusDir.Left) invert_selection_button.setFocus(dir);
                         else person_button_selection.setFocus(dir);
                     }
+
+                    onFocusSet: search_parameter_scroll_view.scrollTo(y, y + height);
 
                     Connections {
                         target: tab_main
@@ -406,6 +447,8 @@ Rectangle
                         else address_button_selection.setFocus(dir);
                     }
 
+                    onFocusSet: search_parameter_scroll_view.scrollTo(y, y + height);
+
                     Connections {
                         target: tab_main
                         function onResetSearch() {
@@ -431,6 +474,8 @@ Rectangle
                         else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) person_button_selection.setFocus(dir);
                         else reload_search_button.setFocus(dir);
                     }
+
+                    onFocusSet: search_parameter_scroll_view.scrollTo(y, y + height);
 
                     Connections {
                         target: tab_main
@@ -467,6 +512,8 @@ Rectangle
                             else tab_row.setFocus(dir);
                         }
 
+                        onFocusSet: search_parameter_scroll_view.scrollTo(search_button_row.y, search_button_row.y + search_button_row.height);
+
                         onClicked: {
                             database.clear_cache();
                             updateSearch();
@@ -486,6 +533,8 @@ Rectangle
                             else if(dir === Enums.FocusDir.Left) reload_search_button.setFocus(dir);
                             else tab_row.setFocus(dir);
                         }
+
+                        onFocusSet: search_parameter_scroll_view.scrollTo(search_button_row.y, search_button_row.y + search_button_row.height);
 
                         onClicked: {
                             resetSearch();

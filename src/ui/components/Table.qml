@@ -48,9 +48,12 @@ Rectangle
         if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) table_view.setFocus(dir);
         else if(dir === Enums.FocusDir.Up) add_button.setFocus(Enums.FocusDir.Up);
         else delete_button.setFocus(Enums.FocusDir.Left);
+
+        focusSet();
     }
 
     signal nextFocus(dir: int)
+    signal focusSet()
 
     // Connections
     Connections {

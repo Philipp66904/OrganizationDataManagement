@@ -173,6 +173,7 @@ ApplicationWindow
 
         ScrollView
         {
+            id: main_scroll_view
             width: parent.width
             height: main_column.scrollview_height
             anchors.horizontalCenter: parent.horizontalCenter
@@ -181,6 +182,31 @@ ApplicationWindow
             clip: true
             enabled: (scrollview_column.height > height)
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff  // actually not needed because of contentWidth: width, just to be safe
+
+            function scrollTo(y_coord_top, y_coord_bot) {
+                // Currently visible area
+                const y_visible_top = ScrollBar.vertical.position * contentHeight;
+                const y_visible_bot = y_visible_top + height;
+
+                // Check if element is already visible
+                if(y_coord_top >= y_visible_top && y_coord_bot <= y_visible_bot) {
+                    return;  // Element already visible -> nothing to do
+                }
+
+                // Check if top of element is not visible
+                if(y_coord_top < y_visible_top) {
+                    const new_pos = y_coord_top / contentHeight;
+                    ScrollBar.vertical.position = new_pos;
+                    return;
+                }
+
+                // Check if bottom of element is not visible
+                if(y_coord_bot > y_visible_bot) {
+                    const new_pos = (y_coord_bot - height) / contentHeight;
+                    ScrollBar.vertical.position = new_pos;
+                    return;
+                }
+            }
 
             Column
             {
@@ -221,6 +247,10 @@ ApplicationWindow
                             else if(dir === Enums.FocusDir.Right || dir === Enums.FocusDir.Down) derivative_table.setFocus(dir);
                             else button_row_rect.setFocus(dir);
                         }
+
+                        function onScrollTo(y_coord_top, y_coord_bot) {
+                            main_scroll_view.scrollTo(y_coord_top, y_coord_bot);
+                        }
                     }
                 }
 
@@ -260,6 +290,8 @@ ApplicationWindow
                         else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_component_loader.item.setFocus(dir);
                         else button_row_rect.setFocus(dir);
                     }
+
+                    onFocusSet: main_scroll_view.scrollTo(y, y + height);
 
                     TableModel
                     {

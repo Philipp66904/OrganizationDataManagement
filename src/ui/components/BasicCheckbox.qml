@@ -32,9 +32,11 @@ CheckBox
         }
 
         forceActiveFocus();
+        focusSet();
     }
 
     signal nextFocus(dir: int)
+    signal focusSet()
 
     indicator: Rectangle
     {

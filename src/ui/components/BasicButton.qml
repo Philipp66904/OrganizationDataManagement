@@ -21,6 +21,7 @@ Rectangle
     signal pressed()
     signal doubleClicked()
     signal nextFocus(dir: int)
+    signal focusSet()
 
     Keys.onReturnPressed: {
         clicked();
@@ -87,6 +88,7 @@ Rectangle
     function setFocus(dir) {
         if(visible && button_enabled) {
             forceActiveFocus();
+            focusSet();
         }
         else nextFocus(dir);
     }

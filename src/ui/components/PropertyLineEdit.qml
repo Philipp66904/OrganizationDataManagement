@@ -76,9 +76,11 @@ Rectangle
 
     function setFocus(dir) {
         value_text.forceActiveFocus();
+        focusSet();
     }
 
     signal nextFocus(dir: int)
+    signal focusSet()
 
     // Overwrite function with individual validator
     // Only works if required is set to true as well

@@ -116,6 +116,7 @@ TemplateEditDialog
             }
 
             signal nextFocus(dir: int)
+            signal scrollTo(y_coord_top: real, y_coord_bot: real)
 
             PropertyLineEdit
             {
@@ -132,6 +133,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) parent.nextFocus(dir);
                     else connections_table.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: organization_dialog
@@ -184,6 +187,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_name.setFocus(dir);
                     else property_line_edit_website.setFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 TableModel
                 {
@@ -258,6 +263,8 @@ TemplateEditDialog
                     else property_paragraph_edit_note.setFocus(dir);
                 }
 
+                onFocusSet: scrollTo(y, y + height);
+
                 Connections {
                     target: organization_dialog
                     function onInitProperties() {
@@ -292,6 +299,8 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_website.setFocus(dir);
                     else parent.nextFocus(dir);
                 }
+
+                onFocusSet: scrollTo(y, y + height);
 
                 Connections {
                     target: organization_dialog
