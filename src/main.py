@@ -3,9 +3,10 @@ import os
 from pathlib import Path
 from sqlite3 import Error
 
-# Included because pyinstaller otherwise sometimes doesn't include them
-import pythoncom
-from win32com.shell import shell, shellcon
+if os.name == 'nt':  # Only for Windows
+    # Included because pyinstaller otherwise sometimes doesn't include them
+    import pythoncom
+    from win32com.shell import shell, shellcon
 
 from PySide6.QtCore import QTranslator, QLocale, QCoreApplication
 from PySide6.QtWidgets import QApplication

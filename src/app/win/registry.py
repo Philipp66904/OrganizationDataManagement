@@ -1,7 +1,9 @@
+import os
 import sys
 import platform
 import threading
-import winreg
+if os.name == 'nt':  # Only for Windows
+    import winreg
 from PySide6.QtCore import QObject, Slot
 
 

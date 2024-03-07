@@ -2,8 +2,9 @@ import os
 import sys
 import platform
 import threading
-import pythoncom
-from win32com.shell import shell, shellcon
+if os.name == 'nt':  # Only for Windows
+    import pythoncom
+    from win32com.shell import shell, shellcon
 from PySide6.QtCore import QObject, Slot
 
 
