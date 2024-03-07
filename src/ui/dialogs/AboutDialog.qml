@@ -38,7 +38,7 @@ ApplicationWindow
         res += qsTr("By") + " **" + qsTr("Philipp Grueber") + "**  \n";
         res += "*" + qsTr("Visit Github for more information.") + "*";
         res += "  \n";
-        res += "**" + qsTr("Currently loaded file") + "**: *" + db_path_text + "*";
+        res += "**" + qsTr("Currently loaded file") + "**: `" + db_path_text + "`";
         res += "  \n\n  ---  \n";
 
         res += "\n# " + qsTr("Keyboard Shortcuts");
