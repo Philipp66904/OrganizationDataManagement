@@ -49,6 +49,8 @@ ApplicationWindow
         res += "  \n";
         res += "**" + qsTr("Exit symbol") + "**: *janjf93* - " + "https://pixabay.com/de/vectors/ausgang-ende-exit-notausgang-t%C3%BCr-1699614/";
         res += "  \n";
+        res += "**" + qsTr("Note") + "**: *" + qsTr("Some of the images were modified.") + "*";
+        res += "  \n\n  ---  \n";
 
         res += "# " + qsTr("Qt6.6 & QML");
         res += "  \n";

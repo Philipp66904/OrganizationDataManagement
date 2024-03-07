@@ -5,103 +5,133 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="104"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="112"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="119"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="127"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="35"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="36"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="37"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="38"/>
         <source>By</source>
         <translation>Von</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="37"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="38"/>
         <source>Philipp Grueber</source>
         <translation>Philipp Grüber</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="38"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="39"/>
         <source>Visit Github for more information.</source>
         <translation>Besuche Github für mehr Informationen.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="40"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="41"/>
         <source>Currently loaded file</source>
         <translation>Aktuell geladene Datei</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="43"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="44"/>
         <source>Keyboard Shortcuts</source>
         <translation>Tastenkombinationen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="45"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="46"/>
+        <source>Note</source>
+        <translation>Hinweis</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="46"/>
+        <source>The shortcuts are platform dependent and might not all be available.</source>
+        <translation>Die Tastenkombinationen sind abhängig von der verwendeten Plattform und könnten (teilweise) nicht zur Verfügung stehen.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
+        <source>In certain scenarios, keyboard shortcuts can be shown as</source>
+        <translation>In bestimmten Szenarien kann es vorkommen, dass eine Tastenkombination als</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
+        <source>undefined</source>
+        <translation>unbekannt</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
+        <source>but may still be available.</source>
+        <translation>dargestellt wird, aber trotzdem verfügbar ist.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="50"/>
+        <source>In this case, just give your known keyboard shortcuts a try.</source>
+        <translation>In diesem Fall ist es ratsam, die bekannten Tastenkombinationen auszuprobieren.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="52"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="47"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="54"/>
         <source>Save As</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="49"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="56"/>
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="51"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="58"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="53"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="60"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="55"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="62"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="58"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="66"/>
         <source>Versions</source>
         <translation>Versionen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="60"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="68"/>
         <source>UI version</source>
         <translation>UI Version</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="63"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="71"/>
         <source>DB Core version</source>
         <translation>DB Core Version</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="65"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="73"/>
         <source>Supported DB version</source>
         <translation>Unterstütze DB-Version</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="69"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="77"/>
         <source>Supported settings version</source>
         <translation>Unterstütze Einstellungsversion</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="70"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="78"/>
         <source>Loaded settings version</source>
         <translation>Geladene Einstellungsversion</translation>
     </message>
@@ -111,7 +141,7 @@
     <message>
         <location filename="../ui/dialogs/AddressEditDialog.qml" line="19"/>
         <location filename="../ui/dialogs/AddressEditDialog.qml" line="57"/>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="352"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="355"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
@@ -131,57 +161,57 @@
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="329"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="330"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="364"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="367"/>
         <source>Street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="401"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="406"/>
         <source>Number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="438"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="445"/>
         <source>Postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="475"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="484"/>
         <source>City</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="512"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="523"/>
         <source>State</source>
         <translation>Bundesland</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="549"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="562"/>
         <source>Country</source>
         <translation>Land</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="611"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="626"/>
         <source>Other:</source>
         <translation>Sonstiges:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="674"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="716"/>
         <source>Other </source>
         <translation>Sonstiges </translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="761"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="805"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AddressEditDialog.qml" line="794"/>
+        <location filename="../ui/dialogs/AddressEditDialog.qml" line="840"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
@@ -213,8 +243,8 @@
 <context>
     <name>CustomShortcuts</name>
     <message>
-        <location filename="../ui/types/CustomShortcuts.qml" line="64"/>
-        <location filename="../ui/types/CustomShortcuts.qml" line="88"/>
+        <location filename="../ui/types/CustomShortcuts.qml" line="73"/>
+        <location filename="../ui/types/CustomShortcuts.qml" line="98"/>
         <source>undefined</source>
         <translation>unbekannt</translation>
     </message>
@@ -526,63 +556,73 @@
     <name>LicensesDialog</name>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="93"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="96"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="108"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="111"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="35"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="36"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="37"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="38"/>
         <source>Window Icon</source>
         <translation>Fenster Icon</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="39"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="40"/>
         <source>Checkmark</source>
         <translation>Hacken</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="41"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="42"/>
         <source>Error mark</source>
         <translation>Fehlerzeichen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="43"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="44"/>
         <source>Paper icon</source>
         <translation>Papier Icon</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="45"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="46"/>
         <source>Folder icon</source>
         <translation>Ordner Icon</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="47"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="48"/>
         <source>Save &amp; Save As icon</source>
         <translation>Speichern &amp; Speichern Als Icons</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="49"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="50"/>
         <source>Exit symbol</source>
         <translation>Beenden Symbol</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="52"/>
+        <source>Note</source>
+        <translation>Hinweis</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="52"/>
+        <source>Some of the images were modified.</source>
+        <translation>Ein Teil der Bilder wurde modifiziert.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="55"/>
         <source>Qt6.6 &amp; QML</source>
         <translation>Qt6.6 &amp; QML</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="56"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="59"/>
         <source>Reference</source>
         <translation>Referenz</translation>
     </message>
@@ -952,7 +992,7 @@ manuell gelöscht werden.</translation>
     <message>
         <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="18"/>
         <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="35"/>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="148"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="151"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
@@ -972,32 +1012,32 @@ manuell gelöscht werden.</translation>
         <translation>Organisation</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="125"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="126"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="160"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="163"/>
         <source>Connections:</source>
         <translation>Verbindungen:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="225"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="230"/>
         <source>Connection</source>
         <translation>Verbindung</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="240"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="245"/>
         <source>Couldn&apos;t delete connection.</source>
         <translation>Verbindung konnte nicht gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="250"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="255"/>
         <source>Website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="287"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="294"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
@@ -1007,7 +1047,7 @@ manuell gelöscht werden.</translation>
     <message>
         <location filename="../ui/dialogs/PersonEditDialog.qml" line="18"/>
         <location filename="../ui/dialogs/PersonEditDialog.qml" line="47"/>
-        <location filename="../ui/dialogs/PersonEditDialog.qml" line="250"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="253"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
@@ -1027,37 +1067,37 @@ manuell gelöscht werden.</translation>
         <translation>Person</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/PersonEditDialog.qml" line="227"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="228"/>
         <source>Entry Name</source>
         <translation>Beschreibungsname</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/PersonEditDialog.qml" line="262"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="265"/>
         <source>Title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/PersonEditDialog.qml" line="299"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="304"/>
         <source>Gender</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/PersonEditDialog.qml" line="336"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="343"/>
         <source>Firstname</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/PersonEditDialog.qml" line="373"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="382"/>
         <source>Middlename</source>
         <translation>Mittelname</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/PersonEditDialog.qml" line="410"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="421"/>
         <source>Surname</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/PersonEditDialog.qml" line="447"/>
+        <location filename="../ui/dialogs/PersonEditDialog.qml" line="460"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
@@ -1065,82 +1105,82 @@ manuell gelöscht werden.</translation>
 <context>
     <name>SearchTab</name>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="153"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="178"/>
         <source>Search</source>
         <translation>Suche</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="183"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="210"/>
         <source>Search in Organization</source>
         <translation>In Organisation suchen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="219"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="248"/>
         <source>Search in Person</source>
         <translation>In Person suchen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="255"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="286"/>
         <source>Search in Address</source>
         <translation>In Adresse suchen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="313"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="346"/>
         <source>Select All</source>
         <translation>Alle auswählen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="332"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="367"/>
         <source>Unselect All</source>
         <translation>Alle abwählen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="352"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="389"/>
         <source>Invert Selection</source>
         <translation>Auswahl umkehren</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="374"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="413"/>
         <source>Search in Organization properties:</source>
         <translation>Suche in Organisations-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="401"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="442"/>
         <source>Search in Person properties:</source>
         <translation>Suche in Personen-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="427"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="470"/>
         <source>Search in Address properties:</source>
         <translation>Suche in Adress-Attributen:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="461"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="506"/>
         <source>Reload Results</source>
         <translation>Ergebnisse neuladen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="481"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="528"/>
         <source>Reset Search</source>
         <translation>Suche zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="594"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="643"/>
         <source>Results:</source>
         <translation>Ergebnisse:</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="610"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="659"/>
         <source>Organization</source>
         <translation>Organisation</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="632"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="681"/>
         <source>Person</source>
         <translation>Person</translation>
     </message>
     <message>
-        <location filename="../ui/tabs/SearchTab.qml" line="654"/>
+        <location filename="../ui/tabs/SearchTab.qml" line="703"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
@@ -1218,44 +1258,44 @@ manuell gelöscht werden.</translation>
 <context>
     <name>Table</name>
     <message>
-        <location filename="../ui/components/Table.qml" line="335"/>
-        <location filename="../ui/components/Table.qml" line="397"/>
+        <location filename="../ui/components/Table.qml" line="354"/>
+        <location filename="../ui/components/Table.qml" line="430"/>
         <source>null</source>
         <translation>Leer</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="484"/>
+        <location filename="../ui/components/Table.qml" line="517"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="500"/>
+        <location filename="../ui/components/Table.qml" line="533"/>
         <source>Save Entry before creating a new derivative</source>
         <translation>Speichere den Eintrag vor Erstellung einer Ableitung</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="514"/>
+        <location filename="../ui/components/Table.qml" line="547"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="540"/>
+        <location filename="../ui/components/Table.qml" line="573"/>
         <source>Duplicate</source>
         <translation>Duplizieren</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="557"/>
+        <location filename="../ui/components/Table.qml" line="590"/>
         <source>Select a row to duplicate</source>
         <translation>Wähle eine Zeile aus, die dupliziert werden soll</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="571"/>
+        <location filename="../ui/components/Table.qml" line="604"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="590"/>
-        <location filename="../ui/components/Table.qml" line="601"/>
+        <location filename="../ui/components/Table.qml" line="623"/>
+        <location filename="../ui/components/Table.qml" line="634"/>
         <source>Select a row to delete</source>
         <translation>Wähle eine Zeile aus, die gelöscht werden soll</translation>
     </message>
@@ -1263,42 +1303,42 @@ manuell gelöscht werden.</translation>
 <context>
     <name>TemplateEditDialog</name>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="68"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="69"/>
         <source>Error in creating a new window</source>
         <translation>Fehler beim Erstellen eines neuen Fensters</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="234"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="268"/>
         <source>Derivatives:</source>
         <translation>Ableitungen:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="344"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="380"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="370"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="406"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="406"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="442"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="466"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="502"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="489"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="525"/>
         <source>Modified: </source>
         <translation>Verändert: </translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="519"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="555"/>
         <source>Created: </source>
         <translation>Erstellt: </translation>
     </message>

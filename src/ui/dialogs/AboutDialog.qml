@@ -39,9 +39,15 @@ ApplicationWindow
         res += "*" + qsTr("Visit Github for more information.") + "*";
         res += "  \n";
         res += "**" + qsTr("Currently loaded file") + "**: *" + db_path_text + "*";
-        res += "  \n";
+        res += "  \n\n  ---  \n";
 
-        res += "# " + qsTr("Keyboard Shortcuts");
+        res += "\n# " + qsTr("Keyboard Shortcuts");
+        res += "  \n";
+        res += "**" + qsTr("Note") + "**: *" + qsTr("The shortcuts are platform dependent and might not all be available.");
+        res += " ";
+        res += "" + qsTr("In certain scenarios, keyboard shortcuts can be shown as") + " ```" + qsTr("undefined") + "``` " + qsTr("but may still be available.");
+        res += " ";
+        res += "" + qsTr("In this case, just give your known keyboard shortcuts a try.") + "*";
         res += "  \n";
         res += "**" + qsTr("Save") + "**: `" + custom_shortcuts.getSequence("Save") + "`";
         res += "  \n";
@@ -55,6 +61,7 @@ ApplicationWindow
         res += "  \n";
         res += "**" + qsTr("Open") + "**: `" + custom_shortcuts.getSequence("Open") + "`";
         res += "  \n";
+        res += "  \n\n  ---  \n";
 
         res += "# " + qsTr("Versions");
         res += "  \n";
