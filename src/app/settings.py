@@ -148,6 +148,16 @@ class Settings(QObject):
         return inner
     
     
+    def __adapt_file_paths__(self, file_path: str) -> str:
+        """
+        Adapts file paths to be the same in different scenarios ('\' will be replaced with '/').
+        file_path: File path that should be adapted
+        returns: The adapted file_path
+        """
+        
+        return file_path.replace("\\", "/")
+    
+    
     @Slot(str)
     @settings_autosave
     def addRecentFile(self, file_path: str) -> None:
@@ -158,6 +168,8 @@ class Settings(QObject):
         If there are more than 10 files, the oldest gets deleted.
         file_path: File path that should be added to the list of recent files
         """
+        
+        file_path = self.__adapt_file_paths__(file_path)
         
         if file_path in self.settings["recent_files"]:
             self.settings["recent_files"].remove(file_path)
@@ -173,6 +185,8 @@ class Settings(QObject):
         """
         Wrapper slot for removeRecentFile.
         """
+        
+        file_path = self.__adapt_file_paths__(file_path)
 
         return self.removeRecentFile(file_path)
 
@@ -183,6 +197,8 @@ class Settings(QObject):
         Remove a file path from the recent file list.
         If the file path doesn't exist in the recent files list, nothing happens.
         """
+        
+        file_path = self.__adapt_file_paths__(file_path)
         
         if file_path in self.settings["recent_files"]:
             self.settings["recent_files"].remove(file_path)
