@@ -23,6 +23,7 @@ ApplicationWindow
     {
         id: custom_shortcuts
 
+        shortcutCloseEnabled: true
         onShortcutClose: {
             dialog.close();
         }

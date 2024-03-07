@@ -13,6 +13,13 @@ Item
     signal shortcutNew()
     signal shortcutOpen()
 
+    property bool shortcutSaveEnabled: false
+    property bool shortcutSaveAsEnabled: false
+    property bool shortcutCloseEnabled: false
+    property bool shortcutDeleteEnabled: false
+    property bool shortcutNewEnabled: false
+    property bool shortcutOpenEnabled: false
+
     function getSequence(shortcut_name) {
         switch(shortcut_name) {
             case "Save":
@@ -38,6 +45,7 @@ Item
         sequence: StandardKey.Save
         autoRepeat: false
         onActivated: shortcutSave()
+        enabled: shortcutSaveEnabled
 
         function getSequence() {
             return nativeText;
@@ -50,6 +58,7 @@ Item
         sequences: [StandardKey.SaveAs, "Ctrl+Shift+S"]
         autoRepeat: false
         onActivated: shortcutSaveAs()
+        enabled: shortcutSaveAsEnabled
 
         function getSequence() {
             var sequenceText = "";
@@ -74,6 +83,7 @@ Item
         sequences: [StandardKey.Quit, StandardKey.Close]
         autoRepeat: false
         onActivated: shortcutClose()
+        enabled: shortcutCloseEnabled
 
         function getSequence() {
             var sequenceText = "";
@@ -98,6 +108,7 @@ Item
         sequence: StandardKey.Delete
         autoRepeat: false
         onActivated: shortcutDelete()
+        enabled: shortcutDeleteEnabled
 
         function getSequence() {
             return nativeText;
@@ -110,6 +121,7 @@ Item
         sequence: StandardKey.New
         autoRepeat: false
         onActivated: shortcutNew()
+        enabled: shortcutNewEnabled
 
         function getSequence() {
             return nativeText;
@@ -122,6 +134,7 @@ Item
         sequence: StandardKey.Open
         autoRepeat: false
         onActivated: shortcutOpen()
+        enabled: shortcutOpenEnabled
 
         function getSequence() {
             return nativeText;

@@ -238,9 +238,13 @@ ApplicationWindow
     // Shortcuts
     CustomShortcuts
     {
+        shortcutSaveEnabled: true
         onShortcutSave: menu_bar.triggerSave();
+        shortcutSaveAsEnabled: true
         onShortcutSaveAs: menu_bar.triggerSaveAs();
+        shortcutNewEnabled: true
         onShortcutNew: menu_bar.triggerNew();
+        shortcutOpenEnabled: true
         onShortcutOpen: menu_bar.triggerOpen();
     }
 

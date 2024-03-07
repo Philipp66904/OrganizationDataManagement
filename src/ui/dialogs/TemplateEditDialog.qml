@@ -77,8 +77,11 @@ ApplicationWindow
     // Shortcuts
     CustomShortcuts
     {
+        shortcutSaveEnabled: true
         onShortcutSave: save_button.clicked();
+        shortcutCloseEnabled: true
         onShortcutClose: abort_button.clicked();
+        shortcutDeleteEnabled: true
         onShortcutDelete: delete_button.clicked();
     }
 
