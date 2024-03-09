@@ -113,8 +113,7 @@ ApplicationWindow
                 loaded_db_path = db_path;
                 saved_date = new_db_text;
                 created_date = new_db_text;
-            }
-            else {
+            } else {
                 db_path_text = db_path;
                 loaded_db_path = db_path;
 

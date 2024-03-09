@@ -248,7 +248,7 @@ class Database(QObject):
             raise e
         
         self.init_db()
-        emitted_db_path = db_path if db_path != str(self.path_template_db) else ""
+        emitted_db_path = Settings._adapt_file_paths_(db_path) if db_path != str(self.path_template_db) else ""
         self.clear_cache()
         self.databaseLoaded.emit(emitted_db_path)
         self.dataChanged.emit()
@@ -320,7 +320,7 @@ class Database(QObject):
             raise e
     
         self.clear_cache()
-        self.databaseLoaded.emit(db_path)
+        self.databaseLoaded.emit(Settings._adapt_file_paths_(db_path))
 
 
     @Slot(result=list)
