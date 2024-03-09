@@ -41,7 +41,7 @@ Rectangle
             anchors.verticalCenter: parent.verticalCenter
             font.pointSize: fontSize_default
             font.family: fontFamily_default
-            color: textColor
+            color: getContrastColor(error_text_rect.color)
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight

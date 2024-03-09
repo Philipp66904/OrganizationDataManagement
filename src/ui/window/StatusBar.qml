@@ -64,7 +64,10 @@ Rectangle  // statusbar in the window's footer
 
         Rectangle
         {
-            height: parent.height
+            property int overhang: 2
+            height: parent.height + overhang * 2
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: -overhang
             width:
             { 
                 let res = ( parent.width 
@@ -112,7 +115,10 @@ Rectangle  // statusbar in the window's footer
             {
                 id: status_text
                 anchors.fill: parent
-                anchors.margins: 4
+                anchors.leftMargin: 4
+                anchors.rightMargin: 4
+                anchors.topMargin: 4 + parent.overhang
+                anchors.bottomMargin: 4 + parent.overhang
                 font.pointSize: fontSize_small
                 font.family: fontFamily_small
                 color: {

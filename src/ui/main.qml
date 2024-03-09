@@ -27,7 +27,7 @@ ApplicationWindow
     property color backgroundColor3: "#9f9f9f"
     property color backgroundColorError: "#fc5d5b"
     property color backgroundColorWarning: "#fcc947"
-    property color backgroundColorNotification: "#51b350"
+    property color backgroundColorNotification: "#4aa248"
     property color backgroundColorInformation: "#2f86b5"
     property color highlightColor: "#00ef00"
     property color textColor: "#ffffff"
@@ -250,9 +250,9 @@ ApplicationWindow
 
     // Global functions
     function getContrastColor(baseColor) {
-        var temp = Qt.darker(baseColor, 1);
-        var a = 1 - ( 0.299 * temp.r + 0.587 * temp.g + 0.114 * temp.b);
-        return !(temp.a > 0 && a >= 0.3) ? Qt.color("#000000") : Qt.color("#ffffff");
+        const temp = Qt.lighter(baseColor, 1);
+        const cieY = Math.pow(temp.r,2.2) * 0.2126 + Math.pow(temp.g,2.2) * 0.7152 + Math.pow(temp.b,2.2) * 0.0722;
+        return (cieY < 0.36) ? Qt.color("#ffffff") : Qt.color("#000000");
     }
 
     // Dialog Windows

@@ -452,7 +452,7 @@
     <message>
         <location filename="../ui/dialogs/FontEditDialog.qml" line="47"/>
         <source>Reset Fonts</source>
-        <translation>Schriftarten Zurücksetzen</translation>
+        <translation>Schriftarten zurücksetzen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/FontEditDialog.qml" line="48"/>
@@ -507,7 +507,7 @@
     <message>
         <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="48"/>
         <source>Reset Language</source>
-        <translation>Sprache Zurücksetzen</translation>
+        <translation>Sprache zurücksetzen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/LanguageSelectionDialog.qml" line="75"/>
@@ -816,7 +816,7 @@
     <message>
         <location filename="../ui/window/MenuBar.qml" line="733"/>
         <source>Reset Settings</source>
-        <translation>Einstellungen Zurücksetzen</translation>
+        <translation>Einstellungen zurücksetzen</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="734"/>
@@ -1365,7 +1365,7 @@ manuell gelöscht werden.</translation>
     <message>
         <location filename="../ui/dialogs/ThemeEditDialog.qml" line="47"/>
         <source>Reset Colors</source>
-        <translation>Farben Zurücksetzen</translation>
+        <translation>Farben zurücksetzen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/ThemeEditDialog.qml" line="163"/>
