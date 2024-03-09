@@ -110,7 +110,7 @@ Rectangle  // statusbar in the window's footer
 
             Text
             {
-                id: db_path_text
+                id: status_text
                 anchors.fill: parent
                 anchors.margins: 4
                 font.pointSize: fontSize_small
