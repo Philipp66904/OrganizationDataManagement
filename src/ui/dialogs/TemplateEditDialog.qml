@@ -26,6 +26,8 @@ ApplicationWindow
     minimumHeight: 450
     width: rootWindow.width * 0.8
     height: rootWindow.height * 0.8
+    x: ((rootWindow.width - width) / 2) + rootWindow.x;
+    y: ((rootWindow.height - height) / 2) + rootWindow.y;
 
     property bool save_button_enabled: true
     property bool close_okay: false
@@ -59,6 +61,9 @@ ApplicationWindow
         edit_dialog_window.initProperties();
         save_button.setFocus(Enums.FocusDir.Down);
         main_scroll_view.ScrollBar.vertical.position = 0;  // Scrolling to the top
+
+        edit_dialog_window.width = rootWindow.width * 0.8;
+        edit_dialog_window.height = rootWindow.height * 0.8;
     }
 
     function create_derivative_window(pk, qml_file_name) {
