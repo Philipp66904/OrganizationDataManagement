@@ -213,6 +213,30 @@ class Settings(QObject):
         
         return self.settings["recent_files"]
     
+
+    @Slot(result=str)
+    def slot_clearRecentFiles(self) -> str:
+        """
+        Wrapper slot for clearRecentFiles.
+        """
+
+        return self.clearRecentFiles()
+
+
+    @settings_autosave
+    def clearRecentFiles(self) -> str:
+        """
+        Removes all recent files listed in the settings file.
+        returns: Error msg as string; Empty string if no error
+        """
+
+        try:
+            self.settings["recent_files"].clear()
+        except KeyError:
+            return "Settings::clearRecentFiles: Settings doesn't contain a 'recent_files' object. Try deleting the settings.json file and restart the program."
+        
+        return ""
+    
     
     @Slot(str, QColor)
     def slot_setThemeColor(self, color_name: str, new_color: QColor) -> None:
@@ -288,16 +312,30 @@ class Settings(QObject):
     
     @Slot(result=str)
     def getActiveLanguage(self) -> str:
+        """
+        Returns the currently active language.
+        returns: Language as string
+        """
+
         return self.settings["language"]
     
     
     @Slot(str)
-    def slot_setActiveLanguage(self, new_language: str):
+    def slot_setActiveLanguage(self, new_language: str) -> None:
+        """
+        Wrapper slot for setActiveLanguage.
+        """
+
         self.setActiveLanguage(new_language)
     
     
     @settings_autosave
-    def setActiveLanguage(self, new_language: str):
+    def setActiveLanguage(self, new_language: str) -> None:
+        """
+        Sets the active language to the provided one.
+        new_language: New language as string
+        """
+
         self.settings["language"] = new_language
     
     

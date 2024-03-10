@@ -630,7 +630,7 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../main.py" line="29"/>
+        <location filename="../main.py" line="30"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
@@ -804,97 +804,116 @@
     <message>
         <location filename="../ui/window/MenuBar.qml" line="730"/>
         <location filename="../ui/window/MenuBar.qml" line="732"/>
-        <location filename="../ui/window/MenuBar.qml" line="784"/>
+        <location filename="../ui/window/MenuBar.qml" line="757"/>
+        <location filename="../ui/window/MenuBar.qml" line="759"/>
+        <location filename="../ui/window/MenuBar.qml" line="811"/>
         <source>Do you want to proceed?</source>
         <translation>Fortfahren?</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="731"/>
+        <source>The recent files list will be cleared.</source>
+        <translation>Die Liste der zuletzt geöffneten Dateien wird zurückgesetzt.</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="733"/>
+        <source>Clear Recent Files</source>
+        <translation>Zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="740"/>
+        <source>Recent files list cleared</source>
+        <translation>&quot;Zuletzt geöffnet&quot; Liste zurückgesetzt</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="746"/>
+        <source>Clear Recent Files List</source>
+        <comment>Action Button</comment>
+        <translation>&quot;Zuletzt geöffnet&quot; zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="758"/>
         <source>The settings will be set to the default values.</source>
         <translation>Die Einstellungen werden auf ihre Standardwerte zurückgesetzt.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="733"/>
+        <location filename="../ui/window/MenuBar.qml" line="760"/>
         <source>Reset Settings</source>
         <translation>Einstellungen zurücksetzen</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="734"/>
-        <location filename="../ui/window/MenuBar.qml" line="769"/>
-        <location filename="../ui/window/MenuBar.qml" line="786"/>
+        <location filename="../ui/window/MenuBar.qml" line="761"/>
+        <location filename="../ui/window/MenuBar.qml" line="796"/>
+        <location filename="../ui/window/MenuBar.qml" line="813"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="741"/>
-        <source>Settings reset</source>
-        <translation>Einstellungen zurückgesetzt</translation>
-    </message>
-    <message>
-        <location filename="../ui/window/MenuBar.qml" line="747"/>
+        <location filename="../ui/window/MenuBar.qml" line="774"/>
         <source>Reset Settings</source>
         <comment>Action Button</comment>
         <translation>Einstellungen zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="765"/>
+        <location filename="../ui/window/MenuBar.qml" line="792"/>
         <source>Program Deinstall Prepared Successfully</source>
         <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="766"/>
+        <location filename="../ui/window/MenuBar.qml" line="793"/>
         <source>You can now manually delete the directory
 containing the program data.</source>
         <translation>Das Programmverzeichnis kann nun
 manuell gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="767"/>
+        <location filename="../ui/window/MenuBar.qml" line="794"/>
         <source>The program will close itself.</source>
         <translation>Das Programm beendet sich jetzt.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="768"/>
+        <location filename="../ui/window/MenuBar.qml" line="795"/>
         <source>Understood</source>
         <translation>Verstanden</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="782"/>
+        <location filename="../ui/window/MenuBar.qml" line="809"/>
         <source>Prepare Program Deinstall?</source>
         <translation>Programm-Deinstallation vorbereiten?</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="783"/>
+        <location filename="../ui/window/MenuBar.qml" line="810"/>
         <source>The program removes all changes made to the OS.</source>
         <translation>Das Programm entfernt alle am System vorgenommenen Änderungen.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="794"/>
+        <location filename="../ui/window/MenuBar.qml" line="821"/>
         <source>Program deinstall prepared successfully</source>
         <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="813"/>
+        <location filename="../ui/window/MenuBar.qml" line="840"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="867"/>
+        <location filename="../ui/window/MenuBar.qml" line="894"/>
         <source>Manual</source>
         <translation>Anleitung</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="873"/>
+        <location filename="../ui/window/MenuBar.qml" line="900"/>
         <source>Documentation</source>
         <translation>Dokumentation</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="885"/>
+        <location filename="../ui/window/MenuBar.qml" line="912"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="874"/>
+        <location filename="../ui/window/MenuBar.qml" line="901"/>
         <source>Github</source>
         <translation>Github</translation>
     </message>
@@ -909,17 +928,22 @@ manuell gelöscht werden.</translation>
         <translation>Datei Assoziation aktiviert</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="785"/>
+        <location filename="../ui/window/MenuBar.qml" line="768"/>
+        <source>Settings reset: Restart for all settings to take effect</source>
+        <translation>Einstellungen zurückgesetzt: Neustarten, um alle Änderungen anzuwenden</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="812"/>
         <source>Continue Deinstall</source>
         <translation>Deinstallation fortsetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="802"/>
+        <location filename="../ui/window/MenuBar.qml" line="829"/>
         <source>Prepare Program Deinstall</source>
         <translation>Deinstallation vorbereiten</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="896"/>
+        <location filename="../ui/window/MenuBar.qml" line="923"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>
@@ -1198,8 +1222,8 @@ manuell gelöscht werden.</translation>
         <translation>Standard Einstellungsdatei ist inkompatibel. Versuche, das Programm neu zu installieren.</translation>
     </message>
     <message>
-        <location filename="../app/settings.py" line="244"/>
-        <location filename="../app/settings.py" line="417"/>
+        <location filename="../app/settings.py" line="285"/>
+        <location filename="../app/settings.py" line="472"/>
         <source>Settings::resetThemeColors: Default settings file missing. Try reinstalling the program.</source>
         <translation>Standard Einstellungsdatei fehlt. Versuche, das Programm neu zu installieren.</translation>
     </message>
@@ -1207,27 +1231,27 @@ manuell gelöscht werden.</translation>
 <context>
     <name>StatusBar</name>
     <message>
-        <location filename="../ui/window/StatusBar.qml" line="134"/>
+        <location filename="../ui/window/StatusBar.qml" line="140"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../ui/window/StatusBar.qml" line="136"/>
+        <location filename="../ui/window/StatusBar.qml" line="142"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../ui/window/StatusBar.qml" line="138"/>
+        <location filename="../ui/window/StatusBar.qml" line="144"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../ui/window/StatusBar.qml" line="182"/>
+        <location filename="../ui/window/StatusBar.qml" line="188"/>
         <source>Saved: </source>
         <translation>Gespeichert: </translation>
     </message>
     <message>
-        <location filename="../ui/window/StatusBar.qml" line="224"/>
+        <location filename="../ui/window/StatusBar.qml" line="230"/>
         <source>Created: </source>
         <translation>Erstellt: </translation>
     </message>
@@ -1303,42 +1327,42 @@ manuell gelöscht werden.</translation>
 <context>
     <name>TemplateEditDialog</name>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="69"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="74"/>
         <source>Error in creating a new window</source>
         <translation>Fehler beim Erstellen eines neuen Fensters</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="268"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="273"/>
         <source>Derivatives:</source>
         <translation>Ableitungen:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="380"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="385"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="406"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="411"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="442"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="447"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="502"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="507"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="525"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="530"/>
         <source>Modified: </source>
         <translation>Verändert: </translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="555"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="560"/>
         <source>Created: </source>
         <translation>Erstellt: </translation>
     </message>
@@ -1436,7 +1460,7 @@ manuell gelöscht werden.</translation>
         <translation>Bereit</translation>
     </message>
     <message>
-        <location filename="../ui/main.qml" line="198"/>
+        <location filename="../ui/main.qml" line="197"/>
         <source>Opened file</source>
         <translation>Datei geöffnet</translation>
     </message>

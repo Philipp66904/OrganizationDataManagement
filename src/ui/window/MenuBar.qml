@@ -725,6 +725,33 @@ MenuBar  // MenuBar shown in the window's header
 
         TemplateDialog
         {
+            id: recent_files_clear_dialog
+
+            title_text: qsTr("Do you want to proceed?")
+            main_text: qsTr("The recent files list will be cleared.")
+            sub_text: qsTr("Do you want to proceed?")
+            ok_text: qsTr("Clear Recent Files")
+            abort_text: qsTr("Abort")
+
+            function callback_function() {
+                const msg = setStatusMessage(settings.slot_clearRecentFiles(), Enums.StatusMsgLvl.Err);
+                if(msg !== "") return;
+
+                setStatusMessage(qsTr("Recent files list cleared"), Enums.StatusMsgLvl.Info);
+            }
+        }
+        Action
+        {
+            id: action_recent_files_clear
+            text: qsTr("Clear Recent Files List", "Action Button")
+            onTriggered: {
+                recent_files_clear_dialog.init();
+                recent_files_clear_dialog.show();
+            }
+        }
+
+        TemplateDialog
+        {
             id: settings_reset_dialog
 
             title_text: qsTr("Do you want to proceed?")
@@ -738,7 +765,7 @@ MenuBar  // MenuBar shown in the window's header
                 if(msg !== "") return;
 
                 init_colors();
-                setStatusMessage(qsTr("Settings reset"), Enums.StatusMsgLvl.Info);
+                setStatusMessage(qsTr("Settings reset: Restart for all settings to take effect"), Enums.StatusMsgLvl.Info);
             }
         }
         Action
