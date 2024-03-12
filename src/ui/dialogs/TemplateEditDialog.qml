@@ -26,8 +26,6 @@ ApplicationWindow
     minimumHeight: 450
     width: rootWindow.width * 0.8
     height: rootWindow.height * 0.8
-    x: ((rootWindow.width - width) / 2) + rootWindow.x;
-    y: ((rootWindow.height - height) / 2) + rootWindow.y;
 
     property bool save_button_enabled: true
     property bool close_okay: false
@@ -64,6 +62,9 @@ ApplicationWindow
 
         edit_dialog_window.width = rootWindow.width * 0.8;
         edit_dialog_window.height = rootWindow.height * 0.8;
+
+        edit_dialog_window.x = ((rootWindow.width - edit_dialog_window.width) / 2) + rootWindow.x;
+        edit_dialog_window.y = ((rootWindow.height - edit_dialog_window.height) / 2) + rootWindow.y;
     }
 
     function create_derivative_window(pk, qml_file_name) {
@@ -189,7 +190,6 @@ ApplicationWindow
             contentHeight: scrollview_column.height
             contentWidth: width
             clip: true
-            enabled: (scrollview_column.height > height)
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff  // actually not needed because of contentWidth: width, just to be safe
 
             function scrollTo(y_coord_top, y_coord_bot) {
