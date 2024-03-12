@@ -3,6 +3,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtPositioning
+import QtQuick.Controls.Basic
 
 import "../types"
 
@@ -82,40 +83,81 @@ Rectangle
             }
         }
 
-        TextInput
+        Flickable
         {
-            id: value_text
-            text: (derivative_flag) ? original_value : value
+            id: flick
             width: parent.width
             height: (parent.height - (parent.spacing * parent.row_count)) - property_row_main.height
-            font.pointSize: fontSize_default
-            font.family: fontFamily_default
-            color: (derivative_flag) ? backgroundColor3 : textColor
-            horizontalAlignment: Text.AlignLeft
-            verticalAlignment: Text.AlignTop
+            contentWidth: width
+            contentHeight: Math.max(value_text.contentHeight, value_text.height)
             clip: true
-            font.italic: (derivative_flag) ? true : false
-            readOnly: derivative_flag
-            wrapMode: TextEdit.Wrap
-            Keys.onTabPressed: nextFocus(Enums.FocusDir.Right);
-            Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Left);
-            Keys.onReturnPressed: nextFocus(Enums.FocusDir.Save);
-            Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
-            Keys.onUpPressed: nextFocus(Enums.FocusDir.Up);
-            Keys.onDownPressed: nextFocus(Enums.FocusDir.Down);
+            interactive: value_text.contentHeight > height
 
-            onTextEdited: {
-                property_row_main.send_new_value();
+            Behavior on contentY { SmoothedAnimation { velocity: 200 } }
+
+            ScrollBar.vertical: ScrollBar
+            {
+                parent: flick
+                anchors.right: parent.right
             }
 
-            Rectangle
+            function ensureVisible(r)
             {
-                id: value_text_underline
-                anchors.bottom: parent.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: (editing) ? highlightColor : backgroundColor3
-                height: 1
+                if (contentY >= r.y)
+                    contentY = r.y;
+                else if (contentY+height <= r.y+r.height)
+                    contentY = r.y+r.height-height;
+            }
+        
+            TextEdit
+            {
+                id: value_text
+                text: (derivative_flag) ? original_value : value
                 width: parent.width
+                font.pointSize: fontSize_default
+                font.family: fontFamily_default
+                color: (derivative_flag) ? backgroundColor3 : textColor
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignTop
+                font.italic: (derivative_flag) ? true : false
+                readOnly: derivative_flag
+                wrapMode: TextEdit.Wrap
+                Keys.onTabPressed: nextFocus(Enums.FocusDir.Right);
+                Keys.onBacktabPressed: nextFocus(Enums.FocusDir.Left);
+                Keys.onEscapePressed: nextFocus(Enums.FocusDir.Close);
+
+                Keys.onPressed: (event) => {
+                    if (event.key === Qt.Key_Up) {
+                        if(cursorRectangle.y === 0) {
+                            event.accepted = true;
+                            nextFocus(Enums.FocusDir.Up);
+                        }
+                    } else if (event.key === Qt.Key_Down) {
+                        if(cursorRectangle.y === (flick.contentHeight - cursorRectangle.height)) {
+                            event.accepted = true;
+                            nextFocus(Enums.FocusDir.Down);
+                        }
+                    } else if (event.key === Qt.Key_Return && (event.modifiers & Qt.ControlModifier)) {
+                        event.accepted = true;
+                        nextFocus(Enums.FocusDir.Save);
+                    }
+                }
+
+                onCursorRectangleChanged: flick.ensureVisible(cursorRectangle)
+
+                onTextChanged: {
+                    property_row_main.send_new_value();
+                }
+
+                Rectangle
+                {
+                    id: value_text_underline
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: (editing) ? highlightColor : backgroundColor3
+                    height: 1
+                    width: parent.width
+                }
             }
 
             MouseArea

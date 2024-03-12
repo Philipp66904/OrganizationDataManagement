@@ -230,7 +230,11 @@ class TableModel(QAbstractTableModel):
     
     
     def data(self, index: QModelIndex, role: int | None = None) -> any:
-        return self.row_data[index.row()][index.column()]
+        res = self.row_data[index.row()][index.column()]
+        if type(res) == str:
+            res = res.strip().split('\n', 1)[0]
+        
+        return res
     
     
     @Slot(int, result=str)
@@ -244,8 +248,8 @@ class TableModel(QAbstractTableModel):
         res = str(self.column_names[column_index])
         
         for row in self.row_data:
-            if len(str(row[column_index])) > len(res):
-                res = str(row[column_index])
+            if len((str(row[column_index])).split('\n', 1)[0]) > len(res):
+                res = (str(row[column_index])).split('\n', 1)[0]
         
         return res
     

@@ -415,7 +415,8 @@ Rectangle
                         required property bool selected
                         required property bool current
 
-                        Gradient {
+                        Gradient
+                        {
                             id: selected_gradient
                             GradientStop { position: 0.0; color: border.color }
                             GradientStop { position: 0.10; color: cell_rect.color }
