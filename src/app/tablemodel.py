@@ -248,8 +248,8 @@ class TableModel(QAbstractTableModel):
         res = str(self.column_names[column_index])
         
         for row in self.row_data:
-            if len((str(row[column_index])).split('\n', 1)[0]) > len(res):
-                res = (str(row[column_index])).split('\n', 1)[0]
+            if len((str(row[column_index])).strip().split('\n', 1)[0]) > len(res):
+                res = (str(row[column_index])).strip().split('\n', 1)[0]
         
         return res
     
