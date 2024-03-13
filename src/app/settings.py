@@ -494,3 +494,18 @@ class Settings(QObject):
             res.append([font_name, font_family, font_size])
         
         return res
+    
+
+    @Slot(result=bool)
+    def getAutoSaveOnClose(self) -> bool:
+        return self.settings["autosave_on_close"]
+    
+
+    @Slot(bool)
+    def slot_setAutoSaveOnClose(self, new_state: bool) -> None:
+        self.setAutoSaveOnClose(new_state)
+
+
+    @settings_autosave
+    def setAutoSaveOnClose(self, new_state: bool) -> None:
+        self.settings["autosave_on_close"] = new_state

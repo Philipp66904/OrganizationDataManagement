@@ -425,7 +425,12 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/FileCloseDialog.qml" line="69"/>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="70"/>
+        <source>Save automatically</source>
+        <translation>Automatisch speichern</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/FileCloseDialog.qml" line="90"/>
         <source>Remove file from recent files list</source>
         <translation>Aus &quot;Zuletzt geöffnet&quot; entfernen</translation>
     </message>
@@ -1283,43 +1288,43 @@ manuell gelöscht werden.</translation>
     <name>Table</name>
     <message>
         <location filename="../ui/components/Table.qml" line="354"/>
-        <location filename="../ui/components/Table.qml" line="430"/>
+        <location filename="../ui/components/Table.qml" line="431"/>
         <source>null</source>
         <translation>Leer</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="517"/>
+        <location filename="../ui/components/Table.qml" line="518"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="533"/>
+        <location filename="../ui/components/Table.qml" line="534"/>
         <source>Save Entry before creating a new derivative</source>
         <translation>Speichere den Eintrag vor Erstellung einer Ableitung</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="547"/>
+        <location filename="../ui/components/Table.qml" line="548"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="573"/>
+        <location filename="../ui/components/Table.qml" line="574"/>
         <source>Duplicate</source>
         <translation>Duplizieren</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="590"/>
+        <location filename="../ui/components/Table.qml" line="591"/>
         <source>Select a row to duplicate</source>
         <translation>Wähle eine Zeile aus, die dupliziert werden soll</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="604"/>
+        <location filename="../ui/components/Table.qml" line="605"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="623"/>
-        <location filename="../ui/components/Table.qml" line="634"/>
+        <location filename="../ui/components/Table.qml" line="624"/>
+        <location filename="../ui/components/Table.qml" line="635"/>
         <source>Select a row to delete</source>
         <translation>Wähle eine Zeile aus, die gelöscht werden soll</translation>
     </message>
@@ -1327,7 +1332,7 @@ manuell gelöscht werden.</translation>
 <context>
     <name>TemplateEditDialog</name>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="74"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="75"/>
         <source>Error in creating a new window</source>
         <translation>Fehler beim Erstellen eines neuen Fensters</translation>
     </message>

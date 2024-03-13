@@ -39,6 +39,7 @@
     "language": "Follow System",
     "file_type_association": true,
     "startmenu_state": true,
+    "autosave_on_close": true,
     "fonts": {
         "default": {
             "font_family": "Roboto",

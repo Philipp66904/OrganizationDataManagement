@@ -57,7 +57,7 @@ CheckBox
             anchors.verticalCenter: parent.verticalCenter
             radius: 4
             color: highlight_color
-            visible: parent.checked
+            visible: parent.checked && checkbox_root.enabled
         }
 
         MouseArea

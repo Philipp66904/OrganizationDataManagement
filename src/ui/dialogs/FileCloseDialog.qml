@@ -15,9 +15,9 @@ ApplicationWindow
     flags: Qt.Dialog
     modality: Qt.ApplicationModal
     minimumWidth: 300
-    minimumHeight: 170
+    minimumHeight: 200
     width: 300
-    height: 170
+    height: 200
 
     property string title_text: qsTr("Do you want to proceed?")
     property string main_text: qsTr("All unsaved changes will be lost.")
@@ -31,6 +31,7 @@ ApplicationWindow
         // Call this function before .show()
         ok_button.setFocus(Enums.FocusDir.Right);
 
+        save_on_close_basic_checkbox.checked = settings.getAutoSaveOnClose();
         delete_from_recent_file_basic_checkbox.checked = false;
         remove_from_recent_file_list = false;
     }
@@ -46,7 +47,7 @@ ApplicationWindow
         Text
         {
             text: main_text
-            height: parent.height * 0.5 - parent.spacing
+            height: parent.height * 0.4 - parent.spacing
             width: parent.width
             font.pointSize: fontSize_default
             font.family: fontFamily_default
@@ -63,15 +64,35 @@ ApplicationWindow
 
         BasicCheckbox
         {
+            id: save_on_close_basic_checkbox
+            height: parent.height * 0.2 - parent.spacing
+            width: parent.width
+            text: qsTr("Save automatically")
+            onNextFocus: function next_focus(dir) {
+                if(dir === Enums.FocusDir.Close) abort_button.setFocus(dir);
+                else if(dir === Enums.FocusDir.Save) ok_button.setFocus(dir);
+                else if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) delete_from_recent_file_basic_checkbox.setFocus(dir);
+                else if(dir === Enums.FocusDir.Up) ok_button.setFocus(dir);
+                else abort_button.setFocus(dir);
+            }
+            enabled: db_path_text !== new_db_text
+
+            onCheckedChanged: {
+                settings.slot_setAutoSaveOnClose(checked);
+            }
+        }
+
+        BasicCheckbox
+        {
             id: delete_from_recent_file_basic_checkbox
-            height: parent.height * 0.25 - parent.spacing
+            height: parent.height * 0.2 - parent.spacing
             width: parent.width
             text: qsTr("Remove file from recent files list")
             onNextFocus: function next_focus(dir) {
                 if(dir === Enums.FocusDir.Close) abort_button.setFocus(dir);
                 else if(dir === Enums.FocusDir.Save) ok_button.setFocus(dir);
-                else if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) ok_button.setFocus(dir);
-                else abort_button.setFocus(dir);
+                else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) save_on_close_basic_checkbox.setFocus(dir);
+                else ok_button.setFocus(dir);
             }
             enabled: db_path_text !== new_db_text
 
@@ -83,7 +104,7 @@ ApplicationWindow
         Text
         {
             text: sub_text
-            height: parent.height * 0.25 - parent.spacing
+            height: parent.height * 0.2 - parent.spacing
             width: parent.width
             font.pointSize: fontSize_default
             font.family: fontFamily_default
@@ -102,19 +123,21 @@ ApplicationWindow
             width: parent.width - 8
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 8
+            property int column_count: 2
 
             BasicButton
             {
                 id: ok_button
                 text: ok_text
                 height: parent.height - anchors.bottomMargin
-                width: (parent.width - parent.spacing) / 2
+                width: (parent.width - (parent.spacing * (parent.column_count - 1))) / parent.column_count
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
                 highlight_color: backgroundColorError
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Close) abort_button.setFocus(dir);
-                    else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Left) delete_from_recent_file_basic_checkbox.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Left) delete_from_recent_file_basic_checkbox.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Down) save_on_close_basic_checkbox.setFocus(dir);
                     else abort_button.setFocus(dir);
                 }
                 
@@ -122,10 +145,8 @@ ApplicationWindow
 
                 onClicked:
                 {
-                    handle_recent_file();
-                    close();
+                    handle_autosave_on_close();
                 }
-
             }
 
             BasicButton
@@ -133,14 +154,15 @@ ApplicationWindow
                 id: abort_button
                 text: abort_text
                 height: parent.height - anchors.bottomMargin
-                width: (parent.width - parent.spacing) / 2
+                width: (parent.width - (parent.spacing * (parent.column_count - 1))) / parent.column_count
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
                 hover_color: textColor
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Close) clicked();
                     else if(dir === Enums.FocusDir.Save) ok_button.setFocus(dir);
-                    else if(dir === Enums.FocusDir.Up || dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) delete_from_recent_file_basic_checkbox.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Up) delete_from_recent_file_basic_checkbox.setFocus(dir);
+                    else if(dir === Enums.FocusDir.Down || dir === Enums.FocusDir.Right) save_on_close_basic_checkbox.setFocus(dir);
                     else ok_button.setFocus(dir);
                 }
 
@@ -158,6 +180,36 @@ ApplicationWindow
         }
 
         callback_function();
+    }
+
+    Timer
+    {
+        id: save_timer
+        interval: 10
+        repeat: false
+
+        onTriggered: {
+            const msg = setStatusMessage(database.slot_saveDB(loaded_db_path), Enums.StatusMsgLvl.Err);
+            busy_saving_indicator_dialog.close();
+            if(msg !== "") {
+                init();
+                show();
+                return;
+            }
+
+            handle_recent_file();
+        }
+    }
+
+    function handle_autosave_on_close() {
+        close();
+
+        if((!settings.getAutoSaveOnClose()) || (loaded_db_path === "")) {
+            handle_recent_file();
+        } else {
+            busy_saving_indicator_dialog.show();
+            save_timer.start();
+        }
     }
     
     function callback_function() {}
