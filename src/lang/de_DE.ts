@@ -381,22 +381,22 @@
     <name>DeleteDialog</name>
     <message>
         <location filename="../ui/dialogs/DeleteDialog.qml" line="13"/>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="53"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="54"/>
         <source>Do you want to proceed?</source>
         <translation>Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="35"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="21"/>
         <source>The specified entry with its derivatives and connections will be deleted.</source>
         <translation>Der gewählte Eintrag mit all seinen Ableitungen und Verbindungen wird gelöscht.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="78"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="79"/>
         <source>Delete Entry</source>
         <translation>Eintrag löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/DeleteDialog.qml" line="101"/>
+        <location filename="../ui/dialogs/DeleteDialog.qml" line="102"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -1016,7 +1016,12 @@ manuell gelöscht werden.</translation>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="370"/>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="350"/>
+        <source>The specified connection will be deleted.</source>
+        <translation>Die gewählte Verbindung wird gelöscht.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/OrganizationConnectionDialog.qml" line="371"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
@@ -1056,22 +1061,27 @@ manuell gelöscht werden.</translation>
         <translation>Verbindungen:</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="230"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="190"/>
+        <source>The specified connection will be deleted.</source>
+        <translation>Die gewählte Verbindung wird gelöscht.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="231"/>
         <source>Connection</source>
         <translation>Verbindung</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="245"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="246"/>
         <source>Couldn&apos;t delete connection.</source>
         <translation>Verbindung konnte nicht gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="255"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="256"/>
         <source>Website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="294"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="295"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
@@ -1292,44 +1302,49 @@ manuell gelöscht werden.</translation>
 <context>
     <name>Table</name>
     <message>
-        <location filename="../ui/components/Table.qml" line="354"/>
-        <location filename="../ui/components/Table.qml" line="431"/>
+        <location filename="../ui/components/Table.qml" line="31"/>
+        <source>The specified entry with its derivatives and connections will be deleted.</source>
+        <translation>Der gewählte Eintrag mit all seinen Ableitungen und Verbindungen wird gelöscht.</translation>
+    </message>
+    <message>
+        <location filename="../ui/components/Table.qml" line="355"/>
+        <location filename="../ui/components/Table.qml" line="432"/>
         <source>null</source>
         <translation>Leer</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="518"/>
+        <location filename="../ui/components/Table.qml" line="519"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="534"/>
+        <location filename="../ui/components/Table.qml" line="535"/>
         <source>Save Entry before creating a new derivative</source>
         <translation>Speichere den Eintrag vor Erstellung einer Ableitung</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="548"/>
+        <location filename="../ui/components/Table.qml" line="549"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="574"/>
+        <location filename="../ui/components/Table.qml" line="575"/>
         <source>Duplicate</source>
         <translation>Duplizieren</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="591"/>
+        <location filename="../ui/components/Table.qml" line="592"/>
         <source>Select a row to duplicate</source>
         <translation>Wähle eine Zeile aus, die dupliziert werden soll</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="605"/>
+        <location filename="../ui/components/Table.qml" line="606"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/components/Table.qml" line="624"/>
-        <location filename="../ui/components/Table.qml" line="635"/>
+        <location filename="../ui/components/Table.qml" line="626"/>
+        <location filename="../ui/components/Table.qml" line="637"/>
         <source>Select a row to delete</source>
         <translation>Wähle eine Zeile aus, die gelöscht werden soll</translation>
     </message>

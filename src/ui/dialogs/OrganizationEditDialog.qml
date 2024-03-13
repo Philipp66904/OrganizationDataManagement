@@ -187,6 +187,7 @@ TemplateEditDialog
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) property_line_edit_name.setFocus(dir);
                     else property_line_edit_website.setFocus(dir);
                 }
+                delete_text: qsTr("The specified connection will be deleted.")
 
                 onFocusSet: scrollTo(y, y + height);
 

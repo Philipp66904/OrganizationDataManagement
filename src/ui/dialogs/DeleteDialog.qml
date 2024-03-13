@@ -18,6 +18,7 @@ ApplicationWindow
     minimumHeight: 140
     width: 300
     height: 140
+    property string text: qsTr("The specified entry with its derivatives and connections will be deleted.")
 
     function init() {
         // Call this function before .show()
@@ -32,7 +33,7 @@ ApplicationWindow
 
         Text
         {
-            text: qsTr("The specified entry with its derivatives and connections will be deleted.")
+            text: dialog.text
             height: parent.height * 0.7 - parent.spacing
             width: parent.width
             font.pointSize: fontSize_default

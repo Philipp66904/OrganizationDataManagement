@@ -347,6 +347,7 @@ ApplicationWindow
                     DeleteDialog
                     {
                         id: delete_dialog
+                        text: qsTr("The specified connection will be deleted.")
                         function callback_function() {
                             organization_connection_dialog_window.delete_button_clicked();
                             organization_connection_dialog_window.close_okay = true;

@@ -28,6 +28,7 @@ Rectangle
 
     property bool sort_reverse: false
     property string sort_column_name: ""
+    property string delete_text: qsTr("The specified entry with its derivatives and connections will be deleted.")
 
     signal add_button_clicked()
     signal edit_button_clicked(selected_primary_key: int)
@@ -618,6 +619,7 @@ Rectangle
                     DeleteDialog
                     {
                         id: delete_dialog
+                        text: table_root.delete_text
                         function callback_function() {
                             const pk = table_buttons_main.getPrimaryKey();
                             if (pk < 0) {
