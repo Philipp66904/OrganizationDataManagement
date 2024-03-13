@@ -340,8 +340,12 @@ MenuBar  // MenuBar shown in the window's header
                 if(loaded_db_path === "") {
                     save_as_file_dialog.open();
                 } else {
-                    busy_saving_indicator_dialog.show();
-                    save_timer.start();
+                    if(database.getUnsavedChanges()) {
+                        busy_saving_indicator_dialog.show();
+                        save_timer.start();
+                    } else {
+                        setStatusMessage(qsTr("No changes to save"), Enums.StatusMsgLvl.Info);
+                    }
                 }
             }
             icon.source: "../res/svg/save_icon.svg"

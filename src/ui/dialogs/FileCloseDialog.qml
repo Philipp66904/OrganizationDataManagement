@@ -207,8 +207,12 @@ ApplicationWindow
         if((!settings.getAutoSaveOnClose()) || (loaded_db_path === "")) {
             handle_recent_file();
         } else {
-            busy_saving_indicator_dialog.show();
-            save_timer.start();
+            if(database.getUnsavedChanges()) {
+                busy_saving_indicator_dialog.show();
+                save_timer.start();
+            } else {
+                handle_recent_file();
+            }
         }
     }
     

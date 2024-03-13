@@ -12,7 +12,14 @@ import "types"
 ApplicationWindow
 {
     id: rootWindow
-    title: qsTr("Organization Data Management") + " - " + db_path_text
+    title: {
+        let res = "";
+        if(unsaved_changes) res += "*";
+        res += qsTr("Organization Data Management") + " - ";
+        res += db_path_text;
+
+        return res;
+    }
     width: 400
     height: 600
     minimumWidth: 300
@@ -57,6 +64,7 @@ ApplicationWindow
     property bool close_okay: false
     readonly property string default_status_message: qsTr("Ready")
     readonly property int default_status_message_level: Enums.StatusMsgLvl.Default
+    property bool unsaved_changes: false
 
     // Status Message handling
     function setDefaultStatusMessage() {
@@ -120,6 +128,10 @@ ApplicationWindow
                 saved_date = db_metadata[1];
                 created_date = db_metadata[2];
             }
+        }
+
+        function onUnsavedChangesChanged(unsaved_changes_state) {
+            unsaved_changes = unsaved_changes_state;
         }
     }
 

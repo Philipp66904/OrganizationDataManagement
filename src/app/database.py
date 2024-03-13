@@ -19,7 +19,8 @@ class Database(QObject):
     dataRowAdded = Signal(str, int)  # signals a row addition: table_name, id
     dataRowRemoved = Signal(str, int)  # signals a row removal: table_name, id
     searchCacheChanged = Signal(str)  # signals an update to the search cache for a specific table name
-    
+    unsavedChangesChanged = Signal(bool)  # signals an update to the unsaved changes state: True if unsaved changes exist, otherwise False
+
     
     def __init__(self, settings: Settings, locale: QLocale, load_on_startup_path: str | None = None):
         """
@@ -37,6 +38,7 @@ class Database(QObject):
         self.load_on_startup_path = load_on_startup_path
         
         self._search_data_cache = {}  # Caching last search results from database per table
+        self.__db_unsaved_changes__ = False
         
         # Connect signals
         self.dataRowChanged.connect(self._changeRowInSearchCache)
@@ -44,7 +46,7 @@ class Database(QObject):
         self.dataRowRemoved.connect(self._removeRowFromSearchCache)
         
         self.readTemplateDB()
-        
+    
     
     @Slot()
     def init_db(self) -> None:
@@ -52,6 +54,8 @@ class Database(QObject):
         Call this function whenever loading a new database including the template db.
         It sets the foreign key support to ON and emits the dataChanged signal.
         """
+
+        self._set_unsaved_changes_(False)
         
         with self.con:
             self.con.execute("""PRAGMA foreign_keys = ON;""")
@@ -67,6 +71,16 @@ class Database(QObject):
         """
         
         self._search_data_cache = {}
+
+    
+    def _set_unsaved_changes_(self, unsaved_changes) -> None:
+        self.__db_unsaved_changes__ = unsaved_changes
+        self.unsavedChangesChanged.emit(unsaved_changes)
+
+    
+    @Slot(result=bool)
+    def getUnsavedChanges(self) -> bool:
+        return self.__db_unsaved_changes__
         
     
     @Slot(result=str)
@@ -269,7 +283,7 @@ class Database(QObject):
             self.saveDB(db_path_tmp)
         except Exception as e:
             return QCoreApplication.translate("Database", "Database::slot_saveDB") + ": " + str(e)
-        
+
         return ""
     
     
@@ -303,9 +317,9 @@ class Database(QObject):
                     date_created = None
                 
                 if date_created == None:
-                    date_created = datetime.datetime.utcnow()
+                    date_created = datetime.datetime.now(datetime.UTC)
                 
-                date_saved = datetime.datetime.utcnow()
+                date_saved = datetime.datetime.now(datetime.UTC)
                 self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_created'", (date_created.strftime("%Y-%m-%d %H:%M:%S"),))
                 self.con.execute("UPDATE __meta__ SET content = ? WHERE name = 'date_saved'", (date_saved.strftime("%Y-%m-%d %H:%M:%S"),))
             
@@ -320,6 +334,7 @@ class Database(QObject):
             raise e
     
         self.clear_cache()
+        self._set_unsaved_changes_(False)
         self.databaseLoaded.emit(Settings._adapt_file_paths_(db_path))
 
 
@@ -1143,14 +1158,16 @@ class Database(QObject):
                 date_created = None
             
             if date_created == None:
-                date_created = datetime.datetime.utcnow()
+                date_created = datetime.datetime.now(datetime.UTC)
             
-            date_modified = datetime.datetime.utcnow()
+            date_modified = datetime.datetime.now(datetime.UTC)
             
             self.con.execute("UPDATE metadata SET date_created = ?, date_modified = ? WHERE id = ?;",
                              (date_created.strftime("%Y-%m-%d %H:%M:%S"),
                               date_modified.strftime("%Y-%m-%d %H:%M:%S"),
                               metadata_id))
+        
+        self._set_unsaved_changes_(True)
     
     
     @Slot(str, str, int, str, str, result=str)
@@ -1193,6 +1210,7 @@ class Database(QObject):
         
         self.setModified_CreatedTimestamps(metadata_id)
         self.dataRowChanged.emit(table_name, pk)
+        self._set_unsaved_changes_(True)
         return ""
     
     
@@ -1222,6 +1240,7 @@ class Database(QObject):
             return "Database::setValue_Str: " + str(e)
         
         self.dataRowChanged.emit(table_name, pk_id)
+        self._set_unsaved_changes_(True)
         return ""
     
     
@@ -1258,6 +1277,7 @@ class Database(QObject):
         except Exception as e:
             return "Database::setOther: " + str(e)
         
+        self._set_unsaved_changes_(True)
         return ""
     
     
@@ -1345,6 +1365,7 @@ class Database(QObject):
         
         self.setModified_CreatedTimestamps(new_metadata_id)
         self.dataRowAdded.emit(table_name, new_pk)
+        self._set_unsaved_changes_(True)
         return ""
     
     
@@ -1391,6 +1412,7 @@ class Database(QObject):
             return "Database::createOrganization: " + str(e)
         
         self.dataRowAdded.emit("organization", new_id)
+        self._set_unsaved_changes_(True)
         return ""
     
     
@@ -1437,6 +1459,7 @@ class Database(QObject):
             return "Database::createPerson: " + str(e)
         
         self.dataRowAdded.emit("person", new_id)
+        self._set_unsaved_changes_(True)
         return ""
     
     
@@ -1486,6 +1509,7 @@ class Database(QObject):
             return "Database::createAddress: " + str(e)
         
         self.dataRowAdded.emit("address", pk_id)
+        self._set_unsaved_changes_(True)
         return ""
     
     
@@ -1530,6 +1554,8 @@ class Database(QObject):
             self.dataRowAdded.emit("connection", new_connection_id)
         else:
             self.dataRowChanged.emit("connection", new_connection_id)
+        
+        self._set_unsaved_changes_(True)
         return ""
     
     
@@ -1549,6 +1575,7 @@ class Database(QObject):
                              (connection_id,))
         
         self.dataRowRemoved.emit("connection", connection_id)
+        self._set_unsaved_changes_(True)
         return True
     
     
@@ -1628,6 +1655,7 @@ class Database(QObject):
         for child_id in child_ids:
             self.dataRowRemoved.emit(table_name, child_id)
         
+        self._set_unsaved_changes_(True)
         return ""
 
 
