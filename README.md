@@ -41,7 +41,7 @@ The choice of where to store files rests entirely with you, ensuring optimal use
 1) Execute the `OrganizationDataManagement.exe` found in ```build\exe\dist\OrganizationDataManagement``` to set up the file association for `.odmdb` files (can be configured in the program settings)
 
 #### Required Programs and non-standard Dependencies
-- Python - <kbd>3.10.0</kbd>  
+- Python - <kbd>>= 3.11.0</kbd>  
 - PySide6
 - pywin32
 - [pyinstaller (if you want to create your own .exe)]
