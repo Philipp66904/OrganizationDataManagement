@@ -1873,6 +1873,7 @@ class Database(QObject):
         complete_column_names = ["connection_id", "organization_id", "person_id", "address_id"]
         complete_column_names.extend(self._getSearchResultCompleteColumnNames(table_name, column_names))
         
+        first_run = True
         for data in data_list:
             row_dict = {}
             for i, column_name in enumerate(complete_column_names):
@@ -1881,17 +1882,20 @@ class Database(QObject):
                     val = self.adaptDateTimeToLocale(val)
                 row_dict[column_name] = val
             
-            # Find id and connection_id in cache
-            index = -1
-            for i, row in enumerate(self._search_data_cache[table_name]):
-                if row["id"] == pk_id and row["connection_id"] == row_dict["connection_id"]:
-                    index = i
-                    break
+            # Delete all old entries for the id
+            if first_run:
+                first_run = False
+                
+                n = 0
+                while n < len(self._search_data_cache[table_name]):
+                    row = self._search_data_cache[table_name]
+                    if row[n]["id"] == pk_id:
+                        self._search_data_cache[table_name].pop(n)
+                        n -= 1
+                    
+                    n += 1
             
-            if index < 0:
-                self._search_data_cache[table_name].append(row_dict)
-            else:
-                self._search_data_cache[table_name][index] = row_dict
+            self._search_data_cache[table_name].append(row_dict)
             
         self.searchCacheChanged.emit(table_name)
     
@@ -2065,7 +2069,7 @@ class Database(QObject):
                 for column_name in row.keys():
                     if column_name not in ["connection_id", "organization_id", "person_id", "address_id"]:
                         header_list.append(column_name)
-                        
+                
                 res.append(header_list)
             
             row_list = []
