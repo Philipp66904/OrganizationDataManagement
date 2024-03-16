@@ -813,7 +813,7 @@ MenuBar  // MenuBar shown in the window's header
             title_text: qsTr("Prepare Program Deinstall?")
             main_text: qsTr("The program removes all changes made to the OS.")
             sub_text: qsTr("Do you want to proceed?")
-            ok_text: qsTr("Continue Deinstall")
+            ok_text: qsTr("Continue deinstall")
             abort_text: qsTr("Abort")
 
             function callback_function() {

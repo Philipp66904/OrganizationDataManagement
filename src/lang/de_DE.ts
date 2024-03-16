@@ -297,82 +297,82 @@
         <translation>Kopie</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2106"/>
+        <location filename="../app/database.py" line="2110"/>
         <source>name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2108"/>
+        <location filename="../app/database.py" line="2112"/>
         <source>note</source>
         <translation>Notiz</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2110"/>
+        <location filename="../app/database.py" line="2114"/>
         <source>modified</source>
         <translation>Verändert</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2112"/>
+        <location filename="../app/database.py" line="2116"/>
         <source>created</source>
         <translation>Erstellt</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2114"/>
+        <location filename="../app/database.py" line="2118"/>
         <source>website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2116"/>
+        <location filename="../app/database.py" line="2120"/>
         <source>title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2118"/>
+        <location filename="../app/database.py" line="2122"/>
         <source>gender</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2120"/>
+        <location filename="../app/database.py" line="2124"/>
         <source>firstname</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2122"/>
+        <location filename="../app/database.py" line="2126"/>
         <source>middlename</source>
         <translation>Mittelname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2124"/>
+        <location filename="../app/database.py" line="2128"/>
         <source>surname</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2126"/>
+        <location filename="../app/database.py" line="2130"/>
         <source>street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2128"/>
+        <location filename="../app/database.py" line="2132"/>
         <source>number</source>
         <translation>Hausnummer</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2130"/>
+        <location filename="../app/database.py" line="2134"/>
         <source>postalcode</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2132"/>
+        <location filename="../app/database.py" line="2136"/>
         <source>city</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2134"/>
+        <location filename="../app/database.py" line="2138"/>
         <source>state</source>
         <translation>Bundesland</translation>
     </message>
     <message>
-        <location filename="../app/database.py" line="2136"/>
+        <location filename="../app/database.py" line="2140"/>
         <source>country</source>
         <translation>Land</translation>
     </message>
@@ -898,6 +898,11 @@ manuell gelöscht werden.</translation>
         <translation>Das Programm entfernt alle am System vorgenommenen Änderungen.</translation>
     </message>
     <message>
+        <location filename="../ui/window/MenuBar.qml" line="816"/>
+        <source>Continue deinstall</source>
+        <translation>Deinstallation fortsetzen</translation>
+    </message>
+    <message>
         <location filename="../ui/window/MenuBar.qml" line="825"/>
         <source>Program deinstall prepared successfully</source>
         <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
@@ -941,11 +946,6 @@ manuell gelöscht werden.</translation>
         <location filename="../ui/window/MenuBar.qml" line="772"/>
         <source>Settings reset: Restart for all settings to take effect</source>
         <translation>Einstellungen zurückgesetzt: Neustarten, um alle Änderungen anzuwenden</translation>
-    </message>
-    <message>
-        <location filename="../ui/window/MenuBar.qml" line="816"/>
-        <source>Continue Deinstall</source>
-        <translation>Deinstallation fortsetzen</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="833"/>
