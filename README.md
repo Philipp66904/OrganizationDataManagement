@@ -81,4 +81,4 @@ If you want to **add or modify a language**, take a look at the Github Wiki for 
 - **All OS modifications** (e.g. registry entries) must be **removed on deinstall**.
 
 ## Documentation and User Guide
-The documentation and user guide can be found in the **Github Wiki**.
+The documentation and user guide can be found in the [**Github Wiki**](https://github.com/Philipp66904/OrganizationDataManagement/wiki).
