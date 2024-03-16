@@ -852,6 +852,31 @@
         <translation>Einstellungen zurücksetzen</translation>
     </message>
     <message>
+        <location filename="../ui/window/MenuBar.qml" line="796"/>
+        <source>Program Uninstall Prepared Successfully</source>
+        <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="813"/>
+        <source>Prepare Program Uninstall?</source>
+        <translation>Programm-Deinstallation vorbereiten?</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="816"/>
+        <source>Continue uninstall</source>
+        <translation>Deinstallation fortsetzen</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="825"/>
+        <source>Program uninstall prepared successfully</source>
+        <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="833"/>
+        <source>Prepare Program Uninstall</source>
+        <translation>Deinstallation vorbereiten</translation>
+    </message>
+    <message>
         <location filename="../ui/window/MenuBar.qml" line="738"/>
         <location filename="../ui/window/MenuBar.qml" line="765"/>
         <location filename="../ui/window/MenuBar.qml" line="800"/>
@@ -864,11 +889,6 @@
         <source>Reset Settings</source>
         <comment>Action Button</comment>
         <translation>Einstellungen zurücksetzen</translation>
-    </message>
-    <message>
-        <location filename="../ui/window/MenuBar.qml" line="796"/>
-        <source>Program Deinstall Prepared Successfully</source>
-        <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="797"/>
@@ -888,24 +908,9 @@ manuell gelöscht werden.</translation>
         <translation>Verstanden</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="813"/>
-        <source>Prepare Program Deinstall?</source>
-        <translation>Programm-Deinstallation vorbereiten?</translation>
-    </message>
-    <message>
         <location filename="../ui/window/MenuBar.qml" line="814"/>
         <source>The program removes all changes made to the OS.</source>
         <translation>Das Programm entfernt alle am System vorgenommenen Änderungen.</translation>
-    </message>
-    <message>
-        <location filename="../ui/window/MenuBar.qml" line="816"/>
-        <source>Continue deinstall</source>
-        <translation>Deinstallation fortsetzen</translation>
-    </message>
-    <message>
-        <location filename="../ui/window/MenuBar.qml" line="825"/>
-        <source>Program deinstall prepared successfully</source>
-        <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="844"/>
@@ -946,11 +951,6 @@ manuell gelöscht werden.</translation>
         <location filename="../ui/window/MenuBar.qml" line="772"/>
         <source>Settings reset: Restart for all settings to take effect</source>
         <translation>Einstellungen zurückgesetzt: Neustarten, um alle Änderungen anzuwenden</translation>
-    </message>
-    <message>
-        <location filename="../ui/window/MenuBar.qml" line="833"/>
-        <source>Prepare Program Deinstall</source>
-        <translation>Deinstallation vorbereiten</translation>
     </message>
     <message>
         <location filename="../ui/window/MenuBar.qml" line="927"/>

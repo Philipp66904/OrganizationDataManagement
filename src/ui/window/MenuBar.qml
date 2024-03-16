@@ -789,11 +789,11 @@ MenuBar  // MenuBar shown in the window's header
 
         TemplateDialog
         {
-            id: program_deinstall_next_steps_dialog
+            id: program_uninstall_next_steps_dialog
             minimumWidth: 400
             width: 400
 
-            title_text: qsTr("Program Deinstall Prepared Successfully")
+            title_text: qsTr("Program Uninstall Prepared Successfully")
             main_text: qsTr("You can now manually delete the directory\ncontaining the program data.")
             sub_text: qsTr("The program will close itself.")
             ok_text: qsTr("Understood")
@@ -806,14 +806,14 @@ MenuBar  // MenuBar shown in the window's header
         }
         TemplateDialog
         {
-            id: program_prepare_deinstall_dialog
+            id: program_prepare_uninstall_dialog
             minimumWidth: 400
             width: 400
 
-            title_text: qsTr("Prepare Program Deinstall?")
+            title_text: qsTr("Prepare Program Uninstall?")
             main_text: qsTr("The program removes all changes made to the OS.")
             sub_text: qsTr("Do you want to proceed?")
-            ok_text: qsTr("Continue deinstall")
+            ok_text: qsTr("Continue uninstall")
             abort_text: qsTr("Abort")
 
             function callback_function() {
@@ -822,18 +822,18 @@ MenuBar  // MenuBar shown in the window's header
                 startmenu.remove_from_startmenu(true);
                 settings.slot_setStartmenuState(false);
 
-                setStatusMessage(qsTr("Program deinstall prepared successfully"), Enums.StatusMsgLvl.Info);
-                program_deinstall_next_steps_dialog.init();
-                program_deinstall_next_steps_dialog.show();
+                setStatusMessage(qsTr("Program uninstall prepared successfully"), Enums.StatusMsgLvl.Info);
+                program_uninstall_next_steps_dialog.init();
+                program_uninstall_next_steps_dialog.show();
             }
         }
         Action
         {
-            id: action_prepare_program_deinstall
-            text: qsTr("Prepare Program Deinstall")
+            id: action_prepare_program_uninstall
+            text: qsTr("Prepare Program Uninstall")
             onTriggered: {
-                program_prepare_deinstall_dialog.init();
-                program_prepare_deinstall_dialog.show();
+                program_prepare_uninstall_dialog.init();
+                program_prepare_uninstall_dialog.show();
             }
         }
     }
