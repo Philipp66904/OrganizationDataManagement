@@ -504,6 +504,7 @@ MenuBar  // MenuBar shown in the window's header
             id: open_advanced_settings
             title: qsTr("Advanced Settings") + "..."
             background: Loader { sourceComponent: menu_background_component }
+            icon.source: "../res/svg/arrow_top_right.svg"
             delegate: MenuItem
             {
                 id: menuItem
@@ -902,6 +903,7 @@ MenuBar  // MenuBar shown in the window's header
             onTriggered: {
                 Qt.openUrlExternally("https://github.com/Philipp66904/OrganizationDataManagement/wiki/User-Guide");
             }
+            icon.source: "../res/svg/globe_icon.svg"
         }
 
         MenuSeparator
@@ -916,8 +918,9 @@ MenuBar  // MenuBar shown in the window's header
             onTriggered: {
                 Qt.openUrlExternally("https://github.com/Philipp66904/OrganizationDataManagement/wiki/Documentation");
             }
+            icon.source: "../res/svg/globe_icon.svg"
         }
-        
+
         Action
         {
             id: action_github
@@ -925,6 +928,7 @@ MenuBar  // MenuBar shown in the window's header
             onTriggered: {
                 Qt.openUrlExternally("https://github.com/Philipp66904/OrganizationDataManagement");
             }
+            icon.source: "../res/svg/globe_icon.svg"
         }
 
         MenuSeparator

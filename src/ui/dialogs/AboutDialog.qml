@@ -35,8 +35,10 @@ ApplicationWindow
 
         res += "# " + qsTr("General");
         res += "  \n";
+        res += "© 2024  \n";
+        res += "  \n";
         res += qsTr("By") + " **" + qsTr("Philipp Grueber") + "**  \n";
-        res += "*" + qsTr("Visit Github for more information.") + "*";
+        res += "*" + qsTr("Visit GitHub for more information such as license requirements.") + "*";
         res += "  \n";
         res += "**" + qsTr("Currently loaded file") + "**: `" + db_path_text + "`";
         res += "  \n\n  ---  \n";

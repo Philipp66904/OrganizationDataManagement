@@ -5,13 +5,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="112"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="114"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/AboutDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="127"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="129"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
@@ -21,117 +21,117 @@
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="38"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="40"/>
         <source>By</source>
         <translation>Von</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="38"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="40"/>
         <source>Philipp Grueber</source>
         <translation>Philipp Grüber</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="39"/>
-        <source>Visit Github for more information.</source>
-        <translation>Besuche Github für mehr Informationen.</translation>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="41"/>
+        <source>Visit GitHub for more information such as license requirements.</source>
+        <translation>Besuche GitHub für mehr Informationen, wie zum Beispiel die Lizenzbedingungen.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="41"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="43"/>
         <source>Currently loaded file</source>
         <translation>Aktuell geladene Datei</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="44"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="46"/>
         <source>Keyboard Shortcuts</source>
         <translation>Tastenkombinationen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="46"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
         <source>Note</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="46"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
         <source>The shortcuts are platform dependent and might not all be available.</source>
         <translation>Die Tastenkombinationen sind abhängig von der verwendeten Plattform und könnten (teilweise) nicht zur Verfügung stehen.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="50"/>
         <source>In certain scenarios, keyboard shortcuts can be shown as</source>
         <translation>In bestimmten Szenarien kann es vorkommen, dass eine Tastenkombination als</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="50"/>
         <source>undefined</source>
         <translation>unbekannt</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="48"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="50"/>
         <source>but may still be available.</source>
         <translation>dargestellt wird, aber trotzdem verfügbar ist.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="50"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="52"/>
         <source>In this case, just give your known keyboard shortcuts a try.</source>
         <translation>In diesem Fall ist es ratsam, die bekannten Tastenkombinationen auszuprobieren.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="52"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="54"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="54"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="56"/>
         <source>Save As</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="56"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="58"/>
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="58"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="60"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="60"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="62"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="62"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="64"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="66"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="68"/>
         <source>Versions</source>
         <translation>Versionen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="68"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="70"/>
         <source>UI version</source>
         <translation>UI Version</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="71"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="73"/>
         <source>DB Core version</source>
         <translation>DB Core Version</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="73"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="75"/>
         <source>Supported DB version</source>
         <translation>Unterstütze DB-Version</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="77"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="79"/>
         <source>Supported settings version</source>
         <translation>Unterstütze Einstellungsversion</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/AboutDialog.qml" line="78"/>
+        <location filename="../ui/dialogs/AboutDialog.qml" line="80"/>
         <source>Loaded settings version</source>
         <translation>Geladene Einstellungsversion</translation>
     </message>
@@ -561,13 +561,13 @@
     <name>LicensesDialog</name>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="96"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="98"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="111"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="113"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
@@ -613,21 +613,26 @@
     </message>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="52"/>
+        <source>Globe icon</source>
+        <translation>Globus Icon</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="54"/>
         <source>Note</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="52"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="54"/>
         <source>Some of the images were modified.</source>
         <translation>Ein Teil der Bilder wurde modifiziert.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="55"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="57"/>
         <source>Qt6.6 &amp; QML</source>
         <translation>Qt6.6 &amp; QML</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="59"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="61"/>
         <source>Reference</source>
         <translation>Referenz</translation>
     </message>
@@ -733,202 +738,202 @@
         <translation>Einstellungen für Fortgeschrittene</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="540"/>
+        <location filename="../ui/window/MenuBar.qml" line="541"/>
         <source>File association</source>
         <translation>Datei Assoziation</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="575"/>
-        <location filename="../ui/window/MenuBar.qml" line="579"/>
-        <location filename="../ui/window/MenuBar.qml" line="671"/>
-        <location filename="../ui/window/MenuBar.qml" line="675"/>
+        <location filename="../ui/window/MenuBar.qml" line="576"/>
+        <location filename="../ui/window/MenuBar.qml" line="580"/>
+        <location filename="../ui/window/MenuBar.qml" line="672"/>
+        <location filename="../ui/window/MenuBar.qml" line="676"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="586"/>
+        <location filename="../ui/window/MenuBar.qml" line="587"/>
         <source>Active</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="588"/>
+        <location filename="../ui/window/MenuBar.qml" line="589"/>
         <source>Inactive</source>
         <translation>Inaktiv</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="594"/>
-        <location filename="../ui/window/MenuBar.qml" line="690"/>
+        <location filename="../ui/window/MenuBar.qml" line="595"/>
+        <location filename="../ui/window/MenuBar.qml" line="691"/>
         <source>Unsupported</source>
         <translation>Nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="608"/>
+        <location filename="../ui/window/MenuBar.qml" line="609"/>
         <source>Add file association</source>
         <translation>Erstelle Datei Assoziation</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="619"/>
+        <location filename="../ui/window/MenuBar.qml" line="620"/>
         <source>Remove file association</source>
         <translation>Entferne Datei Assoziation</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="623"/>
+        <location filename="../ui/window/MenuBar.qml" line="624"/>
         <source>File association deactivated</source>
         <translation>Datei Assoziation deaktiviert</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="636"/>
+        <location filename="../ui/window/MenuBar.qml" line="637"/>
         <source>Startmenu</source>
         <translation>Startmenü</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="682"/>
+        <location filename="../ui/window/MenuBar.qml" line="683"/>
         <source>Added</source>
         <translation>Hinzugefügt</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="684"/>
+        <location filename="../ui/window/MenuBar.qml" line="685"/>
         <source>Removed</source>
         <translation>Entfernt</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="704"/>
+        <location filename="../ui/window/MenuBar.qml" line="705"/>
         <source>Add to startmenu</source>
         <translation>Zu Startmenü hinzufügen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="708"/>
+        <location filename="../ui/window/MenuBar.qml" line="709"/>
         <source>Added to startmenu</source>
         <translation>Dem Startmenü hinzugefügt</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="715"/>
+        <location filename="../ui/window/MenuBar.qml" line="716"/>
         <source>Remove from startmenu</source>
         <translation>Aus Startmenü entfernen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="719"/>
+        <location filename="../ui/window/MenuBar.qml" line="720"/>
         <source>Removed from startmenu</source>
         <translation>Aus Startmenü entfernt</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="734"/>
-        <location filename="../ui/window/MenuBar.qml" line="736"/>
-        <location filename="../ui/window/MenuBar.qml" line="761"/>
-        <location filename="../ui/window/MenuBar.qml" line="763"/>
-        <location filename="../ui/window/MenuBar.qml" line="815"/>
+        <location filename="../ui/window/MenuBar.qml" line="735"/>
+        <location filename="../ui/window/MenuBar.qml" line="737"/>
+        <location filename="../ui/window/MenuBar.qml" line="762"/>
+        <location filename="../ui/window/MenuBar.qml" line="764"/>
+        <location filename="../ui/window/MenuBar.qml" line="816"/>
         <source>Do you want to proceed?</source>
         <translation>Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="735"/>
+        <location filename="../ui/window/MenuBar.qml" line="736"/>
         <source>The recent files list will be cleared.</source>
         <translation>Die Liste der zuletzt geöffneten Dateien wird zurückgesetzt.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="737"/>
+        <location filename="../ui/window/MenuBar.qml" line="738"/>
         <source>Clear Recent Files</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="744"/>
+        <location filename="../ui/window/MenuBar.qml" line="745"/>
         <source>Recent files list cleared</source>
         <translation>&quot;Zuletzt geöffnet&quot; Liste zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="750"/>
+        <location filename="../ui/window/MenuBar.qml" line="751"/>
         <source>Clear Recent Files List</source>
         <comment>Action Button</comment>
         <translation>&quot;Zuletzt geöffnet&quot; zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="762"/>
+        <location filename="../ui/window/MenuBar.qml" line="763"/>
         <source>The settings will be set to the default values.</source>
         <translation>Die Einstellungen werden auf ihre Standardwerte zurückgesetzt.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="764"/>
+        <location filename="../ui/window/MenuBar.qml" line="765"/>
         <source>Reset Settings</source>
         <translation>Einstellungen zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="796"/>
+        <location filename="../ui/window/MenuBar.qml" line="797"/>
         <source>Program Uninstall Prepared Successfully</source>
         <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="813"/>
+        <location filename="../ui/window/MenuBar.qml" line="814"/>
         <source>Prepare Program Uninstall?</source>
         <translation>Programm-Deinstallation vorbereiten?</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="816"/>
+        <location filename="../ui/window/MenuBar.qml" line="817"/>
         <source>Continue uninstall</source>
         <translation>Deinstallation fortsetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="825"/>
+        <location filename="../ui/window/MenuBar.qml" line="826"/>
         <source>Program uninstall prepared successfully</source>
         <translation>Programm-Deinstallation erfolgreich vorbereitet</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="833"/>
+        <location filename="../ui/window/MenuBar.qml" line="834"/>
         <source>Prepare Program Uninstall</source>
         <translation>Deinstallation vorbereiten</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="738"/>
-        <location filename="../ui/window/MenuBar.qml" line="765"/>
-        <location filename="../ui/window/MenuBar.qml" line="800"/>
-        <location filename="../ui/window/MenuBar.qml" line="817"/>
+        <location filename="../ui/window/MenuBar.qml" line="739"/>
+        <location filename="../ui/window/MenuBar.qml" line="766"/>
+        <location filename="../ui/window/MenuBar.qml" line="801"/>
+        <location filename="../ui/window/MenuBar.qml" line="818"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="778"/>
+        <location filename="../ui/window/MenuBar.qml" line="779"/>
         <source>Reset Settings</source>
         <comment>Action Button</comment>
         <translation>Einstellungen zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="797"/>
+        <location filename="../ui/window/MenuBar.qml" line="798"/>
         <source>You can now manually delete the directory
 containing the program data.</source>
         <translation>Das Programmverzeichnis kann nun
 manuell gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="798"/>
+        <location filename="../ui/window/MenuBar.qml" line="799"/>
         <source>The program will close itself.</source>
         <translation>Das Programm beendet sich jetzt.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="799"/>
+        <location filename="../ui/window/MenuBar.qml" line="800"/>
         <source>Understood</source>
         <translation>Verstanden</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="814"/>
+        <location filename="../ui/window/MenuBar.qml" line="815"/>
         <source>The program removes all changes made to the OS.</source>
         <translation>Das Programm entfernt alle am System vorgenommenen Änderungen.</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="844"/>
+        <location filename="../ui/window/MenuBar.qml" line="845"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="915"/>
+        <location filename="../ui/window/MenuBar.qml" line="917"/>
         <source>Documentation</source>
         <translation>Dokumentation</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="939"/>
+        <location filename="../ui/window/MenuBar.qml" line="943"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="924"/>
+        <location filename="../ui/window/MenuBar.qml" line="927"/>
         <source>Github</source>
         <translation>Github</translation>
     </message>
@@ -938,22 +943,22 @@ manuell gelöscht werden.</translation>
         <translation>Schriftgrößen bearbeiten</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="612"/>
+        <location filename="../ui/window/MenuBar.qml" line="613"/>
         <source>File association activated</source>
         <translation>Datei Assoziation aktiviert</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="772"/>
+        <location filename="../ui/window/MenuBar.qml" line="773"/>
         <source>Settings reset: Restart for all settings to take effect</source>
         <translation>Einstellungen zurückgesetzt: Neustarten, um alle Änderungen anzuwenden</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="901"/>
+        <location filename="../ui/window/MenuBar.qml" line="902"/>
         <source>User Guide</source>
         <translation>Anleitung</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="950"/>
+        <location filename="../ui/window/MenuBar.qml" line="954"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>
