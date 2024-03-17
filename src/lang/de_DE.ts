@@ -918,22 +918,17 @@ manuell gelöscht werden.</translation>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="898"/>
-        <source>Manual</source>
-        <translation>Anleitung</translation>
-    </message>
-    <message>
-        <location filename="../ui/window/MenuBar.qml" line="904"/>
+        <location filename="../ui/window/MenuBar.qml" line="915"/>
         <source>Documentation</source>
         <translation>Dokumentation</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="916"/>
+        <location filename="../ui/window/MenuBar.qml" line="939"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="905"/>
+        <location filename="../ui/window/MenuBar.qml" line="924"/>
         <source>Github</source>
         <translation>Github</translation>
     </message>
@@ -953,7 +948,12 @@ manuell gelöscht werden.</translation>
         <translation>Einstellungen zurückgesetzt: Neustarten, um alle Änderungen anzuwenden</translation>
     </message>
     <message>
-        <location filename="../ui/window/MenuBar.qml" line="927"/>
+        <location filename="../ui/window/MenuBar.qml" line="901"/>
+        <source>User Guide</source>
+        <translation>Anleitung</translation>
+    </message>
+    <message>
+        <location filename="../ui/window/MenuBar.qml" line="950"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>

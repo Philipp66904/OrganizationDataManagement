@@ -895,14 +895,37 @@ MenuBar  // MenuBar shown in the window's header
             }
         }
 
-        Action { text: qsTr("Manual") }
+        Action
+        {
+            id: action_user_guide
+            text: qsTr("User Guide")
+            onTriggered: {
+                Qt.openUrlExternally("https://github.com/Philipp66904/OrganizationDataManagement/wiki/User-Guide");
+            }
+        }
 
         MenuSeparator
         {
             contentItem: Loader { sourceComponent: menu_separator_component }
         }
-        Action { text: qsTr("Documentation") }
-        Action { text: qsTr("Github") }
+
+        Action
+        {
+            id: action_documentation
+            text: qsTr("Documentation")
+            onTriggered: {
+                Qt.openUrlExternally("https://github.com/Philipp66904/OrganizationDataManagement/wiki/Documentation");
+            }
+        }
+        
+        Action
+        {
+            id: action_github
+            text: qsTr("Github")
+            onTriggered: {
+                Qt.openUrlExternally("https://github.com/Philipp66904/OrganizationDataManagement");
+            }
+        }
 
         MenuSeparator
         {
