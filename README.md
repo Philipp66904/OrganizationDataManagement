@@ -1,6 +1,6 @@
 # OrganizationDataManagement
 OrganizationDataManagement (ODM) is a tool designed for effective **management and tracking of addresses and personal data shared with different organizations**.  
-Boasting a **user-friendly interface** with **customizability**, ODM simplifies the process of **updating**, **connecting**, and **searching data**, whilst ensuring optimal **data privacy** and **minimization of redundancy**.
+Boosting a **user-friendly interface** with **customizability**, ODM simplifies the process of **updating**, **connecting**, and **searching data**, whilst ensuring optimal **data privacy** and **minimization of redundancy**.
 
 ## Use Case
 The OrganizationDataManagement (ODM) program is a comprehensive tool designed to help manage and search through the various addresses you've shared with different companies.  
