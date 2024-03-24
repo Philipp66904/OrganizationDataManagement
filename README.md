@@ -1,6 +1,6 @@
 # OrganizationDataManagement
 OrganizationDataManagement (ODM) is a tool designed for effective **management and tracking of addresses and personal data shared with different organizations**.  
-Boasting a **user-friendly interface** with **customizability**, ODM simplifies the process of **updating**, **connection**, and **searching data**, whilst ensuring optimal **data privacy** and **minimization of redundancy**.
+Boasting a **user-friendly interface** with **customizability**, ODM simplifies the process of **updating**, **connecting**, and **searching data**, whilst ensuring optimal **data privacy** and **minimization of redundancy**.
 
 ## Use Case
 The OrganizationDataManagement (ODM) program is a comprehensive tool designed to help manage and search through the various addresses you've shared with different companies.  
@@ -53,10 +53,10 @@ The `.odmdb` files the program saves and edits include personal information like
 The information is <ins>not encrypted</ins> and therefore anyone with access to the stored location can access or modify the data.  
 Therefore, it is **highly encouraged** to store the database in an **encrypted** way and in a **safe location**.  
 
-A good way to store your data is **in a Keepass database**.  
-Keepass supports files as attachments and one can even open the file from within Keepass.  
+A good way to store your data is **in a KeePass database**.  
+KeePass supports files as attachments and one can even open the file from within KeePass.  
 > [!TIP]
-> **Keepass** is an open source password manager: https://keepass.info/
+> **KeePass** is an open source **password manager**: https://keepass.info/  
 
 ## Bugs and Support
 Please **open an issue** to get the problem fixed.
