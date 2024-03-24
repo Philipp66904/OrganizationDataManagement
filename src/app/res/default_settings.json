@@ -1,0 +1,57 @@
+{
+    "version": "1.0",
+    "colors": [
+        {
+            "backgroundColor": "#000000"
+        },
+        {
+            "backgroundColor1": "#1a1a1a"
+        },
+        {
+            "backgroundColor2": "#363636"
+        },
+        {
+            "backgroundColor3": "#9f9f9f"
+        },
+        {
+            "backgroundColorError": "#fc5d5b"
+        },
+        {
+            "backgroundColorWarning": "#fcc947"
+        },
+        {
+            "backgroundColorNotification": "#4aa248"
+        },
+        {
+            "backgroundColorInformation": "#2f86b5"
+        },
+        {
+            "highlightColor": "#00ef00"
+        },
+        {
+            "textColor": "#ffffff"
+        },
+        {
+            "textColor1": "#cfcfcf"
+        }
+    ],
+    "recent_files": [],
+    "language": "Follow System",
+    "file_type_association": true,
+    "startmenu_state": true,
+    "autosave_on_close": true,
+    "fonts": {
+        "default": {
+            "font_family": "Roboto",
+            "font_size": 12.0
+        },
+        "small": {
+            "font_family": "Roboto Condensed Regular",
+            "font_size": 10.0
+        },
+        "big": {
+            "font_family": "Roboto",
+            "font_size": 15.0
+        }
+    }
+}

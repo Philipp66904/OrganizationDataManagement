@@ -1,0 +1,1 @@
+pyinstaller --add-data ..\..\..\src\ui\:.\ui\ --add-data ..\..\..\src\app\res:.\app\res\ --add-data ..\..\..\src\lang\build:.\lang\build\ --specpath ..\build\exe\spec --distpath ..\build\exe\dist --workpath ..\build\exe\build --hide-console hide-early --icon ..\..\..\src\ui\res\png\window_icon.png --name=OrganizationDataManagement --noconfirm ..\src\main.py
