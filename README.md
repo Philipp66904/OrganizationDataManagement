@@ -6,13 +6,13 @@ Boasting a **user-friendly interface** with **customizability**, ODM simplifies 
 The OrganizationDataManagement (ODM) program is a comprehensive tool designed to help manage and search through the various addresses you've shared with different companies.  
 Whether you're relocating and need to alter all address details or simply intend to keep track of the companies possessing your information, ODM is all you need.
 
-ODM achieves this by allowing you to add people, addresses and organizations independently and by creating a linkage accros these categories.  
+ODM achieves this by allowing you to add people, addresses and organizations independently and by creating a linkage across these categories.  
 Additionally, the search tab proves instrumental in the quick search of specific or connected entries.  
 
 To avoid clutter and minimize redundant data entries, for instance, varied name spellings or minor variations, ODM provides the option of creating derivatives of entries.  
-Importantly, on deletion of the parent entry, all derivatives are also removed, thereby maintaining an clean database.  
+Importantly, on deletion of the parent entry, all derivatives are also removed, thereby maintaining a clean database.  
 
-Furthermore, ODM's user interface is highly customizable, with options for independent color modifications and automatic adaptations to your timezone and language settings (subject to translation availability).
+Furthermore, ODM's user interface is highly customizable, with options for independent color modifications, different font types and sizes, and automatic adaptations to your timezone and language settings (subject to translation availability).
 
 ODM allows effortless tracking of shared information, with the added assurance of your information remaining on your device.  
 The choice of where to store files rests entirely with you, ensuring optimal user convenience and control.  
@@ -40,21 +40,23 @@ The choice of where to store files rests entirely with you, ensuring optimal use
 1) Execute the ```create_executable.bat``` script
 1) Execute the `OrganizationDataManagement.exe` found in ```build\exe\dist\OrganizationDataManagement``` to set up the file association for `.odmdb` files (can be configured in the program settings)
 
-#### Required Programs and non-standard Dependencies
-- Python - <kbd>>= 3.11.0</kbd>  
+#### Required Programs and Non-Standard Dependencies
+- Python <kbd>>= 3.11.0</kbd>  
 - PySide6
 - pywin32
 - [pyinstaller (if you want to create your own .exe)]
 - [Pillow (if you want to create your own .exe)]
 
 ## `.odmdb` file best practices
-The `.odmdb` file includes personal information like the saved persons, addresses, and organization, their connections and some metadata.  
+The `.odmdb` files the program saves and edits include personal information like the saved persons, addresses, and organization, their connections and some metadata.  
 
 The information is <ins>not encrypted</ins> and therefore anyone with access to the stored location can access or modify the data.  
-Therefore, it is **highly encouraged** to store the database in an **encrypted** way in a **safe location**.  
+Therefore, it is **highly encouraged** to store the database in an **encrypted** way and in a **safe location**.  
 
 A good way to store your data is **in a Keepass database**.  
 Keepass supports files as attachments and one can even open the file from within Keepass.  
+> [!TIP]
+> **Keepass** is an open source password manager: https://keepass.info/
 
 ## Bugs and Support
 Please **open an issue** to get the problem fixed.
