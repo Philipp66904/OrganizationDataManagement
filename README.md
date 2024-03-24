@@ -32,7 +32,7 @@ The choice of where to store files rests entirely with you, ensuring optimal use
 1) Compile the languages using the appropriate script in the `scripts` folder: e.g. ```compile_translations.bat```
 1) Use Python to execute `main.py` found in the `src` directory: ```python main.py```
 
-#### Create .exe [Windows only]
+#### Create `.exe` [Windows only]
 1) Install **pyinstaller**: ```pip install pyinstaller```
 1) Install **Pillow**: ```pip install Pillow```
 1) Go into the `scripts` folder
@@ -62,7 +62,7 @@ Please **open an issue** to get the problem fixed.
 ## How to contribute
 Any contribution is welcome!  
 
-If you have something in mind and are **able to do it yourself**, just create your own branch and open a PullRequest in the end.  
+If you have something in mind and are **able to do it yourself**, just create your own branch and open a Pull Request in the end.  
 You can take a look at the documentation found in the Github Wiki to assist you with your idea.
 
 **Otherwise**, you can always **create an issue**.  
@@ -73,7 +73,7 @@ If you want to **add or modify a language**, take a look at the Github Wiki for 
 > **Keep in mind to always stick to the main goals and rules of the project!**
 ## Main Goals and Rules
 - **KISS**: *Keep it simple, stupid!* -> Don't overengineer the program
-- **No highly personal data** or **passwords** may be stored in the database created by this program. *Highly personal data* includes, but is not limited to: Health, bank, religious, and ethnic data. See **EU-GDPR articel 9** for more categories.
+- **No highly personal data** or **passwords** may be stored in the database created by this program. *Highly personal data* includes, but is not limited to: Health, bank, religious, and ethnic data. See **EU-GDPR article 9** for more categories.
 - **No email-address** shall be stored in the database, as a password manager usually already takes care of this information.
 - **Ease of use** and **speed** take precedence over maximum functionality.
 - Support **Keyboard-Control** wherever easily possible.
