@@ -204,8 +204,14 @@ class TableModel(QAbstractTableModel):
                 id = 0
             
             if locale is None:
+                if type(val) == str:
+                    val = val.lower()
+                
                 return (val, id)
             else:
+                if type(val) == str:
+                    val = val.lower()
+                
                 return (val, modified_date, id)
         
         self.layoutAboutToBeChanged.emit()
