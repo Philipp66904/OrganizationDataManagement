@@ -37,6 +37,11 @@ Rectangle
     required property var derivative_value
     property bool derivative_flag: false
 
+    // Action button
+    property bool action_button: false
+    property string action_button_image_src: "../res/svg/link_icon.svg"
+    signal action_button_clicked()
+
     onDerivative_flagChanged: value_text.text = getValueText()
     onDerivative_valueChanged: value_text.text = getValueText()
     onValueChanged: value_text.text = getValueText()
@@ -95,11 +100,18 @@ Rectangle
         anchors.fill: parent
         anchors.margins: 4
         spacing: 8
-        property int column_count: (derivative_mode) ? 3 : 2
+        property int column_count: 2 + ((derivative_mode) ? 1 : 0) + ((action_button) ? 1 : 0)
 
         property int description_text_width: (width - (column_count * spacing)) * 0.3
-        property int value_text_width: (derivative_mode) ? (width - (column_count * spacing)) * 0.5 : (width - (column_count * spacing)) * 0.7
+        property int value_text_width: {
+            let factor = 0.7;
+            if(derivative_mode) factor -= 0.2;
+            if(action_button) factor -= 0.1;
+
+            return (width - (column_count * spacing)) * factor;
+        }
         property int null_switch_width: (width - (column_count * spacing)) * 0.2
+        property int action_button_width: (width - (column_count * spacing)) * 0.1
 
         function send_new_value() {
             if(derivative_flag) {
@@ -193,14 +205,28 @@ Rectangle
             }
         }
 
+        SimpleButton
+        {
+            id: action_button_obj
+            visible: action_button
+            width: property_row_main.action_button_width
+            height: parent.height
+            anchors.verticalCenter: parent.verticalCenter
+            simple_button_image_src: action_button_image_src
+
+            onClicked: {
+                action_button_clicked();
+            }
+        }
+
         CustomSlider
         {
             id: null_switch
+            visible: derivative_mode
             width: property_row_main.null_switch_width
             height: parent.height * null_switch_height_percentage
             anchors.verticalCenter: parent.verticalCenter
             start_value: false
-            visible: derivative_mode
 
             onToggled: function toggle_handler(checked) {
                 property_row_main.toggleDerivative(checked);

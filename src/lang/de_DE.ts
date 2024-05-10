@@ -561,13 +561,13 @@
     <name>LicensesDialog</name>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="98"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="100"/>
         <source>Licenses</source>
         <translation>Lizenzen</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="14"/>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="113"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="115"/>
         <source>Organization Data Management</source>
         <translation>OrganisationsDatenManagement</translation>
     </message>
@@ -618,21 +618,26 @@
     </message>
     <message>
         <location filename="../ui/dialogs/LicensesDialog.qml" line="54"/>
+        <source>Link icon</source>
+        <translation>Link Icon</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="56"/>
         <source>Note</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="54"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="56"/>
         <source>Some of the images were modified.</source>
         <translation>Ein Teil der Bilder wurde modifiziert.</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="57"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="59"/>
         <source>Qt6.6 &amp; QML</source>
         <translation>Qt6.6 &amp; QML</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/LicensesDialog.qml" line="61"/>
+        <location filename="../ui/dialogs/LicensesDialog.qml" line="63"/>
         <source>Reference</source>
         <translation>Referenz</translation>
     </message>
@@ -1086,7 +1091,12 @@ manuell gelöscht werden.</translation>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="295"/>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="278"/>
+        <source>URL must start with &apos;http(s)://&apos;</source>
+        <translation>URL muss mit &apos;http(s)://&apos; beginnen</translation>
+    </message>
+    <message>
+        <location filename="../ui/dialogs/OrganizationEditDialog.qml" line="314"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
@@ -1372,27 +1382,27 @@ manuell gelöscht werden.</translation>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="411"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="410"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="447"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="446"/>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="507"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="506"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="530"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="529"/>
         <source>Modified: </source>
         <translation>Verändert: </translation>
     </message>
     <message>
-        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="560"/>
+        <location filename="../ui/dialogs/TemplateEditDialog.qml" line="559"/>
         <source>Created: </source>
         <translation>Erstellt: </translation>
     </message>

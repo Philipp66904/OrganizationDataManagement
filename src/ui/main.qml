@@ -51,7 +51,7 @@ ApplicationWindow
     // Global variables
     readonly property string ui_version: "1.1.1"
     property string loaded_db_path: ""  // alway showing the real database path
-    property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path tp template)
+    property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path to template)
     property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved
     property string status_message: default_status_message
     property int status_message_level: default_status_message_level

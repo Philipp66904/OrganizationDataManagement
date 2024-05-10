@@ -258,10 +258,29 @@ TemplateEditDialog
                 derivative_value: undefined
                 derivative_mode: true
                 derivative_flag: (value === undefined) ? true : organization_dialog.property_website_derivative_flag
+                action_button: checkIfWebsiteURL(property_website)
                 onNextFocus: function next_focus(dir) {
                     if(dir === Enums.FocusDir.Save || dir === Enums.FocusDir.Close) parent.nextFocus(dir);
                     else if(dir === Enums.FocusDir.Left || dir === Enums.FocusDir.Up) connections_table.setFocus(dir);
                     else property_paragraph_edit_note.setFocus(dir);
+                }
+
+                function checkIfWebsiteURL(url_path) {
+                    if(typeof url_path != "string") return false;
+                    
+                    return url_path.startsWith("http://") || url_path.startsWith("https://");
+                }
+
+                function openWebsiteURL(url_path) {
+                    if(checkIfWebsiteURL(url_path)) {
+                        Qt.openUrlExternally(url_path);
+                    } else {
+                        setStatusMessage(qsTr("URL must start with 'http(s)://'"), Enums.StatusMsgLvl.Err);
+                    }
+                }
+
+                onAction_button_clicked: {
+                    property_line_edit_website.openWebsiteURL(property_website);
                 }
 
                 onFocusSet: scrollTo(y, y + height);
