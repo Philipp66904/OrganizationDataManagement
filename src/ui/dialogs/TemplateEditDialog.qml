@@ -395,10 +395,9 @@ ApplicationWindow
                     onClicked: {
                         edit_dialog_window.save_button_clicked();
 
-                        if(status_message_level !== Enums.StatusMsgLvl.Warn && status_message_level !== Enums.StatusMsgLvl.Err) {
-                            close_okay = true;
-                            edit_dialog_window.close();
-                        }
+                        close_okay = true;
+                        edit_dialog_window.close();
+                            
                     }
                 }
 

@@ -51,6 +51,8 @@ ApplicationWindow
         res += "  \n";
         res += "**" + qsTr("Globe icon") + "**: *Lucek* - " + "https://pixabay.com/de/vectors/internet-symbol-netz-unterzeichnen-3383600/";
         res += "  \n";
+        res += "**" + qsTr("Link icon") + "**: *mcmurryjulie* - " + "https://pixabay.com/de/vectors/broken-link-link-rot-2367103/";
+        res += "  \n";
         res += "**" + qsTr("Note") + "**: *" + qsTr("Some of the images were modified.") + "*";
         res += "  \n\n  ---  \n";
 
