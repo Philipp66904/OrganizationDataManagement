@@ -32,7 +32,7 @@ class Database(QObject):
         self.con = sqlite3.connect(":memory:")
         self.path_template_db = Path(__file__).parent / "res" / "template.odmdb"
         self.settings = settings
-        self.db_core_version = "1.1.0"
+        self.db_core_version = "1.2.0"
         self.supported_db_version = "1.1"
         self.locale = locale
         self.load_on_startup_path = load_on_startup_path
