@@ -33,7 +33,7 @@ ApplicationWindow
     property color backgroundColor2: "#363636"
     property color backgroundColor3: "#9f9f9f"
     property color backgroundColorError: "#fc5d5b"
-    property color backgroundColorWarning: "#fcc947"
+    property color backgroundColorWarning: "#fca94a"
     property color backgroundColorNotification: "#4aa248"
     property color backgroundColorInformation: "#2f86b5"
     property color highlightColor: "#00ef00"
