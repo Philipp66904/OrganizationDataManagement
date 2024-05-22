@@ -368,7 +368,9 @@ Rectangle
                         }
                     }
                     function positionView() {
-                        table_view.positionViewAtRow(table_view_selection_model.selectedIndexes[0].row, TableView.Contain);
+                        if(table_view_selection_model.selectedIndexes[0] !== undefined) {
+                            table_view.positionViewAtRow(table_view_selection_model.selectedIndexes[0].row, TableView.Contain);
+                        }
                     }
 
                     model: table_model
