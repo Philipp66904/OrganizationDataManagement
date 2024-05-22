@@ -63,7 +63,7 @@ ApplicationWindow
                 delete_dialog.subtext = subtext_str;
                 subtext_warning = true;
             } else {
-                delete_dialog.subtext = qsTr("Only this entry will be deleted.\nNo connections or derivatives for this entry exist.");
+                delete_dialog.subtext = qsTr("Only this entry will be deleted.\nThere are no connections or derivatives for this entry.");
                 subtext_warning = false;
             }
         
