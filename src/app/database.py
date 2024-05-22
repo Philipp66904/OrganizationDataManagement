@@ -32,7 +32,7 @@ class Database(QObject):
         self.con = sqlite3.connect(":memory:")
         self.path_template_db = Path(__file__).parent / "res" / "template.odmdb"
         self.settings = settings
-        self.db_core_version = "1.1.0"
+        self.db_core_version = "1.2.0"
         self.supported_db_version = "1.1"
         self.locale = locale
         self.load_on_startup_path = load_on_startup_path
@@ -1608,9 +1608,53 @@ class Database(QObject):
             for child_id in child_list:
                 result_list.extend(self.getChildIDs(child_id, pk_column_name, parent_column_name, table_name))
             
-            return result_list
-    
-    
+            return list(set(result_list)) # delete duplicates by converting to a set and back to a list
+
+
+    @Slot(int, str, str, result=dict)
+    def deleteEntryAffectedRowCounts(self, pk: int, pk_column_name: str, table_name: str) -> dict:
+        """
+        Returns the number of affected rows by a specific delete operation (but nothing is actually deleted).
+        An error message is returned in case of any errors (and empty string if no error occured).
+        The "connections" and "total_entries" keys only exist if they could be counted.
+        Total entries is the total count of affected entries: all child ids + parent entry
+        Connections is a counter for all the affected connections that will be deleted during the operation
+        (including all derivatives' connections).
+        pk: Primary key of the entry that shall be deleted
+        pk_column_name: Primary key's column name
+        table_name: Table name, where the pk_column is located
+        returns: Dictionary with the result:
+                    {"error_msg": "ERROR_MESSAGE_STRING",
+                    "connections": COUNT_OF_AFFECTED_CONNECTIONS,
+                    "total_entries": COUNT_OF_AFFECTED_ENTRIES}
+        """
+        res_dict = {"error_msg": ""}
+
+        try:
+            if pk < 0:
+                raise ValueError("Primary key < 0")
+            
+            # Recursively find childs of this entry and store ids in list along with parent id
+            total_ids = [pk]
+            total_ids.extend(self.getChildIDs(pk, pk_column_name, "parent_id", table_name))
+
+            # Get count of affected connections
+            affected_connections_count = 0
+            with self.con:
+                for id in total_ids:
+                    # Sum up all connection counts
+                    res = self.con.execute(f"""SELECT COUNT(id) FROM connection WHERE {table_name}_id = ?;""", (id,))
+
+                    affected_connections_count += res.fetchone()[0]
+            
+            res_dict["connections"] = affected_connections_count
+            res_dict["total_entries"] = len(total_ids)
+        except Exception as e:
+            return {"error_msg": "Database::deleteEntryAffectedRowCounts: " + str(e)}
+
+        return res_dict
+
+
     @Slot(int, str, str, result=str)
     def deleteEntry(self, pk: int, pk_column_name: str, table_name: str) -> str:
         """

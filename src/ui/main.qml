@@ -33,7 +33,7 @@ ApplicationWindow
     property color backgroundColor2: "#363636"
     property color backgroundColor3: "#9f9f9f"
     property color backgroundColorError: "#fc5d5b"
-    property color backgroundColorWarning: "#fcc947"
+    property color backgroundColorWarning: "#fca94a"
     property color backgroundColorNotification: "#4aa248"
     property color backgroundColorInformation: "#2f86b5"
     property color highlightColor: "#00ef00"
@@ -49,7 +49,7 @@ ApplicationWindow
     property real fontSize_big: 15.0
 
     // Global variables
-    readonly property string ui_version: "1.2.0"
+    readonly property string ui_version: "1.3.0"
     property string loaded_db_path: ""  // alway showing the real database path
     property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path to template)
     property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved

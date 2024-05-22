@@ -433,6 +433,7 @@ ApplicationWindow
 
                     onClicked: {
                         delete_dialog.init();
+                        delete_dialog.setSubText(edit_dialog_window.identifier, "id", edit_dialog_window.table_name);
                         delete_dialog.show();
                     }
                 }

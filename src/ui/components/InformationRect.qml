@@ -15,6 +15,8 @@ Rectangle
     visible: true
     required property string information_text
     property bool multiline: false
+    property var text_font_size: fontSize_default
+    property var text_font_family: fontFamily_default
 
     Row
     {
@@ -42,8 +44,8 @@ Rectangle
             width: parent.width - information_image.width - parent.spacing
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter
-            font.pointSize: fontSize_default
-            font.family: fontFamily_default
+            font.pointSize: text_font_size
+            font.family: text_font_family
             color: getContrastColor(information_text_rect.color)
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter

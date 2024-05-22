@@ -188,6 +188,7 @@ TemplateEditDialog
                     else property_line_edit_website.setFocus(dir);
                 }
                 delete_text: qsTr("The specified connection will be deleted.")
+                show_affected_entries_on_delete: false
 
                 onFocusSet: scrollTo(y, y + height);
 
