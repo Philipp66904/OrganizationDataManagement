@@ -433,9 +433,9 @@
     <message>
         <location filename="../ui/dialogs/DeleteDialog.qml" line="66"/>
         <source>Only this entry will be deleted.
-No connections or derivatives for this entry exist.</source>
+There are no connections or derivatives for this entry.</source>
         <translation>Nur dieser Eintrag wird gelöscht.
-Keine Verknüpfungen oder Ableitungen existieren für diesen Eintrag.</translation>
+Es existieren keine Verknüpfungen oder Ableitungen für diesen Eintrag.</translation>
     </message>
     <message>
         <location filename="../ui/dialogs/DeleteDialog.qml" line="148"/>
