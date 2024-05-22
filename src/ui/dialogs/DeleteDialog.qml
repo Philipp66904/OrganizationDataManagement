@@ -16,13 +16,60 @@ ApplicationWindow
     modality: Qt.ApplicationModal
     minimumWidth: 300
     minimumHeight: 140
-    width: 300
-    height: 140
-    property string text: qsTr("The specified entry with its derivatives and connections will be deleted.")
+    width: 330
+    height: 180
+    property string text: qsTr("The specified entry will be deleted.")
+    property string subtext: ""
+    property bool subtext_warning: true
 
     function init() {
         // Call this function before .show()
         ok_button.setFocus(Enums.FocusDir.Right);
+        subtext = "";
+        dialog.height = 140;
+        dialog.width = 300;
+    }
+
+    function setSubText(pk, pk_column_name, table_name) {
+        // Call this function after .init()
+        subtext = qsTr("Loading - Please wait");
+        subtext_warning = true;
+        dialog.height = 180;
+        dialog.width = 330;
+
+        Qt.callLater(function() {
+            const res = database.deleteEntryAffectedRowCounts(pk, pk_column_name, table_name);
+            const error_msg = res["error_msg"];
+            const connections_count = res["connections"];
+            const derivatives_count = res["total_entries"] - 1;
+
+            if(error_msg === undefined || error_msg.length > 0 || connections_count === undefined || derivatives_count === undefined) {
+                let subtext_str = qsTr("Failed to fetch affected entries");
+                if(res["error_msg"] !== undefined) subtext_str += ": " + res["error_msg"];
+
+                setStatusMessage(subtext_str, Enums.StatusMsgLvl.Err);
+                delete_dialog.subtext = subtext_str;
+                subtext_warning = true;
+            } else if(connections_count + derivatives_count > 0) {
+                let subtext_str = qsTr("Deleting this entry will also result in a deletion of") + ":\n";
+
+                if(connections_count > 0) subtext_str += connections_count + " " + ((connections_count > 1) ? qsTr("connections") : qsTr("connection"));
+                if(derivatives_count > 0) {
+                    if(connections_count > 0 ) subtext_str += " " + qsTr("and") + " ";
+                    
+                    subtext_str += derivatives_count + " " + ((derivatives_count > 1) ? qsTr("derivatives") : qsTr("derivative"));
+                }
+                
+                delete_dialog.subtext = subtext_str;
+                subtext_warning = true;
+            } else {
+                delete_dialog.subtext = qsTr("Only this entry will be deleted.\nNo connections or derivatives for this entry exist.");
+                subtext_warning = false;
+            }
+        
+            dialog.height = 180;
+            dialog.width = 330;
+        });
     }
 
     Column
@@ -30,11 +77,13 @@ ApplicationWindow
         anchors.fill: parent
         anchors.margins: 4
         spacing: 4
+        property int row_count: (subtext_item.visible) ? 3 : 2
 
         Text
         {
             text: dialog.text
-            height: parent.height * 0.7 - parent.spacing
+            property double height_factor: (subtext_item.visible) ? 0.3 : 0.7
+            height: parent.height * height_factor - (parent.spacing * (parent.row_count - 1))
             width: parent.width
             font.pointSize: fontSize_default
             font.family: fontFamily_default
@@ -49,11 +98,31 @@ ApplicationWindow
             wrapMode: Text.Wrap
         }
 
+        Item
+        {
+            id: subtext_item
+            visible: dialog.subtext.length > 0
+            height: parent.height * 0.5 - (parent.spacing * (parent.row_count - 1))
+            width: parent.width
+
+            InformationRect
+            {
+                id: subtext_information_rect
+                anchors.fill: parent
+                color: (subtext_warning) ? backgroundColorWarning : backgroundColorInformation
+                multiline: true
+                information_text: dialog.subtext
+                text_font_size: fontSize_small
+                text_font_family: fontFamily_small
+            }
+        }
+
         Text
         {
             text: qsTr("Do you want to proceed?")
             width: parent.width
-            height: parent.height * 0.3 - parent.spacing
+            property double height_factor: (subtext_item.visible) ? 0.2 : 0.3
+            height: parent.height * height_factor - (parent.spacing * (parent.row_count - 1))
             font.pointSize: fontSize_default
             font.family: fontFamily_default
             color: textColor

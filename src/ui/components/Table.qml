@@ -20,6 +20,7 @@ Rectangle
     property var selected_pk: undefined
     property bool show_duplicate_button: true
     property bool show_add_button: true
+    property bool show_affected_entries_on_delete: true
     required property string table_name
     required property var pk_id  // set to -1 if new entry  // set to undefined if root table
     required property var parent_id  // set to undefined if it has no parent
@@ -28,7 +29,7 @@ Rectangle
 
     property bool sort_reverse: false
     property string sort_column_name: ""
-    property string delete_text: qsTr("The specified entry with its derivatives and connections will be deleted.")
+    property string delete_text: qsTr("The specified entry will be deleted.")
 
     signal add_button_clicked()
     signal edit_button_clicked(selected_primary_key: int)
@@ -641,6 +642,7 @@ Rectangle
                         }
 
                         delete_dialog.init();
+                        if(show_affected_entries_on_delete) delete_dialog.setSubText(pk, "id", table_name);
                         delete_dialog.show();
                     }
                 }
