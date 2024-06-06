@@ -49,7 +49,7 @@ ApplicationWindow
     property real fontSize_big: 15.0
 
     // Global variables
-    readonly property string ui_version: "1.3.1"
+    readonly property string ui_version: "1.4.0"
     property string loaded_db_path: ""  // alway showing the real database path
     property string db_path_text: new_db_text  // database path for the user (e.g. showing "New File" instead of path to template)
     property string new_db_text: qsTr("New File")  // text shown when a new database is created that is not yet saved
@@ -240,8 +240,8 @@ ApplicationWindow
     }
     onClosing: (close) => {
         close.accepted = false;
-        close_dialog.init();
-        close_dialog.show();
+        if(close_dialog.init())
+            close_dialog.show();
 
         if(close_okay) close.accepted = true;
     }
