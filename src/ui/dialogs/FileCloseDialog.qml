@@ -28,12 +28,22 @@ ApplicationWindow
     property bool remove_from_recent_file_list: false
 
     function init() {
+        // Returns true if .show() should be called, otherwise false
+
         // Call this function before .show()
         ok_button.setFocus(Enums.FocusDir.Right);
 
         save_on_close_basic_checkbox.checked = settings.getAutoSaveOnClose();
         delete_from_recent_file_basic_checkbox.checked = false;
         remove_from_recent_file_list = false;
+
+        // Don't show closing handler if a new and unchanged database is opened
+        if(!unsaved_changes && db_path_text === new_db_text) {
+            callback_function();
+            return false;
+        }
+
+        return true;
     }
 
     Column

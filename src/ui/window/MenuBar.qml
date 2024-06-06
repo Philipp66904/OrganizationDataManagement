@@ -150,8 +150,8 @@ MenuBar  // MenuBar shown in the window's header
             id: action_new
             text: qsTr("New")
             onTriggered: {
-                new_file_dialog.init();
-                new_file_dialog.show();
+                if(new_file_dialog.init())
+                    new_file_dialog.show();
             }
             icon.source: "../res/svg/paper_icon.svg"
         }
@@ -196,8 +196,8 @@ MenuBar  // MenuBar shown in the window's header
             id: action_open
             text: qsTr("Open")
             onTriggered: {
-                open_file_dialog_1.init();
-                open_file_dialog_1.show();
+                if(open_file_dialog_1.init())
+                    open_file_dialog_1.show();
             }
             icon.source: "../res/svg/folder_icon.svg"
         }
@@ -274,8 +274,8 @@ MenuBar  // MenuBar shown in the window's header
                         if(db_path === "") return;
 
                         open_recent_file_dialog.db_path = db_path;
-                        open_recent_file_dialog.init();
-                        open_recent_file_dialog.show();
+                        if(open_recent_file_dialog.init())
+                            open_recent_file_dialog.show();
                     }
                 }
             }
@@ -387,8 +387,8 @@ MenuBar  // MenuBar shown in the window's header
             id: action_exit
             text: qsTr("Exit")
             onTriggered: {
-                exit_dialog.init();
-                exit_dialog.show();
+                if(exit_dialog.init())
+                    exit_dialog.show();
             }
             icon.source: "../res/svg/exit_symbol.svg"
         }
